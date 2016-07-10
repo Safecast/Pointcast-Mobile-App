@@ -18,6 +18,7 @@
 		15186A461D321B1700E45880 /* libicucore.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 15186A451D321B1700E45880 /* libicucore.tbd */; };
 		15186A481D321B2B00E45880 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 15186A471D321B2B00E45880 /* libz.tbd */; };
 		15186A4A1D321B9400E45880 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15186A491D321B9400E45880 /* Accelerate.framework */; };
+		15186A4C1D32225F00E45880 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 15186A4B1D32225F00E45880 /* Images.xcassets */; };
 		151953141D300E6B007F7C6A /* CCActivityIndicator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 151952DE1D300E6B007F7C6A /* CCActivityIndicator.cpp */; };
 		151953151D300E6B007F7C6A /* SpriteBlur.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 151952E11D300E6B007F7C6A /* SpriteBlur.cpp */; };
 		151953161D300E6B007F7C6A /* CCCoreLocation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 151952E41D300E6B007F7C6A /* CCCoreLocation.cpp */; };
@@ -148,6 +149,7 @@
 		15186A451D321B1700E45880 /* libicucore.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libicucore.tbd; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/usr/lib/libicucore.tbd; sourceTree = DEVELOPER_DIR; };
 		15186A471D321B2B00E45880 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/usr/lib/libz.tbd; sourceTree = DEVELOPER_DIR; };
 		15186A491D321B9400E45880 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/Accelerate.framework; sourceTree = DEVELOPER_DIR; };
+		15186A4B1D32225F00E45880 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = "Pointcast-Mobile-App-mobile/Images.xcassets"; sourceTree = SOURCE_ROOT; };
 		151952DE1D300E6B007F7C6A /* CCActivityIndicator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCActivityIndicator.cpp; sourceTree = "<group>"; };
 		151952DF1D300E6B007F7C6A /* CCActivityIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCActivityIndicator.h; sourceTree = "<group>"; };
 		151952E01D300E6B007F7C6A /* picojson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = picojson.h; sourceTree = "<group>"; };
@@ -577,6 +579,7 @@
 		46880B7519C43A67006E1F66 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				15186A4B1D32225F00E45880 /* Images.xcassets */,
 				521A8EA819F11F5000D177D7 /* fonts */,
 				3EACC98E19EE6D4300EB3C5E /* res */,
 				46880B7619C43A67006E1F66 /* CloseNormal.png */,
@@ -767,6 +770,7 @@
 				46880B7D19C43A67006E1F66 /* CloseSelected.png in Resources */,
 				5087E77D17EB970100C73F5D /* Default-568h@2x.png in Resources */,
 				5087E78517EB970100C73F5D /* Icon-72.png in Resources */,
+				15186A4C1D32225F00E45880 /* Images.xcassets in Resources */,
 				521A8E6519F0C34300D177D7 /* Default-736h@3x.png in Resources */,
 				521A8EA919F11F5000D177D7 /* fonts in Resources */,
 				50EF62A317ECD613001EB2F8 /* Icon-50.png in Resources */,
@@ -911,6 +915,8 @@
 			baseConfigurationReference = 52E65FE40FAD351FCDE6EEAE /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
 				CODE_SIGN_IDENTITY = "iPhone Developer: Mitsuo Okada (39M28873LA)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Mitsuo Okada (39M28873LA)";
 				COMPRESS_PNG_FILES = NO;
@@ -957,6 +963,8 @@
 			baseConfigurationReference = 399D5780B451581977E00560 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
