@@ -7,6 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		15186A361D321A1700E45880 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15186A351D321A1700E45880 /* CoreData.framework */; };
+		15186A381D321A2B00E45880 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15186A371D321A2B00E45880 /* CoreText.framework */; };
+		15186A3A1D321A3C00E45880 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15186A391D321A3C00E45880 /* GLKit.framework */; };
+		15186A3C1D321A4300E45880 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15186A3B1D321A4300E45880 /* ImageIO.framework */; };
+		15186A3E1D321A6700E45880 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15186A3D1D321A6700E45880 /* OpenGLES.framework */; };
+		15186A401D321A7600E45880 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15186A3F1D321A7600E45880 /* QuartzCore.framework */; };
+		15186A421D321A8300E45880 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15186A411D321A8300E45880 /* SystemConfiguration.framework */; };
+		15186A441D321B0700E45880 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 15186A431D321B0700E45880 /* libc++.tbd */; };
+		15186A461D321B1700E45880 /* libicucore.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 15186A451D321B1700E45880 /* libicucore.tbd */; };
+		15186A481D321B2B00E45880 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 15186A471D321B2B00E45880 /* libz.tbd */; };
+		15186A4A1D321B9400E45880 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15186A491D321B9400E45880 /* Accelerate.framework */; };
 		151953141D300E6B007F7C6A /* CCActivityIndicator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 151952DE1D300E6B007F7C6A /* CCActivityIndicator.cpp */; };
 		151953151D300E6B007F7C6A /* SpriteBlur.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 151952E11D300E6B007F7C6A /* SpriteBlur.cpp */; };
 		151953161D300E6B007F7C6A /* CCCoreLocation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 151952E41D300E6B007F7C6A /* CCCoreLocation.cpp */; };
@@ -85,6 +96,7 @@
 		BF171245129291EC00B8313A /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF170DB012928DE900B8313A /* OpenGLES.framework */; };
 		BF1712471292920000B8313A /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BF170DB412928DE900B8313A /* libz.dylib */; };
 		BF1C47F01293687400B63C5D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF1C47EA1293683800B63C5D /* QuartzCore.framework */; };
+		D3DD0C47B6F8E0F592B80DC1 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D86501802D3EFDB15F3976B /* libPods.a */; };
 		D44C620C132DFF330009C878 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D44C620B132DFF330009C878 /* OpenAL.framework */; };
 		D44C620E132DFF430009C878 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D44C620D132DFF430009C878 /* AVFoundation.framework */; };
 		D44C6210132DFF4E0009C878 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D44C620F132DFF4E0009C878 /* AudioToolbox.framework */; };
@@ -125,6 +137,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		15186A351D321A1700E45880 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/CoreData.framework; sourceTree = DEVELOPER_DIR; };
+		15186A371D321A2B00E45880 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/CoreText.framework; sourceTree = DEVELOPER_DIR; };
+		15186A391D321A3C00E45880 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/GLKit.framework; sourceTree = DEVELOPER_DIR; };
+		15186A3B1D321A4300E45880 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/ImageIO.framework; sourceTree = DEVELOPER_DIR; };
+		15186A3D1D321A6700E45880 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/OpenGLES.framework; sourceTree = DEVELOPER_DIR; };
+		15186A3F1D321A7600E45880 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/QuartzCore.framework; sourceTree = DEVELOPER_DIR; };
+		15186A411D321A8300E45880 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/SystemConfiguration.framework; sourceTree = DEVELOPER_DIR; };
+		15186A431D321B0700E45880 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/usr/lib/libc++.tbd"; sourceTree = DEVELOPER_DIR; };
+		15186A451D321B1700E45880 /* libicucore.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libicucore.tbd; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/usr/lib/libicucore.tbd; sourceTree = DEVELOPER_DIR; };
+		15186A471D321B2B00E45880 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/usr/lib/libz.tbd; sourceTree = DEVELOPER_DIR; };
+		15186A491D321B9400E45880 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/Accelerate.framework; sourceTree = DEVELOPER_DIR; };
 		151952DE1D300E6B007F7C6A /* CCActivityIndicator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCActivityIndicator.cpp; sourceTree = "<group>"; };
 		151952DF1D300E6B007F7C6A /* CCActivityIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCActivityIndicator.h; sourceTree = "<group>"; };
 		151952E01D300E6B007F7C6A /* picojson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = picojson.h; sourceTree = "<group>"; };
@@ -181,6 +204,7 @@
 		1D6058910D05DD3D006BFB54 /* Pointcast-Mobile-App-mobile.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Pointcast-Mobile-App-mobile.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		288765A40DF7441C002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		399D5780B451581977E00560 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		3EACC98E19EE6D4300EB3C5E /* res */ = {isa = PBXFileReference; lastKnownFileType = folder; path = res; sourceTree = "<group>"; };
 		46880B7619C43A67006E1F66 /* CloseNormal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CloseNormal.png; sourceTree = "<group>"; };
 		46880B7719C43A67006E1F66 /* CloseSelected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CloseSelected.png; sourceTree = "<group>"; };
@@ -223,6 +247,8 @@
 		521A8E6319F0C34300D177D7 /* Default-736h@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-736h@3x.png"; sourceTree = "<group>"; };
 		521A8EA819F11F5000D177D7 /* fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = fonts; sourceTree = "<group>"; };
 		52B47A461A53D09B004E4C60 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.1.sdk/System/Library/Frameworks/Security.framework; sourceTree = DEVELOPER_DIR; };
+		52E65FE40FAD351FCDE6EEAE /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		6D86501802D3EFDB15F3976B /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		8262943D1AAF051F00CB7CF7 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		BF170DB012928DE900B8313A /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		BF170DB412928DE900B8313A /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
@@ -240,6 +266,17 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				15186A4A1D321B9400E45880 /* Accelerate.framework in Frameworks */,
+				15186A481D321B2B00E45880 /* libz.tbd in Frameworks */,
+				15186A461D321B1700E45880 /* libicucore.tbd in Frameworks */,
+				15186A441D321B0700E45880 /* libc++.tbd in Frameworks */,
+				15186A421D321A8300E45880 /* SystemConfiguration.framework in Frameworks */,
+				15186A401D321A7600E45880 /* QuartzCore.framework in Frameworks */,
+				15186A3E1D321A6700E45880 /* OpenGLES.framework in Frameworks */,
+				15186A3C1D321A4300E45880 /* ImageIO.framework in Frameworks */,
+				15186A3A1D321A3C00E45880 /* GLKit.framework in Frameworks */,
+				15186A381D321A2B00E45880 /* CoreText.framework in Frameworks */,
+				15186A361D321A1700E45880 /* CoreData.framework in Frameworks */,
 				151953281D3010D5007F7C6A /* CoreLocation.framework in Frameworks */,
 				ED545A7C1B68A1F400C3958E /* libiconv.dylib in Frameworks */,
 				52B47A471A53D09C004E4C60 /* Security.framework in Frameworks */,
@@ -255,6 +292,7 @@
 				D44C620C132DFF330009C878 /* OpenAL.framework in Frameworks */,
 				D44C620E132DFF430009C878 /* AVFoundation.framework in Frameworks */,
 				D44C6210132DFF4E0009C878 /* AudioToolbox.framework in Frameworks */,
+				D3DD0C47B6F8E0F592B80DC1 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -492,6 +530,7 @@
 				080E96DDFE201D6D7F000001 /* ios */,
 				503AE10617EB990700D1A890 /* mac */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
+				8F8718F1502310A27265739B /* Pods */,
 			);
 			name = CustomTemplate;
 			sourceTree = "<group>";
@@ -499,6 +538,17 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				15186A491D321B9400E45880 /* Accelerate.framework */,
+				15186A471D321B2B00E45880 /* libz.tbd */,
+				15186A451D321B1700E45880 /* libicucore.tbd */,
+				15186A431D321B0700E45880 /* libc++.tbd */,
+				15186A411D321A8300E45880 /* SystemConfiguration.framework */,
+				15186A3F1D321A7600E45880 /* QuartzCore.framework */,
+				15186A3D1D321A6700E45880 /* OpenGLES.framework */,
+				15186A3B1D321A4300E45880 /* ImageIO.framework */,
+				15186A391D321A3C00E45880 /* GLKit.framework */,
+				15186A371D321A2B00E45880 /* CoreText.framework */,
+				15186A351D321A1700E45880 /* CoreData.framework */,
 				151953271D3010D5007F7C6A /* CoreLocation.framework */,
 				ED545A7D1B68A1FA00C3958E /* libiconv.dylib */,
 				ED545A7B1B68A1F400C3958E /* libiconv.dylib */,
@@ -519,6 +569,7 @@
 				BF170DB012928DE900B8313A /* OpenGLES.framework */,
 				BF1C47EA1293683800B63C5D /* QuartzCore.framework */,
 				1DF5F4DF0D08C38300B7A737 /* UIKit.framework */,
+				6D86501802D3EFDB15F3976B /* libPods.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -595,6 +646,15 @@
 			path = ios;
 			sourceTree = SOURCE_ROOT;
 		};
+		8F8718F1502310A27265739B /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				52E65FE40FAD351FCDE6EEAE /* Pods.debug.xcconfig */,
+				399D5780B451581977E00560 /* Pods.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -602,9 +662,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "Pointcast-Mobile-App-mobile" */;
 			buildPhases = (
+				FC2DE361A76060E611721AD1 /* Check Pods Manifest.lock */,
 				1D60588D0D05DD3D006BFB54 /* Resources */,
 				1D60588E0D05DD3D006BFB54 /* Sources */,
 				1D60588F0D05DD3D006BFB54 /* Frameworks */,
+				A4A3736E821BFB58E689A273 /* Embed Pods Frameworks */,
+				4C5EE63EA5F9141BAC4842D1 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -736,6 +799,54 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		4C5EE63EA5F9141BAC4842D1 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A4A3736E821BFB58E689A273 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FC2DE361A76060E611721AD1 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		1D60588E0D05DD3D006BFB54 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -797,6 +908,7 @@
 /* Begin XCBuildConfiguration section */
 		1D6058940D05DD3E006BFB54 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 52E65FE40FAD351FCDE6EEAE /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Mitsuo Okada (39M28873LA)";
@@ -842,6 +954,7 @@
 		};
 		1D6058950D05DD3E006BFB54 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 399D5780B451581977E00560 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";

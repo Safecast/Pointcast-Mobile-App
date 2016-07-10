@@ -1,1 +1,23 @@
 .DS_Store
+
+# Mac
+.DS_Store
+
+# Xcode
+proj.ios_mac/build/*
+proj.ios_mac/*.pbxuser
+!default.pbxuser
+proj.ios_mac/*.mode1v3
+!default.mode1v3
+proj.ios_mac/*.mode2v3
+!default.mode2v3
+proj.ios_mac/*.perspectivev3
+!default.perspectivev3
+proj.ios_mac/*.xcworkspace
+!default.xcworkspace
+proj.ios_mac/xcuserdata
+profile
+proj.ios_mac/*.moved-aside
+
+#CocoaPod
+proj.ios_mac/Pods/*
