@@ -30,8 +30,11 @@
 @implementation RootViewController
 
 /*
- // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
+ // The designated initializer.  Override if you create the controller
+programmatically and want to perform customization that is not appropriate for
+viewDidLoad.
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
     if ((self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])) {
         // Custom initialization
     }
@@ -40,55 +43,64 @@
 */
 
 /*
-// Implement loadView to create a view hierarchy programmatically, without using a nib.
+// Implement loadView to create a view hierarchy programmatically, without using
+a nib.
 - (void)loadView {
 }
 */
 
-/*
-// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
+/* */
+// Implement viewDidLoad to do additional setup after loading the view,
+// typically from a nib.
 - (void)viewDidLoad {
     [super viewDidLoad];
+    NSLog(@"aaa");
 }
-
+/*
 */
 // Override to allow orientations other than the default portrait orientation.
 // This method is deprecated on ios6
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-    return UIInterfaceOrientationIsLandscape( interfaceOrientation );
+- (BOOL)shouldAutorotateToInterfaceOrientation:
+    (UIInterfaceOrientation)interfaceOrientation {
+    return UIInterfaceOrientationIsLandscape(interfaceOrientation);
 }
 
 // For ios6, use supportedInterfaceOrientations & shouldAutorotate instead
-- (NSUInteger) supportedInterfaceOrientations{
+- (NSUInteger)supportedInterfaceOrientations {
 #ifdef __IPHONE_6_0
-    return UIInterfaceOrientationMaskAllButUpsideDown;
+          // return UIInterfaceOrientationMaskPortrait; //縦
+          // return UIInterfaceOrientationMaskLandscapeLeft; 左
+          // return UIInterfaceOrientationMaskLandscapeRight; 右
+          // return UIInterfaceOrientationMaskLandscape; 左右
+          // return UIInterfaceOrientationMaskPortraitUpsideDown; 縦（上下逆）
+       return UIInterfaceOrientationMaskAll;  // 全方位
+                                               // return UIInterfaceOrientationMaskAllButUpsideDown; 縦（上下逆）を除いた全方位
 #endif
 }
 
-- (BOOL) shouldAutorotate {
-    return YES;
+- (BOOL)shouldAutorotate {
+    return NO;
 }
 
-- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
+- (void)didRotateFromInterfaceOrientation:
+    (UIInterfaceOrientation)fromInterfaceOrientation {
     [super didRotateFromInterfaceOrientation:fromInterfaceOrientation];
 
     auto glview = cocos2d::Director::getInstance()->getOpenGLView();
 
-    if (glview)
-    {
-        CCEAGLView *eaglview = (CCEAGLView*) glview->getEAGLView();
+    if (glview) {
+        CCEAGLView *eaglview = (CCEAGLView *)glview->getEAGLView();
 
-        if (eaglview)
-        {
+        if (eaglview) {
             CGSize s = CGSizeMake([eaglview getWidth], [eaglview getHeight]);
-            cocos2d::Application::getInstance()->applicationScreenSizeChanged((int) s.width, (int) s.height);
+            cocos2d::Application::getInstance()->applicationScreenSizeChanged(
+                (int)s.width, (int)s.height);
         }
     }
 }
 
-//fix not hide status on ios7
-- (BOOL)prefersStatusBarHidden
-{
+// fix not hide status on ios7
+- (BOOL)prefersStatusBarHidden {
     return YES;
 }
 
@@ -105,10 +117,8 @@
     // e.g. self.myOutlet = nil;
 }
 
-
 - (void)dealloc {
     [super dealloc];
 }
-
 
 @end

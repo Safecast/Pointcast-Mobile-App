@@ -24,11 +24,10 @@
  ****************************************************************************/
 
 #import <UIKit/UIKit.h>
-
+#import <GoogleMaps/GoogleMaps.h>
 
 @interface RootViewController : UIViewController {
-
 }
-- (BOOL) prefersStatusBarHidden;
+- (BOOL)prefersStatusBarHidden;
 
 @end
