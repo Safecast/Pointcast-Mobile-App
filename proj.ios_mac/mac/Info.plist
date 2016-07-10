@@ -9,7 +9,7 @@
 	<key>CFBundleIconFile</key>
 	<string>Icon</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.momokoito.pointcast</string>
+	<string>$(PRODUCT_BUNDLE_IDENTIFIER)${BUNDLE_IDENTIFIER_SUFIX}</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
