@@ -98,7 +98,7 @@ static AppController *_instance;
   cocos2d::Director::getInstance()->setProjection(
       cocos2d::DisplayLinkDirector::Projection::_3D);
 
-  [GMSServices provideAPIKey:@"AIzaSyAuTQy61oerHu2-YMQuJ_WiWthBfvUtqy8"];
+  [GMSServices provideAPIKey:@"AIzaSyBQXSpJyWV8nhjS5QVogEekt7k-cAaFQ-k"];
 
   _instance = self;
 
