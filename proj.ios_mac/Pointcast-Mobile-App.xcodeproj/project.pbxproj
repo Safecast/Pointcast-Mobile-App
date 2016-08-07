@@ -43,6 +43,9 @@
 		151953321D301211007F7C6A /* CoreLocation.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1519532D1D301211007F7C6A /* CoreLocation.mm */; };
 		151953331D301211007F7C6A /* GoogleMapsManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1519532F1D301211007F7C6A /* GoogleMapsManager.mm */; };
 		151953341D301211007F7C6A /* Util.mm in Sources */ = {isa = PBXBuildFile; fileRef = 151953301D301211007F7C6A /* Util.mm */; };
+		1535AA2F1D56B598002516B9 /* Pods.staging.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 1535AA2E1D56B598002516B9 /* Pods.staging.xcconfig */; };
+		1535AA351D56BB2D002516B9 /* GameController.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1535AA341D56BB2D002516B9 /* GameController.framework */; };
+		1535AA371D56BB84002516B9 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1535AA361D56BB84002516B9 /* MediaPlayer.framework */; };
 		1AC6FB21180E996B004C840B /* libcocos2d Mac.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AC6FAF9180E9839004C840B /* libcocos2d Mac.a */; };
 		1AC6FB30180E99EB004C840B /* libcocos2d iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AC6FB07180E9839004C840B /* libcocos2d iOS.a */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
@@ -200,6 +203,9 @@
 		1519532E1D301211007F7C6A /* CoreLocation_interface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreLocation_interface.h; sourceTree = "<group>"; };
 		1519532F1D301211007F7C6A /* GoogleMapsManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = GoogleMapsManager.mm; sourceTree = "<group>"; };
 		151953301D301211007F7C6A /* Util.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Util.mm; sourceTree = "<group>"; };
+		1535AA2E1D56B598002516B9 /* Pods.staging.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Pods.staging.xcconfig; path = "Pods/Target Support Files/Pods/Pods.staging.xcconfig"; sourceTree = "<group>"; };
+		1535AA341D56BB2D002516B9 /* GameController.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameController.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/GameController.framework; sourceTree = DEVELOPER_DIR; };
+		1535AA361D56BB84002516B9 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/MediaPlayer.framework; sourceTree = DEVELOPER_DIR; };
 		1AC6FAE5180E9839004C840B /* cocos2d_libs.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = cocos2d_libs.xcodeproj; path = ../cocos2d/build/cocos2d_libs.xcodeproj; sourceTree = "<group>"; };
 		1ACB3243164770DE00914215 /* libcurl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcurl.a; path = ../../cocos2dx/platform/third_party/ios/libraries/libcurl.a; sourceTree = "<group>"; };
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -268,6 +274,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1535AA371D56BB84002516B9 /* MediaPlayer.framework in Frameworks */,
+				1535AA351D56BB2D002516B9 /* GameController.framework in Frameworks */,
 				15186A4A1D321B9400E45880 /* Accelerate.framework in Frameworks */,
 				15186A481D321B2B00E45880 /* libz.tbd in Frameworks */,
 				15186A461D321B1700E45880 /* libicucore.tbd in Frameworks */,
@@ -540,6 +548,8 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1535AA361D56BB84002516B9 /* MediaPlayer.framework */,
+				1535AA341D56BB2D002516B9 /* GameController.framework */,
 				15186A491D321B9400E45880 /* Accelerate.framework */,
 				15186A471D321B2B00E45880 /* libz.tbd */,
 				15186A451D321B1700E45880 /* libicucore.tbd */,
@@ -652,6 +662,7 @@
 		8F8718F1502310A27265739B /* Pods */ = {
 			isa = PBXGroup;
 			children = (
+				1535AA2E1D56B598002516B9 /* Pods.staging.xcconfig */,
 				52E65FE40FAD351FCDE6EEAE /* Pods.debug.xcconfig */,
 				399D5780B451581977E00560 /* Pods.release.xcconfig */,
 			);
@@ -774,6 +785,7 @@
 				521A8E6519F0C34300D177D7 /* Default-736h@3x.png in Resources */,
 				521A8EA919F11F5000D177D7 /* fonts in Resources */,
 				50EF62A317ECD613001EB2F8 /* Icon-50.png in Resources */,
+				1535AA2F1D56B598002516B9 /* Pods.staging.xcconfig in Resources */,
 				5087E78017EB970100C73F5D /* Icon-114.png in Resources */,
 				50EF62A217ECD613001EB2F8 /* Icon-29.png in Resources */,
 				50EF629617ECD46A001EB2F8 /* Icon-40.png in Resources */,
@@ -945,7 +957,7 @@
 		};
 		15186A4E1D32334200E45880 /* Staging */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 52E65FE40FAD351FCDE6EEAE /* Pods.debug.xcconfig */;
+			baseConfigurationReference = 1535AA2E1D56B598002516B9 /* Pods.staging.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -965,6 +977,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = ios/Prefix.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
 					USE_FILE32API,
 					CC_TARGET_OS_IPHONE,
 					"COCOS2D_DEBUG=1",
@@ -982,6 +995,7 @@
 				LIBRARY_SEARCH_PATHS = "";
 				New_Setting = "";
 				OTHER_LDFLAGS = (
+					"$(inherited)",
 					"$(_COCOS_LIB_IOS_BEGIN)",
 					"$(_COCOS_LIB_IOS_END)",
 				);
@@ -1050,6 +1064,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = ios/Prefix.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
 					USE_FILE32API,
 					CC_TARGET_OS_IPHONE,
 					"COCOS2D_DEBUG=1",
@@ -1067,6 +1082,7 @@
 				LIBRARY_SEARCH_PATHS = "";
 				New_Setting = "";
 				OTHER_LDFLAGS = (
+					"$(inherited)",
 					"$(_COCOS_LIB_IOS_BEGIN)",
 					"$(_COCOS_LIB_IOS_END)",
 				);
@@ -1101,6 +1117,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = ios/Prefix.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
 					USE_FILE32API,
 					CC_TARGET_OS_IPHONE,
 					"CC_ENABLE_CHIPMUNK_INTEGRATION=1",
@@ -1117,6 +1134,7 @@
 				LIBRARY_SEARCH_PATHS = "";
 				New_Setting = "";
 				OTHER_LDFLAGS = (
+					"$(inherited)",
 					"$(_COCOS_LIB_IOS_BEGIN)",
 					"$(_COCOS_LIB_IOS_END)",
 				);
