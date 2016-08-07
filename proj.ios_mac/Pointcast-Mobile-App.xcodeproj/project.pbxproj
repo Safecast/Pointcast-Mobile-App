@@ -986,6 +986,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
 				ENABLE_BITCODE = NO;
+				FIREBASE_CLIENT_ID = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/lib/framework",
@@ -1115,6 +1116,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Mitsuo Okada (Z2267AFH8U)";
 				COMPRESS_PNG_FILES = NO;
 				ENABLE_BITCODE = NO;
+				FIREBASE_CLIENT_ID = "com.googleusercontent.apps.353484259690-en2nog1mi81o6qb8sak33j5pr2lekshc";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/lib/framework",
@@ -1211,6 +1213,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Momoko Ito Foundation (7S5AAN8833)";
 				COMPRESS_PNG_FILES = NO;
 				ENABLE_BITCODE = NO;
+				FIREBASE_CLIENT_ID = "com.googleusercontent.apps.1052780043580-s1uj462a2tsjpifrd3sj700q6fipjuf6";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/lib/framework",
