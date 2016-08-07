@@ -21,6 +21,7 @@
  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  THE SOFTWARE.
  ****************************************************************************/
+#import <Firebase/Firebase.h>
 #import "AppController.h"
 #import "AppDelegate.h"
 #import "RootViewController.h"
@@ -102,6 +103,9 @@ static AppController *_instance;
 
   _instance = self;
 
+  // google firebase
+  [FIRApp configure];
+    
   app->run();
 
   return YES;
