@@ -1,5 +1,6 @@
 #import <GoogleMaps/GoogleMaps.h>
 #import <UIKit/UIKit.h>
+#import "Firebase.h"
 
 @class RootViewController;
 

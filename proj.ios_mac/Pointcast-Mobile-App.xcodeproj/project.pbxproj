@@ -46,6 +46,7 @@
 		1535AA2F1D56B598002516B9 /* Pods.staging.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 1535AA2E1D56B598002516B9 /* Pods.staging.xcconfig */; };
 		1535AA351D56BB2D002516B9 /* GameController.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1535AA341D56BB2D002516B9 /* GameController.framework */; };
 		1535AA371D56BB84002516B9 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1535AA361D56BB84002516B9 /* MediaPlayer.framework */; };
+		15F0785A1D56DD570087E622 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 15F078591D56DD570087E622 /* GoogleService-Info.plist */; };
 		1AC6FB21180E996B004C840B /* libcocos2d Mac.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AC6FAF9180E9839004C840B /* libcocos2d Mac.a */; };
 		1AC6FB30180E99EB004C840B /* libcocos2d iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AC6FB07180E9839004C840B /* libcocos2d iOS.a */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
@@ -206,6 +207,7 @@
 		1535AA2E1D56B598002516B9 /* Pods.staging.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Pods.staging.xcconfig; path = "Pods/Target Support Files/Pods/Pods.staging.xcconfig"; sourceTree = "<group>"; };
 		1535AA341D56BB2D002516B9 /* GameController.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameController.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/GameController.framework; sourceTree = DEVELOPER_DIR; };
 		1535AA361D56BB84002516B9 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/MediaPlayer.framework; sourceTree = DEVELOPER_DIR; };
+		15F078591D56DD570087E622 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "ios/GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		1AC6FAE5180E9839004C840B /* cocos2d_libs.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = cocos2d_libs.xcodeproj; path = ../cocos2d/build/cocos2d_libs.xcodeproj; sourceTree = "<group>"; };
 		1ACB3243164770DE00914215 /* libcurl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcurl.a; path = ../../cocos2dx/platform/third_party/ios/libraries/libcurl.a; sourceTree = "<group>"; };
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -340,6 +342,7 @@
 				503AE0FD17EB989F00D1A890 /* Prefix.pch */,
 				503AE0FE17EB989F00D1A890 /* RootViewController.h */,
 				503AE0FF17EB989F00D1A890 /* RootViewController.mm */,
+				15F078591D56DD570087E622 /* GoogleService-Info.plist */,
 			);
 			name = ios;
 			path = Classes;
@@ -680,6 +683,7 @@
 				1D60588D0D05DD3D006BFB54 /* Resources */,
 				1D60588E0D05DD3D006BFB54 /* Sources */,
 				1D60588F0D05DD3D006BFB54 /* Frameworks */,
+				15F0785B1D56E43C0087E622 /* ShellScript */,
 				A4A3736E821BFB58E689A273 /* Embed Pods Frameworks */,
 				4C5EE63EA5F9141BAC4842D1 /* Copy Pods Resources */,
 			);
@@ -785,6 +789,7 @@
 				521A8E6519F0C34300D177D7 /* Default-736h@3x.png in Resources */,
 				521A8EA919F11F5000D177D7 /* fonts in Resources */,
 				50EF62A317ECD613001EB2F8 /* Icon-50.png in Resources */,
+				15F0785A1D56DD570087E622 /* GoogleService-Info.plist in Resources */,
 				1535AA2F1D56B598002516B9 /* Pods.staging.xcconfig in Resources */,
 				5087E78017EB970100C73F5D /* Icon-114.png in Resources */,
 				50EF62A217ECD613001EB2F8 /* Icon-29.png in Resources */,
@@ -816,6 +821,19 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		15F0785B1D56E43C0087E622 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "cp \"$SRCROOT/../ForBuild/GoogleService-Info/$CONFIGURATION-GoogleService-Info.plist\" \"$SRCROOT/ios/GoogleService-Info.plist\"";
+		};
 		4C5EE63EA5F9141BAC4842D1 /* Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
