@@ -12926,6 +12926,10 @@
 					"\"$(SRCROOT)/../external/zlib/prebuilt/mac\"",
 				);
 				MACH_O_TYPE = staticlib;
+				OTHER_CFLAGS = (
+					"-Wno-inconsistent-missing-override",
+					"-Wno-inconsistent-missing-override",
+				);
 				OTHER_LDFLAGS = "-llibsql3";
 				PROVISIONING_PROFILE = "ee98cc75-db58-49be-b4e6-0e052c08af16";
 				USER_HEADER_SEARCH_PATHS = "$(inherited) $(SRCROOT)/../external/png/include/mac $(SRCROOT)/../external/tiff/include/mac $(SRCROOT)/../external/webp/include/mac $(SRCROOT)/../external/jpeg/include/mac $(SRCROOT)/../external/freetype2/include/mac $(SRCROOT)/../external/glfw3/include/mac $(SRCROOT)/../external/websockets/include/mac $(SRCROOT)/../external/chipmunk/include/chipmunk $(SRCROOT)/../external/curl/include/mac $(SRCROOT)/../external/freetype2/include/mac/freetype2";
@@ -12966,6 +12970,10 @@
 					"\"$(SRCROOT)/../external/zlib/prebuilt/mac\"",
 				);
 				MACH_O_TYPE = staticlib;
+				OTHER_CFLAGS = (
+					"-Wno-inconsistent-missing-override",
+					"-Wno-inconsistent-missing-override",
+				);
 				OTHER_LDFLAGS = "-llibsql3";
 				PROVISIONING_PROFILE = "e0c2c2c1-c4be-4359-bb0c-bf60fb6d1e30";
 				USER_HEADER_SEARCH_PATHS = "$(inherited) $(SRCROOT)/../external/png/include/mac $(SRCROOT)/../external/tiff/include/mac $(SRCROOT)/../external/webp/include/mac $(SRCROOT)/../external/jpeg/include/mac $(SRCROOT)/../external/freetype2/include/mac $(SRCROOT)/../external/glfw3/include/mac $(SRCROOT)/../external/websockets/include/mac $(SRCROOT)/../external/chipmunk/include/chipmunk $(SRCROOT)/../external/curl/include/mac $(SRCROOT)/../external/freetype2/include/mac/freetype2";
