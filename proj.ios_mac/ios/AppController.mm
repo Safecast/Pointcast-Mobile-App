@@ -26,6 +26,7 @@
 #import "RootViewController.h"
 #import "cocos2d.h"
 #import "platform/ios/CCEAGLView-ios.h"
+#import <Firebase/Firebase.h>
 
 #define HEADER_HEIGHT 100
 #define FOOTER_HEIGHT 100
@@ -97,9 +98,13 @@ static AppController *_instance;
 
   cocos2d::Director::getInstance()->setProjection(
       cocos2d::DisplayLinkDirector::Projection::_3D);
-
+    
+  // Google Map Sdk
   [GMSServices provideAPIKey:@"AIzaSyBQXSpJyWV8nhjS5QVogEekt7k-cAaFQ-k"];
 
+  // Firebase
+  [FIRApp configure];
+    
   _instance = self;
 
   app->run();
