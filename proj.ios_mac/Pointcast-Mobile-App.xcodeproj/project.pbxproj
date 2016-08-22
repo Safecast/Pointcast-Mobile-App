@@ -43,7 +43,7 @@
 		151953321D301211007F7C6A /* CoreLocation.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1519532D1D301211007F7C6A /* CoreLocation.mm */; };
 		151953331D301211007F7C6A /* GoogleMapsManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1519532F1D301211007F7C6A /* GoogleMapsManager.mm */; };
 		151953341D301211007F7C6A /* Util.mm in Sources */ = {isa = PBXBuildFile; fileRef = 151953301D301211007F7C6A /* Util.mm */; };
-		1535AA2F1D56B598002516B9 /* Pods.staging.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 1535AA2E1D56B598002516B9 /* Pods.staging.xcconfig */; };
+		1535AA2F1D56B598002516B9 /* (null) in Resources */ = {isa = PBXBuildFile; };
 		1535AA351D56BB2D002516B9 /* GameController.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1535AA341D56BB2D002516B9 /* GameController.framework */; };
 		1535AA371D56BB84002516B9 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1535AA361D56BB84002516B9 /* MediaPlayer.framework */; };
 		1AC6FB21180E996B004C840B /* libcocos2d Mac.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AC6FAF9180E9839004C840B /* libcocos2d Mac.a */; };
@@ -100,7 +100,8 @@
 		BF171245129291EC00B8313A /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF170DB012928DE900B8313A /* OpenGLES.framework */; };
 		BF1712471292920000B8313A /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BF170DB412928DE900B8313A /* libz.dylib */; };
 		BF1C47F01293687400B63C5D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF1C47EA1293683800B63C5D /* QuartzCore.framework */; };
-		D3DD0C47B6F8E0F592B80DC1 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D86501802D3EFDB15F3976B /* libPods.a */; };
+		C299127BDBEF33EA5273F707 /* libPods-Pointcast-Mobile-App-mobile.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C730CDDB433256A9937553DE /* libPods-Pointcast-Mobile-App-mobile.a */; };
+		D199295DE7CFA967F129F52B /* libPods-Pointcast-Mobile-App-desktop.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7ECBE447B09F4DDDD7D797DE /* libPods-Pointcast-Mobile-App-desktop.a */; };
 		D44C620C132DFF330009C878 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D44C620B132DFF330009C878 /* OpenAL.framework */; };
 		D44C620E132DFF430009C878 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D44C620D132DFF430009C878 /* AVFoundation.framework */; };
 		D44C6210132DFF4E0009C878 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D44C620F132DFF4E0009C878 /* AudioToolbox.framework */; };
@@ -203,22 +204,23 @@
 		1519532E1D301211007F7C6A /* CoreLocation_interface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreLocation_interface.h; sourceTree = "<group>"; };
 		1519532F1D301211007F7C6A /* GoogleMapsManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = GoogleMapsManager.mm; sourceTree = "<group>"; };
 		151953301D301211007F7C6A /* Util.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Util.mm; sourceTree = "<group>"; };
-		1535AA2E1D56B598002516B9 /* Pods.staging.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Pods.staging.xcconfig; path = "Pods/Target Support Files/Pods/Pods.staging.xcconfig"; sourceTree = "<group>"; };
 		1535AA341D56BB2D002516B9 /* GameController.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameController.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/GameController.framework; sourceTree = DEVELOPER_DIR; };
 		1535AA361D56BB84002516B9 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/MediaPlayer.framework; sourceTree = DEVELOPER_DIR; };
 		1AC6FAE5180E9839004C840B /* cocos2d_libs.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = cocos2d_libs.xcodeproj; path = ../cocos2d/build/cocos2d_libs.xcodeproj; sourceTree = "<group>"; };
 		1ACB3243164770DE00914215 /* libcurl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcurl.a; path = ../../cocos2dx/platform/third_party/ios/libraries/libcurl.a; sourceTree = "<group>"; };
+		1CD348287AEB7759FA330194 /* Pods-Pointcast-Mobile-App-mobile.staging.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pointcast-Mobile-App-mobile.staging.xcconfig"; path = "Pods/Target Support Files/Pods-Pointcast-Mobile-App-mobile/Pods-Pointcast-Mobile-App-mobile.staging.xcconfig"; sourceTree = "<group>"; };
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1D6058910D05DD3D006BFB54 /* Pointcast-Mobile-App-mobile.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Pointcast-Mobile-App-mobile.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		288765A40DF7441C002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		399D5780B451581977E00560 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		3EACC98E19EE6D4300EB3C5E /* res */ = {isa = PBXFileReference; lastKnownFileType = folder; path = res; sourceTree = "<group>"; };
+		429177FA094952594A44F0F6 /* Pods-Pointcast-Mobile-App-desktop.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pointcast-Mobile-App-desktop.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Pointcast-Mobile-App-desktop/Pods-Pointcast-Mobile-App-desktop.debug.xcconfig"; sourceTree = "<group>"; };
 		46880B7619C43A67006E1F66 /* CloseNormal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CloseNormal.png; sourceTree = "<group>"; };
 		46880B7719C43A67006E1F66 /* CloseSelected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CloseSelected.png; sourceTree = "<group>"; };
 		46880B7A19C43A67006E1F66 /* HelloWorld.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = HelloWorld.png; sourceTree = "<group>"; };
 		46880B8419C43A87006E1F66 /* AppDelegate.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AppDelegate.cpp; sourceTree = "<group>"; };
 		46880B8519C43A87006E1F66 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		5030DB5EDE59987A54A69ECD /* Pods-Pointcast-Mobile-App-desktop.staging.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pointcast-Mobile-App-desktop.staging.xcconfig"; path = "Pods/Target Support Files/Pods-Pointcast-Mobile-App-desktop/Pods-Pointcast-Mobile-App-desktop.staging.xcconfig"; sourceTree = "<group>"; };
 		503AE0F617EB97AB00D1A890 /* Icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Icon.icns; sourceTree = "<group>"; };
 		503AE0F717EB97AB00D1A890 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		503AE0FA17EB989F00D1A890 /* AppController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppController.h; path = ios/AppController.h; sourceTree = SOURCE_ROOT; };
@@ -255,18 +257,21 @@
 		521A8E6319F0C34300D177D7 /* Default-736h@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-736h@3x.png"; sourceTree = "<group>"; };
 		521A8EA819F11F5000D177D7 /* fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = fonts; sourceTree = "<group>"; };
 		52B47A461A53D09B004E4C60 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.1.sdk/System/Library/Frameworks/Security.framework; sourceTree = DEVELOPER_DIR; };
-		52E65FE40FAD351FCDE6EEAE /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
-		6D86501802D3EFDB15F3976B /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		590DA7D9A03DC43E10F7194D /* Pods-Pointcast-Mobile-App-mobile.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pointcast-Mobile-App-mobile.release.xcconfig"; path = "Pods/Target Support Files/Pods-Pointcast-Mobile-App-mobile/Pods-Pointcast-Mobile-App-mobile.release.xcconfig"; sourceTree = "<group>"; };
+		7ECBE447B09F4DDDD7D797DE /* libPods-Pointcast-Mobile-App-desktop.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Pointcast-Mobile-App-desktop.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8262943D1AAF051F00CB7CF7 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		BF170DB012928DE900B8313A /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		BF170DB412928DE900B8313A /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		BF1C47EA1293683800B63C5D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		C730CDDB433256A9937553DE /* libPods-Pointcast-Mobile-App-mobile.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Pointcast-Mobile-App-mobile.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D44C620B132DFF330009C878 /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
 		D44C620D132DFF430009C878 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		D44C620F132DFF4E0009C878 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		D6B0611A1803AB670077942B /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.0.sdk/System/Library/Frameworks/CoreMotion.framework; sourceTree = DEVELOPER_DIR; };
+		DCB31B9BEA98CDE269AF4B2D /* Pods-Pointcast-Mobile-App-mobile.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pointcast-Mobile-App-mobile.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Pointcast-Mobile-App-mobile/Pods-Pointcast-Mobile-App-mobile.debug.xcconfig"; sourceTree = "<group>"; };
 		ED545A7B1B68A1F400C3958E /* libiconv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libiconv.dylib; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.4.sdk/usr/lib/libiconv.dylib; sourceTree = DEVELOPER_DIR; };
 		ED545A7D1B68A1FA00C3958E /* libiconv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libiconv.dylib; path = usr/lib/libiconv.dylib; sourceTree = SDKROOT; };
+		EEAC47099D672971E32DFDC4 /* Pods-Pointcast-Mobile-App-desktop.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pointcast-Mobile-App-desktop.release.xcconfig"; path = "Pods/Target Support Files/Pods-Pointcast-Mobile-App-desktop/Pods-Pointcast-Mobile-App-desktop.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -302,7 +307,7 @@
 				D44C620C132DFF330009C878 /* OpenAL.framework in Frameworks */,
 				D44C620E132DFF430009C878 /* AVFoundation.framework in Frameworks */,
 				D44C6210132DFF4E0009C878 /* AudioToolbox.framework in Frameworks */,
-				D3DD0C47B6F8E0F592B80DC1 /* libPods.a in Frameworks */,
+				C299127BDBEF33EA5273F707 /* libPods-Pointcast-Mobile-App-mobile.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -322,6 +327,7 @@
 				5087E76917EB910900C73F5D /* OpenAL.framework in Frameworks */,
 				5087E76A17EB910900C73F5D /* AVFoundation.framework in Frameworks */,
 				5087E76B17EB910900C73F5D /* AudioToolbox.framework in Frameworks */,
+				D199295DE7CFA967F129F52B /* libPods-Pointcast-Mobile-App-desktop.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -540,7 +546,7 @@
 				080E96DDFE201D6D7F000001 /* ios */,
 				503AE10617EB990700D1A890 /* mac */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
-				8F8718F1502310A27265739B /* Pods */,
+				7AEFE2938EA76D871F7CB5EA /* Pods */,
 			);
 			name = CustomTemplate;
 			sourceTree = "<group>";
@@ -581,7 +587,8 @@
 				BF170DB012928DE900B8313A /* OpenGLES.framework */,
 				BF1C47EA1293683800B63C5D /* QuartzCore.framework */,
 				1DF5F4DF0D08C38300B7A737 /* UIKit.framework */,
-				6D86501802D3EFDB15F3976B /* libPods.a */,
+				7ECBE447B09F4DDDD7D797DE /* libPods-Pointcast-Mobile-App-desktop.a */,
+				C730CDDB433256A9937553DE /* libPods-Pointcast-Mobile-App-mobile.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -659,12 +666,15 @@
 			path = ios;
 			sourceTree = SOURCE_ROOT;
 		};
-		8F8718F1502310A27265739B /* Pods */ = {
+		7AEFE2938EA76D871F7CB5EA /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				1535AA2E1D56B598002516B9 /* Pods.staging.xcconfig */,
-				52E65FE40FAD351FCDE6EEAE /* Pods.debug.xcconfig */,
-				399D5780B451581977E00560 /* Pods.release.xcconfig */,
+				429177FA094952594A44F0F6 /* Pods-Pointcast-Mobile-App-desktop.debug.xcconfig */,
+				5030DB5EDE59987A54A69ECD /* Pods-Pointcast-Mobile-App-desktop.staging.xcconfig */,
+				EEAC47099D672971E32DFDC4 /* Pods-Pointcast-Mobile-App-desktop.release.xcconfig */,
+				DCB31B9BEA98CDE269AF4B2D /* Pods-Pointcast-Mobile-App-mobile.debug.xcconfig */,
+				1CD348287AEB7759FA330194 /* Pods-Pointcast-Mobile-App-mobile.staging.xcconfig */,
+				590DA7D9A03DC43E10F7194D /* Pods-Pointcast-Mobile-App-mobile.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -676,12 +686,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "Pointcast-Mobile-App-mobile" */;
 			buildPhases = (
-				FC2DE361A76060E611721AD1 /* Check Pods Manifest.lock */,
+				51E64D98D7BF11C65CB20AE0 /* 📦 Check Pods Manifest.lock */,
 				1D60588D0D05DD3D006BFB54 /* Resources */,
 				1D60588E0D05DD3D006BFB54 /* Sources */,
 				1D60588F0D05DD3D006BFB54 /* Frameworks */,
-				A4A3736E821BFB58E689A273 /* Embed Pods Frameworks */,
-				4C5EE63EA5F9141BAC4842D1 /* Copy Pods Resources */,
+				181420C40B914B3028DF8182 /* 📦 Embed Pods Frameworks */,
+				A7344FC3E5E8E3926DF8AF2C /* 📦 Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -697,9 +707,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 5087E76C17EB910900C73F5D /* Build configuration list for PBXNativeTarget "Pointcast-Mobile-App-desktop" */;
 			buildPhases = (
+				9584D0FAA9007EA6C71F2F2B /* 📦 Check Pods Manifest.lock */,
 				5087E74817EB910900C73F5D /* Resources */,
 				5087E75617EB910900C73F5D /* Sources */,
 				5087E75C17EB910900C73F5D /* Frameworks */,
+				CB1312A03A2670C3D8D254AD /* 📦 Embed Pods Frameworks */,
+				713D4177536ECB6045D5DE77 /* 📦 Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -785,7 +798,7 @@
 				521A8E6519F0C34300D177D7 /* Default-736h@3x.png in Resources */,
 				521A8EA919F11F5000D177D7 /* fonts in Resources */,
 				50EF62A317ECD613001EB2F8 /* Icon-50.png in Resources */,
-				1535AA2F1D56B598002516B9 /* Pods.staging.xcconfig in Resources */,
+				1535AA2F1D56B598002516B9 /* (null) in Resources */,
 				5087E78017EB970100C73F5D /* Icon-114.png in Resources */,
 				50EF62A217ECD613001EB2F8 /* Icon-29.png in Resources */,
 				50EF629617ECD46A001EB2F8 /* Icon-40.png in Resources */,
@@ -816,49 +829,94 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		4C5EE63EA5F9141BAC4842D1 /* Copy Pods Resources */ = {
+		181420C40B914B3028DF8182 /* 📦 Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Copy Pods Resources";
+			name = "📦 Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Pointcast-Mobile-App-mobile/Pods-Pointcast-Mobile-App-mobile-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		A4A3736E821BFB58E689A273 /* Embed Pods Frameworks */ = {
+		51E64D98D7BF11C65CB20AE0 /* 📦 Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		FC2DE361A76060E611721AD1 /* Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Check Pods Manifest.lock";
+			name = "📦 Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		713D4177536ECB6045D5DE77 /* 📦 Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Pointcast-Mobile-App-desktop/Pods-Pointcast-Mobile-App-desktop-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9584D0FAA9007EA6C71F2F2B /* 📦 Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		A7344FC3E5E8E3926DF8AF2C /* 📦 Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Pointcast-Mobile-App-mobile/Pods-Pointcast-Mobile-App-mobile-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		CB1312A03A2670C3D8D254AD /* 📦 Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Pointcast-Mobile-App-desktop/Pods-Pointcast-Mobile-App-desktop-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -957,7 +1015,7 @@
 		};
 		15186A4E1D32334200E45880 /* Staging */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1535AA2E1D56B598002516B9 /* Pods.staging.xcconfig */;
+			baseConfigurationReference = 1CD348287AEB7759FA330194 /* Pods-Pointcast-Mobile-App-mobile.staging.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -1011,6 +1069,7 @@
 		};
 		15186A4F1D32334200E45880 /* Staging */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5030DB5EDE59987A54A69ECD /* Pods-Pointcast-Mobile-App-desktop.staging.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
@@ -1044,7 +1103,7 @@
 		};
 		1D6058940D05DD3E006BFB54 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 52E65FE40FAD351FCDE6EEAE /* Pods.debug.xcconfig */;
+			baseConfigurationReference = DCB31B9BEA98CDE269AF4B2D /* Pods-Pointcast-Mobile-App-mobile.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -1098,7 +1157,7 @@
 		};
 		1D6058950D05DD3E006BFB54 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 399D5780B451581977E00560 /* Pods.release.xcconfig */;
+			baseConfigurationReference = 590DA7D9A03DC43E10F7194D /* Pods-Pointcast-Mobile-App-mobile.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -1150,6 +1209,7 @@
 		};
 		5087E76D17EB910900C73F5D /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 429177FA094952594A44F0F6 /* Pods-Pointcast-Mobile-App-desktop.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
@@ -1183,6 +1243,7 @@
 		};
 		5087E76E17EB910900C73F5D /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = EEAC47099D672971E32DFDC4 /* Pods-Pointcast-Mobile-App-desktop.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
