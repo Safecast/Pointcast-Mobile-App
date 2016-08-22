@@ -15,7 +15,7 @@ target 'Pointcast-Mobile-App-mobile' do
   pod 'GoogleMaps'
   pod 'Firebase/Core'
   pod 'Firebase/Messaging'
-  pod 'Firebase/Invites'
+  # pod 'Firebase/Invites'
   pod 'Firebase/Crash'
   # Pods for Pointcast-Mobile-App-mobile
 
