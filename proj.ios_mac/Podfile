@@ -13,6 +13,10 @@ target 'Pointcast-Mobile-App-mobile' do
   # Uncomment this line if you're using Swift or would like to use dynamic frameworks
   # use_frameworks!
   pod 'GoogleMaps'
+  pod 'Firebase/Core'
+  pod 'Firebase/Messaging'
+  pod 'Firebase/Invites'
+  pod 'Firebase/Crash'
   # Pods for Pointcast-Mobile-App-mobile
 
 end

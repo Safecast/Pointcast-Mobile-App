@@ -686,12 +686,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "Pointcast-Mobile-App-mobile" */;
 			buildPhases = (
-				51E64D98D7BF11C65CB20AE0 /* 📦 Check Pods Manifest.lock */,
+				51E64D98D7BF11C65CB20AE0 /* [CP] Check Pods Manifest.lock */,
 				1D60588D0D05DD3D006BFB54 /* Resources */,
 				1D60588E0D05DD3D006BFB54 /* Sources */,
 				1D60588F0D05DD3D006BFB54 /* Frameworks */,
-				181420C40B914B3028DF8182 /* 📦 Embed Pods Frameworks */,
-				A7344FC3E5E8E3926DF8AF2C /* 📦 Copy Pods Resources */,
+				181420C40B914B3028DF8182 /* [CP] Embed Pods Frameworks */,
+				A7344FC3E5E8E3926DF8AF2C /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -707,12 +707,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 5087E76C17EB910900C73F5D /* Build configuration list for PBXNativeTarget "Pointcast-Mobile-App-desktop" */;
 			buildPhases = (
-				9584D0FAA9007EA6C71F2F2B /* 📦 Check Pods Manifest.lock */,
+				9584D0FAA9007EA6C71F2F2B /* [CP] Check Pods Manifest.lock */,
 				5087E74817EB910900C73F5D /* Resources */,
 				5087E75617EB910900C73F5D /* Sources */,
 				5087E75C17EB910900C73F5D /* Frameworks */,
-				CB1312A03A2670C3D8D254AD /* 📦 Embed Pods Frameworks */,
-				713D4177536ECB6045D5DE77 /* 📦 Copy Pods Resources */,
+				CB1312A03A2670C3D8D254AD /* [CP] Embed Pods Frameworks */,
+				713D4177536ECB6045D5DE77 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -829,14 +829,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		181420C40B914B3028DF8182 /* 📦 Embed Pods Frameworks */ = {
+		181420C40B914B3028DF8182 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Embed Pods Frameworks";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -844,14 +844,14 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Pointcast-Mobile-App-mobile/Pods-Pointcast-Mobile-App-mobile-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		51E64D98D7BF11C65CB20AE0 /* 📦 Check Pods Manifest.lock */ = {
+		51E64D98D7BF11C65CB20AE0 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -859,14 +859,14 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		713D4177536ECB6045D5DE77 /* 📦 Copy Pods Resources */ = {
+		713D4177536ECB6045D5DE77 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Copy Pods Resources";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -874,14 +874,14 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Pointcast-Mobile-App-desktop/Pods-Pointcast-Mobile-App-desktop-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		9584D0FAA9007EA6C71F2F2B /* 📦 Check Pods Manifest.lock */ = {
+		9584D0FAA9007EA6C71F2F2B /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -889,14 +889,14 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		A7344FC3E5E8E3926DF8AF2C /* 📦 Copy Pods Resources */ = {
+		A7344FC3E5E8E3926DF8AF2C /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Copy Pods Resources";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -904,14 +904,14 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Pointcast-Mobile-App-mobile/Pods-Pointcast-Mobile-App-mobile-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		CB1312A03A2670C3D8D254AD /* 📦 Embed Pods Frameworks */ = {
+		CB1312A03A2670C3D8D254AD /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Embed Pods Frameworks";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
