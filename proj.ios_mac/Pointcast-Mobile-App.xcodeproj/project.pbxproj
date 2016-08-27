@@ -1008,6 +1008,7 @@
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
 				CLANG_CXX_LIBRARY = "libc++";
+				CODE_SIGN_IDENTITY = "";
 				COPY_PHASE_STRIP = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
@@ -1032,6 +1033,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "5df5c9b4-ee82-47a6-acd2-b4d81778616f";
 				SDKROOT = macosx;
 			};
 			name = Staging;
@@ -1081,7 +1083,7 @@
 					"$(_COCOS_LIB_IOS_END)",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.momokoito.pointcast.staging;
-				PROVISIONING_PROFILE = "41a2614f-c0fd-435f-8e1d-c25d8cc60cd6";
+				PROVISIONING_PROFILE = "";
 				Prefix = .staging;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1133,8 +1135,8 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				AppName = DevPointcast;
 				BUNDLE_IDENTIFIER_SUFIX = .dev;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Mitsuo Okada (Z2267AFH8U)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Mitsuo Okada (Z2267AFH8U)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1169,7 +1171,7 @@
 					"$(_COCOS_LIB_IOS_END)",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.momokoito.pointcast.dev;
-				PROVISIONING_PROFILE = "ee98cc75-db58-49be-b4e6-0e052c08af16";
+				PROVISIONING_PROFILE = "5df5c9b4-ee82-47a6-acd2-b4d81778616f";
 				Prefix = .dev;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1187,8 +1189,8 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				AppName = Pointcast;
 				BUNDLE_IDENTIFIER_SUFIX = "";
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Momoko Ito Foundation (7S5AAN8833)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Momoko Ito Foundation (7S5AAN8833)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1221,7 +1223,7 @@
 					"$(_COCOS_LIB_IOS_END)",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.momokoito.pointcast;
-				PROVISIONING_PROFILE = "e0c2c2c1-c4be-4359-bb0c-bf60fb6d1e30";
+				PROVISIONING_PROFILE = "";
 				Prefix = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1301,6 +1303,7 @@
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
 				CLANG_CXX_LIBRARY = "libc++";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Mitsuo Okada (39M28873LA)";
 				COPY_PHASE_STRIP = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
@@ -1325,6 +1328,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "5df5c9b4-ee82-47a6-acd2-b4d81778616f";
 				SDKROOT = macosx;
 			};
 			name = Debug;
@@ -1334,6 +1338,7 @@
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
 				CLANG_CXX_LIBRARY = "libc++";
+				CODE_SIGN_IDENTITY = "";
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = (
@@ -1356,6 +1361,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "5df5c9b4-ee82-47a6-acd2-b4d81778616f";
 				SDKROOT = macosx;
 				VALIDATE_PRODUCT = YES;
 			};
