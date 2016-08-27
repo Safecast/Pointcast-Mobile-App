@@ -102,6 +102,19 @@ static AppController *_instance;
   // Google Map Sdk
   [GMSServices provideAPIKey:@"AIzaSyBQXSpJyWV8nhjS5QVogEekt7k-cAaFQ-k"];
 
+  // Notification
+  if ([[[UIDevice currentDevice] systemVersion] compare:@"8.0.0" options:NSNumericSearch] != NSOrderedAscending) {
+      // >= iOS 8.0.0
+      UIUserNotificationType notificationTypes = UIUserNotificationTypeAlert | UIUserNotificationTypeBadge | UIUserNotificationTypeSound;
+      UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:notificationTypes categories:nil];
+      [application registerUserNotificationSettings:settings];
+      [application registerForRemoteNotifications];
+  } else {
+        // < iOS 8.0.0
+      UIRemoteNotificationType notificationTypes = (UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound);
+      [[UIApplication sharedApplication] registerForRemoteNotificationTypes:notificationTypes];
+  }
+    
   // Firebase
   [FIRApp configure];
     
@@ -272,4 +285,32 @@ applicationDidEnterBackground:(UIApplication *)application {
   RootViewController *vc = [app getRootViewController];
   [vc.view resignFirstResponder];
 }
+
+- (void)application:(UIApplication *)application didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings {
+    NSLog(@"application:didRegisterUserNotificationSettings: %@", notificationSettings.description);
+}
+
+-(void)application:(UIApplication*)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)deviceToken
+{
+    
+    FIRInstanceIDAPNSTokenType token_type = FIRInstanceIDAPNSTokenTypeUnknown;
+#if ENVIRONMENT == 101
+    token_type = FIRInstanceIDAPNSTokenTypeProd;
+#else
+    token_type = FIRInstanceIDAPNSTokenTypeSandbox;
+#endif
+    [[FIRInstanceID instanceID] setAPNSToken:deviceToken type:token_type];
+    NSLog(@"deviceToken1 = %@",deviceToken);
+}
+
+-(void)application:(UIApplication*)application didFailToRegisterForRemoteNotificationsWithError:(NSError*)error
+{
+    NSLog(@"application:didFailToRegisterForRemoteNotificationsWithError: %@", error);
+}
+
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
+{
+    NSLog(@"application:didReceiveRemoteNotification: %@", userInfo);
+}
+
 @end
