@@ -262,6 +262,7 @@
 		590DA7D9A03DC43E10F7194D /* Pods-Pointcast-Mobile-App-mobile.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pointcast-Mobile-App-mobile.release.xcconfig"; path = "Pods/Target Support Files/Pods-Pointcast-Mobile-App-mobile/Pods-Pointcast-Mobile-App-mobile.release.xcconfig"; sourceTree = "<group>"; };
 		7ECBE447B09F4DDDD7D797DE /* libPods-Pointcast-Mobile-App-desktop.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Pointcast-Mobile-App-desktop.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8262943D1AAF051F00CB7CF7 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		A4C044471D71D4100079A4A2 /* libAFNetworking.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libAFNetworking.a; path = "../../../../../../Users/mitsuo-okada/Library/Developer/Xcode/DerivedData/Pointcast-Mobile-App-gnxjgrvrymttoxamoghkwhfoaysw/Build/Products/Debug-iphoneos/AFNetworking/libAFNetworking.a"; sourceTree = "<group>"; };
 		BF170DB012928DE900B8313A /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		BF170DB412928DE900B8313A /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		BF1C47EA1293683800B63C5D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -557,6 +558,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A4C044471D71D4100079A4A2 /* libAFNetworking.a */,
 				1535AA361D56BB84002516B9 /* MediaPlayer.framework */,
 				1535AA341D56BB2D002516B9 /* GameController.framework */,
 				15186A491D321B9400E45880 /* Accelerate.framework */,

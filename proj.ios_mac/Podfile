@@ -18,5 +18,7 @@ target 'Pointcast-Mobile-App-mobile' do
   # pod 'Firebase/Invites'
   pod 'Firebase/Crash'
   # Pods for Pointcast-Mobile-App-mobile
+  pod 'SendBirdSDK'
+  #pod 'AFNetworking'
 
 end

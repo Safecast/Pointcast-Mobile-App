@@ -27,6 +27,8 @@
 #import "cocos2d.h"
 #import "platform/ios/CCEAGLView-ios.h"
 #import <Firebase/Firebase.h>
+#import <SendBirdSDK/SendBirdSDK.h>
+#import "ChattingTableViewController.h"
 
 #define HEADER_HEIGHT 100
 #define FOOTER_HEIGHT 100
@@ -117,6 +119,9 @@ static AppController *_instance;
     
   // Firebase
   [FIRApp configure];
+    
+  // Sendbird
+  [self startSendBird];
     
   _instance = self;
 
@@ -313,4 +318,24 @@ applicationDidEnterBackground:(UIApplication *)application {
     NSLog(@"application:didReceiveRemoteNotification: %@", userInfo);
 }
 
+- (void) startSendBird
+{
+    NSString *APP_ID = @"A7A2672C-AD11-11E4-8DAA-0A18B21C2D82";
+    NSString *USER_ID = [SendBirdUtils deviceUniqueID];
+    NSString *USER_NAME = [NSString stringWithFormat:@"User-%@", [USER_ID substringToIndex:5]];
+    NSString *CHANNEL_URL = @"jia_test.Lobby";
+    
+    ChattingTableViewController *viewController = [[ChattingTableViewController alloc] init];
+    
+    [SendBird igawInitAppId:APP_ID withDeviceId:[SendBird deviceUniqueID]];
+    
+    [viewController setViewMode:kChannelListViewMode];
+    [viewController initChannelTitle];
+    [viewController setChannelUrl:CHANNEL_URL];
+    [viewController setUserName:USER_NAME];
+    [viewController setUserId:USER_ID];
+    
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:viewController];
+    [self presentViewController:navigationController animated:YES completion: nil];
+}
 @end

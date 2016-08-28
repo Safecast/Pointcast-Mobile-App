@@ -1,15 +1,15 @@
 PODS:
-  - Firebase/Analytics (3.4.0):
+  - Firebase/Analytics (3.5.2):
     - FirebaseAnalytics (~> 3.3)
-  - Firebase/Core (3.4.0):
+  - Firebase/Core (3.5.2):
     - Firebase/Analytics
-  - Firebase/Crash (3.4.0):
+  - Firebase/Crash (3.5.2):
     - Firebase/Analytics
     - FirebaseCrash (= 1.0.7)
-  - Firebase/Messaging (3.4.0):
+  - Firebase/Messaging (3.5.2):
     - Firebase/Analytics
     - FirebaseMessaging (= 1.1.1)
-  - FirebaseAnalytics (3.3.0):
+  - FirebaseAnalytics (3.3.1):
     - FirebaseInstanceID (~> 1.0)
     - GoogleInterchangeUtilities (~> 1.2)
     - GoogleSymbolUtilities (~> 1.1)
@@ -40,16 +40,18 @@ PODS:
   - GoogleSymbolUtilities (1.1.1)
   - GoogleUtilities (1.3.1):
     - GoogleSymbolUtilities (~> 1.0)
+  - SendBirdSDK (3.0.2)
 
 DEPENDENCIES:
   - Firebase/Core
   - Firebase/Crash
   - Firebase/Messaging
   - GoogleMaps
+  - SendBirdSDK
 
 SPEC CHECKSUMS:
-  Firebase: 754562547af419cc2f4b15247fee419081924bc2
-  FirebaseAnalytics: 228be2991cb28efb96cdafc4d62f64680e615c69
+  Firebase: 94e63112efcad75226c0356a8f3032397b8547c9
+  FirebaseAnalytics: d968d4d5f6aeb795cd64144337bcd233e530efc6
   FirebaseCrash: 2efeb3715b76ac843b841529ce413efb67e5fd4d
   FirebaseInstanceID: ba1e640935235e5fac39dfa816fe7660e72e1a8a
   FirebaseMessaging: 6bc7cd2ecb875c1a9c0f8b94956398aa3145bbb8
@@ -58,7 +60,8 @@ SPEC CHECKSUMS:
   GoogleMaps: f09da64fc987c1aa29394567c3cab5a3df83c402
   GoogleSymbolUtilities: 33117db1b5f290c6fbf259585e4885b4c84b98d7
   GoogleUtilities: 56c5ac05b7aa5dc417a1bb85221a9516e04d7032
+  SendBirdSDK: 70fb8d4cc74d29bef9493aee26eeec5648a8467a
 
-PODFILE CHECKSUM: 146530a4e7e989239dfc4d3e9c4850a559d6ed87
+PODFILE CHECKSUM: 4ab34fe5e704680edbb8b62d25b0fdd6bb3046ac
 
 COCOAPODS: 1.0.1
