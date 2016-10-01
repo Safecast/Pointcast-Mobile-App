@@ -28,7 +28,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "F7E94E851573E29BE6FF98319AE09995"
+               BlueprintIdentifier = "7698BF823DF5A0F0AB06C99E63AA5C10"
                BuildableName = "libPods-Pointcast-Mobile-App-mobile.a"
                BlueprintName = "Pods-Pointcast-Mobile-App-mobile"
                ReferencedContainer = "container:Pods/Pods.xcodeproj">
