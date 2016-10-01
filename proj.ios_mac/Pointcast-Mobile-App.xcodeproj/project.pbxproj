@@ -262,6 +262,7 @@
 		590DA7D9A03DC43E10F7194D /* Pods-Pointcast-Mobile-App-mobile.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pointcast-Mobile-App-mobile.release.xcconfig"; path = "Pods/Target Support Files/Pods-Pointcast-Mobile-App-mobile/Pods-Pointcast-Mobile-App-mobile.release.xcconfig"; sourceTree = "<group>"; };
 		7ECBE447B09F4DDDD7D797DE /* libPods-Pointcast-Mobile-App-desktop.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Pointcast-Mobile-App-desktop.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8262943D1AAF051F00CB7CF7 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		A4F5433B1D9FE5450045C3E7 /* Pointcast-Mobile-App-mobile.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = "Pointcast-Mobile-App-mobile.entitlements"; path = "Pointcast-Mobile-App-mobile/Pointcast-Mobile-App-mobile.entitlements"; sourceTree = "<group>"; };
 		BF170DB012928DE900B8313A /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		BF170DB412928DE900B8313A /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		BF1C47EA1293683800B63C5D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -542,6 +543,7 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
+				A4F5433B1D9FE5450045C3E7 /* Pointcast-Mobile-App-mobile.entitlements */,
 				46880B8319C43A87006E1F66 /* Classes */,
 				46880B7519C43A67006E1F66 /* Resources */,
 				1AC6FAE5180E9839004C840B /* cocos2d_libs.xcodeproj */,
@@ -1047,6 +1049,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				AppName = StagingPointcast;
 				BUNDLE_IDENTIFIER_SUFIX = .staging;
+				CODE_SIGN_ENTITLEMENTS = "Pointcast-Mobile-App-mobile/Pointcast-Mobile-App-mobile.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
@@ -1135,6 +1138,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				AppName = DevPointcast;
 				BUNDLE_IDENTIFIER_SUFIX = .dev;
+				CODE_SIGN_ENTITLEMENTS = "Pointcast-Mobile-App-mobile/Pointcast-Mobile-App-mobile.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
@@ -1189,6 +1193,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				AppName = Pointcast;
 				BUNDLE_IDENTIFIER_SUFIX = "";
+				CODE_SIGN_ENTITLEMENTS = "Pointcast-Mobile-App-mobile/Pointcast-Mobile-App-mobile.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Momoko Ito Foundation (7S5AAN8833)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Momoko Ito Foundation (7S5AAN8833)";
 				COMPRESS_PNG_FILES = NO;
