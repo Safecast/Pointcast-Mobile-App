@@ -301,6 +301,9 @@ applicationDidEnterBackground:(UIApplication *)application {
 #endif
     [[FIRInstanceID instanceID] setAPNSToken:deviceToken type:token_type];
     NSLog(@"deviceToken1 = %@",deviceToken);
+    
+    // Firebase Subscribe
+    [[FIRMessaging messaging] subscribeToTopic:@"/topics/all"];
 }
 
 -(void)application:(UIApplication*)application didFailToRegisterForRemoteNotificationsWithError:(NSError*)error
@@ -309,8 +312,15 @@ applicationDidEnterBackground:(UIApplication *)application {
 }
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
-{
-    NSLog(@"application:didReceiveRemoteNotification: %@", userInfo);
+fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
+    // If you are receiving a notification message while your app is in the background,
+    // this callback will not be fired till the user taps on the notification launching the application.
+    // TODO: Handle data of notification
+    
+    // Print message ID.
+    NSLog(@"Message ID: %@", userInfo[@"gcm.message_id"]);
+    
+    // Pring full message.
+    NSLog(@"%@", userInfo);
 }
-
 @end

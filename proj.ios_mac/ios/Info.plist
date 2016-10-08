@@ -43,6 +43,8 @@
 	<true/>
 	<key>UIRequiresFullScreen</key>
 	<true/>
+	<key>LSApplicationCategoryType</key>
+	<string></string>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
