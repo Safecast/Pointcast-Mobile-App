@@ -29,5 +29,6 @@
 @interface RootViewController : UIViewController {
 }
 - (BOOL)prefersStatusBarHidden;
-
+- (void)setRotateEnable;
+- (BOOL)getRotateEnable;
 @end

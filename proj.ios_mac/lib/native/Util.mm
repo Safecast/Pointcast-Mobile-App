@@ -14,5 +14,12 @@ namespace lib {
 namespace native {
 
 void Util::closeIme() { [AppController closeIme]; }
+
+void Util::setRotateEnable(bool flag) {
+    AppController *app = [AppController getInstance];
+    [app setRotateEnable:flag];
 }
+
+}
+    
 }

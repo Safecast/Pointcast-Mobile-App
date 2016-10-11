@@ -29,6 +29,7 @@
 
 @implementation RootViewController
 
+    BOOL rotateEnable = false;
 /*
  // The designated initializer.  Override if you create the controller
 programmatically and want to perform customization that is not appropriate for
@@ -49,13 +50,6 @@ a nib.
 }
 */
 
-/* */
-// Implement viewDidLoad to do additional setup after loading the view,
-// typically from a nib.
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    NSLog(@"aaa");
-}
 /*
 */
 // Override to allow orientations other than the default portrait orientation.
@@ -68,18 +62,19 @@ a nib.
 // For ios6, use supportedInterfaceOrientations & shouldAutorotate instead
 - (NSUInteger)supportedInterfaceOrientations {
 #ifdef __IPHONE_6_0
-          // return UIInterfaceOrientationMaskPortrait; //縦
-          // return UIInterfaceOrientationMaskLandscapeLeft; 左
-          // return UIInterfaceOrientationMaskLandscapeRight; 右
-          // return UIInterfaceOrientationMaskLandscape; 左右
-          // return UIInterfaceOrientationMaskPortraitUpsideDown; 縦（上下逆）
-       return UIInterfaceOrientationMaskAll;  // 全方位
-                                               // return UIInterfaceOrientationMaskAllButUpsideDown; 縦（上下逆）を除いた全方位
+    // return UIInterfaceOrientationMaskPortrait; //縦
+    // return UIInterfaceOrientationMaskLandscapeLeft; 左
+    // return UIInterfaceOrientationMaskLandscapeRight; 右
+    // return UIInterfaceOrientationMaskLandscape; 左右
+    // return UIInterfaceOrientationMaskPortraitUpsideDown; 縦（上下逆）
+    return UIInterfaceOrientationMaskAll;  // 全方位
+    // return UIInterfaceOrientationMaskAllButUpsideDown; 縦（上下逆）を除いた全方位
 #endif
 }
 
 - (BOOL)shouldAutorotate {
-    return NO;
+    NSLog(@"rt: %d",rotateEnable);
+    return rotateEnable;
 }
 
 - (void)didRotateFromInterfaceOrientation:
@@ -92,9 +87,17 @@ a nib.
         CCEAGLView *eaglview = (CCEAGLView *)glview->getEAGLView();
 
         if (eaglview) {
-            CGSize s = CGSizeMake([eaglview getWidth], [eaglview getHeight]);
+            /*
+             CGSize s = CGSizeMake([eaglview getWidth], [eaglview getHeight]);
             cocos2d::Application::getInstance()->applicationScreenSizeChanged(
                 (int)s.width, (int)s.height);
+            */
+            UIScreen *sc = [UIScreen mainScreen];
+            //ステータスバー込みのサイズ
+            CGRect rect = sc.bounds;
+            NSLog(@"%.1f, %.1f", rect.size.width, rect.size.height);
+            cocos2d::Application::getInstance()->applicationScreenSizeChanged(
+                                                                              (int)rect.size.width * 2, (int)rect.size.height * 2);
         }
     }
 }
@@ -119,6 +122,22 @@ a nib.
 
 - (void)dealloc {
     [super dealloc];
+}
+
+- (void)setRotateEnable:(BOOL)flag {
+    rotateEnable = flag;
+}
+
+- (BOOL)getRotateEnable {
+    return rotateEnable;
+}
+
+/* */
+// Implement viewDidLoad to do additional setup after loading the view,
+// typically from a nib.
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    NSLog(@"aaa");
 }
 
 @end

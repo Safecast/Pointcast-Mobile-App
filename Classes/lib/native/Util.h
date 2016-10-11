@@ -23,6 +23,7 @@ private:
   // function
 public:
   static void closeIme();
+  static void setRotateEnable(bool flag);
 };
 }
 }

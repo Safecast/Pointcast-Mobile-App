@@ -19,6 +19,8 @@
 #include "json/writer.h"
 
 #include "lib/Util.hpp"
+#include "lib/native/Util.h"
+
 #include "lib/network/DataStoreSingleton.hpp"
 #include "scene/Main.hpp"
 #include "scene/chart/Board.hpp"
@@ -121,6 +123,10 @@ void MesurementsAnalytics::onEnter() {
       this, (cocos2d::network::SEL_HttpResponse)(
                 &MesurementsAnalytics::onCallbackPointcastAnalytics));
   p_data_store_singleton->requestPointcastAnalytics(this->_m_sensor_main_id);
+    
+  // enable rotate
+  lib::native::Util::setRotateEnable(true);
+  
 }
 
 void MesurementsAnalytics::close() {
@@ -128,6 +134,9 @@ void MesurementsAnalytics::close() {
       static_cast<scene::menu::Sensors *>(this->getParent());
 
   p_sensors->closeAnalyticsDialog();
+
+  // disable rotate
+  lib::native::Util::setRotateEnable(false);
 }
 
 void MesurementsAnalytics::onCallbackPointcastAnalytics(
