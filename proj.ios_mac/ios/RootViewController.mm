@@ -96,10 +96,23 @@ a nib.
             //ステータスバー込みのサイズ
             CGRect rect = sc.bounds;
             NSLog(@"%.1f, %.1f", rect.size.width, rect.size.height);
-            cocos2d::Application::getInstance()->applicationScreenSizeChanged(
-                                                                              (int)rect.size.width * 2, (int)rect.size.height * 2);
+            auto director = cocos2d::Director::getInstance();
+            auto glview = director->getOpenGLView();
+            glview->setFrameSize(1136, 640);
+            director->getOpenGLView()->setDesignResolutionSize(
+                                                               640, 1136, ResolutionPolicy::FIXED_WIDTH);
+            // director->setContentScaleFactor(50/400);
+
+            
         }
     }
+}
+
+- (void)willRotateToInterfaceOrientation:
+(UIInterfaceOrientation)toInterfaceOrientation
+                                duration:(NSTimeInterval)duration
+{
+    NSLog(@"willRotateToInterfaceOrientation");
 }
 
 // fix not hide status on ios7
