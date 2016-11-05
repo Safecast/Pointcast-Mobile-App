@@ -20,7 +20,7 @@
                 <OutlineColor A="255" R="255" G="0" B="0" />
                 <ShadowColor A="255" R="110" G="110" B="110" />
               </AbstractNodeData>
-              <AbstractNodeData Name="textRecentValue_0_0" ActionTag="-879817186" Tag="14" IconVisible="False" LeftMargin="19.0004" RightMargin="560.9996" TopMargin="184.0000" BottomMargin="36.0000" IsCustomSize="True" FontSize="22" LabelText="Peak" HorizontalAlignmentType="HT_Right" VerticalAlignmentType="VT_Center" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="TextObjectData">
+              <AbstractNodeData Name="textRecentValue_0_0" ActionTag="-879817186" Tag="14" IconVisible="False" LeftMargin="19.0004" RightMargin="560.9996" TopMargin="184.0000" BottomMargin="36.0000" IsCustomSize="True" FontSize="22" LabelText="Peak" VerticalAlignmentType="VT_Center" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="TextObjectData">
                 <Size X="60.0000" Y="30.0000" />
                 <AnchorPoint />
                 <Position X="19.0004" Y="36.0000" />
