@@ -14,9 +14,9 @@
         <LuaEncryptSign Value="" />
         <Android_PackageName Value="org.cocos.mainmenu" />
         <AndroidkeyStore Value="" />
-        <AndroidVersion Value="" />
+        <AndroidVersion Value="android-24" />
         <iOS_Target Value="mainmenu-mobile" />
-        <iOS_BundleID Value="Mac Developer: NACHI GOODINGS (FDV2C2U3EM)" />
+        <iOS_BundleID Value="iPhone Developer: mitsuo-okada@united.jp (5K8RGYC425)" />
         <Platform Value="None" />
         <RunPlatform Value="Mac" />
         <FrameworkVersion Value="cocos2d-x-3.8" />

@@ -20,14 +20,14 @@
                 <OutlineColor A="255" R="255" G="0" B="0" />
                 <ShadowColor A="255" R="110" G="110" B="110" />
               </AbstractNodeData>
-              <AbstractNodeData Name="textRecentValue_0_0" ActionTag="-879817186" Tag="14" IconVisible="False" LeftMargin="19.0004" RightMargin="579.9996" TopMargin="184.0000" BottomMargin="36.0000" IsCustomSize="True" FontSize="18" LabelText="Peak" HorizontalAlignmentType="HT_Right" VerticalAlignmentType="VT_Center" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="TextObjectData">
-                <Size X="41.0000" Y="30.0000" />
+              <AbstractNodeData Name="textRecentValue_0_0" ActionTag="-879817186" Tag="14" IconVisible="False" LeftMargin="19.0004" RightMargin="560.9996" TopMargin="184.0000" BottomMargin="36.0000" IsCustomSize="True" FontSize="22" LabelText="Peak" HorizontalAlignmentType="HT_Right" VerticalAlignmentType="VT_Center" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="TextObjectData">
+                <Size X="60.0000" Y="30.0000" />
                 <AnchorPoint />
                 <Position X="19.0004" Y="36.0000" />
                 <Scale ScaleX="1.0000" ScaleY="1.0000" />
                 <CColor A="255" R="255" G="165" B="0" />
                 <PrePosition X="0.0297" Y="0.1440" />
-                <PreSize X="0.0641" Y="0.1200" />
+                <PreSize X="0.0938" Y="0.1200" />
                 <OutlineColor A="255" R="255" G="0" B="0" />
                 <ShadowColor A="255" R="110" G="110" B="110" />
               </AbstractNodeData>
@@ -175,6 +175,28 @@
                 <CColor A="255" R="0" G="128" B="0" />
                 <PrePosition X="0.1250" Y="0.5200" />
                 <PreSize X="0.4688" Y="0.1600" />
+                <OutlineColor A="255" R="255" G="0" B="0" />
+                <ShadowColor A="255" R="110" G="110" B="110" />
+              </AbstractNodeData>
+              <AbstractNodeData Name="labelAlarm" ActionTag="-1452304284" Tag="18" IconVisible="False" LeftMargin="175.5001" RightMargin="404.4999" TopMargin="184.0000" BottomMargin="36.0000" IsCustomSize="True" FontSize="22" LabelText="Alarm&#xA;" HorizontalAlignmentType="HT_Right" VerticalAlignmentType="VT_Center" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="TextObjectData">
+                <Size X="60.0000" Y="30.0000" />
+                <AnchorPoint />
+                <Position X="175.5001" Y="36.0000" />
+                <Scale ScaleX="1.0000" ScaleY="1.0000" />
+                <CColor A="255" R="255" G="165" B="0" />
+                <PrePosition X="0.2742" Y="0.1440" />
+                <PreSize X="0.0938" Y="0.1200" />
+                <OutlineColor A="255" R="255" G="0" B="0" />
+                <ShadowColor A="255" R="110" G="110" B="110" />
+              </AbstractNodeData>
+              <AbstractNodeData Name="txtSensorAlarm" ActionTag="-1457438702" Tag="19" IconVisible="False" LeftMargin="192.4999" RightMargin="207.5001" TopMargin="208.0000" BottomMargin="2.0000" IsCustomSize="True" FontSize="20" LabelText="123cpm&#xA;" VerticalAlignmentType="VT_Center" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="TextObjectData">
+                <Size X="240.0000" Y="40.0000" />
+                <AnchorPoint />
+                <Position X="192.4999" Y="2.0000" />
+                <Scale ScaleX="1.0000" ScaleY="1.0000" />
+                <CColor A="255" R="0" G="0" B="0" />
+                <PrePosition X="0.3008" Y="0.0080" />
+                <PreSize X="0.3750" Y="0.1600" />
                 <OutlineColor A="255" R="255" G="0" B="0" />
                 <ShadowColor A="255" R="110" G="110" B="110" />
               </AbstractNodeData>
