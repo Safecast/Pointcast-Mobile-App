@@ -9,6 +9,7 @@
 #include <algorithm>
 
 #include "Util.hpp"
+#include "lib/native/Util.h"
 #include "lib/network/DataStoreSingleton.hpp"
 
 #define rad2deg(a) ((a) / M_PI * 180.0) /* rad を deg に換算するマクロ関数 */
@@ -325,4 +326,46 @@ double Util::GetLocationDistance(float from_latitude, float from_longtitude,
 
   return distance;
 }
+    
+cocos2d::Size Util::GetContentsSize()
+{
+    auto director = cocos2d::Director::getInstance();
+    // auto glview = director->getOpenGLView();
+    // cocos2d::Rect rect = glview->getVisibleRect();
+    cocos2d::Size frame_size = lib::native::Util::getDisplaySize();
+    
+    float aspect = 0.0f;
+    bool portrait;
+    if (frame_size.height > frame_size.width) {
+        portrait = true;
+        aspect = frame_size.height / frame_size.width;
+    } else {
+        portrait = false;
+        aspect = frame_size.width / frame_size.height;
+    }
+    cocos2d::Size size;
+    if (aspect > 1.7f)
+    {
+        // 16:9
+        if (portrait)
+        {
+            size = cocos2d::Size(640, 1136);
+        } else {
+            size = cocos2d::Size(1136, 640);
+        }
+    } else {
+        // 4:3
+        // @todo change aspect
+        if (portrait)
+        {
+            size = cocos2d::Size(640, 1136);
+        } else {
+            size = cocos2d::Size(1136, 640);
+        }
+    }
+    return size;
+    
+}
+
+    
 }

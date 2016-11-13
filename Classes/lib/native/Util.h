@@ -24,6 +24,8 @@ private:
 public:
   static void closeIme();
   static void setRotateEnable(bool flag);
+  static cocos2d::Size getDisplaySize();
+
 };
 }
 }

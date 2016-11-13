@@ -26,6 +26,7 @@
 #import "RootViewController.h"
 #import "cocos2d.h"
 #import "platform/ios/CCEAGLView-ios.h"
+#include "lib/Util.hpp"
 
 @implementation RootViewController
 
@@ -87,19 +88,18 @@ a nib.
         CCEAGLView *eaglview = (CCEAGLView *)glview->getEAGLView();
 
         if (eaglview) {
-             CGSize s = CGSizeMake([eaglview getWidth], [eaglview getHeight]);
+            cocos2d::Size size = lib::Util::GetContentsSize();
             cocos2d::Application::getInstance()->applicationScreenSizeChanged(
-                (int)s.width, (int)s.height);
+                (int)size.width, (int)size.height);
             
             UIScreen *sc = [UIScreen mainScreen];
-            //ステータスバー込みのサイズ
             CGRect rect = sc.bounds;
             NSLog(@"%.1f, %.1f", rect.size.width, rect.size.height);
             auto director = cocos2d::Director::getInstance();
             auto glview = director->getOpenGLView();
-            glview->setFrameSize((int)s.width, (int)s.height);
+            glview->setFrameSize((int)size.width, (int)size.height);
             director->getOpenGLView()->setDesignResolutionSize(
-                                                               (int)s.width, (int)s.height, ResolutionPolicy::NO_BORDER);
+                                                               (int)size.width, (int)size.height, ResolutionPolicy::NO_BORDER);
             
         }
     }
