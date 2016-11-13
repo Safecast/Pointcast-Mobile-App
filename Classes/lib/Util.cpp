@@ -367,5 +367,16 @@ cocos2d::Size Util::GetContentsSize()
     
 }
 
+static bool isPortlate()
+{
+    cocos2d::Size frame_size = lib::native::Util::getDisplaySize();
+    return frame_size.height > frame_size.width;
+}
+
+static bool isLandscape()
+{
+    cocos2d::Size frame_size = lib::native::Util::getDisplaySize();
+    return frame_size.height < frame_size.width;
+}
     
 }

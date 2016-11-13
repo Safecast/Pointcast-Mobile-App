@@ -60,6 +60,10 @@ public:
                                     float to_latitude, float to_longtitude);
   
   static cocos2d::Size GetContentsSize();
+    
+  static bool isPortlate();
+    
+  static bool isLandscape();
 
 private:
 };
