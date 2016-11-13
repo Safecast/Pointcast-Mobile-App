@@ -19,12 +19,23 @@ namespace native {
 class Util {
   // member
 public:
+    enum OrientationType
+    {
+        UIDeviceOrientationUnknown,
+        UIDeviceOrientationPortrait,
+        UIDeviceOrientationPortraitUpsideDown,
+        UIDeviceOrientationLandscapeRight,
+        UIDeviceOrientationLandscapeLeft,
+    };
+    
+    
 private:
   // function
 public:
   static void closeIme();
   static void setRotateEnable(bool flag);
   static cocos2d::Size getDisplaySize();
+  static void changeRotate(int type);
 
 };
 }

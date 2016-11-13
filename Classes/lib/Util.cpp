@@ -379,4 +379,13 @@ bool Util::isLandscape()
     return frame_size.height < frame_size.width;
 }
     
+void Util::changeLowerMenuVisible(bool visible)
+{
+    // change lowermenu visible
+    cocos2d::EventCustom customEvent("lowermenu_visible");
+    auto value = cocos2d::Value(visible);
+    customEvent.setUserData(&value);
+    cocos2d::Director::getInstance()->getEventDispatcher()->dispatchEvent(&customEvent);
+}
+    
 }

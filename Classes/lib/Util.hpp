@@ -64,6 +64,8 @@ public:
   static bool isPortlate();
     
   static bool isLandscape();
+    
+  static void changeLowerMenuVisible(bool visible);
 
 private:
 };

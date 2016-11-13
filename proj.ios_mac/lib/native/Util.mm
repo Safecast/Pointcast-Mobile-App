@@ -13,6 +13,8 @@
 namespace lib {
 
 namespace native {
+    
+
 
 void Util::closeIme() { [AppController closeIme]; }
 
@@ -29,6 +31,12 @@ cocos2d::Size Util::getDisplaySize()
     CCEAGLView *eaglview = (CCEAGLView *)glview->getEAGLView();
     cocos2d::Size size = cocos2d::Size([eaglview getWidth], [eaglview getHeight]);
     return size;
+}
+    
+void Util::changeRotate(int type)
+{
+    NSNumber *value = [[NSNumber alloc] initWithInt:type];
+    [[UIDevice currentDevice] setValue:value forKey:@"orientation"];
 }
 
 }

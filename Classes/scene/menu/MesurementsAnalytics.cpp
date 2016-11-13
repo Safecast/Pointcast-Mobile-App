@@ -71,9 +71,11 @@ void MesurementsAnalytics::initContents()
     } else {
         this->_p_contents =
         cocos2d::CSLoader::getInstance()->createNode("res/MenuAnalytics_landscape.csb");
+        
+        // disappear lowermenu
+        lib::Util::changeLowerMenuVisible(false);
+        
     }
-    
-    this->_p_contents->setPosition(cocos2d::Vec2(0,0));
     
     auto panel =
     this->_p_contents->getChildByName<ui::Layout *>("panelBackground");
@@ -151,6 +153,8 @@ void MesurementsAnalytics::onEnter() {
 }
 
 void MesurementsAnalytics::close() {
+    
+    
   scene::menu::Sensors *p_sensors =
       static_cast<scene::menu::Sensors *>(this->getParent());
 
@@ -158,6 +162,15 @@ void MesurementsAnalytics::close() {
 
   // disable event receive
   Director::getInstance()->getEventDispatcher()->removeCustomEventListeners("orientation");
+  
+    if (!this->isPortlate())
+    {
+        // set display portlate
+        lib::native::Util::changeRotate(lib::native::Util::UIDeviceOrientationPortrait);
+        
+        // change lowermenu visible
+        lib::Util::changeLowerMenuVisible(true);
+    }
     
   // disable rotate
   lib::native::Util::setRotateEnable(false);
