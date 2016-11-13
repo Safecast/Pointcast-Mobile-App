@@ -87,22 +87,19 @@ a nib.
         CCEAGLView *eaglview = (CCEAGLView *)glview->getEAGLView();
 
         if (eaglview) {
-            /*
              CGSize s = CGSizeMake([eaglview getWidth], [eaglview getHeight]);
             cocos2d::Application::getInstance()->applicationScreenSizeChanged(
                 (int)s.width, (int)s.height);
-            */
+            
             UIScreen *sc = [UIScreen mainScreen];
             //ステータスバー込みのサイズ
             CGRect rect = sc.bounds;
             NSLog(@"%.1f, %.1f", rect.size.width, rect.size.height);
             auto director = cocos2d::Director::getInstance();
             auto glview = director->getOpenGLView();
-            glview->setFrameSize(1136, 640);
+            glview->setFrameSize((int)s.width, (int)s.height);
             director->getOpenGLView()->setDesignResolutionSize(
-                                                               640, 1136, ResolutionPolicy::FIXED_WIDTH);
-            // director->setContentScaleFactor(50/400);
-
+                                                               (int)s.width, (int)s.height, ResolutionPolicy::NO_BORDER);
             
         }
     }

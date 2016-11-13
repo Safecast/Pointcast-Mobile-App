@@ -21,8 +21,11 @@ bool AppDelegate::applicationDidFinishLaunching() {
   // initialize director
   auto director = Director::getInstance();
   auto glview = director->getOpenGLView();
+    
+  Size frame_size = glview->getFrameSize();
+    
   if (!glview) {
-    glview = GLViewImpl::createWithRect("pointcast", Rect(0, 0, 640, 1136));
+    glview = GLViewImpl::createWithRect("pointcast", Rect(0, 0, frame_size.width, frame_size.height));
     director->setOpenGLView(glview);
   }
   // @todo optimize device size

@@ -67,8 +67,11 @@ bool MesurementsAnalytics::init() {
     return false;
   }
 
+//  this->_p_contents =
+//      cocos2d::CSLoader::getInstance()->createNode("res/MenuAnalytics.csb");
+
   this->_p_contents =
-      cocos2d::CSLoader::getInstance()->createNode("res/MenuAnalytics.csb");
+    cocos2d::CSLoader::getInstance()->createNode("res/MenuAnalytics_portlate.csb");
 
   auto panel =
       this->_p_contents->getChildByName<ui::Layout *>("panelBackground");
