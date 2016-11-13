@@ -103,6 +103,9 @@ a nib.
             
         }
     }
+    
+    // push event notification
+    cocos2d::Director::getInstance()->getEventDispatcher()->dispatchCustomEvent("orientation");
 }
 
 - (void)willRotateToInterfaceOrientation:
