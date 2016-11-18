@@ -22,6 +22,7 @@
 #include "lib/native/Util.h"
 
 #include "lib/network/DataStoreSingleton.hpp"
+#include "lib/DataManager.hpp"
 #include "scene/Main.hpp"
 #include "scene/chart/Board.hpp"
 #include "scene/menu/Sensors.hpp"
@@ -199,7 +200,16 @@ void MesurementsAnalytics::onCallbackPointcastAnalytics(
 
   std::vector<lib::object::WeatherItem> v_weather_items =
       this->getWeatherData(analytics_data);
-
+  
+    // insert data
+    for(int i = 0;i<v_chart_items.size();i++)
+    {
+        lib::DataManager* p_data_manager = new lib::DataManager();
+        p_data_manager->insertChartItem(this->_m_sensor_main_id, v_chart_items.at(i).timestamp, v_chart_items.at(i).value);
+    }
+    
+    
+    
   auto p_chart_board_widget =
       this->prepareChartBoard(v_chart_items, v_weather_items);
 

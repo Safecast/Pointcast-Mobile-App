@@ -9,6 +9,7 @@
 #include <time.h>
 
 #include "lib/Util.hpp"
+#include "lib/DataManager.hpp"
 
 USING_NS_CC;
 using namespace rapidjson;
@@ -33,6 +34,15 @@ DataStoreSingleton::DataStoreSingleton() {
   // safecast office
   this->_loc.latitude = 35.656064f;
   this->_loc.longitude = 139.695505f;
+    
+  // initial database
+  // lib::DataManager::Initialize();
+  
+  lib::DataManager* p_data_manager = new lib::DataManager();
+  sqlite3* p_db = p_data_manager->openDB();
+  p_data_manager->createTable();
+  p_data_manager->closeDB(p_db);
+  delete p_data_manager;
 }
 
 DataStoreSingleton::~DataStoreSingleton() {

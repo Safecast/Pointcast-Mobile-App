@@ -98,6 +98,8 @@
 		521A8EAA19F11F5000D177D7 /* fonts in Resources */ = {isa = PBXBuildFile; fileRef = 521A8EA819F11F5000D177D7 /* fonts */; };
 		52B47A471A53D09C004E4C60 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52B47A461A53D09B004E4C60 /* Security.framework */; };
 		8262943E1AAF051F00CB7CF7 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8262943D1AAF051F00CB7CF7 /* Security.framework */; };
+		A45E1CD01DDEEF5A00041367 /* DataManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A45E1CCE1DDEEF5A00041367 /* DataManager.cpp */; };
+		A45E1CDB1DDEF3BA00041367 /* chartItemEntity.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A45E1CD91DDEF3BA00041367 /* chartItemEntity.cpp */; };
 		BF171245129291EC00B8313A /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF170DB012928DE900B8313A /* OpenGLES.framework */; };
 		BF1712471292920000B8313A /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BF170DB412928DE900B8313A /* libz.dylib */; };
 		BF1C47F01293687400B63C5D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF1C47EA1293683800B63C5D /* QuartzCore.framework */; };
@@ -262,6 +264,10 @@
 		590DA7D9A03DC43E10F7194D /* Pods-Pointcast-Mobile-App-mobile.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pointcast-Mobile-App-mobile.release.xcconfig"; path = "Pods/Target Support Files/Pods-Pointcast-Mobile-App-mobile/Pods-Pointcast-Mobile-App-mobile.release.xcconfig"; sourceTree = "<group>"; };
 		7ECBE447B09F4DDDD7D797DE /* libPods-Pointcast-Mobile-App-desktop.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Pointcast-Mobile-App-desktop.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8262943D1AAF051F00CB7CF7 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		A45E1CCE1DDEEF5A00041367 /* DataManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DataManager.cpp; sourceTree = "<group>"; };
+		A45E1CCF1DDEEF5A00041367 /* DataManager.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = DataManager.hpp; sourceTree = "<group>"; };
+		A45E1CD91DDEF3BA00041367 /* chartItemEntity.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = chartItemEntity.cpp; sourceTree = "<group>"; };
+		A45E1CDA1DDEF3BA00041367 /* chartItemEntity.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = chartItemEntity.hpp; sourceTree = "<group>"; };
 		A4F5433B1D9FE5450045C3E7 /* Pointcast-Mobile-App-mobile.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = "Pointcast-Mobile-App-mobile.entitlements"; path = "Pointcast-Mobile-App-mobile/Pointcast-Mobile-App-mobile.entitlements"; sourceTree = "<group>"; };
 		BF170DB012928DE900B8313A /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		BF170DB412928DE900B8313A /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
@@ -358,6 +364,8 @@
 		151952DC1D300E6B007F7C6A /* lib */ = {
 			isa = PBXGroup;
 			children = (
+				A45E1CCE1DDEEF5A00041367 /* DataManager.cpp */,
+				A45E1CCF1DDEEF5A00041367 /* DataManager.hpp */,
 				151952DD1D300E6B007F7C6A /* external */,
 				151952E31D300E6B007F7C6A /* native */,
 				151952E81D300E6B007F7C6A /* network */,
@@ -615,6 +623,7 @@
 		46880B8319C43A87006E1F66 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				A45E1CD81DDEF3BA00041367 /* entity */,
 				151952DC1D300E6B007F7C6A /* lib */,
 				151952F21D300E6B007F7C6A /* scene */,
 				46880B8419C43A87006E1F66 /* AppDelegate.cpp */,
@@ -682,6 +691,15 @@
 				590DA7D9A03DC43E10F7194D /* Pods-Pointcast-Mobile-App-mobile.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		A45E1CD81DDEF3BA00041367 /* entity */ = {
+			isa = PBXGroup;
+			children = (
+				A45E1CD91DDEF3BA00041367 /* chartItemEntity.cpp */,
+				A45E1CDA1DDEF3BA00041367 /* chartItemEntity.hpp */,
+			);
+			path = entity;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -952,6 +970,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1519531E1D300E6B007F7C6A /* About.cpp in Sources */,
+				A45E1CD01DDEEF5A00041367 /* DataManager.cpp in Sources */,
 				1519531A1D300E6B007F7C6A /* AbstructScene.cpp in Sources */,
 				46880B8819C43A87006E1F66 /* AppDelegate.cpp in Sources */,
 				151953211D300E6B007F7C6A /* Sensors.cpp in Sources */,
@@ -966,6 +985,7 @@
 				503AE10017EB989F00D1A890 /* AppController.mm in Sources */,
 				151953251D300E6B007F7C6A /* Search.cpp in Sources */,
 				151953221D300E6B007F7C6A /* Topic.cpp in Sources */,
+				A45E1CDB1DDEF3BA00041367 /* chartItemEntity.cpp in Sources */,
 				1519531D1D300E6B007F7C6A /* Main.cpp in Sources */,
 				503AE10217EB989F00D1A890 /* RootViewController.mm in Sources */,
 				1519531C1D300E6B007F7C6A /* Contents.cpp in Sources */,
