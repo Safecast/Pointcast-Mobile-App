@@ -18,6 +18,7 @@
                color:(UIColor *)color
               zorder:(int)zorder;
 + (void)closeIme;
+- (void)setRotateEnable:(BOOL)flag;
 
 @property(nonatomic, readonly) RootViewController *viewController;
 

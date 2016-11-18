@@ -77,7 +77,19 @@ static AppController *_instance;
   _viewController = [[RootViewController alloc] initWithNibName:nil bundle:nil];
   _viewController.wantsFullScreenLayout = YES;
   _viewController.view = eaglView;
-
+ 
+  //// Override point for customization after application launch.
+  //ノーティフィケーション登録。
+  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deviceOrientationDidChange:) name:UIDeviceOrientationDidChangeNotification object:nil];
+    
+  //通知開始
+  [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
+  [window makeKeyAndVisible];
+    
+  // set default rotate
+  [_viewController setRotateEnable:NO];
+    
+    
   // Set RootViewController to window
   if ([[UIDevice currentDevice].systemVersion floatValue] < 6.0) {
     // warning: addSubView doesn't work on iOS6
@@ -123,6 +135,33 @@ static AppController *_instance;
   app->run();
 
   return YES;
+}
+
+- (void)deviceOrientationDidChange:(NSNotification*)notification {
+    /*
+    UIDeviceOrientation orientation;
+    orientation = [UIDevice currentDevice].orientation;
+    NSString *msg = nil;
+    if(orientation == UIDeviceOrientationUnknown) {
+        msg = @"不明";
+    }
+    if(orientation == UIDeviceOrientationPortrait) {
+        msg = @"縦";
+    }
+    if(orientation == UIDeviceOrientationPortraitUpsideDown) {
+        msg = @"縦（上下逆）";
+    }
+    if(orientation == UIDeviceOrientationLandscapeLeft) {
+        msg = @"横（左側上）";
+    }
+    if(orientation == UIDeviceOrientationLandscapeRight) {
+        msg = @"横（右側上）";
+    }
+    if(orientation == UIDeviceOrientationFaceDown) {
+        msg = @"画面下向き"; 
+    }
+    // NSLog(msg);
+     */
 }
 
 - (void)
@@ -201,7 +240,7 @@ applicationDidEnterBackground:(UIApplication *)application {
          */
     }
 
-    - (void)dealloc {
+- (void)dealloc {
   [window release];
   [super dealloc];
 }
@@ -286,6 +325,12 @@ applicationDidEnterBackground:(UIApplication *)application {
   [vc.view resignFirstResponder];
 }
 
+- (void)setRotateEnable:(BOOL)flag {
+    AppController *app = [AppController getInstance];
+    RootViewController *vc = [app getRootViewController];
+    [vc setRotateEnable:flag];
+}
+
 - (void)application:(UIApplication *)application didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings {
     NSLog(@"application:didRegisterUserNotificationSettings: %@", notificationSettings.description);
 }
@@ -323,4 +368,6 @@ fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
     // Pring full message.
     NSLog(@"%@", userInfo);
 }
+
+
 @end

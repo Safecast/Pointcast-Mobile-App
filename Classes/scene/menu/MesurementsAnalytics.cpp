@@ -19,6 +19,8 @@
 #include "json/writer.h"
 
 #include "lib/Util.hpp"
+#include "lib/native/Util.h"
+
 #include "lib/network/DataStoreSingleton.hpp"
 #include "scene/Main.hpp"
 #include "scene/chart/Board.hpp"
@@ -56,51 +58,74 @@ void MesurementsAnalytics::prepare(int m_sensor_main_id) {
   this->_device_id = location_item.sensor1_device_id;
 
   this->_favorite = lib::Util::getFavorite(this->_m_sensor_main_id);
-
+ 
   this->setFavoriteButtonState();
 }
 
+void MesurementsAnalytics::initContents()
+{
+    
+    if (this->isPortlate()) {
+        this->_p_contents =
+        cocos2d::CSLoader::getInstance()->createNode("res/MenuAnalytics_portlate.csb");
+    } else {
+        this->_p_contents =
+        cocos2d::CSLoader::getInstance()->createNode("res/MenuAnalytics_landscape.csb");
+        
+        // disappear lowermenu
+        lib::Util::changeLowerMenuVisible(false);
+        
+    }
+    
+    auto panel =
+    this->_p_contents->getChildByName<ui::Layout *>("panelBackground");
+    auto label_back = panel->getChildByName<ui::Text *>("txtBack");
+    label_back->addTouchEventListener(
+        [this](Ref *sender, ui::Widget::TouchEventType type) {
+        if (type == ui::Widget::TouchEventType::ENDED) {
+            this->close();
+        }
+    });
+    
+    // favorite
+    this->_p_btn_favorite = panel->getChildByName<ui::Button *>("btnFavorite");
+    this->_p_btn_favorite->addTouchEventListener(
+        [this](Ref *sender, ui::Widget::TouchEventType type) {
+            CCLOG("p_button_favorite touchend %d", type);
+            if (type == ui::Widget::TouchEventType::BEGAN) {
+                this->attachTouchParticle(this->_p_btn_favorite->getPosition());
+            } else if (type == ui::Widget::TouchEventType::MOVED) {
+                
+            } else if (type == ui::Widget::TouchEventType::ENDED) {
+                // reverse flag
+                this->_favorite = !this->_favorite;
+                this->detachTouchParticle();
+                lib::Util::setFavorite(this->_m_sensor_main_id, this->_favorite);
+                this->setFavoriteButtonState();
+                CCLOG("p_button_favorite touchend");
+            } else {
+                this->detachTouchParticle();
+            }
+        });
+    
+    this->addChild(this->_p_contents);
+}
+    
 bool MesurementsAnalytics::init() {
   if (!base::AbstructScene::init()) {
     return false;
   }
-
-  this->_p_contents =
-      cocos2d::CSLoader::getInstance()->createNode("res/MenuAnalytics.csb");
-
-  auto panel =
-      this->_p_contents->getChildByName<ui::Layout *>("panelBackground");
-  auto label_back = panel->getChildByName<ui::Text *>("txtBack");
-  label_back->addTouchEventListener(
-      [this](Ref *sender, ui::Widget::TouchEventType type) {
-        if (type == ui::Widget::TouchEventType::ENDED) {
-          this->close();
-        }
-      });
-
-  // favorite
-  this->_p_btn_favorite = panel->getChildByName<ui::Button *>("btnFavorite");
-  this->_p_btn_favorite->addTouchEventListener(
-      [this](Ref *sender, ui::Widget::TouchEventType type) {
-        CCLOG("p_button_favorite touchend %d", type);
-        if (type == ui::Widget::TouchEventType::BEGAN) {
-          this->attachTouchParticle(this->_p_btn_favorite->getPosition());
-        } else if (type == ui::Widget::TouchEventType::MOVED) {
-
-        } else if (type == ui::Widget::TouchEventType::ENDED) {
-          // reverse flag
-          this->_favorite = !this->_favorite;
-          this->detachTouchParticle();
-          lib::Util::setFavorite(this->_m_sensor_main_id, this->_favorite);
-          this->setFavoriteButtonState();
-          CCLOG("p_button_favorite touchend");
-        } else {
-          this->detachTouchParticle();
-        }
-      });
-
-  this->addChild(this->_p_contents);
-
+    
+  // set orientation
+  this->_portlate = lib::Util::isPortlate();
+  
+  // add notification
+  Director::getInstance()->getEventDispatcher()->addCustomEventListener("orientation",[=](cocos2d::EventCustom *event) {
+      CCLOG("イベント受け取ったよ > %s",event->getEventName().c_str());
+      this->onDidOrientation();
+  });
+    
+  this->initContents();
   return true;
 }
 
@@ -121,13 +146,34 @@ void MesurementsAnalytics::onEnter() {
       this, (cocos2d::network::SEL_HttpResponse)(
                 &MesurementsAnalytics::onCallbackPointcastAnalytics));
   p_data_store_singleton->requestPointcastAnalytics(this->_m_sensor_main_id);
+    
+  // enable rotate
+  lib::native::Util::setRotateEnable(true);
+  
 }
 
 void MesurementsAnalytics::close() {
+    
+    
   scene::menu::Sensors *p_sensors =
       static_cast<scene::menu::Sensors *>(this->getParent());
 
   p_sensors->closeAnalyticsDialog();
+
+  // disable event receive
+  Director::getInstance()->getEventDispatcher()->removeCustomEventListeners("orientation");
+  
+    if (!this->isPortlate())
+    {
+        // set display portlate
+        lib::native::Util::changeRotate(lib::native::Util::UIDeviceOrientationPortrait);
+        
+        // change lowermenu visible
+        lib::Util::changeLowerMenuVisible(true);
+    }
+    
+  // disable rotate
+  lib::native::Util::setRotateEnable(false);
 }
 
 void MesurementsAnalytics::onCallbackPointcastAnalytics(
@@ -385,5 +431,39 @@ int MesurementsAnalytics::getDeviceId(void) { return this->_device_id; }
 int MesurementsAnalytics::getMSensorMainId(void) {
   return this->_m_sensor_main_id;
 }
+    
+void MesurementsAnalytics::onDidOrientation()
+{
+    cocos2d::CCLog("onDidOrientation");
+    this->resetContents();
+}
+
+    
+void MesurementsAnalytics::resetContents()
+{
+    // set orientation
+    this->_portlate = lib::Util::isPortlate();
+    
+    // remove contents
+    this->_p_contents->removeFromParent();
+    
+    // init contents
+    this->initContents();
+    
+    // notify onEnter
+    this->onEnter();
+}
+    
+bool MesurementsAnalytics::isPortlate()
+{
+    return this->_portlate;
+}
+    
+bool MesurementsAnalytics::isLandscape()
+{
+    return !this->_portlate;
+}
+    
+    
 }
 }

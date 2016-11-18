@@ -17,7 +17,8 @@
         <Project Name="layerChart.csd" Type="Layer" />
         <Project Name="layerFooter.csd" Type="Layer" />
         <Project Name="MenuAbout.csd" Type="Scene" />
-        <Project Name="MenuAnalytics.csd" Type="Scene" />
+        <Project Name="MenuAnalytics_landscape.csd" Type="Scene" />
+        <Project Name="MenuAnalytics_portlate.csd" Type="Scene" />
         <Project Name="MenuMain.csd" Type="Scene" />
         <Project Name="MenuMap.csd" Type="Scene" />
         <Project Name="MenuSensorList.csd" Type="Scene" />

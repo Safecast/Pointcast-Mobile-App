@@ -88,6 +88,8 @@ public:
                               cocos2d::network::HttpResponse *response);
 
   void unScheduleHome(void);
+    
+  void setLowerMenuVisible(bool visible);
 
   CREATE_FUNC(Main);
 
