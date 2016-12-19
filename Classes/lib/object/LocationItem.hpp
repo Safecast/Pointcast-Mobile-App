@@ -28,6 +28,7 @@ public:
   std::string recent_captured_at;
   double yesterday_peak_value;
   double yesterday_average_value;
+  double alarm_value;
   double lastweek_peak_value;
   double lastweekaverage_value;
   double lastmonth_peak_value;
@@ -48,6 +49,7 @@ public:
     recent_captured_at = "";
     yesterday_peak_value = 0.0f;
     yesterday_average_value = 0.0f;
+    alarm_value = 0.0f;
     lastweek_peak_value = 0.0f;
     lastweekaverage_value = 0.0f;
     lastmonth_peak_value = 0.0f;
