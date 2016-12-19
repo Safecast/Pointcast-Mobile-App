@@ -44,10 +44,10 @@ PODS:
     - GoogleSymbolUtilities (~> 1.1)
 
 DEPENDENCIES:
-  - Firebase/Core
-  - Firebase/Crash
-  - Firebase/Messaging
-  - GoogleMaps
+  - Firebase/Core (= 3.7.1)
+  - Firebase/Crash (= 3.7.1)
+  - Firebase/Messaging (= 3.7.1)
+  - GoogleMaps (= 2.1.0)
 
 SPEC CHECKSUMS:
   Firebase: be473484f0d515e72ffd04acf22f981773c23e58
@@ -62,6 +62,6 @@ SPEC CHECKSUMS:
   GoogleSymbolUtilities: 631ee17048aa5e9ab133470d768ea997a5ef9b96
   GoogleUtilities: 8bbc733218aad26306f9d4a253823986110e3358
 
-PODFILE CHECKSUM: 146530a4e7e989239dfc4d3e9c4850a559d6ed87
+PODFILE CHECKSUM: bf1b9e5ef3744ffe71501f47dc7130ffbed81c71
 
-COCOAPODS: 1.0.1
+COCOAPODS: 1.1.1
