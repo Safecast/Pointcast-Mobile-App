@@ -26,6 +26,7 @@
 #import "RootViewController.h"
 #import "cocos2d.h"
 #import "platform/ios/CCEAGLView-ios.h"
+#import <Firebase/Firebase.h>
 
 #define HEADER_HEIGHT 100
 #define FOOTER_HEIGHT 100
@@ -76,7 +77,19 @@ static AppController *_instance;
   _viewController = [[RootViewController alloc] initWithNibName:nil bundle:nil];
   _viewController.wantsFullScreenLayout = YES;
   _viewController.view = eaglView;
-
+ 
+  //// Override point for customization after application launch.
+  //ノーティフィケーション登録。
+  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deviceOrientationDidChange:) name:UIDeviceOrientationDidChangeNotification object:nil];
+    
+  //通知開始
+  [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
+  [window makeKeyAndVisible];
+    
+  // set default rotate
+  [_viewController setRotateEnable:NO];
+    
+    
   // Set RootViewController to window
   if ([[UIDevice currentDevice].systemVersion floatValue] < 6.0) {
     // warning: addSubView doesn't work on iOS6
@@ -97,14 +110,58 @@ static AppController *_instance;
 
   cocos2d::Director::getInstance()->setProjection(
       cocos2d::DisplayLinkDirector::Projection::_3D);
-
+    
+  // Google Map Sdk
   [GMSServices provideAPIKey:@"AIzaSyBQXSpJyWV8nhjS5QVogEekt7k-cAaFQ-k"];
 
+  // Notification
+  if ([[[UIDevice currentDevice] systemVersion] compare:@"8.0.0" options:NSNumericSearch] != NSOrderedAscending) {
+      // >= iOS 8.0.0
+      UIUserNotificationType notificationTypes = UIUserNotificationTypeAlert | UIUserNotificationTypeBadge | UIUserNotificationTypeSound;
+      UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:notificationTypes categories:nil];
+      [application registerUserNotificationSettings:settings];
+      [application registerForRemoteNotifications];
+  } else {
+        // < iOS 8.0.0
+      UIRemoteNotificationType notificationTypes = (UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound);
+      [[UIApplication sharedApplication] registerForRemoteNotificationTypes:notificationTypes];
+  }
+    
+  // Firebase
+  [FIRApp configure];
+    
   _instance = self;
 
   app->run();
 
   return YES;
+}
+
+- (void)deviceOrientationDidChange:(NSNotification*)notification {
+    /*
+    UIDeviceOrientation orientation;
+    orientation = [UIDevice currentDevice].orientation;
+    NSString *msg = nil;
+    if(orientation == UIDeviceOrientationUnknown) {
+        msg = @"不明";
+    }
+    if(orientation == UIDeviceOrientationPortrait) {
+        msg = @"縦";
+    }
+    if(orientation == UIDeviceOrientationPortraitUpsideDown) {
+        msg = @"縦（上下逆）";
+    }
+    if(orientation == UIDeviceOrientationLandscapeLeft) {
+        msg = @"横（左側上）";
+    }
+    if(orientation == UIDeviceOrientationLandscapeRight) {
+        msg = @"横（右側上）";
+    }
+    if(orientation == UIDeviceOrientationFaceDown) {
+        msg = @"画面下向き"; 
+    }
+    // NSLog(msg);
+     */
 }
 
 - (void)
@@ -183,7 +240,7 @@ applicationDidEnterBackground:(UIApplication *)application {
          */
     }
 
-    - (void)dealloc {
+- (void)dealloc {
   [window release];
   [super dealloc];
 }
@@ -267,4 +324,50 @@ applicationDidEnterBackground:(UIApplication *)application {
   RootViewController *vc = [app getRootViewController];
   [vc.view resignFirstResponder];
 }
+
+- (void)setRotateEnable:(BOOL)flag {
+    AppController *app = [AppController getInstance];
+    RootViewController *vc = [app getRootViewController];
+    [vc setRotateEnable:flag];
+}
+
+- (void)application:(UIApplication *)application didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings {
+    NSLog(@"application:didRegisterUserNotificationSettings: %@", notificationSettings.description);
+}
+
+-(void)application:(UIApplication*)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)deviceToken
+{
+    
+    FIRInstanceIDAPNSTokenType token_type = FIRInstanceIDAPNSTokenTypeUnknown;
+#if ENVIRONMENT == 101
+    token_type = FIRInstanceIDAPNSTokenTypeProd;
+#else
+    token_type = FIRInstanceIDAPNSTokenTypeSandbox;
+#endif
+    [[FIRInstanceID instanceID] setAPNSToken:deviceToken type:token_type];
+    NSLog(@"deviceToken1 = %@",deviceToken);
+    
+    // Firebase Subscribe
+    [[FIRMessaging messaging] subscribeToTopic:@"/topics/all"];
+}
+
+-(void)application:(UIApplication*)application didFailToRegisterForRemoteNotificationsWithError:(NSError*)error
+{
+    NSLog(@"application:didFailToRegisterForRemoteNotificationsWithError: %@", error);
+}
+
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
+fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
+    // If you are receiving a notification message while your app is in the background,
+    // this callback will not be fired till the user taps on the notification launching the application.
+    // TODO: Handle data of notification
+    
+    // Print message ID.
+    NSLog(@"Message ID: %@", userInfo[@"gcm.message_id"]);
+    
+    // Pring full message.
+    NSLog(@"%@", userInfo);
+}
+
+
 @end

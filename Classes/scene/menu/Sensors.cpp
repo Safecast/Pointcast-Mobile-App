@@ -280,29 +280,38 @@ void Sensors::setMesurementData(cocos2d::Node *panel,
   p_txt_recent_datetime->setString(captured_at);
 
   // aggregations
-  std::stringstream ss4, ss5, ss6;
+  std::stringstream ss4, ss5, ss6, ss7;
 
   double avg_value = static_cast<double>(location_item.yesterday_average_value /
                                          location_item.conversion_rate);
   double peak_value = static_cast<double>(location_item.yesterday_peak_value /
                                           location_item.conversion_rate);
+    
+  int alarm_value =static_cast<int>(location_item.alarm_value);
 
   // @note round method
   avg_value = lib::Util::round(avg_value, 3);
   peak_value = lib::Util::round(peak_value, 3);
-
+  
   ss4 << avg_value << " μSv/hour";
   ss5 << peak_value << " μSv/hour";
+  ss7 << alarm_value << " cpm";
 
-  CCLOG("peak_value : %s, avg_value : %s", ss5.str().c_str(),
-        ss4.str().c_str());
+  CCLOG("peak_value : %s, avg_value : %s alarm : %s", ss5.str().c_str(),
+        ss4.str().c_str(), ss7.str().c_str());
 
   auto p_text_avg_value =
       p_panel_record->getChildByName<ui::Text *>("txtYesterdayAverage");
   p_text_avg_value->setString(ss4.str());
+  
   auto p_text_peak_value =
       p_panel_record->getChildByName<ui::Text *>("txtYesterdayPeak");
   p_text_peak_value->setString(ss5.str());
+  
+  auto p_text_alarm_value =
+      p_panel_record->getChildByName<ui::Text *>("txtSensorAlarm");
+  p_text_alarm_value->setString(ss7.str());
+    
 
   // favorite
   auto p_button_favorite =

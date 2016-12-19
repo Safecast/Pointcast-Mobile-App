@@ -58,6 +58,14 @@ public:
 
   static double GetLocationDistance(float from_latitude, float from_longtitude,
                                     float to_latitude, float to_longtitude);
+  
+  static cocos2d::Size GetContentsSize();
+    
+  static bool isPortlate();
+    
+  static bool isLandscape();
+    
+  static void changeLowerMenuVisible(bool visible);
 
 private:
 };

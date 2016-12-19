@@ -31,14 +31,22 @@ private:
   int _device_id;
 
   bool _favorite;
+    
+  bool _portlate;
 
   cocos2d::ui::Button *_p_btn_favorite;
 
   // function
 public:
   virtual bool init();
+ 
+  void initContents();
 
   virtual void onEnter();
+    
+  void onDidOrientation();
+ 
+  void resetContents();
 
   void prepare(int m_sensor_main_id);
 
@@ -63,6 +71,11 @@ public:
   int getDeviceId(void);
 
   int getMSensorMainId(void);
+    
+  bool isPortlate();
+    
+  bool isLandscape();
+    
 };
 }
 }

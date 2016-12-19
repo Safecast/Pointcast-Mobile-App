@@ -36,6 +36,14 @@ bool Main::init() {
     return false;
   }
 
+  // add notification
+  Director::getInstance()->getEventDispatcher()->addCustomEventListener("lowermenu_visible",[=](cocos2d::EventCustom *event) {
+      CCLOG("イベント受け取ったよ > %s",event->getEventName().c_str());
+      auto visible = (cocos2d::Value *)event->getUserData();
+      this->setLowerMenuVisible(visible->asBool());
+  });
+    
+    
   // Corelocation から現在位置を取得しておく
   CCCoreLocation *p_core_location = new CCCoreLocation();
   p_core_location->requestLocation();
@@ -327,4 +335,10 @@ void Main::onCallbackScheduleHome(cocos2d::network::HttpClient *sender,
 }
 
 void Main::unScheduleHome(void) {}
+    
+void Main::setLowerMenuVisible(bool visible)
+{
+    this->_p_footer->setVisible(visible);
+}
+    
 }

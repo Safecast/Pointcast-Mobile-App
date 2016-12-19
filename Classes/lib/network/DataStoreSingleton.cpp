@@ -231,6 +231,10 @@ void DataStoreSingleton::storeSensorListData(std::string response) {
         if (record.HasMember("dre2cpm")) {
           location_item.dre2cpm = record["dre2cpm"].GetDouble();
         }
+          
+        if (record.HasMember("alarm")) {
+          location_item.alarm_value = record["alarm"].GetDouble();
+        }
 
         if (record.HasMember("recent") && record["recent"].IsObject()) {
           const rapidjson::Value &recent = record["recent"];
