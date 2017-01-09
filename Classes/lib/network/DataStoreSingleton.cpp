@@ -24,9 +24,9 @@ const std::string DataStoreSingleton::end_point =
 #if ENVIRONMENT == 101
     "http://pointcast-mobile-app.safecast.org/pointcast/";
 #elif ENVIRONMENT == 201
-    "http://safecast-pointcast-staging.chikyu-go.org/pointcast/";
+    "http://pointcast-mobile-app.safecast.org/pointcast/";
 #elif ENVIRONMENT == 301
-    "http://safecast-pointcast-develop.chikyu-go.org/pointcast/";
+    "http://pointcast-mobile-app.safecast.org/pointcast/";
 #endif
 
 DataStoreSingleton::DataStoreSingleton() {
