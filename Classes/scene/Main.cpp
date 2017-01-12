@@ -32,7 +32,7 @@ cocos2d::Scene *Main::createScene() {
 }
 
 bool Main::Init() {
-  if (!AbstructScene::init()) {
+  if (!AbstructScene::Init()) {
     return false;
   }
 
@@ -86,7 +86,7 @@ void Main::OnEnter(void) {
   lib::network::DataStoreSingleton *p_data_store_singleton =
       lib::network::DataStoreSingleton::getInstance();
 
-  this->attachWaitAnimation();
+  this->AttachWelcomeAnimation();
 
   // http request pointcast/home.json
   p_data_store_singleton->setResponseCallback(

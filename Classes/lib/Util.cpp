@@ -68,7 +68,7 @@ void Util::setFavorite(int m_sensor_main_id, bool flag) {
 //
 //  Created by Nicholas Dolezal on 1/20/16.
 
-void Util::GetCyanHaloLUT(uint8_t **r, uint8_t **g, uint8_t **b) {
+void Util::getCyanHaloLUT(uint8_t **r, uint8_t **g, uint8_t **b) {
   uint8_t _rs[256] = {
       1,   8,   9,   10,  12,  14,  16,  16,  18,  18,  19,  20,  21,  22,  22,
       24,  24,  25,  25,  25,  26,  26,  26,  26,  25,  26,  27,  26,  25,  26,
@@ -151,7 +151,7 @@ void Util::GetCyanHaloLUT(uint8_t **r, uint8_t **g, uint8_t **b) {
   *b = _b;
 } // SimpleLutDemo_GetCyanHaloLUT
 
-void Util::ApplyLUT(const float src, const float lut_min, const float lut_max,
+void Util::applyLUT(const float src, const float lut_min, const float lut_max,
                     const uint8_t *lut_r, const uint8_t *lut_g,
                     const uint8_t *lut_b, const size_t lut_n, uint8_t *r_out,
                     uint8_t *g_out, uint8_t *b_out) {
@@ -178,16 +178,16 @@ void Util::ApplyLUT(const float src, const float lut_min, const float lut_max,
   *b_out = lut_b[idx];
 } // SimpleLutDemo_ApplyLUT
 
-void Util::PerformDemo(const float usvh) {
+void Util::performDemo(const float usvh) {
   uint8_t *lut_r = NULL;
   uint8_t *lut_g = NULL;
   uint8_t *lut_b = NULL;
 
-  lib::Util::GetCyanHaloLUT(&lut_r, &lut_g, &lut_b);
+  lib::Util::getCyanHaloLUT(&lut_r, &lut_g, &lut_b);
 
   uint8_t red_out, green_out, blue_out;
 
-  lib::Util::ApplyLUT(usvh, 0.03F, 65.535F, lut_r, lut_g, lut_b, 256, &red_out,
+  lib::Util::applyLUT(usvh, 0.03F, 65.535F, lut_r, lut_g, lut_b, 256, &red_out,
                       &green_out, &blue_out);
 
   printf("AppDelegate.m: SimpleLutDemo_PerformDemo: The value %1.2f uSvh is "
@@ -207,11 +207,11 @@ cocos2d::Color3B Util::GetLutColor(const float usvh) {
   uint8_t *lut_g = NULL;
   uint8_t *lut_b = NULL;
 
-  lib::Util::GetCyanHaloLUT(&lut_r, &lut_g, &lut_b);
+  lib::Util::getCyanHaloLUT(&lut_r, &lut_g, &lut_b);
 
   uint8_t red_out, green_out, blue_out;
 
-  lib::Util::ApplyLUT(usvh, 0.03F, 65.535F, lut_r, lut_g, lut_b, 256, &red_out,
+  lib::Util::applyLUT(usvh, 0.03F, 65.535F, lut_r, lut_g, lut_b, 256, &red_out,
                       &green_out, &blue_out);
 
   printf("AppDelegate.m: SimpleLutDemo_PerformDemo: The value %1.2f uSvh is "
@@ -231,7 +231,7 @@ cocos2d::Color3B Util::GetLutColor(const float usvh) {
   return color;
 }
 
-void Util::Filter(std::map<int, lib::object::LocationItem> &m_sensors,
+void Util::filter(std::map<int, lib::object::LocationItem> &m_sensors,
                   std::string key_word) {
   std::vector<int> v_erase_index;
 
@@ -276,7 +276,7 @@ std::vector<std::pair<int, int>> Util::GetSortedLocationIndex(
       lib::network::DataStoreSingleton::location loc =
           lib::network::DataStoreSingleton::getInstance()->getLocation();
 
-      double distance = Util::GetLocationDistance(loc.latitude, loc.longitude,
+      double distance = Util::getLocationDistance(loc.latitude, loc.longitude,
                                                   item.second.latitude,
                                                   item.second.longitude);
       CCLOG("city %s distance %lf ", item.second.name_en.c_str(), distance);
@@ -314,7 +314,7 @@ std::vector<std::pair<int, int>> Util::GetSortedLocationIndex(
   return v_sensors_key_value;
 }
 
-double Util::GetLocationDistance(float from_latitude, float from_longtitude,
+double Util::getLocationDistance(float from_latitude, float from_longtitude,
                                  float to_latitude, float to_longtitude) {
   double earth_r = 6378.137;
   double laRe, loRe, NSD, EWD, distance;

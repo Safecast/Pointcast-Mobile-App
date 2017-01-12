@@ -58,20 +58,20 @@ public:
 private:
   // function
 public:
-  virtual bool init();
+  virtual bool Init();
 
-  virtual void attachWaitAnimation(void);
+  virtual void AttachWaitAnimation(void);
 
-  virtual void detachWaitAnimation(void);
+  virtual void DetachWaitAnimation(void);
 
-  virtual void attachTouchParticle(cocos2d::Point p);
+  virtual void AttachTouchParticle(cocos2d::Point p);
 
-  virtual void detachTouchParticle(void);
+  virtual void DetachTouchParticle(void);
 
-  virtual void attachBlueEffect(float blurRadius, float blurSampleNum,
+  virtual void AttachBlueEffect(float blurRadius, float blurSampleNum,
                                 int repeat);
 
-  virtual void detachlueEffect(void);
+  virtual void DetachlueEffect(void);
 
   CREATE_FUNC(AbstructScene);
 

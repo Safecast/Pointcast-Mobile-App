@@ -105,13 +105,13 @@ bool Sensors::init() {
       [this](Ref *sender, ui::Widget::TouchEventType type) {
         auto p_sender = static_cast<cocos2d::Node *>(sender);
         if (type == ui::Widget::TouchEventType::BEGAN) {
-          this->attachTouchParticle(p_sender->getPosition());
+          this->AttachTouchParticle(p_sender->getPosition());
         } else if (type == ui::Widget::TouchEventType::MOVED) {
 
         } else if (type == ui::Widget::TouchEventType::ENDED) {
           this->touchSearch(sender);
         } else {
-          this->detachTouchParticle();
+          this->DetachTouchParticle();
         }
       });
 
@@ -121,13 +121,13 @@ bool Sensors::init() {
       [this](Ref *sender, ui::Widget::TouchEventType type) {
         auto p_sender = static_cast<cocos2d::Node *>(sender);
         if (type == ui::Widget::TouchEventType::BEGAN) {
-          this->attachTouchParticle(p_sender->getPosition());
+          this->AttachTouchParticle(p_sender->getPosition());
         } else if (type == ui::Widget::TouchEventType::MOVED) {
 
         } else if (type == ui::Widget::TouchEventType::ENDED) {
           this->touchSort(sender);
         } else {
-          this->detachTouchParticle();
+          this->DetachTouchParticle();
         }
       });
 
@@ -174,7 +174,7 @@ void Sensors::touchBack() {
 
 void Sensors::touchSearch(Ref *sender) {
   CCLOG("Sensors::touchSearch");
-  this->detachTouchParticle();
+  this->DetachTouchParticle();
   // this->attachBlueEffect(20.0f, 20.0f, 3);
   // MessageBox("sorry. comming soom.", "search");
 
@@ -192,7 +192,7 @@ void Sensors::touchSearch(Ref *sender) {
 
 void Sensors::touchSort(Ref *sender) {
   CCLOG("Sensors::touchSort");
-  this->detachTouchParticle();
+  this->DetachTouchParticle();
   // MessageBox("sorry. comming soom.", "sort");
 
   auto p_modal_sort = scene::modal::Sort::create();
@@ -378,7 +378,7 @@ void Sensors::closeAnalyticsDialog() {
 void Sensors::refresh(void) {
 
   scene::Main *p_scene_main = static_cast<scene::Main *>(this->getParent());
-  p_scene_main->attachWaitAnimation();
+  p_scene_main->AttachWelcomeAnimation();
 
   auto p_panel =
       this->_p_contents->getChildByName<ui::Layout *>("panelBackground");
@@ -435,7 +435,7 @@ void Sensors::nextScene(Task_Id task_id) {
 void Sensors::detachWaitAnimationLocal(void) {
   CCLOG("Sensors::detachWaitAnimation");
   scene::Main *p_scene_main = static_cast<scene::Main *>(this->getParent());
-  p_scene_main->detachWaitAnimation();
+  p_scene_main->DetachWaitAnimation();
 }
 
 void Sensors::showSensorListOneOfEach(void) {
@@ -445,7 +445,7 @@ void Sensors::showSensorListOneOfEach(void) {
       lib::network::DataStoreSingleton::getInstance()->getLocationItemAll();
 
   // search(filter)
-  lib::Util::Filter(m_sensors, this->getKeyWord());
+  lib::Util::filter(m_sensors, this->getKeyWord());
 
   // get sorted index
   std::vector<std::pair<int, int>> v_sensors_index =
