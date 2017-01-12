@@ -31,7 +31,7 @@
 		1519531D1D300E6B007F7C6A /* Main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 151952FD1D300E6B007F7C6A /* Main.cpp */; };
 		1519531E1D300E6B007F7C6A /* About.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 151953001D300E6B007F7C6A /* About.cpp */; };
 		1519531F1D300E6B007F7C6A /* Map.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 151953021D300E6B007F7C6A /* Map.cpp */; };
-		151953201D300E6B007F7C6A /* MesurementsAnalytics.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 151953041D300E6B007F7C6A /* MesurementsAnalytics.cpp */; };
+		151953201D300E6B007F7C6A /* Analytics.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 151953041D300E6B007F7C6A /* Analytics.cpp */; };
 		151953211D300E6B007F7C6A /* Sensors.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 151953061D300E6B007F7C6A /* Sensors.cpp */; };
 		151953221D300E6B007F7C6A /* Topic.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 151953081D300E6B007F7C6A /* Topic.cpp */; };
 		151953231D300E6B007F7C6A /* AbstructModal.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1519530C1D300E6B007F7C6A /* AbstructModal.cpp */; };
@@ -188,8 +188,8 @@
 		151953011D300E6B007F7C6A /* About.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = About.hpp; sourceTree = "<group>"; };
 		151953021D300E6B007F7C6A /* Map.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Map.cpp; sourceTree = "<group>"; };
 		151953031D300E6B007F7C6A /* Map.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Map.hpp; sourceTree = "<group>"; };
-		151953041D300E6B007F7C6A /* MesurementsAnalytics.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MesurementsAnalytics.cpp; sourceTree = "<group>"; };
-		151953051D300E6B007F7C6A /* MesurementsAnalytics.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = MesurementsAnalytics.hpp; sourceTree = "<group>"; };
+		151953041D300E6B007F7C6A /* Analytics.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Analytics.cpp; sourceTree = "<group>"; };
+		151953051D300E6B007F7C6A /* Analytics.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Analytics.hpp; sourceTree = "<group>"; };
 		151953061D300E6B007F7C6A /* Sensors.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Sensors.cpp; sourceTree = "<group>"; };
 		151953071D300E6B007F7C6A /* Sensors.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Sensors.hpp; sourceTree = "<group>"; };
 		151953081D300E6B007F7C6A /* Topic.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Topic.cpp; sourceTree = "<group>"; };
@@ -487,8 +487,8 @@
 				151953011D300E6B007F7C6A /* About.hpp */,
 				151953021D300E6B007F7C6A /* Map.cpp */,
 				151953031D300E6B007F7C6A /* Map.hpp */,
-				151953041D300E6B007F7C6A /* MesurementsAnalytics.cpp */,
-				151953051D300E6B007F7C6A /* MesurementsAnalytics.hpp */,
+				151953041D300E6B007F7C6A /* Analytics.cpp */,
+				151953051D300E6B007F7C6A /* Analytics.hpp */,
 				151953061D300E6B007F7C6A /* Sensors.cpp */,
 				151953071D300E6B007F7C6A /* Sensors.hpp */,
 				151953081D300E6B007F7C6A /* Topic.cpp */,
@@ -997,7 +997,7 @@
 				151953321D301211007F7C6A /* CoreLocation.mm in Sources */,
 				151953261D300E6B007F7C6A /* Sort.cpp in Sources */,
 				151E7DD51E27BEA1001758AA /* Display.cpp in Sources */,
-				151953201D300E6B007F7C6A /* MesurementsAnalytics.cpp in Sources */,
+				151953201D300E6B007F7C6A /* Analytics.cpp in Sources */,
 				503AE10117EB989F00D1A890 /* main.m in Sources */,
 				151953241D300E6B007F7C6A /* Indicator.cpp in Sources */,
 				151953151D300E6B007F7C6A /* SpriteBlur.cpp in Sources */,
