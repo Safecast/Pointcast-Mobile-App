@@ -86,7 +86,7 @@ void Main::onEnter(void) {
   lib::network::DataStoreSingleton *p_data_store_singleton =
       lib::network::DataStoreSingleton::getInstance();
 
-  this->attachWelcomeAnimation();
+  // this->attachWelcomeAnimation();
 
   // http request pointcast/home.json
   p_data_store_singleton->setResponseCallback(

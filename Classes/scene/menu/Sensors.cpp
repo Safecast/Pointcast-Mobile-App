@@ -378,7 +378,7 @@ void Sensors::closeAnalyticsDialog() {
 void Sensors::refresh(void) {
 
   scene::Main *p_scene_main = static_cast<scene::Main *>(this->getParent());
-  p_scene_main->attachWelcomeAnimation();
+  p_scene_main->attachWaitAnimation();
 
   auto p_panel =
       this->_p_contents->getChildByName<ui::Layout *>("panelBackground");

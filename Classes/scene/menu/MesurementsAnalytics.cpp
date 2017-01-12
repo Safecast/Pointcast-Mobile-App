@@ -143,7 +143,7 @@ void MesurementsAnalytics::onEnter() {
 
   scene::Main *p_scene_main =
       static_cast<scene::Main *>(this->getParent()->getParent());
-  p_scene_main->attachWelcomeAnimation();
+  p_scene_main->attachWaitAnimation();
 
   // http request pointcast/home.json
   p_data_store_singleton->setResponseCallback(
