@@ -14,14 +14,14 @@ USING_NS_CC;
 
 namespace scene {
 namespace base {
-bool AbstructScene::Init() {
+bool AbstructScene::init() {
   if (!Layer::init()) {
     return false;
   }
   return true;
 }
 
-void AbstructScene::AttachWaitAnimation(void) {
+void AbstructScene::attachWaitAnimation(void) {
 
   scene::modal::Indicator *p_indicator = static_cast<scene::modal::Indicator *>(
       this->getChildByTag(Tag_Id_Wait_Animation_e));
@@ -35,7 +35,7 @@ void AbstructScene::AttachWaitAnimation(void) {
   }
 }
 
-void AbstructScene::DetachWaitAnimation(void) {
+void AbstructScene::detachWaitAnimation(void) {
   CCLOG("disapper wait animation");
   auto p_indicator = static_cast<scene::modal::Indicator *>(
       this->getChildByTag(Tag_Id_Wait_Animation_e));
@@ -44,7 +44,7 @@ void AbstructScene::DetachWaitAnimation(void) {
   }
 }
 
-void AbstructScene::AttachTouchParticle(Point p) {
+void AbstructScene::attachTouchParticle(Point p) {
   CCLOG("attachTouchParticle");
 
   // 作成したパーティクルのプロパティリストを読み込み
@@ -59,7 +59,7 @@ void AbstructScene::AttachTouchParticle(Point p) {
   this->addChild(p_particle);
 }
 
-void AbstructScene::DetachTouchParticle(void) {
+void AbstructScene::detachTouchParticle(void) {
   CCLOG("detachTouchParticle");
   auto p_particle = this->getChildByTag(Tag_Id_Touch_Particle_e);
   if (p_particle != NULL) {
@@ -67,7 +67,7 @@ void AbstructScene::DetachTouchParticle(void) {
   }
 }
 
-void AbstructScene::AttachBlueEffect(float blurRadius, float blurSampleNum,
+void AbstructScene::attachBlueEffect(float blurRadius, float blurSampleNum,
                                      int repeat) {
   Size winSize = Director::getInstance()->getWinSize();
   // screenshot
@@ -109,6 +109,6 @@ void AbstructScene::AttachBlueEffect(float blurRadius, float blurSampleNum,
   this->addChild(sp2, INT_MAX);
 }
 
-void AbstructScene::DetachlueEffect(void) {}
+void AbstructScene::detachlueEffect(void) {}
 }
 }

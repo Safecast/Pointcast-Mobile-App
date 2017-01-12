@@ -31,8 +31,8 @@ cocos2d::Scene *Main::createScene() {
   return scene;
 }
 
-bool Main::Init() {
-  if (!AbstructScene::Init()) {
+bool Main::init() {
+  if (!AbstructScene::init()) {
     return false;
   }
 
@@ -40,7 +40,7 @@ bool Main::Init() {
   Director::getInstance()->getEventDispatcher()->addCustomEventListener("footer_visible",[=](cocos2d::EventCustom *event) {
       CCLOG("イベント受け取ったよ > %s",event->getEventName().c_str());
       auto visible = (cocos2d::Value *)event->getUserData();
-      this->SetLowerMenuVisible(visible->asBool());
+      this->setLowerMenuVisible(visible->asBool());
   });
     
     
@@ -60,10 +60,10 @@ bool Main::Init() {
   this->_p_footer = CSLoader::getInstance()->createNode("res/layerFooter.csb");
 
   // lower menu の振る舞いを設定
-  this->SetLowerMenu();
+  this->setLowerMenu();
 
   // set initial scene
-  this->NextScene(E_Scene_Id::Scene_Topic_Opend_e);
+  this->nextScene(E_Scene_Id::Scene_Topic_Opend_e);
 
   // set first view
   // disble welcome animation
@@ -78,7 +78,7 @@ bool Main::Init() {
   return true;
 }
 
-void Main::OnEnter(void) {
+void Main::onEnter(void) {
   // super class onEnter
   scene::base::AbstructScene::onEnter();
 
@@ -86,30 +86,30 @@ void Main::OnEnter(void) {
   lib::network::DataStoreSingleton *p_data_store_singleton =
       lib::network::DataStoreSingleton::getInstance();
 
-  this->AttachWelcomeAnimation();
+  this->attachWelcomeAnimation();
 
   // http request pointcast/home.json
   p_data_store_singleton->setResponseCallback(
       this,
-      (cocos2d::network::SEL_HttpResponse)(&Main::OnCallbackPointcastHome));
+      (cocos2d::network::SEL_HttpResponse)(&Main::onCallbackPointcastHome));
   p_data_store_singleton->requestPointcastHome();
 }
 
-void Main::OnCallbackPointcastHome(cocos2d::network::HttpClient *sender,
+void Main::onCallbackPointcastHome(cocos2d::network::HttpClient *sender,
                                    cocos2d::network::HttpResponse *response) {
   // remove wait animation
   // this->detachWaitAnimation();
 
   // and after automatically
-  this->SetScheduleHome();
+  this->setScheduleHome();
 
   // Go Sensors
-  this->TouchSensors();
+  this->touchSensors();
 
   CCLOG("Home::onCallbackPointcastHome");
 }
 
-void Main::SetLowerMenu(void) {
+void Main::setLowerMenu(void) {
   auto panelBackground =
       this->_p_footer->getChildByName<ui::Layout *>("panelBackground");
 
@@ -138,7 +138,7 @@ void Main::SetLowerMenu(void) {
   buttonList->addTouchEventListener(
       [this](Ref *sender, ui::Widget::TouchEventType type) {
         if (type == ui::Widget::TouchEventType::ENDED) {
-          this->TouchSensors();
+          this->touchSensors();
         }
       });
 
@@ -147,7 +147,7 @@ void Main::SetLowerMenu(void) {
   buttonMap->addTouchEventListener(
       [this](Ref *sender, ui::Widget::TouchEventType type) {
         if (type == ui::Widget::TouchEventType::ENDED) {
-          this->TouchMap();
+          this->touchMap();
         }
       });
 
@@ -162,17 +162,17 @@ void Main::SetLowerMenu(void) {
   //      });
 }
 
-void Main::TouchTopic(void) {
+void Main::touchTopic(void) {
   CCLOG("touchTopic");
-  this->NextScene(E_Scene_Id::Scene_Topic_Opend_e);
+  this->nextScene(E_Scene_Id::Scene_Topic_Opend_e);
 }
 
-void Main::TouchSensors(void) {
+void Main::touchSensors(void) {
   CCLOG("touchList");
-  this->NextScene(E_Scene_Id::Scene_Sensors_Opend_e);
+  this->nextScene(E_Scene_Id::Scene_Sensors_Opend_e);
 }
 
-void Main::TouchSensorsBack() {
+void Main::touchSensorsBack() {
   auto p_current_contents = this->getChildByTag(this->_e_scene_id);
 
   if (p_current_contents == NULL) {
@@ -184,17 +184,17 @@ void Main::TouchSensorsBack() {
       scene::layout::helper::Contents::Forward_To_Bottom_e);
 }
 
-void Main::TouchMap(void) {
+void Main::touchMap(void) {
   CCLOG("touchMap");
-  this->NextScene(E_Scene_Id::Scene_Map_Opend_e);
+  this->nextScene(E_Scene_Id::Scene_Map_Opend_e);
 }
 
-void Main::TouchAbout(void) {
+void Main::touchAbout(void) {
   CCLOG("touchAbout");
-  this->NextScene(E_Scene_Id::Scene_About_Opend_e);
+  this->nextScene(E_Scene_Id::Scene_About_Opend_e);
 }
 
-void Main::NextScene(E_Scene_Id next_scene_id) {
+void Main::nextScene(E_Scene_Id next_scene_id) {
   // temprary scene_id
   E_Scene_Id current_scene_id = this->_e_scene_id;
 
@@ -246,7 +246,7 @@ void Main::NextScene(E_Scene_Id next_scene_id) {
   this->addChild(p_next_scene, Zorders_Main_Contents);
 }
 
-void Main::AttachWelcomeAnimation(void) {
+void Main::attachWelcomeAnimation(void) {
   // welcome
   auto text_welcome = Label::createWithSystemFont("welcome", "System", 48);
   text_welcome->setPosition(Point(280, 750));
@@ -282,27 +282,27 @@ void Main::AttachWelcomeAnimation(void) {
   this->_p_contents->addChild(sprite_logo);
 }
 
-void Main::TouchMapBack(void) {
+void Main::touchMapBack(void) {
   auto p_current_contents = this->getChildByTag(this->_e_scene_id);
   scene::layout::helper::Contents::SlideOut(
       p_current_contents, 0.2f,
       scene::layout::helper::Contents::Forward_To_Bottom_e);
 }
 
-void Main::TouchAboutBack(void) {
+void Main::touchAboutBack(void) {
   auto p_current_contents = this->getChildByTag(this->_e_scene_id);
   scene::layout::helper::Contents::SlideOut(
       p_current_contents, 0.2f,
       scene::layout::helper::Contents::Forward_To_Bottom_e);
 }
 
-void Main::SetScheduleHome(void) {
+void Main::setScheduleHome(void) {
   // SetScheduler
   float interval = 300.0f; // @todo optimize
-  schedule(schedule_selector(Main::UpdateHome), interval);
+  schedule(schedule_selector(::scene::Main::updateHome), interval);
 }
 
-void Main::UpdateHome(float dt) {
+void Main::updateHome(float dt) {
 
   // @todo mutex lock
   // Http Request For Home Data
@@ -312,7 +312,7 @@ void Main::UpdateHome(float dt) {
   // http request pointcast/home.json
   p_data_store_singleton->setResponseCallback(
       this,
-      (cocos2d::network::SEL_HttpResponse)(&Main::OnCallbackScheduleHome));
+      (cocos2d::network::SEL_HttpResponse)(&Main::onCallbackScheduleHome));
   p_data_store_singleton->requestPointcastHome();
 
   if (this->_e_scene_id == Scene_Sensors_Opend_e) {
@@ -327,16 +327,16 @@ void Main::UpdateHome(float dt) {
   CCLOG("Main::updateHome");
 }
 
-void Main::OnCallbackScheduleHome(cocos2d::network::HttpClient *sender,
+void Main::onCallbackScheduleHome(cocos2d::network::HttpClient *sender,
                                   cocos2d::network::HttpResponse *response) {
 
   CCLOG("Home::onCallbackScheduleHome");
   // @todo mutex unlock
 }
 
-void Main::UnScheduleHome(void) {}
+void Main::unScheduleHome(void) {}
     
-void Main::SetLowerMenuVisible(bool visible)
+void Main::setLowerMenuVisible(bool visible)
 {
     this->_p_footer->setVisible(visible);
 }

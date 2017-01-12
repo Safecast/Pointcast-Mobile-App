@@ -97,18 +97,18 @@ void MesurementsAnalytics::initContents()
         [this](Ref *sender, ui::Widget::TouchEventType type) {
             CCLOG("p_button_favorite touchend %d", type);
             if (type == ui::Widget::TouchEventType::BEGAN) {
-                this->AttachTouchParticle(this->_p_btn_favorite->getPosition());
+                this->attachTouchParticle(this->_p_btn_favorite->getPosition());
             } else if (type == ui::Widget::TouchEventType::MOVED) {
                 
             } else if (type == ui::Widget::TouchEventType::ENDED) {
                 // reverse flag
                 this->_favorite = !this->_favorite;
-                this->DetachTouchParticle();
+                this->detachTouchParticle();
                 lib::Util::setFavorite(this->_m_sensor_main_id, this->_favorite);
                 this->setFavoriteButtonState();
                 CCLOG("p_button_favorite touchend");
             } else {
-                this->DetachTouchParticle();
+                this->detachTouchParticle();
             }
         });
     
@@ -143,7 +143,7 @@ void MesurementsAnalytics::onEnter() {
 
   scene::Main *p_scene_main =
       static_cast<scene::Main *>(this->getParent()->getParent());
-  p_scene_main->AttachWelcomeAnimation();
+  p_scene_main->attachWelcomeAnimation();
 
   // http request pointcast/home.json
   p_data_store_singleton->setResponseCallback(
@@ -187,7 +187,7 @@ void MesurementsAnalytics::onCallbackPointcastAnalytics(
 
   scene::Main *p_scene_main =
       static_cast<scene::Main *>(this->getParent()->getParent());
-  p_scene_main->DetachWaitAnimation();
+  p_scene_main->detachWaitAnimation();
 
   // @note is here right?
   lib::network::DataStoreSingleton *p_data_store_singleton =

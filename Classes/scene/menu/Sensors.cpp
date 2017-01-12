@@ -105,13 +105,13 @@ bool Sensors::init() {
       [this](Ref *sender, ui::Widget::TouchEventType type) {
         auto p_sender = static_cast<cocos2d::Node *>(sender);
         if (type == ui::Widget::TouchEventType::BEGAN) {
-          this->AttachTouchParticle(p_sender->getPosition());
+          this->attachTouchParticle(p_sender->getPosition());
         } else if (type == ui::Widget::TouchEventType::MOVED) {
 
         } else if (type == ui::Widget::TouchEventType::ENDED) {
           this->touchSearch(sender);
         } else {
-          this->DetachTouchParticle();
+          this->detachTouchParticle();
         }
       });
 
@@ -121,13 +121,13 @@ bool Sensors::init() {
       [this](Ref *sender, ui::Widget::TouchEventType type) {
         auto p_sender = static_cast<cocos2d::Node *>(sender);
         if (type == ui::Widget::TouchEventType::BEGAN) {
-          this->AttachTouchParticle(p_sender->getPosition());
+          this->attachTouchParticle(p_sender->getPosition());
         } else if (type == ui::Widget::TouchEventType::MOVED) {
 
         } else if (type == ui::Widget::TouchEventType::ENDED) {
           this->touchSort(sender);
         } else {
-          this->DetachTouchParticle();
+          this->detachTouchParticle();
         }
       });
 
@@ -169,12 +169,12 @@ bool Sensors::init() {
 
 void Sensors::touchBack() {
   auto p_parent_scene = static_cast<scene::Main *>(this->getParent());
-  p_parent_scene->TouchSensorsBack();
+  p_parent_scene->touchSensorsBack();
 }
 
 void Sensors::touchSearch(Ref *sender) {
   CCLOG("Sensors::touchSearch");
-  this->DetachTouchParticle();
+  this->detachTouchParticle();
   // this->attachBlueEffect(20.0f, 20.0f, 3);
   // MessageBox("sorry. comming soom.", "search");
 
@@ -192,7 +192,7 @@ void Sensors::touchSearch(Ref *sender) {
 
 void Sensors::touchSort(Ref *sender) {
   CCLOG("Sensors::touchSort");
-  this->DetachTouchParticle();
+  this->detachTouchParticle();
   // MessageBox("sorry. comming soom.", "sort");
 
   auto p_modal_sort = scene::modal::Sort::create();
@@ -378,7 +378,7 @@ void Sensors::closeAnalyticsDialog() {
 void Sensors::refresh(void) {
 
   scene::Main *p_scene_main = static_cast<scene::Main *>(this->getParent());
-  p_scene_main->AttachWelcomeAnimation();
+  p_scene_main->attachWelcomeAnimation();
 
   auto p_panel =
       this->_p_contents->getChildByName<ui::Layout *>("panelBackground");
@@ -435,7 +435,7 @@ void Sensors::nextScene(Task_Id task_id) {
 void Sensors::detachWaitAnimationLocal(void) {
   CCLOG("Sensors::detachWaitAnimation");
   scene::Main *p_scene_main = static_cast<scene::Main *>(this->getParent());
-  p_scene_main->DetachWaitAnimation();
+  p_scene_main->detachWaitAnimation();
 }
 
 void Sensors::showSensorListOneOfEach(void) {
