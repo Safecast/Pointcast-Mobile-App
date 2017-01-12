@@ -40,8 +40,11 @@ public:
                        E_Forward_To_Id forward_to_id, bool remove_self = true,
                        cocos2d::CallFunc *callback = nullptr);
 
+
 private:
+    
 };
+    
 }
 }
 }

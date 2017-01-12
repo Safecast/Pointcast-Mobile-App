@@ -24,6 +24,10 @@
 #include "lib/network/DataStoreSingleton.hpp"
 #include "scene/Main.hpp"
 #include "scene/chart/Board.hpp"
+#include "scene/layout/helper/Contents.hpp"
+#include "scene/layout/helper/Display.hpp"
+#include "scene/layout/helper/Footer.hpp"
+
 #include "scene/menu/Sensors.hpp"
 
 // #define CHART_WIDTH 560.0f
@@ -72,8 +76,8 @@ void MesurementsAnalytics::initContents()
         this->_p_contents =
         cocos2d::CSLoader::getInstance()->createNode("res/MenuAnalytics_landscape.csb");
         
-        // disappear lowermenu
-        lib::Util::changeLowerMenuVisible(false);
+        // disappear footer
+        scene::layout::helper::Footer::Visible(false);
         
     }
     
@@ -117,7 +121,7 @@ bool MesurementsAnalytics::init() {
   }
     
   // set orientation
-  this->_portlate = lib::Util::isPortlate();
+    this->_portlate = scene::layout::helper::Display::IsPortlate();
   
   // add notification
   Director::getInstance()->getEventDispatcher()->addCustomEventListener("orientation",[=](cocos2d::EventCustom *event) {
@@ -168,8 +172,8 @@ void MesurementsAnalytics::close() {
         // set display portlate
         lib::native::Util::changeRotate(lib::native::Util::UIDeviceOrientationPortrait);
         
-        // change lowermenu visible
-        lib::Util::changeLowerMenuVisible(true);
+        // footer appear
+        scene::layout::helper::Footer::Visible(true);
     }
     
   // disable rotate
@@ -442,7 +446,7 @@ void MesurementsAnalytics::onDidOrientation()
 void MesurementsAnalytics::resetContents()
 {
     // set orientation
-    this->_portlate = lib::Util::isPortlate();
+    this->_portlate = scene::layout::helper::Display::IsPortlate();
     
     // remove contents
     this->_p_contents->removeFromParent();

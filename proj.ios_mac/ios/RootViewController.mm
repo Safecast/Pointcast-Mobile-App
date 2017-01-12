@@ -27,6 +27,7 @@
 #import "cocos2d.h"
 #import "platform/ios/CCEAGLView-ios.h"
 #include "lib/Util.hpp"
+#include "scene/layout/helper/Display.hpp"
 
 @implementation RootViewController
 
@@ -88,19 +89,19 @@ a nib.
         CCEAGLView *eaglview = (CCEAGLView *)glview->getEAGLView();
 
         if (eaglview) {
-            cocos2d::Size size = lib::Util::GetContentsSize();
+            cocos2d::Size drawing_area_size = scene::layout::helper::Display::GetDrawingArea();
             cocos2d::Application::getInstance()->applicationScreenSizeChanged(
-                (int)size.width, (int)size.height);
+                (int)drawing_area_size.width, (int)drawing_area_size.height);
             
             UIScreen *sc = [UIScreen mainScreen];
             CGRect rect = sc.bounds;
             NSLog(@"%.1f, %.1f", rect.size.width, rect.size.height);
             auto director = cocos2d::Director::getInstance();
             auto glview = director->getOpenGLView();
-            glview->setFrameSize((int)size.width, (int)size.height);
+            glview->setFrameSize((int)drawing_area_size.width, (int)drawing_area_size.height);
             director->getOpenGLView()->setDesignResolutionSize(
-                                                               (int)size.width, (int)size.height, ResolutionPolicy::NO_BORDER);
-            
+                (int)drawing_area_size.width, (int)drawing_area_size.height,
+                ResolutionPolicy::NO_BORDER);
         }
     }
     

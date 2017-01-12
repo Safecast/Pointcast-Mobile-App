@@ -43,9 +43,13 @@
 		151953321D301211007F7C6A /* CoreLocation.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1519532D1D301211007F7C6A /* CoreLocation.mm */; };
 		151953331D301211007F7C6A /* GoogleMapsManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1519532F1D301211007F7C6A /* GoogleMapsManager.mm */; };
 		151953341D301211007F7C6A /* Util.mm in Sources */ = {isa = PBXBuildFile; fileRef = 151953301D301211007F7C6A /* Util.mm */; };
+		151E7DD51E27BEA1001758AA /* Display.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 151E7DD31E27BEA1001758AA /* Display.cpp */; };
+		151E7DDA1E27C717001758AA /* Footer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 151E7DD61E27C717001758AA /* Footer.cpp */; };
+		151E7DDB1E27C717001758AA /* Header.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 151E7DD81E27C717001758AA /* Header.cpp */; };
 		1535AA2F1D56B598002516B9 /* (null) in Resources */ = {isa = PBXBuildFile; };
 		1535AA351D56BB2D002516B9 /* GameController.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1535AA341D56BB2D002516B9 /* GameController.framework */; };
 		1535AA371D56BB84002516B9 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1535AA361D56BB84002516B9 /* MediaPlayer.framework */; };
+		153FE55A1E23920200EF6C8D /* Chart.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 153FE5581E23920200EF6C8D /* Chart.cpp */; };
 		155532F61D6B627200D451A5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 155532F51D6B627200D451A5 /* GoogleService-Info.plist */; };
 		1AC6FB21180E996B004C840B /* libcocos2d Mac.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AC6FAF9180E9839004C840B /* libcocos2d Mac.a */; };
 		1AC6FB30180E99EB004C840B /* libcocos2d iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AC6FB07180E9839004C840B /* libcocos2d iOS.a */; };
@@ -205,8 +209,16 @@
 		1519532E1D301211007F7C6A /* CoreLocation_interface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreLocation_interface.h; sourceTree = "<group>"; };
 		1519532F1D301211007F7C6A /* GoogleMapsManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = GoogleMapsManager.mm; sourceTree = "<group>"; };
 		151953301D301211007F7C6A /* Util.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Util.mm; sourceTree = "<group>"; };
+		151E7DD31E27BEA1001758AA /* Display.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Display.cpp; sourceTree = "<group>"; };
+		151E7DD41E27BEA1001758AA /* Display.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Display.hpp; sourceTree = "<group>"; };
+		151E7DD61E27C717001758AA /* Footer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Footer.cpp; sourceTree = "<group>"; };
+		151E7DD71E27C717001758AA /* Footer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Footer.hpp; sourceTree = "<group>"; };
+		151E7DD81E27C717001758AA /* Header.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Header.cpp; sourceTree = "<group>"; };
+		151E7DD91E27C717001758AA /* Header.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Header.hpp; sourceTree = "<group>"; };
 		1535AA341D56BB2D002516B9 /* GameController.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameController.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/GameController.framework; sourceTree = DEVELOPER_DIR; };
 		1535AA361D56BB84002516B9 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/MediaPlayer.framework; sourceTree = DEVELOPER_DIR; };
+		153FE5581E23920200EF6C8D /* Chart.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Chart.cpp; sourceTree = "<group>"; };
+		153FE5591E23920200EF6C8D /* Chart.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Chart.hpp; sourceTree = "<group>"; };
 		155532F51D6B627200D451A5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "ios/GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		1AC6FAE5180E9839004C840B /* cocos2d_libs.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = cocos2d_libs.xcodeproj; path = ../cocos2d/build/cocos2d_libs.xcodeproj; sourceTree = "<group>"; };
 		1ACB3243164770DE00914215 /* libcurl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcurl.a; path = ../../cocos2dx/platform/third_party/ios/libraries/libcurl.a; sourceTree = "<group>"; };
@@ -454,6 +466,14 @@
 		151952FA1D300E6B007F7C6A /* helper */ = {
 			isa = PBXGroup;
 			children = (
+				151E7DD61E27C717001758AA /* Footer.cpp */,
+				151E7DD71E27C717001758AA /* Footer.hpp */,
+				151E7DD81E27C717001758AA /* Header.cpp */,
+				151E7DD91E27C717001758AA /* Header.hpp */,
+				151E7DD31E27BEA1001758AA /* Display.cpp */,
+				151E7DD41E27BEA1001758AA /* Display.hpp */,
+				153FE5581E23920200EF6C8D /* Chart.cpp */,
+				153FE5591E23920200EF6C8D /* Chart.hpp */,
 				151952FB1D300E6B007F7C6A /* Contents.cpp */,
 				151952FC1D300E6B007F7C6A /* Contents.hpp */,
 			);
@@ -958,6 +978,7 @@
 				151953211D300E6B007F7C6A /* Sensors.cpp in Sources */,
 				151953181D300E6B007F7C6A /* LocationItem.cpp in Sources */,
 				151953171D300E6B007F7C6A /* DataStoreSingleton.cpp in Sources */,
+				151E7DDB1E27C717001758AA /* Header.cpp in Sources */,
 				151953161D300E6B007F7C6A /* CCCoreLocation.cpp in Sources */,
 				151953341D301211007F7C6A /* Util.mm in Sources */,
 				1519531F1D300E6B007F7C6A /* Map.cpp in Sources */,
@@ -967,12 +988,15 @@
 				503AE10017EB989F00D1A890 /* AppController.mm in Sources */,
 				151953251D300E6B007F7C6A /* Search.cpp in Sources */,
 				151953221D300E6B007F7C6A /* Topic.cpp in Sources */,
+				151E7DDA1E27C717001758AA /* Footer.cpp in Sources */,
 				1519531D1D300E6B007F7C6A /* Main.cpp in Sources */,
 				503AE10217EB989F00D1A890 /* RootViewController.mm in Sources */,
+				153FE55A1E23920200EF6C8D /* Chart.cpp in Sources */,
 				1519531C1D300E6B007F7C6A /* Contents.cpp in Sources */,
 				151953231D300E6B007F7C6A /* AbstructModal.cpp in Sources */,
 				151953321D301211007F7C6A /* CoreLocation.mm in Sources */,
 				151953261D300E6B007F7C6A /* Sort.cpp in Sources */,
+				151E7DD51E27BEA1001758AA /* Display.cpp in Sources */,
 				151953201D300E6B007F7C6A /* MesurementsAnalytics.cpp in Sources */,
 				503AE10117EB989F00D1A890 /* main.m in Sources */,
 				151953241D300E6B007F7C6A /* Indicator.cpp in Sources */,

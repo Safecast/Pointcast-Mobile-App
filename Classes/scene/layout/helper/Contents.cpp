@@ -101,6 +101,7 @@ void Contents::SlideOut(cocos2d::Node *node, float duration,
 
   node->runAction(sequence);
 }
+    
 }
 }
 }

@@ -37,7 +37,7 @@ bool Main::init() {
   }
 
   // add notification
-  Director::getInstance()->getEventDispatcher()->addCustomEventListener("lowermenu_visible",[=](cocos2d::EventCustom *event) {
+  Director::getInstance()->getEventDispatcher()->addCustomEventListener("footer_visible",[=](cocos2d::EventCustom *event) {
       CCLOG("イベント受け取ったよ > %s",event->getEventName().c_str());
       auto visible = (cocos2d::Value *)event->getUserData();
       this->setLowerMenuVisible(visible->asBool());
