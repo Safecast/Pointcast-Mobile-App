@@ -152,7 +152,7 @@ void MesurementsAnalytics::onEnter() {
   p_data_store_singleton->requestPointcastAnalytics(this->_m_sensor_main_id);
     
   // enable rotate
-  lib::native::Util::setRotateEnable(true);
+  lib::native::Util::SetRotateEnable(true);
   
 }
 
@@ -170,14 +170,14 @@ void MesurementsAnalytics::close() {
     if (!this->isPortlate())
     {
         // set display portlate
-        lib::native::Util::changeRotate(lib::native::Util::UIDeviceOrientationPortrait);
+        lib::native::Util::ChangeRotate(lib::native::Util::UIDeviceOrientationPortrait);
         
         // footer appear
         scene::layout::helper::Footer::Visible(true);
     }
     
   // disable rotate
-  lib::native::Util::setRotateEnable(false);
+  lib::native::Util::SetRotateEnable(false);
 }
 
 void MesurementsAnalytics::onCallbackPointcastAnalytics(

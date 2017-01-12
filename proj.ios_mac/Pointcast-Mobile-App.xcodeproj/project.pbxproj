@@ -1076,8 +1076,9 @@
 				BUNDLE_IDENTIFIER_SUFIX = .staging;
 				CODE_SIGN_ENTITLEMENTS = "Pointcast-Mobile-App-mobile/Pointcast-Mobile-App-mobile.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				COMPRESS_PNG_FILES = NO;
+				DEVELOPMENT_TEAM = 7S5AAN8833;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1111,7 +1112,8 @@
 					"$(_COCOS_LIB_IOS_END)",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.momokoito.pointcast.staging;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "3d13e080-0a79-453c-9cec-14e29a5ffd05";
+				PROVISIONING_PROFILE_SPECIFIER = "XC: *";
 				Prefix = .staging;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";

@@ -53,43 +53,43 @@ private:
 public:
   static cocos2d::Scene *createScene();
 
-  void onEnter(void);
+  void OnEnter(void);
 
-  void onCallbackPointcastHome(cocos2d::network::HttpClient *sender,
+  void OnCallbackPointcastHome(cocos2d::network::HttpClient *sender,
                                cocos2d::network::HttpResponse *response);
 
-  void attachWelcomeAnimation(void);
+  void AttachWelcomeAnimation(void);
 
-  void setLowerMenu(void);
+  void SetLowerMenu(void);
 
-  virtual bool init();
+  virtual bool Init();
 
-  void touchTopic(void);
+  void TouchTopic(void);
 
-  void touchSensors(void);
+  void TouchSensors(void);
 
-  void touchSensorsBack(void);
+  void TouchSensorsBack(void);
 
-  void touchMap(void);
+  void TouchMap(void);
 
-  void touchMapBack(void);
+  void TouchMapBack(void);
 
-  void touchAbout(void);
+  void TouchAbout(void);
 
-  void touchAboutBack(void);
+  void TouchAboutBack(void);
 
-  void nextScene(E_Scene_Id next_scene_id);
+  void NextScene(E_Scene_Id next_scene_id);
 
-  void setScheduleHome(void);
+  void SetScheduleHome(void);
 
-  void updateHome(float dt);
+  void UpdateHome(float dt);
 
-  void onCallbackScheduleHome(cocos2d::network::HttpClient *sender,
+  void OnCallbackScheduleHome(cocos2d::network::HttpClient *sender,
                               cocos2d::network::HttpResponse *response);
 
-  void unScheduleHome(void);
+  void UnScheduleHome(void);
     
-  void setLowerMenuVisible(bool visible);
+  void SetLowerMenuVisible(bool visible);
 
   CREATE_FUNC(Main);
 

@@ -169,7 +169,7 @@ bool Sensors::init() {
 
 void Sensors::touchBack() {
   auto p_parent_scene = static_cast<scene::Main *>(this->getParent());
-  p_parent_scene->touchSensorsBack();
+  p_parent_scene->TouchSensorsBack();
 }
 
 void Sensors::touchSearch(Ref *sender) {

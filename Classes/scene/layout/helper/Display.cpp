@@ -15,7 +15,7 @@ namespace helper {
     
     bool Display::IsPortlate()
     {
-        cocos2d::Size frame_size = lib::native::Util::getDisplaySize();
+        cocos2d::Size frame_size = lib::native::Util::GetDisplaySize();
         return frame_size.height > frame_size.width;
     }
     
@@ -26,13 +26,13 @@ namespace helper {
     
     cocos2d::Size Display::GetDrawingArea()
     {
-        cocos2d::Size frame_size = lib::native::Util::getDisplaySize();
+        cocos2d::Size display_size = lib::native::Util::GetDisplaySize();
         
         float aspect = 0.0f;
         if (Display::IsPortlate()) {
-          aspect = frame_size.height / frame_size.width;
+          aspect = display_size.height / display_size.width;
         } else {
-          aspect = frame_size.width / frame_size.height;
+          aspect = display_size.width / display_size.height;
         }
         cocos2d::Size size;
         if (aspect > 1.7f)

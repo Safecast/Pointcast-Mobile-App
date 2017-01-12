@@ -50,7 +50,7 @@ bool Map::init() {
 
 void Map::touchBack() {
   auto p_parent_scene = static_cast<scene::Main *>(this->getParent());
-  p_parent_scene->touchMapBack();
+  p_parent_scene->TouchMapBack();
 }
 
 void Map::onEnter(void) { cocos2d::Node::onEnter(); }
