@@ -2,7 +2,7 @@
 //  Sort.cpp
 //  pointcast
 //
-//  Created by Leverages Mitsuo Okada on 2015/11/05.
+//  Created by Mitsuo Okada on 2015/11/05.
 //
 //
 #include "Sort.hpp"

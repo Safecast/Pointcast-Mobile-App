@@ -2,7 +2,7 @@
 //  Contents.hpp
 //  pointcast
 //
-//  Created by Leverages Mitsuo Okada on 2015/11/09.
+//  Created by Mitsuo Okada on 2015/11/09.
 //
 //
 

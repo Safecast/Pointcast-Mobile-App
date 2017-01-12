@@ -2,7 +2,7 @@
 //  Analytics.cpp
 //  pointcast
 //
-//  Created by Leverages Mitsuo Okada on 2015/11/13.
+//  Created by Mitsuo Okada on 2015/11/13.
 //
 //
 #include <ctime>
