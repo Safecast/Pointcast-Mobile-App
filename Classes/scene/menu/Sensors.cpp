@@ -2,7 +2,7 @@
 //  Sensors.cpp
 //  pointcast
 //
-//  Created by Leverages Mitsuo Okada on 2015/10/29.
+//  Created by Mitsuo Okada on 2015/10/29.
 //
 //
 
@@ -23,7 +23,7 @@
 
 #include "scene/Main.hpp"
 #include "scene/layout/helper/Contents.hpp"
-#include "scene/menu/MesurementsAnalytics.hpp"
+#include "scene/menu/Analytics.hpp"
 
 USING_NS_CC;
 using namespace rapidjson;
@@ -335,7 +335,7 @@ void Sensors::setMesurementData(cocos2d::Node *panel,
 
 void Sensors::showAnalyticsDialog(int m_sensor_main_id) {
   auto p_modal_mesurements_analytics =
-      scene::menu::MesurementsAnalytics::create();
+      scene::menu::Analytics::create();
   p_modal_mesurements_analytics->setTag(Tag_Id_Mesurements_Analytics);
   p_modal_mesurements_analytics->prepare(m_sensor_main_id);
 
@@ -353,7 +353,7 @@ void Sensors::showAnalyticsDialog(int m_sensor_main_id) {
 
 void Sensors::closeAnalyticsDialog() {
   auto p_modal_mesurements_analytics =
-      static_cast<scene::menu::MesurementsAnalytics *>(
+      static_cast<scene::menu::Analytics *>(
           this->getChildByTag(Tag_Id_Mesurements_Analytics));
 
   // Slide Out Animation
@@ -445,7 +445,7 @@ void Sensors::showSensorListOneOfEach(void) {
       lib::network::DataStoreSingleton::getInstance()->getLocationItemAll();
 
   // search(filter)
-  lib::Util::Filter(m_sensors, this->getKeyWord());
+  lib::Util::filter(m_sensors, this->getKeyWord());
 
   // get sorted index
   std::vector<std::pair<int, int>> v_sensors_index =

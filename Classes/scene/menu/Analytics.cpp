@@ -1,14 +1,14 @@
 //
-//  MesurementsAnalytics.cpp
+//  Analytics.cpp
 //  pointcast
 //
-//  Created by Leverages Mitsuo Okada on 2015/11/13.
+//  Created by Mitsuo Okada on 2015/11/13.
 //
 //
 #include <ctime>
 #include <string>
 
-#include "MesurementsAnalytics.hpp"
+#include "Analytics.hpp"
 
 #include "cocostudio/CocoStudio.h"
 #include "ui/CocosGUI.h"
@@ -24,6 +24,10 @@
 #include "lib/network/DataStoreSingleton.hpp"
 #include "scene/Main.hpp"
 #include "scene/chart/Board.hpp"
+#include "scene/layout/helper/Contents.hpp"
+#include "scene/layout/helper/Display.hpp"
+#include "scene/layout/helper/Footer.hpp"
+
 #include "scene/menu/Sensors.hpp"
 
 // #define CHART_WIDTH 560.0f
@@ -44,7 +48,7 @@ namespace scene {
 
 namespace menu {
 
-void MesurementsAnalytics::prepare(int m_sensor_main_id) {
+void Analytics::prepare(int m_sensor_main_id) {
   // @note is here right?
   lib::network::DataStoreSingleton *p_data_store_singleton =
       lib::network::DataStoreSingleton::getInstance();
@@ -62,7 +66,7 @@ void MesurementsAnalytics::prepare(int m_sensor_main_id) {
   this->setFavoriteButtonState();
 }
 
-void MesurementsAnalytics::initContents()
+void Analytics::initContents()
 {
     
     if (this->isPortlate()) {
@@ -72,8 +76,8 @@ void MesurementsAnalytics::initContents()
         this->_p_contents =
         cocos2d::CSLoader::getInstance()->createNode("res/MenuAnalytics_landscape.csb");
         
-        // disappear lowermenu
-        lib::Util::changeLowerMenuVisible(false);
+        // disappear footer
+        scene::layout::helper::Footer::Visible(false);
         
     }
     
@@ -111,13 +115,13 @@ void MesurementsAnalytics::initContents()
     this->addChild(this->_p_contents);
 }
     
-bool MesurementsAnalytics::init() {
+bool Analytics::init() {
   if (!base::AbstructScene::init()) {
     return false;
   }
     
   // set orientation
-  this->_portlate = lib::Util::isPortlate();
+    this->_portlate = scene::layout::helper::Display::IsPortlate();
   
   // add notification
   Director::getInstance()->getEventDispatcher()->addCustomEventListener("orientation",[=](cocos2d::EventCustom *event) {
@@ -129,7 +133,7 @@ bool MesurementsAnalytics::init() {
   return true;
 }
 
-void MesurementsAnalytics::onEnter() {
+void Analytics::onEnter() {
   AbstructScene::onEnter();
 
   // get Analytics Data
@@ -144,15 +148,15 @@ void MesurementsAnalytics::onEnter() {
   // http request pointcast/home.json
   p_data_store_singleton->setResponseCallback(
       this, (cocos2d::network::SEL_HttpResponse)(
-                &MesurementsAnalytics::onCallbackPointcastAnalytics));
+                &Analytics::onCallbackPointcastAnalytics));
   p_data_store_singleton->requestPointcastAnalytics(this->_m_sensor_main_id);
     
   // enable rotate
-  lib::native::Util::setRotateEnable(true);
+  lib::native::Util::SetRotateEnable(true);
   
 }
 
-void MesurementsAnalytics::close() {
+void Analytics::close() {
     
     
   scene::menu::Sensors *p_sensors =
@@ -166,17 +170,17 @@ void MesurementsAnalytics::close() {
     if (!this->isPortlate())
     {
         // set display portlate
-        lib::native::Util::changeRotate(lib::native::Util::UIDeviceOrientationPortrait);
+        lib::native::Util::ChangeRotate(lib::native::Util::UIDeviceOrientationPortrait);
         
-        // change lowermenu visible
-        lib::Util::changeLowerMenuVisible(true);
+        // footer appear
+        scene::layout::helper::Footer::Visible(true);
     }
     
   // disable rotate
-  lib::native::Util::setRotateEnable(false);
+  lib::native::Util::SetRotateEnable(false);
 }
 
-void MesurementsAnalytics::onCallbackPointcastAnalytics(
+void Analytics::onCallbackPointcastAnalytics(
     cocos2d::network::HttpClient *sender,
     cocos2d::network::HttpResponse *response) {
   CCLOG("onCallbackPointcastAnalytics");
@@ -216,7 +220,7 @@ void MesurementsAnalytics::onCallbackPointcastAnalytics(
 }
 
 std::vector<lib::object::ChartItem>
-MesurementsAnalytics::getChartData(std::string analytics_data) {
+Analytics::getChartData(std::string analytics_data) {
   // parse json
   rapidjson::Document document;
   document.Parse<0>(analytics_data.c_str());
@@ -264,7 +268,7 @@ MesurementsAnalytics::getChartData(std::string analytics_data) {
 }
 
 std::vector<lib::object::WeatherItem>
-MesurementsAnalytics::getWeatherData(std::string analytics_data) {
+Analytics::getWeatherData(std::string analytics_data) {
   // parse json
   rapidjson::Document document;
   document.Parse<0>(analytics_data.c_str());
@@ -309,7 +313,7 @@ MesurementsAnalytics::getWeatherData(std::string analytics_data) {
   return v_weather_items;
 }
 
-ui::Widget *MesurementsAnalytics::prepareChartBoard(
+ui::Widget *Analytics::prepareChartBoard(
     const std::vector<lib::object::ChartItem> v_chart_items,
     const std::vector<lib::object::WeatherItem> v_weather_items) {
   // load chart layout
@@ -412,7 +416,7 @@ ui::Widget *MesurementsAnalytics::prepareChartBoard(
   return p_chart_board_widget;
 }
 
-void MesurementsAnalytics::setFavoriteButtonState(void) {
+void Analytics::setFavoriteButtonState(void) {
   if (this->_favorite) {
     this->_p_btn_favorite->loadTextures("res/icon/menu/star_orange_wide.png",
                                         "res/icon/menu/star_orange_wide.png",
@@ -423,26 +427,26 @@ void MesurementsAnalytics::setFavoriteButtonState(void) {
                                         "res/icon/menu/star_gray_wide.png",
                                         "res/icon/menu/star_gray_wide.png");
   }
-  CCLOG("MesurementsAnalytics::setAnalyticsButtonState");
+  CCLOG("Analytics::setAnalyticsButtonState");
 }
 
-int MesurementsAnalytics::getDeviceId(void) { return this->_device_id; }
+int Analytics::getDeviceId(void) { return this->_device_id; }
 
-int MesurementsAnalytics::getMSensorMainId(void) {
+int Analytics::getMSensorMainId(void) {
   return this->_m_sensor_main_id;
 }
     
-void MesurementsAnalytics::onDidOrientation()
+void Analytics::onDidOrientation()
 {
     cocos2d::CCLog("onDidOrientation");
     this->resetContents();
 }
 
     
-void MesurementsAnalytics::resetContents()
+void Analytics::resetContents()
 {
     // set orientation
-    this->_portlate = lib::Util::isPortlate();
+    this->_portlate = scene::layout::helper::Display::IsPortlate();
     
     // remove contents
     this->_p_contents->removeFromParent();
@@ -454,12 +458,12 @@ void MesurementsAnalytics::resetContents()
     this->onEnter();
 }
     
-bool MesurementsAnalytics::isPortlate()
+bool Analytics::isPortlate()
 {
     return this->_portlate;
 }
     
-bool MesurementsAnalytics::isLandscape()
+bool Analytics::isLandscape()
 {
     return !this->_portlate;
 }

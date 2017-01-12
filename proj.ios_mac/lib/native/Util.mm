@@ -2,7 +2,7 @@
 //  Util.mm
 //  pointcast
 //
-//  Created by Leverages Mitsuo Okada on 2015/12/08.
+//  Created by Mitsuo Okada on 2015/12/08.
 //
 //
 
@@ -16,15 +16,15 @@ namespace native {
     
 
 
-void Util::closeIme() { [AppController closeIme]; }
+void Util::CloseIme() { [AppController closeIme]; }
 
-void Util::setRotateEnable(bool flag) {
+void Util::SetRotateEnable(bool flag) {
     AppController *app = [AppController getInstance];
     [app setRotateEnable:flag];
 }
     
     
-cocos2d::Size Util::getDisplaySize()
+cocos2d::Size Util::GetDisplaySize()
 {
     auto glview = cocos2d::Director::getInstance()->getOpenGLView();
     
@@ -33,7 +33,7 @@ cocos2d::Size Util::getDisplaySize()
     return size;
 }
     
-void Util::changeRotate(int type)
+void Util::ChangeRotate(int type)
 {
     NSNumber *value = [[NSNumber alloc] initWithInt:type];
     [[UIDevice currentDevice] setValue:value forKey:@"orientation"];

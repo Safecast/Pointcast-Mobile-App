@@ -1,13 +1,13 @@
 //
-//  MesurementsAnalytics.hpp
+//  Analytics.hpp
 //  pointcast
 //
-//  Created by Leverages Mitsuo Okada on 2015/11/13.
+//  Created by Mitsuo Okada on 2015/11/13.
 //
 //
 
-#ifndef MesurementsAnalytics_hpp
-#define MesurementsAnalytics_hpp
+#ifndef Analytics_hpp
+#define Analytics_hpp
 #include <stdio.h>
 #include <vector>
 
@@ -20,7 +20,7 @@ namespace scene {
 
 namespace menu {
 
-class MesurementsAnalytics : public base::AbstructScene {
+class Analytics : public base::AbstructScene {
   // member
 public:
 private:
@@ -66,7 +66,7 @@ public:
 
   void setFavoriteButtonState(void);
 
-  CREATE_FUNC(MesurementsAnalytics);
+  CREATE_FUNC(Analytics);
 
   int getDeviceId(void);
 
@@ -79,4 +79,4 @@ public:
 };
 }
 }
-#endif /* MesurementsAnalytics_hpp */
+#endif /* Analytics_hpp */

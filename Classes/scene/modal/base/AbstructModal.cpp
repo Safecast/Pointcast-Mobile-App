@@ -2,7 +2,7 @@
 //  AbstructModal.cpp
 //  pointcast
 //
-//  Created by Leverages Mitsuo Okada on 2015/11/07.
+//  Created by Mitsuo Okada on 2015/11/07.
 //
 //
 

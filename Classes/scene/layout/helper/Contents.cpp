@@ -2,7 +2,7 @@
 //  Contents.cpp
 //  pointcast
 //
-//  Created by Leverages Mitsuo Okada on 2015/11/09.
+//  Created by Mitsuo Okada on 2015/11/09.
 //
 //
 
@@ -101,6 +101,7 @@ void Contents::SlideOut(cocos2d::Node *node, float duration,
 
   node->runAction(sequence);
 }
+    
 }
 }
 }

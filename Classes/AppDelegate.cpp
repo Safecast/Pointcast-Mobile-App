@@ -1,6 +1,7 @@
 #include "AppDelegate.h"
 #include "scene/Main.hpp"
 #include "lib/Util.hpp"
+#include "scene/layout/helper/Display.hpp"
 
 USING_NS_CC;
 
@@ -22,16 +23,17 @@ bool AppDelegate::applicationDidFinishLaunching() {
   // initialize director
   auto director = Director::getInstance();
   auto glview = director->getOpenGLView();
-    
-  Size frame_size = lib::Util::GetContentsSize();
-    
+
+  Size display_size = scene::layout::helper::Display::GetDrawingArea();
+
   if (!glview) {
-    glview = GLViewImpl::createWithRect("pointcast", Rect(0, 0, frame_size.width, frame_size.height));
+    glview = GLViewImpl::createWithRect(
+        "pointcast", Rect(0, 0, display_size.width, display_size.height));
     director->setOpenGLView(glview);
   }
   // @todo optimize device size
   director->getOpenGLView()->setDesignResolutionSize(
-      frame_size.width, frame_size.height, ResolutionPolicy::SHOW_ALL);
+      display_size.width, display_size.height, ResolutionPolicy::SHOW_ALL);
 
 #if defined(ENABLE_DEBUG_MODE)
   // turn on display FPS

@@ -2,7 +2,7 @@
 //  Main.cpp
 //  pointcast
 //
-//  Created by Leverages Mitsuo Okada on 2015/10/29.
+//  Created by Mitsuo Okada on 2015/10/29.
 //
 //
 
@@ -37,7 +37,7 @@ bool Main::init() {
   }
 
   // add notification
-  Director::getInstance()->getEventDispatcher()->addCustomEventListener("lowermenu_visible",[=](cocos2d::EventCustom *event) {
+  Director::getInstance()->getEventDispatcher()->addCustomEventListener("footer_visible",[=](cocos2d::EventCustom *event) {
       CCLOG("イベント受け取ったよ > %s",event->getEventName().c_str());
       auto visible = (cocos2d::Value *)event->getUserData();
       this->setLowerMenuVisible(visible->asBool());
@@ -86,7 +86,7 @@ void Main::onEnter(void) {
   lib::network::DataStoreSingleton *p_data_store_singleton =
       lib::network::DataStoreSingleton::getInstance();
 
-  this->attachWaitAnimation();
+  // this->attachWelcomeAnimation();
 
   // http request pointcast/home.json
   p_data_store_singleton->setResponseCallback(
@@ -299,7 +299,7 @@ void Main::touchAboutBack(void) {
 void Main::setScheduleHome(void) {
   // SetScheduler
   float interval = 300.0f; // @todo optimize
-  schedule(schedule_selector(Main::updateHome), interval);
+  schedule(schedule_selector(::scene::Main::updateHome), interval);
 }
 
 void Main::updateHome(float dt) {

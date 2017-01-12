@@ -2,7 +2,7 @@
 //  DataStoreSingleton.hpp
 //  pointcast
 //
-//  Created by Leverages Mitsuo Okada on 2015/11/04.
+//  Created by Mitsuo Okada on 2015/11/04.
 //
 //
 
