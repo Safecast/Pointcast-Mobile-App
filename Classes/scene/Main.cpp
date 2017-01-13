@@ -8,6 +8,7 @@
 
 #include "cocostudio/CocoStudio.h"
 #include "ui/CocosGUI.h"
+#include "SimpleAudioEngine.h"
 
 #include "lib/native/CCCoreLocation.h"
 #include "lib/network/DataStoreSingleton.hpp"
@@ -164,16 +165,28 @@ void Main::setLowerMenu(void) {
 
 void Main::touchTopic(void) {
   CCLOG("touchTopic");
+  
+  // click se
+  CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("res/sound/se/click.mp3");
+
   this->nextScene(E_Scene_Id::Scene_Topic_Opend_e);
 }
 
 void Main::touchSensors(void) {
   CCLOG("touchList");
+    
+  // click se
+  CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("res/sound/se/click.mp3");
+    
   this->nextScene(E_Scene_Id::Scene_Sensors_Opend_e);
 }
 
 void Main::touchSensorsBack() {
   auto p_current_contents = this->getChildByTag(this->_e_scene_id);
+
+  // click se
+  CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic(
+      "res/sound/se/click.mp3");
 
   if (p_current_contents == NULL) {
     return;
@@ -186,11 +199,15 @@ void Main::touchSensorsBack() {
 
 void Main::touchMap(void) {
   CCLOG("touchMap");
+  // click se
+  CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("res/sound/se/click.mp3");
   this->nextScene(E_Scene_Id::Scene_Map_Opend_e);
 }
 
 void Main::touchAbout(void) {
   CCLOG("touchAbout");
+  // click se
+  CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("res/sound/se/click.mp3");
   this->nextScene(E_Scene_Id::Scene_About_Opend_e);
 }
 
