@@ -12,6 +12,7 @@
 
 #include "cocostudio/CocoStudio.h"
 #include "ui/CocosGUI.h"
+#include "SimpleAudioEngine.h"
 
 #include "lib/Util.hpp"
 #include "lib/network/DataStoreSingleton.hpp"
@@ -84,7 +85,10 @@ bool Sensors::init() {
           p_record->getChildByName<ui::Layout *>("panelRecord")
               ->setColor(Color3B(250, 219, 218));
           CCLOG("selected index %ld", selectedIndex);
-
+          // Click Se
+          CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic(
+              "res/sound/se/click.mp3");
+            
           this->showAnalyticsDialog(widget->getTag());
         } else {
           CCLOG("touch list event type %d", eventType);
@@ -168,12 +172,19 @@ bool Sensors::init() {
 }
 
 void Sensors::touchBack() {
+  // click se
+  CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("res/sound/se/click.mp3");
+    
   auto p_parent_scene = static_cast<scene::Main *>(this->getParent());
   p_parent_scene->touchSensorsBack();
 }
 
 void Sensors::touchSearch(Ref *sender) {
   CCLOG("Sensors::touchSearch");
+    
+  // click se
+  CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("res/sound/se/click.mp3");
+    
   this->detachTouchParticle();
   // this->attachBlueEffect(20.0f, 20.0f, 3);
   // MessageBox("sorry. comming soom.", "search");
@@ -192,6 +203,11 @@ void Sensors::touchSearch(Ref *sender) {
 
 void Sensors::touchSort(Ref *sender) {
   CCLOG("Sensors::touchSort");
+  
+  // click se
+  CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("res/sound/se/click.mp3");
+    
+  
   this->detachTouchParticle();
   // MessageBox("sorry. comming soom.", "sort");
 
@@ -207,9 +223,19 @@ void Sensors::touchSort(Ref *sender) {
   this->getParent()->addChild(p_modal_sort, Zorders_Modal_Dialog);
 }
 
-void Sensors::touchPanelFavorite() { this->nextScene(Task_Id_Favorite); }
+void Sensors::touchPanelFavorite() {
+    // click se
+    CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("res/sound/se/click.mp3");
+    
+    this->nextScene(Task_Id_Favorite);
+}
 
-void Sensors::touchPanelWorld() { this->nextScene(Task_Id_World); }
+void Sensors::touchPanelWorld() {
+    // click se
+    CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("res/sound/se/click.mp3");
+    
+    this->nextScene(Task_Id_World);
+}
 
 void Sensors::removeAnimationDone(Node *sender, ssize_t index) {}
 

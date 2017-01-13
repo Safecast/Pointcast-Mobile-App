@@ -12,6 +12,7 @@
 
 #include "cocostudio/CocoStudio.h"
 #include "ui/CocosGUI.h"
+#include "SimpleAudioEngine.h"
 
 #include "json/document.h"
 #include "json/rapidjson.h"
@@ -87,6 +88,8 @@ void Analytics::initContents()
     label_back->addTouchEventListener(
         [this](Ref *sender, ui::Widget::TouchEventType type) {
         if (type == ui::Widget::TouchEventType::ENDED) {
+            // click se
+            CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("res/sound/se/click.mp3");
             this->close();
         }
     });
@@ -101,6 +104,9 @@ void Analytics::initContents()
             } else if (type == ui::Widget::TouchEventType::MOVED) {
                 
             } else if (type == ui::Widget::TouchEventType::ENDED) {
+                // click se
+                CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("res/sound/se/click.mp3");
+                
                 // reverse flag
                 this->_favorite = !this->_favorite;
                 this->detachTouchParticle();
