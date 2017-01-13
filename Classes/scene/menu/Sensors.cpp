@@ -85,7 +85,10 @@ bool Sensors::init() {
           p_record->getChildByName<ui::Layout *>("panelRecord")
               ->setColor(Color3B(250, 219, 218));
           CCLOG("selected index %ld", selectedIndex);
-
+          // Click Se
+          CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic(
+              "res/sound/se/click.mp3");
+            
           this->showAnalyticsDialog(widget->getTag());
         } else {
           CCLOG("touch list event type %d", eventType);
