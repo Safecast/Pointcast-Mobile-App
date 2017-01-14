@@ -32,10 +32,11 @@ public:
 private:
   // function
 public:
-  static void CloseIme();
-  static void SetRotateEnable(bool flag);
-  static cocos2d::Size GetDisplaySize();
-  static void ChangeRotate(int type);
+  static void closeIme();
+  static void setRotateEnable(bool flag);
+  static cocos2d::Size getDisplaySize();
+  static void changeRotate(int type);
+  static void showSortPicker();
 
 };
 }

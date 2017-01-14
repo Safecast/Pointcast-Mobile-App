@@ -129,9 +129,12 @@ static AppController *_instance;
     
   // Firebase
   [FIRApp configure];
+
+  // Sort Picker
+  [self initSortPicker];
     
   _instance = self;
-
+    
   app->run();
 
   return YES;
@@ -361,13 +364,99 @@ fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
     // If you are receiving a notification message while your app is in the background,
     // this callback will not be fired till the user taps on the notification launching the application.
     // TODO: Handle data of notification
-    
+
     // Print message ID.
     NSLog(@"Message ID: %@", userInfo[@"gcm.message_id"]);
-    
+
     // Pring full message.
     NSLog(@"%@", userInfo);
 }
 
+- (void)initSortPicker
+{
+    self->_sortItems = [[NSArray alloc] initWithObjects:
+                        @"大島優子",
+                        @"前田敦子",
+                        @"篠田麻里子",
+                        @"板野友美",
+                        nil];
+}
+
+- (void)showSortPicker
+{
+    
+    // ピッカー呼び出しボタン作成
+    UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 100, 50)];
+    button.center = CGPointMake(self.viewController.view.bounds.size.width / 2, 100);
+    button.backgroundColor = [UIColor greenColor];
+    [button setTitle:@"エリア選択" forState:UIControlStateNormal];
+    [button addTarget:self action:@selector(showAreaView:) forControlEvents:UIControlEventTouchUpInside];
+    [self.viewController.view addSubview:button];
+    
+    
+    
+    UIPickerView* areaPickerView =
+    [[UIPickerView alloc] initWithFrame:CGRectMake(0,
+                                                   300,
+                                                   500,
+                                                   300)];
+    areaPickerView.backgroundColor = [UIColor redColor];
+    areaPickerView.delegate = self;
+    // areaPickerView.dataSource = self;
+    // [areaPickerView selectRow:2 inComponent:0 animated:NO]; // 初期値設定
+    [self.viewController.view addSubview:areaPickerView];
+    
+    
+    
+    /*
+    UIPickerView *pickerView = [[UIPickerView alloc] init];
+    // delegate,dataSource設定
+    pickerView.delegate = self;
+    pickerView.dataSource = self;
+    // 選択状態のインジケーターを表示（デフォルト：NO）
+    pickerView.showsSelectionIndicator = YES;
+    // コンポーネント0の指定行を選択状態にする（初期選択状態の設定）
+    [pickerView selectRow:7 inComponent:0 animated:NO];
+    
+    pickerView.center = self.viewController.view.center;
+    [self.viewController.view addSubview:pickerView];
+    
+    */
+    /*
+    
+    pickerViewData = [NSArray arrayWithObjects:@"ああ",@"いいい",@"ううう", nil];
+    
+    UIPickerView *customPickerView =
+    [[UIPickerView alloc] initWithFrame:CGRectMake(0, 10, 640, 200)];
+    customPickerView.showsSelectionIndicator = YES;
+    customPickerView.delegate = self;
+    // customPickerView.dataSource = self;
+    [self.viewController.view addSubview:customPickerView];
+    */
+    return;
+}
+
+// デリゲートメソッドの実装
+// 列数を返す例
+-(NSInteger)numberOfComponentsInPickerView:(UIPickerView*)pickerView{
+    return 1; //列数は２つ
+}
+
+// 行数を返す例
+-(NSInteger)pickerView:(UIPickerView*)pickerView
+numberOfRowsInComponent:(NSInteger)component{
+    
+    return [self->_sortItems count];
+    
+}
+
+// 表示する内容を返す例
+-(NSString*)pickerView:(UIPickerView*)pickerView
+           titleForRow:(NSInteger)row forComponent:(NSInteger)component{
+    
+    // 行インデックス番号を返す
+    return [NSString stringWithFormat:@"%@", self->_sortItems[row]];
+    
+}
 
 @end

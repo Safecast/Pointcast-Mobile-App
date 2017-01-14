@@ -154,4 +154,16 @@ a nib.
     NSLog(@"aaa");
 }
 
+- (void)showSortPicker
+{
+    pickerViewData = [NSArray arrayWithObjects:@"ああ",@"いいい",@"ううう", nil];
+    
+    UIPickerView *customPickerView =
+    [[UIPickerView alloc] initWithFrame:CGRectMake(0, 10, 640, 200)];
+    customPickerView.showsSelectionIndicator = YES;
+    customPickerView.delegate = self;
+    // customPickerView.dataSource = self;
+    [self.view addSubview:customPickerView];
+}
+
 @end

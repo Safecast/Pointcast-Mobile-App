@@ -3,7 +3,7 @@
 
 @class RootViewController;
 
-@interface AppController : NSObject <UIApplicationDelegate> {
+@interface AppController : NSObject <UIApplicationDelegate, UIPickerViewDelegate, UIPickerViewDataSource> {
   UIWindow *window;
   GMSMapView *mapview;
 }
@@ -19,7 +19,10 @@
               zorder:(int)zorder;
 + (void)closeIme;
 - (void)setRotateEnable:(BOOL)flag;
+- (void)showSortPicker;
+
 
 @property(nonatomic, readonly) RootViewController *viewController;
+@property (nonatomic, strong) NSArray *sortItems;
 
 @end

@@ -66,7 +66,7 @@ bool Search::init() {
           p_panel_background->getChildByName<ui::TextField *>("txtInput");
       CCLOG("text is %s", p_input_text->getString().c_str());
       // detach keyboard
-      lib::native::Util::CloseIme();
+      lib::native::Util::closeIme();
       this->close(p_input_text->getString());
     }
   });

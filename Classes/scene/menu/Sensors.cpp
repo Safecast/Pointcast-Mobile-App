@@ -15,6 +15,8 @@
 #include "SimpleAudioEngine.h"
 
 #include "lib/Util.hpp"
+#include "lib/native/Util.h"
+
 #include "lib/network/DataStoreSingleton.hpp"
 #include "scene/layout/helper/Contents.hpp"
 #include "scene/modal/Search.hpp"
@@ -181,11 +183,15 @@ void Sensors::touchBack() {
 
 void Sensors::touchSearch(Ref *sender) {
   CCLOG("Sensors::touchSearch");
-    
-  // click se
-  CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("res/sound/se/click.mp3");
-    
+    // click se
+  CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic(
+      "res/sound/se/click.mp3");
+
   this->detachTouchParticle();
+
+  lib::native::Util::showSortPicker();
+  return;
+
   // this->attachBlueEffect(20.0f, 20.0f, 3);
   // MessageBox("sorry. comming soom.", "search");
 
