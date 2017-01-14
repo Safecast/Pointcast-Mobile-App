@@ -6,6 +6,8 @@
 @interface AppController : NSObject <UIApplicationDelegate, UIPickerViewDelegate, UIPickerViewDataSource> {
   UIWindow *window;
   GMSMapView *mapview;
+  UIPickerView* sortTypePickerView;
+  UIToolbar* sortTypeSelectBar;
 }
 
 + (AppController *)getInstance;

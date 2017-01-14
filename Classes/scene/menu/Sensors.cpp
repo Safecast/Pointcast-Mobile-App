@@ -168,6 +168,16 @@ bool Sensors::init() {
   // initialize sort type
   this->updateSortType();
 
+  // register notification
+  Director::getInstance()->getEventDispatcher()->addCustomEventListener(
+      "select_sort_type", [=](cocos2d::EventCustom *event) {
+        CCLOG("イベント受け取ったよ > %s", event->getEventName().c_str());
+        auto sort_id = (cocos2d::Value *)event->getUserData();
+        this->setSortId(sort_id->asInt());
+        this->refresh();
+
+      });
+
   // this->nextScene(Task_Id_World);
 
   return true;
@@ -183,20 +193,14 @@ void Sensors::touchBack() {
 
 void Sensors::touchSearch(Ref *sender) {
   CCLOG("Sensors::touchSearch");
-    // click se
-  CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic(
-      "res/sound/se/click.mp3");
-
-  this->detachTouchParticle();
-
-  lib::native::Util::showSortPicker();
-  return;
 
   // this->attachBlueEffect(20.0f, 20.0f, 3);
   // MessageBox("sorry. comming soom.", "search");
 
   auto p_modal_search = scene::modal::Search::create();
 
+  this->detachTouchParticle();
+    
   CallFunc *callback = CallFunc::create(
       p_modal_search, SEL_CallFunc(&scene::modal::Search::detachSlideIn));
 
@@ -209,7 +213,16 @@ void Sensors::touchSearch(Ref *sender) {
 
 void Sensors::touchSort(Ref *sender) {
   CCLOG("Sensors::touchSort");
+  // click se
+  CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic(
+      "res/sound/se/click.mp3");
+
+  this->detachTouchParticle();
+
+  lib::native::Util::showSortPicker();
+  return;
   
+    /*
   // click se
   CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("res/sound/se/click.mp3");
     
@@ -227,6 +240,7 @@ void Sensors::touchSort(Ref *sender) {
       callback, true);
 
   this->getParent()->addChild(p_modal_sort, Zorders_Modal_Dialog);
+     */
 }
 
 void Sensors::touchPanelFavorite() {

@@ -44,7 +44,6 @@ bool Main::init() {
       this->setLowerMenuVisible(visible->asBool());
   });
     
-    
   // Corelocation から現在位置を取得しておく
   CCCoreLocation *p_core_location = new CCCoreLocation();
   p_core_location->requestLocation();

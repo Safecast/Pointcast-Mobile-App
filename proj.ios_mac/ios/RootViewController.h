@@ -32,5 +32,4 @@
 - (BOOL)prefersStatusBarHidden;
 - (void)setRotateEnable;
 - (BOOL)getRotateEnable;
-- (void)showSortPicker;
 @end

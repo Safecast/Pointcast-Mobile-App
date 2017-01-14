@@ -27,6 +27,7 @@
 #import "cocos2d.h"
 #import "platform/ios/CCEAGLView-ios.h"
 #import <Firebase/Firebase.h>
+#import <UIKit/UIKit.h>
 
 #define HEADER_HEIGHT 100
 #define FOOTER_HEIGHT 100
@@ -375,64 +376,45 @@ fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
 - (void)initSortPicker
 {
     self->_sortItems = [[NSArray alloc] initWithObjects:
-                        @"大島優子",
-                        @"前田敦子",
-                        @"篠田麻里子",
-                        @"板野友美",
+                        @"Radiation Value",
+                        @"Device ID",
+                        @"Location Distance",
+                        @"Sensor Status",
                         nil];
+}
+
+- (void)hideSortPicker
+{
+    [sortTypePickerView removeFromSuperview];
+    [sortTypeSelectBar removeFromSuperview];
 }
 
 - (void)showSortPicker
 {
     
-    // ピッカー呼び出しボタン作成
-    UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 100, 50)];
-    button.center = CGPointMake(self.viewController.view.bounds.size.width / 2, 100);
-    button.backgroundColor = [UIColor greenColor];
-    [button setTitle:@"エリア選択" forState:UIControlStateNormal];
-    [button addTarget:self action:@selector(showAreaView:) forControlEvents:UIControlEventTouchUpInside];
-    [self.viewController.view addSubview:button];
-    
-    
-    
-    UIPickerView* areaPickerView =
+    sortTypePickerView =
     [[UIPickerView alloc] initWithFrame:CGRectMake(0,
-                                                   300,
-                                                   500,
-                                                   300)];
-    areaPickerView.backgroundColor = [UIColor redColor];
-    areaPickerView.delegate = self;
-    // areaPickerView.dataSource = self;
-    // [areaPickerView selectRow:2 inComponent:0 animated:NO]; // 初期値設定
-    [self.viewController.view addSubview:areaPickerView];
+                                                   0,
+                                                   0,
+                                                   0)];
+    sortTypePickerView.backgroundColor = [UIColor whiteColor];
+    sortTypePickerView.delegate = self;
+    sortTypePickerView.showsSelectionIndicator = YES;
+    sortTypePickerView.layer.masksToBounds = true;
     
+    sortTypeSelectBar = [[UIToolbar alloc] init];
+    sortTypeSelectBar.frame=CGRectMake(0,0,320,30);
+    sortTypeSelectBar.barStyle = UIBarStyleBlackTranslucent;
+    sortTypeSelectBar.autoresizingMask = UIViewAutoresizingFlexibleHeight;
+    sortTypeSelectBar.items = [NSArray arrayWithObjects:
+                     [[UIBarButtonItem alloc]initWithTitle:@"Cancel" style:UIBarButtonItemStyleBordered target:self action:@selector(cancelPickSort:)],
+                           [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],
+                     [[UIBarButtonItem alloc]initWithTitle:@"Done" style:UIBarButtonItemStyleDone target:self action:@selector(donePickSort:)],
+                           nil];
+
+    [self.viewController.view addSubview:sortTypePickerView];
+    [self.viewController.view addSubview:sortTypeSelectBar];
     
-    
-    /*
-    UIPickerView *pickerView = [[UIPickerView alloc] init];
-    // delegate,dataSource設定
-    pickerView.delegate = self;
-    pickerView.dataSource = self;
-    // 選択状態のインジケーターを表示（デフォルト：NO）
-    pickerView.showsSelectionIndicator = YES;
-    // コンポーネント0の指定行を選択状態にする（初期選択状態の設定）
-    [pickerView selectRow:7 inComponent:0 animated:NO];
-    
-    pickerView.center = self.viewController.view.center;
-    [self.viewController.view addSubview:pickerView];
-    
-    */
-    /*
-    
-    pickerViewData = [NSArray arrayWithObjects:@"ああ",@"いいい",@"ううう", nil];
-    
-    UIPickerView *customPickerView =
-    [[UIPickerView alloc] initWithFrame:CGRectMake(0, 10, 640, 200)];
-    customPickerView.showsSelectionIndicator = YES;
-    customPickerView.delegate = self;
-    // customPickerView.dataSource = self;
-    [self.viewController.view addSubview:customPickerView];
-    */
     return;
 }
 
@@ -456,7 +438,42 @@ numberOfRowsInComponent:(NSInteger)component{
     
     // 行インデックス番号を返す
     return [NSString stringWithFormat:@"%@", self->_sortItems[row]];
+}
+
+//選択されたピッカービューを取得
+- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
+{
+    //0列目の選択している行番号を取得
+    NSInteger selectedRow = [pickerView selectedRowInComponent:0];
+    NSLog(@"%d", selectedRow);
+}
+
+- (void)donePickSort:(id)sender
+{
+    NSLog(@"%s", "donePickSort");
     
+    [self hideSortPicker];
+    
+    NSInteger select_sort_type = [sortTypePickerView selectedRowInComponent:0];
+    
+    cocos2d::EventCustom customEvent("select_sort_type");
+    auto value = cocos2d::Value((int)select_sort_type);
+    customEvent.setUserData(&value);
+    cocos2d::Director::getInstance()->getEventDispatcher()->dispatchEvent(
+                                                                          &customEvent);
+
+}
+
+- (void)cancelPickSort:(id)sender
+{
+    NSLog(@"%s", "cancelPickSort");
+    [self hideSortPicker];
+}
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer
+       shouldReceiveTouch:(UITouch *)touch
+{
+
 }
 
 @end
