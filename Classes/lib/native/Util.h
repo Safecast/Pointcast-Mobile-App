@@ -37,7 +37,7 @@ public:
   static cocos2d::Size getDisplaySize();
   static void changeRotate(int type);
   static void showSortPicker();
-
+  static void showSearchWordInputText();
 };
 }
 }

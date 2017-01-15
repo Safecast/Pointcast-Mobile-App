@@ -383,6 +383,57 @@ fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
                         nil];
 }
 
+- (void)showSearchWordInputText
+{
+    
+    searchTextInputBar = [[UIToolbar alloc] init];
+    searchTextInputBar.backgroundColor = [UIColor whiteColor];
+    searchTextInputBar.translucent = NO;
+    searchTextInputBar.barTintColor =[UIColor whiteColor];
+    searchTextInputBar.frame = CGRectMake(0,0,320,30);
+    searchTextInputBar.barStyle = UIBarStyleBlackTranslucent;
+    searchTextInputBar.autoresizingMask = UIViewAutoresizingFlexibleHeight;
+    
+    searchTextField = [[UITextField alloc] initWithFrame:CGRectMake(0, searchTextInputBar.bounds.size.height, 320, 40)];
+    searchTextField.borderStyle = UITextBorderStyleLine;
+    searchTextField.backgroundColor = [UIColor whiteColor];
+    searchTextField.font = [UIFont systemFontOfSize:15];
+    searchTextField.placeholder = @"free typing.";
+    searchTextField.autocorrectionType = UITextAutocorrectionTypeNo;
+    searchTextField.keyboardType = UIKeyboardTypeDefault;
+    searchTextField.returnKeyType = UIReturnKeyDone;
+    searchTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
+    searchTextField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+    searchTextField.delegate = self;
+    
+    UILabel *lblTitle = [[UILabel alloc] initWithFrame:CGRectMake(50, 50, 150, 20)];
+    lblTitle.backgroundColor = [UIColor clearColor];
+    lblTitle.textColor = [UIColor blackColor];
+    lblTitle.textAlignment = NSTextAlignmentLeft;
+    lblTitle.text = @"look for Sensor";
+    
+    UIBarButtonItem *toolBarTitle = [[UIBarButtonItem alloc] initWithCustomView:lblTitle];
+    
+    searchTextInputBar.items = [NSArray arrayWithObjects:
+                               [[UIBarButtonItem alloc]initWithTitle:@"Cancel" style:UIBarButtonItemStyleBordered target:self action:@selector(cancelInputSearch:)],
+                               [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],toolBarTitle,
+                               
+                               [[UIBarButtonItem alloc]initWithTitle:@"Done" style:UIBarButtonItemStyleDone target:self action:@selector(doneInputSearch:)],
+                               nil];
+    
+    [self.viewController.view addSubview:searchTextInputBar];
+    [self.viewController.view addSubview:searchTextField];
+    
+}
+
+- (void)hideSearchWordInputText
+{
+    [searchTextInputBar removeFromSuperview];
+    [searchTextField removeFromSuperview];
+    
+}
+
+
 - (void)hideSortPicker
 {
     [sortTypePickerView removeFromSuperview];
@@ -489,10 +540,89 @@ numberOfRowsInComponent:(NSInteger)component{
     [self hideSortPicker];
 }
 
+
+- (void)doneInputSearch:(id)sender
+{
+    NSLog(@"%s", "donePickSort");
+    
+    NSString *searchTextString = searchTextField.text;
+    
+    [self hideSearchWordInputText];
+    
+    if ([searchTextString length] == 0)
+    {
+        return;
+    }
+    
+    const char *searchTextChar = [searchTextString UTF8String];
+    
+    cocos2d::EventCustom customEvent("search_sensor");
+    auto value = cocos2d::Value(searchTextChar);
+    customEvent.setUserData(&value);
+    cocos2d::Director::getInstance()->getEventDispatcher()->dispatchEvent(
+                                                                          &customEvent);
+    
+}
+
+- (void)cancelInputSearch:(id)sender
+{
+    NSLog(@"%s", "cancelPickSort");
+    [self hideSearchWordInputText];
+}
+
+
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer
        shouldReceiveTouch:(UITouch *)touch
 {
 
+}
+
+
+-(BOOL)textFieldShouldBeginEditing:(UITextField*)textField
+{
+    // 編集開始時に呼ばれるメソッド
+    // YESを返した場合は編集が可能に
+    // NO を返した場合は編集が不可能になる
+    return YES;
+}
+
+-(void)textFieldDidBeginEditing:(UITextField*)textField
+{
+    // 編集開始時に呼ばれるメソッド
+    // No.01がYESを返したあとに呼ばれる
+}
+
+-(BOOL)textFieldShouldEndEditing:(UITextField*)textField
+{
+    // 編集終了時に呼ばれるメソッド
+    // YESを返した場合は編集が終了し、
+    // NO を返した場合は編集が終了しない
+    return YES;
+}
+
+-(void)textFieldDidEndEditing:(UITextField*)textField
+{
+    // 編集終了時に呼ばれるメソッド
+    // No.03がYESを返したあとに呼ばれる
+}
+
+-(BOOL)textFieldShouldReturn:(UITextField*)textField
+{
+    // Retunキー(右下のボタン)を押した時に呼ばれるメソッド
+    // YESを返した場合は編集が終了し、
+    // NO を返した場合は編集が終了しない
+    return YES;
+}
+
+-(BOOL)textFieldShouldClear:(UITextField*)textField
+{
+    // 入力フィールド右端のクリアボタンを押した時に呼ばれるメソッド
+    // YESを返した場合は入力情報がクリアされ、
+    // NO を返した場合は入力情報がクリアされない
+    // ※対象オブジェクトのパラメータ[clearButtonMode]を
+    //  [UITextFieldViewModeNever]以外に設定しなければ
+    //  クリアボタンは表示されない
+    return YES;
 }
 
 @end

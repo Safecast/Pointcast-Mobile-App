@@ -44,6 +44,12 @@ void Util::showSortPicker()
     AppController *app = [AppController getInstance];
     [app showSortPicker];
 }
+
+void Util::showSearchWordInputText()
+{
+    AppController *app = [AppController getInstance];
+    [app showSearchWordInputText];
+}
     
 }
     

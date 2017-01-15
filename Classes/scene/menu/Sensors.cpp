@@ -178,9 +178,18 @@ bool Sensors::init() {
 
       });
 
-  // this->nextScene(Task_Id_World);
+    // register notification
+  Director::getInstance()->getEventDispatcher()->addCustomEventListener(
+      "search_sensor", [=](cocos2d::EventCustom *event) {
+        CCLOG("イベント受け取ったよ > %s", event->getEventName().c_str());
+        auto key_word = (cocos2d::Value *)event->getUserData();
+        this->setKeyWord(key_word->asString());
+        this->refresh();
+      });
 
-  return true;
+      // this->nextScene(Task_Id_World);
+
+      return true;
 }
 
 void Sensors::touchBack() {
@@ -193,6 +202,15 @@ void Sensors::touchBack() {
 
 void Sensors::touchSearch(Ref *sender) {
   CCLOG("Sensors::touchSearch");
+    
+    // click se
+    CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("res/sound/se/click.mp3");
+
+    this->detachTouchParticle();
+
+    lib::native::Util::showSearchWordInputText();
+    return;
+    
 
   // this->attachBlueEffect(20.0f, 20.0f, 3);
   // MessageBox("sorry. comming soom.", "search");

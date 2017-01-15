@@ -3,11 +3,13 @@
 
 @class RootViewController;
 
-@interface AppController : NSObject <UIApplicationDelegate, UIPickerViewDelegate, UIPickerViewDataSource> {
+@interface AppController : NSObject <UIApplicationDelegate, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate> {
   UIWindow *window;
   GMSMapView *mapview;
   UIPickerView* sortTypePickerView;
   UIToolbar* sortTypeSelectBar;
+  UIToolbar* searchTextInputBar;
+  UITextField *searchTextField;
 }
 
 + (AppController *)getInstance;
@@ -22,7 +24,7 @@
 + (void)closeIme;
 - (void)setRotateEnable:(BOOL)flag;
 - (void)showSortPicker;
-
+- (void)showSearchWordInputText;
 
 @property(nonatomic, readonly) RootViewController *viewController;
 @property (nonatomic, strong) NSArray *sortItems;
