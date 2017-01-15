@@ -16,15 +16,15 @@ namespace native {
     
 
 
-void Util::CloseIme() { [AppController closeIme]; }
+void Util::closeIme() { [AppController closeIme]; }
 
-void Util::SetRotateEnable(bool flag) {
+void Util::setRotateEnable(bool flag) {
     AppController *app = [AppController getInstance];
     [app setRotateEnable:flag];
 }
     
     
-cocos2d::Size Util::GetDisplaySize()
+cocos2d::Size Util::getDisplaySize()
 {
     auto glview = cocos2d::Director::getInstance()->getOpenGLView();
     
@@ -33,12 +33,24 @@ cocos2d::Size Util::GetDisplaySize()
     return size;
 }
     
-void Util::ChangeRotate(int type)
+void Util::changeRotate(int type)
 {
     NSNumber *value = [[NSNumber alloc] initWithInt:type];
     [[UIDevice currentDevice] setValue:value forKey:@"orientation"];
 }
 
+void Util::showSortPicker()
+{
+    AppController *app = [AppController getInstance];
+    [app showSortPicker];
+}
+
+void Util::showSearchWordInputText()
+{
+    AppController *app = [AppController getInstance];
+    [app showSearchWordInputText];
+}
+    
 }
     
 }

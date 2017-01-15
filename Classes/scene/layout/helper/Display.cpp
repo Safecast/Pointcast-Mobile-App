@@ -15,7 +15,7 @@ namespace helper {
     
     bool Display::IsPortlate()
     {
-        cocos2d::Size frame_size = lib::native::Util::GetDisplaySize();
+        cocos2d::Size frame_size = lib::native::Util::getDisplaySize();
         return frame_size.height > frame_size.width;
     }
     
@@ -26,7 +26,7 @@ namespace helper {
     
     cocos2d::Size Display::GetDrawingArea()
     {
-        cocos2d::Size display_size = lib::native::Util::GetDisplaySize();
+        cocos2d::Size display_size = lib::native::Util::getDisplaySize();
         
         if (Display::IsPortlate()) {
             return cocos2d::Size(display_size.width, display_size.height);

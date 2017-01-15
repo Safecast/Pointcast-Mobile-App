@@ -27,6 +27,7 @@
 #import "cocos2d.h"
 #import "platform/ios/CCEAGLView-ios.h"
 #import <Firebase/Firebase.h>
+#import <UIKit/UIKit.h>
 
 #define HEADER_HEIGHT 100
 #define FOOTER_HEIGHT 100
@@ -129,9 +130,12 @@ static AppController *_instance;
     
   // Firebase
   [FIRApp configure];
+
+  // Sort Picker
+  [self initSortPicker];
     
   _instance = self;
-
+    
   app->run();
 
   return YES;
@@ -361,13 +365,264 @@ fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
     // If you are receiving a notification message while your app is in the background,
     // this callback will not be fired till the user taps on the notification launching the application.
     // TODO: Handle data of notification
-    
+
     // Print message ID.
     NSLog(@"Message ID: %@", userInfo[@"gcm.message_id"]);
-    
+
     // Pring full message.
     NSLog(@"%@", userInfo);
 }
 
+- (void)initSortPicker
+{
+    self->_sortItems = [[NSArray alloc] initWithObjects:
+                        @"Radiation Value",
+                        @"Device ID",
+                        @"Location Distance",
+                        @"Sensor Status",
+                        nil];
+}
+
+- (void)showSearchWordInputText
+{
+    
+    searchTextInputBar = [[UIToolbar alloc] init];
+    searchTextInputBar.backgroundColor = [UIColor whiteColor];
+    searchTextInputBar.translucent = NO;
+    searchTextInputBar.barTintColor =[UIColor whiteColor];
+    searchTextInputBar.frame = CGRectMake(0,0,320,30);
+    searchTextInputBar.barStyle = UIBarStyleBlackTranslucent;
+    searchTextInputBar.autoresizingMask = UIViewAutoresizingFlexibleHeight;
+    
+    searchTextField = [[UITextField alloc] initWithFrame:CGRectMake(0, searchTextInputBar.bounds.size.height, 320, 40)];
+    searchTextField.borderStyle = UITextBorderStyleLine;
+    searchTextField.backgroundColor = [UIColor whiteColor];
+    searchTextField.font = [UIFont systemFontOfSize:15];
+    searchTextField.placeholder = @"free typing.";
+    searchTextField.autocorrectionType = UITextAutocorrectionTypeNo;
+    searchTextField.keyboardType = UIKeyboardTypeDefault;
+    searchTextField.returnKeyType = UIReturnKeyDone;
+    searchTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
+    searchTextField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+    searchTextField.delegate = self;
+    
+    UILabel *lblTitle = [[UILabel alloc] initWithFrame:CGRectMake(50, 50, 150, 20)];
+    lblTitle.backgroundColor = [UIColor clearColor];
+    lblTitle.textColor = [UIColor blackColor];
+    lblTitle.textAlignment = NSTextAlignmentLeft;
+    lblTitle.text = @"look for Sensor";
+    
+    UIBarButtonItem *toolBarTitle = [[UIBarButtonItem alloc] initWithCustomView:lblTitle];
+    
+    searchTextInputBar.items = [NSArray arrayWithObjects:
+                               [[UIBarButtonItem alloc]initWithTitle:@"Cancel" style:UIBarButtonItemStyleBordered target:self action:@selector(cancelInputSearch:)],
+                               [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],toolBarTitle,
+                               
+                               [[UIBarButtonItem alloc]initWithTitle:@"Done" style:UIBarButtonItemStyleDone target:self action:@selector(doneInputSearch:)],
+                               nil];
+    
+    [self.viewController.view addSubview:searchTextInputBar];
+    [self.viewController.view addSubview:searchTextField];
+    
+}
+
+- (void)hideSearchWordInputText
+{
+    [searchTextInputBar removeFromSuperview];
+    [searchTextField removeFromSuperview];
+    
+}
+
+
+- (void)hideSortPicker
+{
+    [sortTypePickerView removeFromSuperview];
+    [sortTypeSelectBar removeFromSuperview];
+}
+
+- (void)showSortPicker
+{
+    
+    sortTypePickerView =
+    [[UIPickerView alloc] initWithFrame:CGRectMake(0,
+                                                   0,
+                                                   0,
+                                                   0)];
+    sortTypePickerView.backgroundColor = [UIColor whiteColor];
+    sortTypePickerView.delegate = self;
+    sortTypePickerView.showsSelectionIndicator = YES;
+    sortTypePickerView.layer.masksToBounds = true;
+    sortTypePickerView.layer.borderWidth = 1;
+    sortTypePickerView.layer.borderColor = [UIColor blackColor].CGColor;
+    sortTypePickerView.layer.cornerRadius = 8.0f;
+    [sortTypePickerView selectRow:0 inComponent:0 animated:YES];
+    
+    sortTypeSelectBar = [[UIToolbar alloc] init];
+    sortTypeSelectBar.backgroundColor = [UIColor whiteColor];
+    sortTypeSelectBar.translucent = NO;
+    sortTypeSelectBar.barTintColor =[UIColor whiteColor];
+    
+    sortTypeSelectBar.frame=CGRectMake(0,0,320,30);
+    sortTypeSelectBar.barStyle = UIBarStyleBlackTranslucent;
+    sortTypeSelectBar.autoresizingMask = UIViewAutoresizingFlexibleHeight;
+    
+    UILabel *lblTitle = [[UILabel alloc] initWithFrame:CGRectMake(50, 50, 150, 20)];
+    lblTitle.backgroundColor = [UIColor clearColor];
+    lblTitle.textColor = [UIColor blackColor];
+    lblTitle.textAlignment = NSTextAlignmentLeft;
+    lblTitle.text = @"Which is sort ?";
+    
+    UIBarButtonItem *toolBarTitle = [[UIBarButtonItem alloc] initWithCustomView:lblTitle];
+    
+    sortTypeSelectBar.items = [NSArray arrayWithObjects:
+                     [[UIBarButtonItem alloc]initWithTitle:@"Cancel" style:UIBarButtonItemStyleBordered target:self action:@selector(cancelPickSort:)],
+                           [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],toolBarTitle,
+                               
+                     [[UIBarButtonItem alloc]initWithTitle:@"Done" style:UIBarButtonItemStyleDone target:self action:@selector(donePickSort:)],
+                           nil];
+
+    
+    [self.viewController.view addSubview:sortTypePickerView];
+    [self.viewController.view addSubview:sortTypeSelectBar];
+    
+    return;
+}
+
+// デリゲートメソッドの実装
+// 列数を返す例
+-(NSInteger)numberOfComponentsInPickerView:(UIPickerView*)pickerView{
+    return 1; //列数は２つ
+}
+
+// 行数を返す例
+-(NSInteger)pickerView:(UIPickerView*)pickerView
+numberOfRowsInComponent:(NSInteger)component{
+    
+    return [self->_sortItems count];
+    
+}
+
+// 表示する内容を返す例
+-(NSString*)pickerView:(UIPickerView*)pickerView
+           titleForRow:(NSInteger)row forComponent:(NSInteger)component{
+    
+    // 行インデックス番号を返す
+    return [NSString stringWithFormat:@"%@", self->_sortItems[row]];
+}
+
+//選択されたピッカービューを取得
+- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
+{
+    //0列目の選択している行番号を取得
+    NSInteger selectedRow = [pickerView selectedRowInComponent:0];
+    NSLog(@"%d", selectedRow);
+}
+
+- (void)donePickSort:(id)sender
+{
+    NSLog(@"%s", "donePickSort");
+    
+    [self hideSortPicker];
+    
+    NSInteger select_sort_type = [sortTypePickerView selectedRowInComponent:0];
+    
+    cocos2d::EventCustom customEvent("select_sort_type");
+    auto value = cocos2d::Value((int)select_sort_type);
+    customEvent.setUserData(&value);
+    cocos2d::Director::getInstance()->getEventDispatcher()->dispatchEvent(
+                                                                          &customEvent);
+
+}
+
+- (void)cancelPickSort:(id)sender
+{
+    NSLog(@"%s", "cancelPickSort");
+    [self hideSortPicker];
+}
+
+
+- (void)doneInputSearch:(id)sender
+{
+    NSLog(@"%s", "donePickSort");
+    
+    NSString *searchTextString = searchTextField.text;
+    
+    [self hideSearchWordInputText];
+    
+    if ([searchTextString length] == 0)
+    {
+        return;
+    }
+    
+    const char *searchTextChar = [searchTextString UTF8String];
+    
+    cocos2d::EventCustom customEvent("search_sensor");
+    auto value = cocos2d::Value(searchTextChar);
+    customEvent.setUserData(&value);
+    cocos2d::Director::getInstance()->getEventDispatcher()->dispatchEvent(
+                                                                          &customEvent);
+    
+}
+
+- (void)cancelInputSearch:(id)sender
+{
+    NSLog(@"%s", "cancelPickSort");
+    [self hideSearchWordInputText];
+}
+
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer
+       shouldReceiveTouch:(UITouch *)touch
+{
+
+}
+
+
+-(BOOL)textFieldShouldBeginEditing:(UITextField*)textField
+{
+    // 編集開始時に呼ばれるメソッド
+    // YESを返した場合は編集が可能に
+    // NO を返した場合は編集が不可能になる
+    return YES;
+}
+
+-(void)textFieldDidBeginEditing:(UITextField*)textField
+{
+    // 編集開始時に呼ばれるメソッド
+    // No.01がYESを返したあとに呼ばれる
+}
+
+-(BOOL)textFieldShouldEndEditing:(UITextField*)textField
+{
+    // 編集終了時に呼ばれるメソッド
+    // YESを返した場合は編集が終了し、
+    // NO を返した場合は編集が終了しない
+    return YES;
+}
+
+-(void)textFieldDidEndEditing:(UITextField*)textField
+{
+    // 編集終了時に呼ばれるメソッド
+    // No.03がYESを返したあとに呼ばれる
+}
+
+-(BOOL)textFieldShouldReturn:(UITextField*)textField
+{
+    // Retunキー(右下のボタン)を押した時に呼ばれるメソッド
+    // YESを返した場合は編集が終了し、
+    // NO を返した場合は編集が終了しない
+    return YES;
+}
+
+-(BOOL)textFieldShouldClear:(UITextField*)textField
+{
+    // 入力フィールド右端のクリアボタンを押した時に呼ばれるメソッド
+    // YESを返した場合は入力情報がクリアされ、
+    // NO を返した場合は入力情報がクリアされない
+    // ※対象オブジェクトのパラメータ[clearButtonMode]を
+    //  [UITextFieldViewModeNever]以外に設定しなければ
+    //  クリアボタンは表示されない
+    return YES;
+}
 
 @end

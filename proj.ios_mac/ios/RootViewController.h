@@ -26,7 +26,8 @@
 #import <UIKit/UIKit.h>
 #import <GoogleMaps/GoogleMaps.h>
 
-@interface RootViewController : UIViewController {
+@interface RootViewController : UIViewController<UIPickerViewDelegate> {
+    NSArray *pickerViewData;
 }
 - (BOOL)prefersStatusBarHidden;
 - (void)setRotateEnable;
