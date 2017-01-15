@@ -28,5 +28,16 @@
         <EnableHTML5Advanced Value="False" />
       </Value>
     </Item>
+    <Item Key="TabsParamsKey">
+      <Value ctype="TabsInfo">
+        <OpenedDocuments>
+          <FilePathData Path="MenuAnalytics_landscape.csd" />
+          <FilePathData Path="layerAnalytics.csd" />
+          <FilePathData Path="layerChart.csd" />
+          <FilePathData Path="MenuAnalytics_portlate.csd" />
+        </OpenedDocuments>
+        <ActiveDocument Path="MenuAnalytics_landscape.csd" />
+      </Value>
+    </Item>
   </Properties>
 </UserData>

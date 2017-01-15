@@ -401,8 +401,18 @@ fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
     sortTypePickerView.delegate = self;
     sortTypePickerView.showsSelectionIndicator = YES;
     sortTypePickerView.layer.masksToBounds = true;
+    sortTypePickerView.layer.borderWidth = 1;
+    sortTypePickerView.layer.borderColor = [UIColor blackColor].CGColor;
+    sortTypePickerView.layer.cornerRadius = 8.0f;
+    [sortTypePickerView selectRow:0 inComponent:0 animated:YES];
     
     sortTypeSelectBar = [[UIToolbar alloc] init];
+    sortTypeSelectBar.backgroundColor = [UIColor whiteColor];
+    sortTypeSelectBar.translucent = NO;
+    sortTypeSelectBar.barTintColor =[UIColor whiteColor];
+
+
+    
     sortTypeSelectBar.frame=CGRectMake(0,0,320,30);
     sortTypeSelectBar.barStyle = UIBarStyleBlackTranslucent;
     sortTypeSelectBar.autoresizingMask = UIViewAutoresizingFlexibleHeight;
