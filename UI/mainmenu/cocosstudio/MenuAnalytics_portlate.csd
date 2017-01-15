@@ -1,5 +1,5 @@
 <GameFile>
-  <PropertyGroup Name="MenuAnalytics_landscape" Type="Scene" ID="71ca7b4a-0888-4620-b0e5-bee179a6ec79" Version="3.10.0.0" />
+  <PropertyGroup Name="MenuAnalytics_portlate" Type="Scene" ID="71ca7b4a-0888-4620-b0e5-bee179a6ec79" Version="3.10.0.0" />
   <Content ctype="GameProjectContent">
     <Content>
       <Animation Duration="0" Speed="1.0000" />
@@ -41,7 +41,7 @@
                 <OutlineColor A="255" R="255" G="0" B="0" />
                 <ShadowColor A="255" R="110" G="110" B="110" />
               </AbstractNodeData>
-              <AbstractNodeData Name="scrollView" ActionTag="916111466" Tag="44" IconVisible="False" TopMargin="116.0000" BottomMargin="220.0000" TouchEnable="True" ClipAble="True" BackColorAlpha="102" ComboBoxIndex="1" ColorAngle="90.0000" Scale9Width="1" Scale9Height="1" IsBounceEnabled="True" ScrollDirectionType="Horizontal" ctype="ScrollViewObjectData">
+              <AbstractNodeData Name="scrollView" ActionTag="916111466" Tag="44" IconVisible="False" TopMargin="116.0000" BottomMargin="220.0000" TouchEnable="True" ClipAble="True" BackColorAlpha="102" ComboBoxIndex="1" ColorAngle="90.0000" Scale9Width="1" Scale9Height="1" IsBounceEnabled="True" ScrollDirectionType="Vertical_Horizontal" ctype="ScrollViewObjectData">
                 <Size X="640.0000" Y="800.0000" />
                 <AnchorPoint />
                 <Position Y="220.0000" />

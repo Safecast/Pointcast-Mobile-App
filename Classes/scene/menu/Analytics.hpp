@@ -26,6 +26,10 @@ public:
 private:
   cocos2d::Node *_p_contents;
 
+  time_t _interval_start;
+
+  time_t _interval_end;
+
   int _m_sensor_main_id;
 
   int _device_id;
@@ -41,6 +45,8 @@ public:
   virtual bool init();
  
   void initContents();
+    
+  void initChartInterval();
 
   virtual void onEnter();
     

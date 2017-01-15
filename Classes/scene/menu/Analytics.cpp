@@ -134,7 +134,10 @@ bool Analytics::init() {
       CCLOG("イベント受け取ったよ > %s",event->getEventName().c_str());
       this->onDidOrientation();
   });
-    
+
+  // initialize chart interval
+  this->initChartInterval();
+
   this->initContents();
   return true;
 }
@@ -155,7 +158,8 @@ void Analytics::onEnter() {
   p_data_store_singleton->setResponseCallback(
       this, (cocos2d::network::SEL_HttpResponse)(
                 &Analytics::onCallbackPointcastAnalytics));
-  p_data_store_singleton->requestPointcastAnalytics(this->_m_sensor_main_id);
+    
+  p_data_store_singleton->requestPointcastAnalytics(this->_m_sensor_main_id, this->_interval_start, this->_interval_end);
     
   // enable rotate
   lib::native::Util::setRotateEnable(true);
@@ -468,12 +472,22 @@ bool Analytics::isPortlate()
 {
     return this->_portlate;
 }
-    
-bool Analytics::isLandscape()
+
+bool Analytics::isLandscape() { return !this->_portlate; }
+
+void Analytics::initChartInterval()
 {
-    return !this->_portlate;
-}
+    time_t now = time(NULL);
+    struct tm *pnow = localtime(&now);
+    pnow->tm_hour = 0;
+    pnow->tm_min = 0;
+    pnow->tm_sec = 0;
     
+    this->_interval_end = mktime(pnow);
+    // interval 1 day
+    this->_interval_start = this->_interval_end - 86400;
+    
+}
     
 }
 }

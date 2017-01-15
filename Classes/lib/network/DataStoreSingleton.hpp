@@ -85,7 +85,7 @@ public:
 
   void requestPointcastHome(void);
 
-  void requestPointcastAnalytics(int m_sensor_main_id);
+  void requestPointcastAnalytics(int m_sensor_main_id, time_t start_time, time_t end_time);
 
   void callbackHttpPointcastHome(cocos2d::network::HttpClient *sender,
                                  cocos2d::network::HttpResponse *response);
