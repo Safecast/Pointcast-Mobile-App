@@ -77,11 +77,13 @@ bool Sensors::init() {
           auto widget = listView->getItem(selectedIndex);
           auto location_item =
               p_datastore_singleton->getLocationItem(widget->getTag());
-
+            
+          /*
           if (location_item.sensor_status != 1) {
             // if status inactive
             return;
           }
+          */
 
           auto p_record = widget->getChildByTag(Tag_Id_Sensor_Record);
           p_record->getChildByName<ui::Layout *>("panelRecord")
