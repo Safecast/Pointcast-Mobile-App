@@ -410,18 +410,27 @@ fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
     sortTypeSelectBar.backgroundColor = [UIColor whiteColor];
     sortTypeSelectBar.translucent = NO;
     sortTypeSelectBar.barTintColor =[UIColor whiteColor];
-
-
     
     sortTypeSelectBar.frame=CGRectMake(0,0,320,30);
     sortTypeSelectBar.barStyle = UIBarStyleBlackTranslucent;
     sortTypeSelectBar.autoresizingMask = UIViewAutoresizingFlexibleHeight;
+    
+    UILabel *lblTitle = [[UILabel alloc] initWithFrame:CGRectMake(50, 50, 150, 20)];
+    lblTitle.backgroundColor = [UIColor clearColor];
+    lblTitle.textColor = [UIColor blackColor];
+    lblTitle.textAlignment = NSTextAlignmentLeft;
+    lblTitle.text = @"Which is sort ?";
+    
+    UIBarButtonItem *toolBarTitle = [[UIBarButtonItem alloc] initWithCustomView:lblTitle];
+    
     sortTypeSelectBar.items = [NSArray arrayWithObjects:
                      [[UIBarButtonItem alloc]initWithTitle:@"Cancel" style:UIBarButtonItemStyleBordered target:self action:@selector(cancelPickSort:)],
-                           [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],
+                           [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],toolBarTitle,
+                               
                      [[UIBarButtonItem alloc]initWithTitle:@"Done" style:UIBarButtonItemStyleDone target:self action:@selector(donePickSort:)],
                            nil];
 
+    
     [self.viewController.view addSubview:sortTypePickerView];
     [self.viewController.view addSubview:sortTypeSelectBar];
     
