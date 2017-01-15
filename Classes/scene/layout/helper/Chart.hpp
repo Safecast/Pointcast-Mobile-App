@@ -11,6 +11,11 @@
 
 #include "cocos2d.h"
 
+#include "lib/object/ChartItem.hpp"
+#include "lib/object/WeatherItem.hpp"
+
+#include "scene/menu/Analytics.hpp"
+
 namespace scene {
 namespace layout {
 namespace helper {
@@ -19,8 +24,15 @@ class Chart {
   // member
 public:
 private:
-  // function
 public:
+    // function
+    static cocos2d::ui::Widget *prepareHeader(scene::menu::Analytics* p_scene_analytics,
+                                                        int m_sensor_main_id);
+    
+    static cocos2d::ui::Widget *prepareChartBoard(scene::menu::Analytics* p_scene_analytics,
+                                                  int m_sensor_main_id,
+                                                  const std::vector<lib::object::ChartItem> v_chart_items,
+                                                  const std::vector<lib::object::WeatherItem> v_weather_items);
 private:
   };
         }

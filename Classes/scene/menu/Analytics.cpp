@@ -28,6 +28,7 @@
 #include "scene/layout/helper/Contents.hpp"
 #include "scene/layout/helper/Display.hpp"
 #include "scene/layout/helper/Footer.hpp"
+#include "scene/layout/helper/Chart.hpp"
 
 #include "scene/menu/Sensors.hpp"
 
@@ -214,19 +215,25 @@ void Analytics::onCallbackPointcastAnalytics(
   std::vector<lib::object::WeatherItem> v_weather_items =
       this->getWeatherData(analytics_data);
 
-  auto p_chart_board_widget =
-      this->prepareChartBoard(v_chart_items, v_weather_items);
+  auto p_header =  scene::layout::helper::Chart::prepareHeader(this, this->_m_sensor_main_id);
+    
+  // auto p_chart_board_widget = scene::layout::helper::Chart::prepareChartBoard(this, this->_m_sensor_main_id, v_chart_items, v_weather_items);
 
   // base scene
   auto p_panel_background = static_cast<ui::Layout *>(
       this->_p_contents->getChildByName("panelBackground"));
+    
   // scroll view
   auto p_scroll_view = static_cast<ui::ScrollView *>(
       p_panel_background->getChildByName("scrollView"));
+  
+    /*
   Size size = p_chart_board_widget->getContentSize();
   p_scroll_view->setInnerContainerSize(p_chart_board_widget->getContentSize());
   p_chart_board_widget->setAnchorPoint(Point(0.0f, 0.0f));
-  p_scroll_view->addChild(p_chart_board_widget);
+    */
+  this->addChild(p_header);
+  // p_scroll_view->addChild(p_chart_board_widget);
 }
 
 std::vector<lib::object::ChartItem>

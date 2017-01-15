@@ -43,6 +43,7 @@
         <Image Name="star_orange.png" />
         <Image Name="star_orange_wide.png" />
         <Image Name="star_red.png" />
+        <Project Name="layerChartHeader.csd" Type="Layer" />
       </RootFolder>
     </Group>
   </SolutionFolder>
