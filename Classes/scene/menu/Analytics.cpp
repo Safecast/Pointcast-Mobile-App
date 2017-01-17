@@ -152,6 +152,7 @@ void Analytics::initVariableContents()
     
     // draw chart
     auto p_chart = scene::layout::helper::Chart::prepareChart(this, this->_m_sensor_main_id, v_chart_items, v_weather_items);
+    this->_p_scroll_view->setInnerContainerSize(p_chart->getContentSize());
     this->_p_scroll_view->addChild(p_chart);
     
     // detach wait animation

@@ -83,7 +83,7 @@ cocos2d::ui::Widget* Chart::prepareChart(scene::menu::Analytics* p_scene_analyti
         p_data_store_singleton->getLocationItem(m_sensor_main_id);
     
     // prepare chart_
-    chart_prepare_data.chart_size = Size(640, 600);
+    chart_prepare_data.chart_size = Size(1240, 600);
     chart_prepare_data.chart_offset = Point(100, 100 + 100);
     chart_prepare_data.v_chart_items = v_chart_items;
     chart_prepare_data.v_weather_items = v_weather_items;
@@ -108,16 +108,19 @@ cocos2d::ui::Widget* Chart::prepareChart(scene::menu::Analytics* p_scene_analyti
     // p_chart_board->setContentSize(chart_prepare_data.chart_size);
     
     scene::chart::Board *p_chart_nodes =
-    scene::chart::Board::create(chart_prepare_data);
+        scene::chart::Board::create(chart_prepare_data);
+    p_chart_nodes->setAnchorPoint(Vec2(0.0f,0.0f));
     
-    // p_chart_board->addChild(p_chart_nodes);
+    cocos2d::log("p_chart_nodes size %f, %f pos %f, %f", p_chart_nodes->getContentSize().width,  p_chart_nodes->getContentSize().height, p_chart_nodes->getPositionX(), p_chart_nodes->getPositionY());
     
     ui::Widget *p_chart_board_widget = ui::Widget::create();
-    Size chart_size = chart_prepare_data.chart_size;
-    chart_size.height = chart_size.height + 100;
-    p_chart_board_widget->setContentSize(chart_size);
+    
+    p_chart_board_widget->setContentSize(p_chart_nodes->getContentSize());
     p_chart_board_widget->setTouchEnabled(true);
+    p_chart_board_widget->setAnchorPoint(Vec2(0.0f,0.0f));
     p_chart_board_widget->addChild(p_chart_nodes);
+    
+    cocos2d::log("p_chart_board_widget size %f, %f pos %f, %f", p_chart_board_widget->getContentSize().width,  p_chart_board_widget->getContentSize().height, p_chart_board_widget->getPositionX(), p_chart_board_widget->getPositionY());
     
     return p_chart_board_widget;
 

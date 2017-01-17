@@ -41,19 +41,19 @@
                 <OutlineColor A="255" R="255" G="0" B="0" />
                 <ShadowColor A="255" R="110" G="110" B="110" />
               </AbstractNodeData>
-              <AbstractNodeData Name="scrollView" ActionTag="916111466" Tag="44" IconVisible="False" TopMargin="336.0000" TouchEnable="True" ClipAble="True" BackColorAlpha="102" ComboBoxIndex="1" ColorAngle="90.0000" Scale9Width="1" Scale9Height="1" IsBounceEnabled="True" ScrollDirectionType="Vertical_Horizontal" ctype="ScrollViewObjectData">
-                <Size X="640.0000" Y="800.0000" />
+              <AbstractNodeData Name="scrollView" ActionTag="916111466" Tag="44" IconVisible="False" TopMargin="336.0000" BottomMargin="100.0000" TouchEnable="True" ClipAble="True" BackColorAlpha="102" ComboBoxIndex="1" ColorAngle="90.0000" Scale9Width="1" Scale9Height="1" IsBounceEnabled="True" ScrollDirectionType="Horizontal" ctype="ScrollViewObjectData">
+                <Size X="640.0000" Y="700.0000" />
                 <AnchorPoint />
-                <Position />
+                <Position Y="100.0000" />
                 <Scale ScaleX="1.0000" ScaleY="1.0000" />
                 <CColor A="255" R="255" G="255" B="255" />
-                <PrePosition />
-                <PreSize X="1.0000" Y="0.7042" />
+                <PrePosition Y="0.0880" />
+                <PreSize X="1.0000" Y="0.6162" />
                 <SingleColor A="255" R="255" G="255" B="255" />
                 <FirstColor A="255" R="255" G="150" B="100" />
                 <EndColor A="255" R="255" G="255" B="255" />
                 <ColorVector ScaleY="1.0000" />
-                <InnerNodeSize Width="1136" Height="1136" />
+                <InnerNodeSize Width="640" Height="700" />
               </AbstractNodeData>
               <AbstractNodeData Name="btnFavorite" ActionTag="878694153" Tag="80" IconVisible="False" LeftMargin="-163.2618" RightMargin="342.2618" TopMargin="-182.5000" BottomMargin="857.5000" TouchEnable="True" FontSize="14" Scale9Enable="True" LeftEage="15" RightEage="15" TopEage="11" BottomEage="11" Scale9OriginX="15" Scale9OriginY="11" Scale9Width="431" Scale9Height="439" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="ButtonObjectData">
                 <Size X="461.0000" Y="461.0000" />
