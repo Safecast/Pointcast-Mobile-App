@@ -124,7 +124,6 @@ void Analytics::initFixedContents()
     // scroll view
     this->_p_scroll_view = static_cast<ui::ScrollView *>(
                                   this->_p_panel_background->getChildByName("scrollView"));
-    
     this->setFavoriteButtonState();
     
     this->addChild(this->_p_contents);

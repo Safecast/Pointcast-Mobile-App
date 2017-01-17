@@ -17,12 +17,13 @@
 #include "scene/base/AbstructScene.hpp"
 #include "scene/Main.hpp"
 #include "ui/CocosGUI.h"
+#include "lib/external/CCLayerPanZoom.h"
 
 namespace scene {
 
 namespace menu {
 
-class Analytics : public base::AbstructScene {
+class Analytics : public base::AbstructScene,CCLayerPanZoom  {
   // member
 public:
 private:

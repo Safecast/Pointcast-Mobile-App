@@ -46,6 +46,7 @@
 		151E7DD51E27BEA1001758AA /* Display.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 151E7DD31E27BEA1001758AA /* Display.cpp */; };
 		151E7DDA1E27C717001758AA /* Footer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 151E7DD61E27C717001758AA /* Footer.cpp */; };
 		151E7DDB1E27C717001758AA /* Header.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 151E7DD81E27C717001758AA /* Header.cpp */; };
+		1525D8B11E2E5CAF0045118C /* CCLayerPanZoom.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1525D8AF1E2E5CAF0045118C /* CCLayerPanZoom.cpp */; };
 		1535AA2F1D56B598002516B9 /* (null) in Resources */ = {isa = PBXBuildFile; };
 		1535AA351D56BB2D002516B9 /* GameController.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1535AA341D56BB2D002516B9 /* GameController.framework */; };
 		1535AA371D56BB84002516B9 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1535AA361D56BB84002516B9 /* MediaPlayer.framework */; };
@@ -215,6 +216,8 @@
 		151E7DD71E27C717001758AA /* Footer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Footer.hpp; sourceTree = "<group>"; };
 		151E7DD81E27C717001758AA /* Header.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Header.cpp; sourceTree = "<group>"; };
 		151E7DD91E27C717001758AA /* Header.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Header.hpp; sourceTree = "<group>"; };
+		1525D8AF1E2E5CAF0045118C /* CCLayerPanZoom.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCLayerPanZoom.cpp; sourceTree = "<group>"; };
+		1525D8B01E2E5CAF0045118C /* CCLayerPanZoom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCLayerPanZoom.h; sourceTree = "<group>"; };
 		1535AA341D56BB2D002516B9 /* GameController.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameController.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/GameController.framework; sourceTree = DEVELOPER_DIR; };
 		1535AA361D56BB84002516B9 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/MediaPlayer.framework; sourceTree = DEVELOPER_DIR; };
 		153FE5581E23920200EF6C8D /* Chart.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Chart.cpp; sourceTree = "<group>"; };
@@ -383,6 +386,8 @@
 		151952DD1D300E6B007F7C6A /* external */ = {
 			isa = PBXGroup;
 			children = (
+				1525D8AF1E2E5CAF0045118C /* CCLayerPanZoom.cpp */,
+				1525D8B01E2E5CAF0045118C /* CCLayerPanZoom.h */,
 				151952DE1D300E6B007F7C6A /* CCActivityIndicator.cpp */,
 				151952DF1D300E6B007F7C6A /* CCActivityIndicator.h */,
 				151952E01D300E6B007F7C6A /* picojson.h */,
@@ -1001,6 +1006,7 @@
 				503AE10117EB989F00D1A890 /* main.m in Sources */,
 				151953241D300E6B007F7C6A /* Indicator.cpp in Sources */,
 				151953151D300E6B007F7C6A /* SpriteBlur.cpp in Sources */,
+				1525D8B11E2E5CAF0045118C /* CCLayerPanZoom.cpp in Sources */,
 				151953191D300E6B007F7C6A /* Util.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
