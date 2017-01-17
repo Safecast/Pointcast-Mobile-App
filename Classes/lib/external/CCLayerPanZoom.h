@@ -27,6 +27,8 @@
  */
 
 #include "cocos2d.h"
+#include "scene/base/AbstructScene.hpp"
+
 USING_NS_CC;
 
 #define kCCLayerPanZoomMultitouchGesturesDetectionDelay 0.5
@@ -55,7 +57,7 @@ typedef enum
 } CCLayerPanZoomFrameEdge;
 
 
-class CCLayerPanZoom : public cocos2d::CCLayer
+class CCLayerPanZoom : public scene::base::AbstructScene
 {
 public:
 	// Here's a difference. Method 'init' in cocos2d-x returns bool, instead of returning 'id' in cocos2d-iphone
@@ -76,7 +78,7 @@ public:
     
     //ToDo add delegate
     CC_SYNTHESIZE(float, _maxTouchDistanceToClick, maxTouchDistanceToClick);
-    CC_SYNTHESIZE(CCArray*, _touches, touches);
+    CC_SYNTHESIZE(cocos2d::Vector<Touch*>, _touches, touches);
     CC_SYNTHESIZE(float, _touchDistance, touchDistance);
     CC_SYNTHESIZE(float, _minSpeed, minSpeed);
     CC_SYNTHESIZE(float, _maxSpeed, maxSpeed);
@@ -86,16 +88,17 @@ public:
     CC_SYNTHESIZE(float, _rightFrameMargin, rightFrameMargin);
     
     CC_SYNTHESIZE(Scheduler*, _scheduler, scheduler);
-    CC_SYNTHESIZE(ccTime, _rubberEffectRecoveryTime, rubberEffectRecoveryTime);
+    // CC_SYNTHESIZE(cocos2d::Time, _rubberEffectRecoveryTime, rubberEffectRecoveryTime);
     
-	CCRect _panBoundsRect;
+	Rect _panBoundsRect;
     float _maxScale;
     float _minScale;
     
     CCLayerPanZoomMode _mode;
     
-    CCPoint _prevSingleTouchPositionInLayer; 
+    Point _prevSingleTouchPositionInLayer;
     //< previous position in layer if single touch was moved.
+    
     
     // Time when single touch has began, used to wait for possible multitouch 
     // gestures before reacting to single touch.
@@ -107,6 +110,7 @@ public:
     float _rubberEffectRatio;
     bool _rubberEffectRecovering;
     bool _rubberEffectZooming;
+    float _rubberEffectRecoveryTime;
     
     //CCStandartTouchDelegate
     void onTouchBegan(__Set *pTouches, Event *pEvent);
@@ -115,7 +119,7 @@ public:
     void onTouchCancelled(__Set *pTouches, Event *pEvent);
     
     // Updates position in frame mode.
-    virtual void update(ccTime dt);
+    virtual void update(float dt);
     void onEnter();
     void onExit();
     

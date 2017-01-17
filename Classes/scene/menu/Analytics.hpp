@@ -23,7 +23,7 @@ namespace scene {
 
 namespace menu {
 
-class Analytics : public base::AbstructScene,CCLayerPanZoom  {
+class Analytics : public CCLayerPanZoom {
   // member
 public:
 private:

@@ -34,7 +34,9 @@ USING_NS_CC;
 void CCLayerPanZoom::setMaxScale(float maxScale)
 {
     _maxScale = maxScale;
+    this->setScale(1.0f);
     this->setScale(MIN(this->getScale(), _maxScale));
+
 }
 
 float CCLayerPanZoom::maxScale()
@@ -86,18 +88,18 @@ CCLayerPanZoom* CCLayerPanZoom::layer()
 bool CCLayerPanZoom::init()
 {
     // 1. super init first
-	if ( !CCLayer::init() )
+	if ( !Layer::init() )
 	{
 		return false;
 	}
     
-    m_bIsRelativeAnchorPoint = true;
-    m_bIsTouchEnabled = true;
+    // m_bIsRelativeAnchorPoint = true;
+    // m_bIsTouchEnabled = true;
     
     _maxScale = 3.0f;
     _minScale = 0.7f;
-    _touches = CCArray::createWithCapacity(10);
-    _touches->retain();
+    //_touches = cocos2d::Vector<Touch>;
+    //_touches->retain();
     
     _panBoundsRect = CCRectZero;
     _touchDistance = 0.0F;
@@ -127,11 +129,11 @@ void CCLayerPanZoom::onTouchBegan(__Set *pTouches, Event *pEvent)
     for (setIter = pTouches->begin(); setIter != pTouches->end(); ++setIter)
     {
         pTouch = (Touch *)(*setIter);
-        _touches->addObject(pTouch);
+        _touches.pushBack(pTouch);
     }
         
     
-    if (_touches->count() == 1)
+    if (_touches.size() == 1)
     {
         _touchMoveBegan = false;
         time_t seconds;
@@ -145,19 +147,19 @@ void CCLayerPanZoom::onTouchBegan(__Set *pTouches, Event *pEvent)
 
 void CCLayerPanZoom::onTouchMoved(__Set *pTouches, Event *pEvent)
 {
-    bool multitouch = _touches->count() > 1;
+    bool multitouch = _touches.size() > 1;
 	if (multitouch)
 	{
-		// Get the two first touches
-        Touch *touch1 = (Touch*)_touches->getObjectAtIndex(0);
-        Touch *touch2 = (Touch*)_touches->getObjectAtIndex(1);
+        
+        // Get the two first touches
+        Touch *touch1 = (Touch*)_touches.at(0);
+        Touch *touch2 = (Touch*)_touches.at(1);
 		// Get current and previous positions of the touches
-		Point curPosTouch1 = CCDirector::sharedDirector()->convertToGL(touch1->locationInView(touch1->view()));
-        Point curPosTouch2 = CCDirector::sharedDirector()->convertToGL(touch2->locationInView(touch2->view()));
+        Point curPosTouch1 = Director::getInstance()->convertToGL(touch1->getLocationInView());
+        Point curPosTouch2 = Director::getInstance()->convertToGL(touch2->getLocationInView());
         
-        Point prevPosTouch1 = CCDirector::sharedDirector()->convertToGL(touch1->previousLocationInView(touch1->view()));
-        Point prevPosTouch2 = CCDirector::sharedDirector()->convertToGL(touch2->previousLocationInView(touch2->view()));
-        
+        Point prevPosTouch1 = Director::getInstance()->convertToGL(touch1->getLocationInView());
+        Point prevPosTouch2 = Director::getInstance()->convertToGL(touch2->getLocationInView());
         
 		// Calculate current and previous positions of the layer relative the anchor point
 		Point curPosLayer = ccpMidpoint(curPosTouch1, curPosTouch2);
@@ -182,16 +184,16 @@ void CCLayerPanZoom::onTouchMoved(__Set *pTouches, Event *pEvent)
             {
                 _rubberEffectZooming = true;
             }
-            CCPoint realCurPosLayer = this->convertToNodeSpace(curPosLayer);
+            Point realCurPosLayer = this->convertToNodeSpace(curPosLayer);
             float deltaX = (realCurPosLayer.x - this->getAnchorPoint().x * this->getContentSize().width) * (this->getScale() - prevScale);
             float deltaY = (realCurPosLayer.y - this->getAnchorPoint().y * this->getContentSize().height) * (this->getScale() - prevScale);
-            this->setPosition(ccp(this->getPosition().x - deltaX, this->getPosition().y - deltaY));
+            this->setPosition(Vec2(this->getPosition().x - deltaX, this->getPosition().y - deltaY));
             _rubberEffectZooming = false;
         }
         // If current and previous position of the multitouch's center aren't equal -> change position of the layer
-		if (!CCPoint::CCPointEqualToPoint(prevPosLayer, curPosLayer))
+		if (!(prevPosLayer == curPosLayer))
 		{            
-            this->setPosition(ccp(this->getPosition().x + curPosLayer.x - prevPosLayer.x,
+            this->setPosition(Vec2(this->getPosition().x + curPosLayer.x - prevPosLayer.x,
                                 this->getPosition().y + curPosLayer.y - prevPosLayer.y));
         }
         // Don't click with multitouch
@@ -200,9 +202,9 @@ void CCLayerPanZoom::onTouchMoved(__Set *pTouches, Event *pEvent)
 	else
 	{	        
         // Get the single touch and it's previous & current position.
-        CCTouch *touch = (CCTouch*)_touches->objectAtIndex(0);
-        CCPoint curTouchPosition = CCDirector::sharedDirector()->convertToGL(touch->locationInView(touch->view()));
-        CCPoint prevTouchPosition = CCDirector::sharedDirector()->convertToGL(touch->previousLocationInView(touch->view()));
+        Touch *touch = (Touch*)_touches.at(0);
+        Point curTouchPosition = Director::getInstance()->convertToGL(touch->getLocationInView());
+        Point prevTouchPosition = CCDirector::sharedDirector()->convertToGL(touch->getPreviousLocationInView());
         
         // Always scroll in sheet mode.
         if (_mode == kCCLayerPanZoomModeSheet)
@@ -229,52 +231,54 @@ void CCLayerPanZoom::onTouchMoved(__Set *pTouches, Event *pEvent)
     }	
 }
 
-void CCLayerPanZoom::ccTouchesEnded(cocos2d::CCSet *pTouches, cocos2d::CCEvent *pEvent){
+void CCLayerPanZoom::onTouchEnded(__Set *pTouches, Event *pEvent)
+{
     _singleTouchTimestamp = INFINITY;
     
     // Process click event in single touch.
     //ToDo add delegate
     if (  (_touchDistance < _maxTouchDistanceToClick) /*&& (self.delegate) */
-        && (_touches->count() == 1))
+        && (_touches.size() == 1))
     {
-        CCTouch *touch = (CCTouch*)_touches->objectAtIndex(0);       
-        CCPoint curPos = CCDirector::sharedDirector()->convertToGL(touch->locationInView(touch->view()));
+        Touch *touch = (Touch*)_touches.at(0);
+        Point curPos = Director::getInstance()->convertToGL(touch->getLocationInView());
         //ToDo add delegate
         /*[self.delegate layerPanZoom: self
                      clickedAtPoint: [self convertToNodeSpace: curPos]
                            tapCount: [touch tapCount]];*/
     }
     
-    CCTouch *pTouch;
-    CCSetIterator setIter;
+    Touch *pTouch;
+    SetIterator setIter;
     for (setIter = pTouches->begin(); setIter != pTouches->end(); ++setIter)
     {
-        pTouch = (CCTouch *)(*setIter);
-        _touches->removeObject(pTouch);
+        pTouch = (Touch *)(*setIter);
+        _touches.eraseObject(pTouch);
     }
     
-	if (_touches->count() == 0)
+	if (_touches.size() == 0)
 	{
 		_touchDistance = 0.0f;
 	}
     
-    if (!_touches->count() && !_rubberEffectRecovering)
+    if (!_touches.size() && !_rubberEffectRecovering)
     {
         this->recoverPositionAndScale();
     }
 }
 
-void CCLayerPanZoom::ccTouchesCancelled(cocos2d::CCSet *pTouches, cocos2d::CCEvent *pEvent){
+void CCLayerPanZoom::onTouchCancelled(__Set *pTouches, Event *pEvent)
+{
     
-    CCTouch *pTouch;
-    CCSetIterator setIter;
+    Touch *pTouch;
+    SetIterator setIter;
     for (setIter = pTouches->begin(); setIter != pTouches->end(); ++setIter)
     {
-        pTouch = (CCTouch *)(*setIter);
-        _touches->removeObject(pTouch);
+        pTouch = (Touch *)(*setIter);
+        _touches.eraseObject(pTouch);
     }
     
-	if (_touches->count() == 0)
+	if (_touches.size() == 0)
 	{
 		_touchDistance = 0.0f;
 	}
@@ -282,9 +286,9 @@ void CCLayerPanZoom::ccTouchesCancelled(cocos2d::CCSet *pTouches, cocos2d::CCEve
 #pragma mark Update
 
 // Updates position in frame mode.
-void  CCLayerPanZoom::update(ccTime dt){
+void  CCLayerPanZoom::update(float dt){
     // Only for frame mode with one touch.
-	if ( _mode == kCCLayerPanZoomModeFrame && _touches->count() == 1 )
+	if ( _mode == kCCLayerPanZoomModeFrame && _touches.size() == 1 )
     {
         // Do not update position if click is still possible.
         if (_touchDistance <= _maxTouchDistanceToClick)
@@ -299,19 +303,19 @@ void  CCLayerPanZoom::update(ccTime dt){
             return;
         
         // Otherwise - update touch position. Get current position of touch.
-        CCTouch *touch = (CCTouch*)_touches->objectAtIndex(0);
-        CCPoint curPos = CCDirector::sharedDirector()->convertToGL(touch->locationInView(touch->view()));
+        Touch *touch = (Touch*)_touches.at(0);
+        Point curPos = Director::getInstance()->convertToGL(touch->getLocationInView());
         
         // Scroll if finger in the scroll area near edge.
         if (this->frameEdgeWithPoint(curPos) != kCCLayerPanZoomFrameEdgeNone)
         {
-            this->setPosition(ccp(this->getPosition().x + dt * this->horSpeedWithPosition( curPos), 
+            this->setPosition(Vec2(this->getPosition().x + dt * this->horSpeedWithPosition( curPos),
                                 this->getPosition().y + dt * this->vertSpeedWithPosition(curPos)));
         }
         
         // Inform delegate if touch position in layer was changed due to finger or layer movement.
         CCPoint touchPositionInLayer = this->convertToNodeSpace(curPos);
-        if (!CCPoint::CCPointEqualToPoint(_prevSingleTouchPositionInLayer, touchPositionInLayer))
+        if (!(_prevSingleTouchPositionInLayer == touchPositionInLayer))
         {
             _prevSingleTouchPositionInLayer = touchPositionInLayer;
             //ToDo add delegate
@@ -323,29 +327,31 @@ void  CCLayerPanZoom::update(ccTime dt){
 }
 
 void  CCLayerPanZoom::onEnter(){
-    CCLayer::onEnter();
-    CCScheduler::sharedScheduler()->scheduleUpdateForTarget(this, 0, false);
+    Layer::onEnter();
+    // Scheduler::sharedScheduler()->scheduleUpdateForTarget(this, 0, false);
+    this->scheduleUpdate();
 }
 
 void  CCLayerPanZoom::onExit(){
-   CCScheduler::sharedScheduler()->unscheduleAllSelectorsForTarget(this);
-   CCLayer::onExit();
+  // Scheduler::sharedScheduler()->unscheduleAllSelectorsForTarget(this);
+  this->unscheduleUpdate();
+  Layer::onExit();
 }
 
 #pragma mark Scale and Position related
 
-void CCLayerPanZoom::setPanBoundsRect(CCRect rect){
+void CCLayerPanZoom::setPanBoundsRect(Rect rect){
 	_panBoundsRect = rect;
     this->setScale(this->minPossibleScale());
     this->setPosition(this->getPosition());
 }
 
-void CCLayerPanZoom::setPosition(CCPoint  position){
-    CCPoint prevPosition = this->getPosition();
+void CCLayerPanZoom::setPosition(Point  position){
+    Point prevPosition = this->getPosition();
     //May be it wouldnot work
-    CCNode::setPosition(position);
+    Node::setPosition(position);
     
-    if (!CCRect::CCRectEqualToRect(_panBoundsRect, CCRectZero) && !_rubberEffectZooming)
+    if (!(_panBoundsRect.equals(Rect::ZERO)) && !_rubberEffectZooming)
     {
         if (_rubberEffectRatio && _mode == kCCLayerPanZoomModeSheet)
         {
@@ -359,39 +365,39 @@ void CCLayerPanZoom::setPosition(CCPoint  position){
                 float dy = this->getPosition().y - prevPosition.y;
                 if (bottomDistance || topDistance)
                 {
-                    CCNode::setPosition(ccp(this->getPosition().x, 
+                    Node::setPosition(ccp(this->getPosition().x,
                                             prevPosition.y + dy * _rubberEffectRatio));                    
                 }
                 if (leftDistance || rightDistance)
                 {
-                    CCNode::setPosition(ccp(prevPosition.x + dx * _rubberEffectRatio, 
+                    Node::setPosition(ccp(prevPosition.x + dx * _rubberEffectRatio,
                                             this->getPosition().y));                    
                 }
             }
         }
         else
         {
-            CCRect boundBox = this->boundingBox();
+            Rect boundBox = this->boundingBox();
             if (this->getPosition().x - boundBox.size.width * this->getAnchorPoint().x > _panBoundsRect.origin.x)
             {
-                CCNode::setPosition(ccp(boundBox.size.width * this->getAnchorPoint().x + _panBoundsRect.origin.x, 
+                Node::setPosition(ccp(boundBox.size.width * this->getAnchorPoint().x + _panBoundsRect.origin.x,
                                         this->getPosition().y));
             }	
             if (this->getPosition().y - boundBox.size.height * this->getAnchorPoint().y > _panBoundsRect.origin.y)
             {
-                CCNode::setPosition(ccp(this->getPosition().x, boundBox.size.height * this->getAnchorPoint().y + 
+                Node::setPosition(ccp(this->getPosition().x, boundBox.size.height * this->getAnchorPoint().y +
                                         _panBoundsRect.origin.y));
             }
             if (this->getPosition().x + boundBox.size.width * (1 - this->getAnchorPoint().x) < _panBoundsRect.size.width +
                 _panBoundsRect.origin.x)
             {
-                CCNode::setPosition(ccp(_panBoundsRect.size.width + _panBoundsRect.origin.x - 
+                Node::setPosition(ccp(_panBoundsRect.size.width + _panBoundsRect.origin.x -
                                         boundBox.size.width * (1 - this->getAnchorPoint().x), this->getPosition().y));
             }
             if (this->getPosition().y + boundBox.size.height * (1 - this->getAnchorPoint().y) < _panBoundsRect.size.height + 
                 _panBoundsRect.origin.y)
             {
-                CCNode::setPosition(ccp(this->getPosition().x, _panBoundsRect.size.height + _panBoundsRect.origin.y - 
+                Node::setPosition(ccp(this->getPosition().x, _panBoundsRect.size.height + _panBoundsRect.origin.y -
                                         boundBox.size.height * (1 - this->getAnchorPoint().y)));
             }	
         }
@@ -399,15 +405,15 @@ void CCLayerPanZoom::setPosition(CCPoint  position){
 }
 
 void CCLayerPanZoom::setScale(float scale){
-    CCLayer::setScale( MIN(MAX(scale, _minScale), _maxScale));
+    Layer::setScale( MIN(MAX(scale, _minScale), _maxScale));
 }
 
 #pragma mark Ruber Edges related
 
 void CCLayerPanZoom::recoverPositionAndScale(){
-    if (!CCRect::CCRectEqualToRect(_panBoundsRect, CCRectZero))
+    if (!(_panBoundsRect.equals(Rect::ZERO)))
 	{    
-        CCSize winSize = CCDirector::sharedDirector()->getWinSize();
+        Size winSize = Director::getInstance()->getWinSize();
         float rightEdgeDistance = this->rightEdgeDistance();
         float leftEdgeDistance = this->leftEdgeDistance();
         float topEdgeDistance = this->topEdgeDistance();
@@ -422,84 +428,92 @@ void CCLayerPanZoom::recoverPositionAndScale(){
         if (this->getScale() < scale)
         {
             _rubberEffectRecovering = true;
-            CCPoint newPosition = CCPointZero;
+            Point newPosition = Vec2();
             if (rightEdgeDistance && leftEdgeDistance && topEdgeDistance && bottomEdgeDistance)
             {
                 float dx = scale * this->getContentSize().width * (this->getAnchorPoint().x - 0.5f);
                 float dy = scale * this->getContentSize().height * (this->getAnchorPoint().y - 0.5f);
-                newPosition = ccp(winSize.width * 0.5f + dx, winSize.height * 0.5f + dy);
+                newPosition = Vec2(winSize.width * 0.5f + dx, winSize.height * 0.5f + dy);
             }
             else if (rightEdgeDistance && leftEdgeDistance && topEdgeDistance)
             {
                 float dx = scale * this->getContentSize().width * (this->getAnchorPoint().x - 0.5f);
                 float dy = scale * this->getContentSize().height * (1.0f - this->getAnchorPoint().y);            
-                newPosition = ccp(winSize.width * 0.5f + dx, winSize.height - dy);
+                newPosition = Vec2(winSize.width * 0.5f + dx, winSize.height - dy);
             }
             else if (rightEdgeDistance && leftEdgeDistance && bottomEdgeDistance)
             {
                 float dx = scale * this->getContentSize().width * (this->getAnchorPoint().x - 0.5f);
                 float dy = scale * this->getContentSize().height * this->getAnchorPoint().y;            
-                newPosition = ccp(winSize.width * 0.5f + dx, dy);
+                newPosition = Vec2(winSize.width * 0.5f + dx, dy);
             }
             else if (rightEdgeDistance && topEdgeDistance && bottomEdgeDistance)
             {
                 float dx = scale * this->getContentSize().width * (1.0f - this->getAnchorPoint().x);
                 float dy = scale * this->getContentSize().height * (this->getAnchorPoint().y - 0.5f);            
-                newPosition = ccp(winSize.width  - dx, winSize.height  * 0.5f + dy);
+                newPosition = Vec2(winSize.width  - dx, winSize.height  * 0.5f + dy);
             }
             else if (leftEdgeDistance && topEdgeDistance && bottomEdgeDistance)
             {
                 float dx = scale * this->getContentSize().width * this->getAnchorPoint().x;
                 float dy = scale * this->getContentSize().height * (this->getAnchorPoint().y - 0.5f);            
-                newPosition = ccp(dx, winSize.height * 0.5f + dy);
+                newPosition = Vec2(dx, winSize.height * 0.5f + dy);
             }
             else if (leftEdgeDistance && topEdgeDistance)
             {
                 float dx = scale * this->getContentSize().width * this->getAnchorPoint().x;
                 float dy = scale * this->getContentSize().height * (1.0f - this->getAnchorPoint().y);            
-                newPosition = ccp(dx, winSize.height - dy);
+                newPosition = Vec2(dx, winSize.height - dy);
             } 
             else if (leftEdgeDistance && bottomEdgeDistance)
             {
                 float dx = scale * this->getContentSize().width * this->getAnchorPoint().x;
                 float dy = scale * this->getContentSize().height * this->getAnchorPoint().y;            
-                newPosition = ccp(dx, dy);
+                newPosition = Vec2(dx, dy);
             } 
             else if (rightEdgeDistance && topEdgeDistance)
             {
                 float dx = scale * this->getContentSize().width * (1.0f - this->getAnchorPoint().x);
                 float dy = scale * this->getContentSize().height * (1.0f - this->getAnchorPoint().y);            
-                newPosition = ccp(winSize.width - dx, winSize.height - dy);
+                newPosition = Vec2(winSize.width - dx, winSize.height - dy);
             } 
             else if (rightEdgeDistance && bottomEdgeDistance)
             {
                 float dx = scale * this->getContentSize().width * (1.0f - this->getAnchorPoint().x);
                 float dy = scale * this->getContentSize().height * this->getAnchorPoint().y;            
-                newPosition = ccp(winSize.width - dx, dy);
+                newPosition = Vec2(winSize.width - dx, dy);
             } 
             else if (topEdgeDistance || bottomEdgeDistance)
             {
                 float dy = scale * this->getContentSize().height * (this->getAnchorPoint().y - 0.5f);            
-                newPosition = ccp(this->getPosition().x, winSize.height * 0.5f + dy);
+                newPosition = Vec2(this->getPosition().x, winSize.height * 0.5f + dy);
             }
             else if (leftEdgeDistance || rightEdgeDistance)
             {
                 float dx = scale * this->getContentSize().width * (this->getAnchorPoint().x - 0.5f);
-                newPosition = ccp(winSize.width * 0.5f + dx, this->getPosition().y);
+                newPosition = Vec2(winSize.width * 0.5f + dx, this->getPosition().y);
             } 
             
-            CCMoveTo *moveToPosition = CCMoveTo::actionWithDuration( _rubberEffectRecoveryTime,newPosition);
-            CCScaleTo *scaleToPosition = CCScaleTo::actionWithDuration( _rubberEffectRecoveryTime,scale);
-            CCFiniteTimeAction *sequence = CCSpawn::actions(scaleToPosition, moveToPosition, CCCallFunc::actionWithTarget( this, callfunc_selector(CCLayerPanZoom::recoverEnded)), NULL);
+            MoveTo *moveToPosition = MoveTo::create(_rubberEffectRecoveryTime, newPosition);
+            ScaleTo *scaleToPosition = ScaleTo::create( _rubberEffectRecoveryTime, scale);
+            
+            cocos2d::CallFunc *funcRecoverEnded=
+                CallFunc::create(CC_CALLBACK_0(CCLayerPanZoom::recoverEnded, this));
+            
+            FiniteTimeAction *sequence = Spawn::create(scaleToPosition, moveToPosition, funcRecoverEnded, nullptr);
             this->runAction(sequence);
             
         }
         else
         {
             _rubberEffectRecovering = false;
-            CCMoveTo *moveToPosition = CCMoveTo::actionWithDuration(_rubberEffectRecoveryTime,ccp(this->getPosition().x + rightEdgeDistance - leftEdgeDistance, 
+            MoveTo *moveToPosition = MoveTo::create(_rubberEffectRecoveryTime,Vec2(this->getPosition().x + rightEdgeDistance - leftEdgeDistance,
                                                                   this->getPosition().y + topEdgeDistance - bottomEdgeDistance));
-            CCFiniteTimeAction *sequence = CCSpawn::actions(moveToPosition, CCCallFunc::actionWithTarget( this, callfunc_selector(CCLayerPanZoom::recoverEnded)), NULL);
+            
+            cocos2d::CallFunc *funcRecoverEnded=
+                CallFunc::create(CC_CALLBACK_0(CCLayerPanZoom::recoverEnded, this));
+            
+            FiniteTimeAction *sequence = Spawn::create(moveToPosition,funcRecoverEnded, NULL);
             this->runAction(sequence);
             
         }
@@ -514,29 +528,29 @@ void CCLayerPanZoom::recoverEnded(){
 #pragma mark Helpers
 
 float CCLayerPanZoom::topEdgeDistance(){
-    CCRect boundBox = this->boundingBox();
+    Rect boundBox = this->getBoundingBox();
     return round(MAX(_panBoundsRect.size.height + _panBoundsRect.origin.y - this->getPosition().y - 
                      boundBox.size.height * (1 - this->getAnchorPoint().y), 0));
 }
 
 float CCLayerPanZoom::leftEdgeDistance(){
-    CCRect boundBox = this->boundingBox();
+    Rect boundBox = this->getBoundingBox();
     return round(MAX(this->getPosition().x - boundBox.size.width * this->getAnchorPoint().x - _panBoundsRect.origin.x, 0));
 }    
 
 float CCLayerPanZoom::bottomEdgeDistance(){
-    CCRect boundBox = this->boundingBox();
+    Rect boundBox = this->getBoundingBox();
     return round(MAX(this->getPosition().y - boundBox.size.height * this->getAnchorPoint().y - _panBoundsRect.origin.y, 0));
 }
 
 float CCLayerPanZoom::rightEdgeDistance(){
-    CCRect boundBox = this->boundingBox();
+    Rect boundBox = this->getBoundingBox();
     return round(MAX(_panBoundsRect.size.width + _panBoundsRect.origin.x - this->getPosition().x - 
                      boundBox.size.width * (1 - this->getAnchorPoint().x), 0));
 }
 
 float CCLayerPanZoom::minPossibleScale(){
-	if (!CCRect::CCRectEqualToRect(_panBoundsRect, CCRectZero))
+    if (!_panBoundsRect.equals(Rect::ZERO))
 	{
 		return MAX(_panBoundsRect.size.width / this->getContentSize().width,
 				   _panBoundsRect.size.height /this->getContentSize().height);
@@ -547,7 +561,7 @@ float CCLayerPanZoom::minPossibleScale(){
 	}
 }
 
-CCLayerPanZoomFrameEdge CCLayerPanZoom::frameEdgeWithPoint( CCPoint point){
+CCLayerPanZoomFrameEdge CCLayerPanZoom::frameEdgeWithPoint( Point point){
     bool isLeft = point.x <= _panBoundsRect.origin.x + _leftFrameMargin;
     bool isRight = point.x >= _panBoundsRect.origin.x + _panBoundsRect.size.width - _rightFrameMargin;
     bool isBottom = point.y <= _panBoundsRect.origin.y + _bottomFrameMargin;
@@ -590,7 +604,7 @@ CCLayerPanZoomFrameEdge CCLayerPanZoom::frameEdgeWithPoint( CCPoint point){
     return kCCLayerPanZoomFrameEdgeNone;
 }
 
-float CCLayerPanZoom::horSpeedWithPosition(CCPoint pos){
+float CCLayerPanZoom::horSpeedWithPosition(Point pos){
     CCLayerPanZoomFrameEdge edge = this->frameEdgeWithPoint(pos);
     float speed = 0.0f;
     if (edge == kCCLayerPanZoomFrameEdgeLeft)
@@ -618,7 +632,7 @@ float CCLayerPanZoom::horSpeedWithPosition(CCPoint pos){
     return speed;
 }
 
-float CCLayerPanZoom::vertSpeedWithPosition(CCPoint pos){
+float CCLayerPanZoom::vertSpeedWithPosition(Point pos){
     CCLayerPanZoomFrameEdge edge = this->frameEdgeWithPoint(pos);
     float speed = 0.0f;
     if (edge == kCCLayerPanZoomFrameEdgeBottom)

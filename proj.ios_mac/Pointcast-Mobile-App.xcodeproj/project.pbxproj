@@ -1208,7 +1208,7 @@
 					"$(_COCOS_LIB_IOS_END)",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.momokoito.pointcast.dev;
-				PROVISIONING_PROFILE = "5df5c9b4-ee82-47a6-acd2-b4d81778616f";
+				PROVISIONING_PROFILE = "8feccd11-1271-48fb-99ff-490ff64b7c52";
 				Prefix = .dev;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
