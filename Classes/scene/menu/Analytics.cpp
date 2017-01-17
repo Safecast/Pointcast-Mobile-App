@@ -65,7 +65,6 @@ void Analytics::prepare(int m_sensor_main_id) {
 
   this->_favorite = lib::Util::getFavorite(this->_m_sensor_main_id);
  
-  this->setFavoriteButtonState();
 }
 
 void Analytics::initFixedContents()
@@ -124,7 +123,9 @@ void Analytics::initFixedContents()
 
     // scroll view
     this->_p_scroll_view = static_cast<ui::ScrollView *>(
-                                  this->_p_scroll_view->getChildByName("scrollView"));
+                                  this->_p_panel_background->getChildByName("scrollView"));
+    
+    this->setFavoriteButtonState();
     
     this->addChild(this->_p_contents);
 }
@@ -176,19 +177,18 @@ bool Analytics::init() {
       CCLOG("イベント受け取ったよ > %s",event->getEventName().c_str());
       this->onDidOrientation();
   });
-
-  // initialize chart interval
-  this->initChartInterval();
-
-  // initialize fixed contents
-  this->initFixedContents();
-    
     
   return true;
 }
 
 void Analytics::onEnter() {
   AbstructScene::onEnter();
+
+  // initialize chart interval
+  this->initChartInterval();
+
+  // initialize fixed contents
+  this->initFixedContents();
 
   // get Analytics Data
   // Http Request For Analytics Data
