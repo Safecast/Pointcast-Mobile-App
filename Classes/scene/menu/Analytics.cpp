@@ -68,8 +68,11 @@ void Analytics::prepare(int m_sensor_main_id) {
   this->setFavoriteButtonState();
 }
 
-void Analytics::initContents()
+void Analytics::initFixedContents()
 {
+    
+    this->_p_scene_main =
+        static_cast<scene::Main *>(this->getParent()->getParent());
     
     if (this->isPortlate()) {
         this->_p_contents =
@@ -83,9 +86,9 @@ void Analytics::initContents()
         
     }
     
-    auto panel =
-    this->_p_contents->getChildByName<ui::Layout *>("panelBackground");
-    auto label_back = panel->getChildByName<ui::Text *>("txtBack");
+    this->_p_panel_background =
+        this->_p_contents->getChildByName<ui::Layout *>("panelBackground");
+    auto label_back = this->_p_panel_background->getChildByName<ui::Text *>("txtBack");
     label_back->addTouchEventListener(
         [this](Ref *sender, ui::Widget::TouchEventType type) {
         if (type == ui::Widget::TouchEventType::ENDED) {
@@ -96,7 +99,7 @@ void Analytics::initContents()
     });
     
     // favorite
-    this->_p_btn_favorite = panel->getChildByName<ui::Button *>("btnFavorite");
+    this->_p_btn_favorite = this->_p_panel_background->getChildByName<ui::Button *>("btnFavorite");
     this->_p_btn_favorite->addTouchEventListener(
         [this](Ref *sender, ui::Widget::TouchEventType type) {
             CCLOG("p_button_favorite touchend %d", type);
@@ -118,8 +121,46 @@ void Analytics::initContents()
                 this->detachTouchParticle();
             }
         });
+
+    // scroll view
+    this->_p_scroll_view = static_cast<ui::ScrollView *>(
+                                  this->_p_scroll_view->getChildByName("scrollView"));
     
     this->addChild(this->_p_contents);
+}
+    
+void Analytics::initVariableContents()
+{
+    // prepare chart data
+    lib::network::DataStoreSingleton *p_data_store_singleton =
+                    lib::network::DataStoreSingleton::getInstance();
+    const std::string analytics_data =
+        p_data_store_singleton->getResponseAnalyticsData(this->_m_sensor_main_id);
+    
+    
+    std::vector<lib::object::ChartItem> v_chart_items =
+                        this->getChartData(analytics_data);
+    
+    std::vector<lib::object::WeatherItem> v_weather_items =
+                        this->getWeatherData(analytics_data);
+    
+    
+    // draw header
+    auto p_header =  scene::layout::helper::Chart::prepareHeader(this, this->_m_sensor_main_id);
+    this->addChild(p_header);
+    
+    // draw chart
+    auto p_chart = scene::layout::helper::Chart::prepareChart(this, this->_m_sensor_main_id, v_chart_items, v_weather_items);
+    this->_p_scroll_view->addChild(p_chart);
+    
+    // detach wait animation
+    this->_p_scene_main->detachWaitAnimation();
+
+}
+    
+void Analytics::initChart()
+{
+    
 }
     
 bool Analytics::init() {
@@ -139,7 +180,10 @@ bool Analytics::init() {
   // initialize chart interval
   this->initChartInterval();
 
-  this->initContents();
+  // initialize fixed contents
+  this->initFixedContents();
+    
+    
   return true;
 }
 
@@ -196,44 +240,10 @@ void Analytics::onCallbackPointcastAnalytics(
     cocos2d::network::HttpResponse *response) {
   CCLOG("onCallbackPointcastAnalytics");
 
-  scene::Main *p_scene_main =
-      static_cast<scene::Main *>(this->getParent()->getParent());
-  p_scene_main->detachWaitAnimation();
-
-  // @note is here right?
-  lib::network::DataStoreSingleton *p_data_store_singleton =
-      lib::network::DataStoreSingleton::getInstance();
-
-  const std::string analytics_data =
-      p_data_store_singleton->getResponseAnalyticsData(this->_m_sensor_main_id);
-
-  CCLOG("analytics_data %s", analytics_data.c_str());
-
-  std::vector<lib::object::ChartItem> v_chart_items =
-      this->getChartData(analytics_data);
-
-  std::vector<lib::object::WeatherItem> v_weather_items =
-      this->getWeatherData(analytics_data);
-
-  auto p_header =  scene::layout::helper::Chart::prepareHeader(this, this->_m_sensor_main_id);
     
-  // auto p_chart_board_widget = scene::layout::helper::Chart::prepareChartBoard(this, this->_m_sensor_main_id, v_chart_items, v_weather_items);
-
-  // base scene
-  auto p_panel_background = static_cast<ui::Layout *>(
-      this->_p_contents->getChildByName("panelBackground"));
+  this->initVariableContents();
     
-  // scroll view
-  auto p_scroll_view = static_cast<ui::ScrollView *>(
-      p_panel_background->getChildByName("scrollView"));
   
-    /*
-  Size size = p_chart_board_widget->getContentSize();
-  p_scroll_view->setInnerContainerSize(p_chart_board_widget->getContentSize());
-  p_chart_board_widget->setAnchorPoint(Point(0.0f, 0.0f));
-    */
-  this->addChild(p_header);
-  // p_scroll_view->addChild(p_chart_board_widget);
 }
 
 std::vector<lib::object::ChartItem>
@@ -469,7 +479,7 @@ void Analytics::resetContents()
     this->_p_contents->removeFromParent();
     
     // init contents
-    this->initContents();
+    this->initFixedContents();
     
     // notify onEnter
     this->onEnter();
@@ -494,6 +504,16 @@ void Analytics::initChartInterval()
     // interval 1 day
     this->_interval_start = this->_interval_end - 86400;
     
+}
+    
+time_t Analytics::getIntervalStart()
+{
+    return this->_interval_start;
+}
+    
+time_t Analytics::getIntervalEnd()
+{
+    return this->_interval_end;
 }
     
 }

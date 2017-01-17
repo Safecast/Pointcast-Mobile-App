@@ -15,6 +15,8 @@
 #include "lib/object/WeatherItem.hpp"
 #include "network/HttpClient.h"
 #include "scene/base/AbstructScene.hpp"
+#include "scene/Main.hpp"
+#include "ui/CocosGUI.h"
 
 namespace scene {
 
@@ -25,6 +27,12 @@ class Analytics : public base::AbstructScene {
 public:
 private:
   cocos2d::Node *_p_contents;
+    
+  cocos2d::ui::Layout *_p_panel_background;
+
+  cocos2d::ui::ScrollView *_p_scroll_view;
+  
+  scene::Main* _p_scene_main;
 
   time_t _interval_start;
 
@@ -43,8 +51,12 @@ private:
   // function
 public:
   virtual bool init();
+
+  void initFixedContents();
  
-  void initContents();
+  void initVariableContents();
+   
+  void initChart();
     
   void initChartInterval();
 
@@ -81,6 +93,11 @@ public:
   bool isPortlate();
     
   bool isLandscape();
+    
+  time_t getIntervalStart();
+    
+  time_t getIntervalEnd();
+
     
 };
 }

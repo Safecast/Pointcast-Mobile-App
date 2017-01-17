@@ -29,7 +29,7 @@ public:
     static cocos2d::ui::Widget *prepareHeader(scene::menu::Analytics* p_scene_analytics,
                                                         int m_sensor_main_id);
     
-    static cocos2d::ui::Widget *prepareChartBoard(scene::menu::Analytics* p_scene_analytics,
+    static cocos2d::ui::Widget *prepareChart(scene::menu::Analytics* p_scene_analytics,
                                                   int m_sensor_main_id,
                                                   const std::vector<lib::object::ChartItem> v_chart_items,
                                                   const std::vector<lib::object::WeatherItem> v_weather_items);
