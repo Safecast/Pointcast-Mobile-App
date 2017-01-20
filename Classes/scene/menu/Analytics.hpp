@@ -99,7 +99,20 @@ public:
     
   time_t getIntervalEnd();
 
+  virtual void onTouchesBegan(const std::vector<cocos2d::Touch*>& touches, cocos2d::Event *pEvent);
+  
+  virtual void onTouchesMoved(const std::vector<cocos2d::Touch*>& touches,cocos2d::Event *pEvent);
+
+  virtual void onTouchesEnded(const std::vector<cocos2d::Touch*>& touches, cocos2d::Event *pEvent);
+  
+  virtual void onTouchesCancelled(const std::vector<cocos2d::Touch*>& touches, cocos2d::Event *pEvent);
     
+  virtual bool onTouchBegan(Touch *touch, Event *event);
+  
+  virtual void onTouchMoved(Touch *touch, Event *event);
+  
+  virtual void onTouchEnded(Touch *touch, Event *event);
+
 };
 }
 }

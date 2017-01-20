@@ -122,16 +122,16 @@ bool CCLayerPanZoom::init()
 }
 
 #pragma mark CCStandardTouchDelegate Touch events
-void CCLayerPanZoom::onTouchBegan(__Set *pTouches, Event *pEvent)
+void CCLayerPanZoom::onTouchBegan(const std::vector<cocos2d::Touch*>& touches, cocos2d::Event *pEvent)
 {
     Touch *pTouch;
     SetIterator setIter;
-    for (setIter = pTouches->begin(); setIter != pTouches->end(); ++setIter)
+    
+    for (int i = 0; i < touches.size(); i++)
     {
         pTouch = (Touch *)(*setIter);
         _touches.pushBack(pTouch);
     }
-        
     
     if (_touches.size() == 1)
     {
@@ -145,7 +145,7 @@ void CCLayerPanZoom::onTouchBegan(__Set *pTouches, Event *pEvent)
         _singleTouchTimestamp = INFINITY;
 }
 
-void CCLayerPanZoom::onTouchMoved(__Set *pTouches, Event *pEvent)
+void CCLayerPanZoom::onTouchMoved(const std::vector<cocos2d::Touch*>& touches, cocos2d::Event *pEvent)
 {
     bool multitouch = _touches.size() > 1;
 	if (multitouch)
@@ -231,7 +231,7 @@ void CCLayerPanZoom::onTouchMoved(__Set *pTouches, Event *pEvent)
     }	
 }
 
-void CCLayerPanZoom::onTouchEnded(__Set *pTouches, Event *pEvent)
+void CCLayerPanZoom::onTouchEnded(const std::vector<cocos2d::Touch*>& touches, cocos2d::Event *pEvent)
 {
     _singleTouchTimestamp = INFINITY;
     
@@ -250,7 +250,8 @@ void CCLayerPanZoom::onTouchEnded(__Set *pTouches, Event *pEvent)
     
     Touch *pTouch;
     SetIterator setIter;
-    for (setIter = pTouches->begin(); setIter != pTouches->end(); ++setIter)
+    
+    for (int i = 0; i < touches.size(); i++)
     {
         pTouch = (Touch *)(*setIter);
         _touches.eraseObject(pTouch);
@@ -267,12 +268,13 @@ void CCLayerPanZoom::onTouchEnded(__Set *pTouches, Event *pEvent)
     }
 }
 
-void CCLayerPanZoom::onTouchCancelled(__Set *pTouches, Event *pEvent)
+void CCLayerPanZoom::onTouchCancelled(const std::vector<cocos2d::Touch*>& touches, cocos2d::Event *pEvent)
 {
     
     Touch *pTouch;
     SetIterator setIter;
-    for (setIter = pTouches->begin(); setIter != pTouches->end(); ++setIter)
+    
+    for (int i = 0; i < touches.size(); i++)
     {
         pTouch = (Touch *)(*setIter);
         _touches.eraseObject(pTouch);

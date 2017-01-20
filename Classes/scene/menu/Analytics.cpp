@@ -50,6 +50,34 @@ namespace scene {
 
 namespace menu {
 
+bool Analytics::init() {
+    if (!base::AbstructScene::init()) {
+        return false;
+    }
+    
+    this->setTouchEnabled(true);
+    
+    // set orientation
+    this->_portlate = scene::layout::helper::Display::IsPortlate();
+    
+    // add notification
+    Director::getInstance()->getEventDispatcher()->addCustomEventListener("orientation",[=](cocos2d::EventCustom *event) {
+        CCLOG("イベント受け取ったよ > %s",event->getEventName().c_str());
+        this->onDidOrientation();
+    });
+     auto listener = EventListenerTouchAllAtOnce::create();
+    listener->setEnabled(true);
+    listener->onTouchesBegan = CC_CALLBACK_2(Analytics::onTouchesBegan, this);
+    listener->onTouchesMoved = CC_CALLBACK_2(Analytics::onTouchesMoved, this);
+    listener->onTouchesCancelled = CC_CALLBACK_2(Analytics::onTouchesCancelled, this);
+    listener->onTouchesEnded = CC_CALLBACK_2(Analytics::onTouchesEnded, this);
+    
+    this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this);
+    
+    return true;
+}
+    
+    
 void Analytics::prepare(int m_sensor_main_id) {
   // @note is here right?
   lib::network::DataStoreSingleton *p_data_store_singleton =
@@ -126,6 +154,30 @@ void Analytics::initFixedContents()
                                   this->_p_panel_background->getChildByName("scrollView"));
     this->setFavoriteButtonState();
     
+    
+    
+    
+    
+    
+    
+    //イベントリスナーを作成
+    auto listener2 = EventListenerTouchOneByOne::create();
+    
+    listener2->onTouchBegan = CC_CALLBACK_2(Analytics::onTouchBegan, this);
+    listener2->onTouchMoved = CC_CALLBACK_2(Analytics::onTouchMoved, this);
+    listener2->onTouchEnded = CC_CALLBACK_2(Analytics::onTouchEnded, this);
+    
+    //イベントリスナーを登録
+    //this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener2, this->_p_scroll_view);
+    
+
+    
+    
+    
+    
+    
+    
+    
     this->addChild(this->_p_contents);
 }
     
@@ -164,26 +216,10 @@ void Analytics::initChart()
     
 }
     
-bool Analytics::init() {
-  if (!base::AbstructScene::init()) {
-    return false;
-  }
-    
-  // set orientation
-    this->_portlate = scene::layout::helper::Display::IsPortlate();
-  
-  // add notification
-  Director::getInstance()->getEventDispatcher()->addCustomEventListener("orientation",[=](cocos2d::EventCustom *event) {
-      CCLOG("イベント受け取ったよ > %s",event->getEventName().c_str());
-      this->onDidOrientation();
-  });
-    
-  return true;
-}
 
 void Analytics::onEnter() {
   AbstructScene::onEnter();
-
+    
   // initialize chart interval
   this->initChartInterval();
 
@@ -514,6 +550,46 @@ time_t Analytics::getIntervalStart()
 time_t Analytics::getIntervalEnd()
 {
     return this->_interval_end;
+}
+
+void Analytics::onTouchesBegan(const std::vector<cocos2d::Touch*>& touches, cocos2d::Event *pEvent)
+{
+    CCLayerPanZoom::onTouchBegan(touches, pEvent);
+    cocos2d::log("onTouchesBegan");
+}
+
+void Analytics::onTouchesMoved(const std::vector<cocos2d::Touch*>& touches,cocos2d::Event *pEvent)
+{
+    
+    
+    cocos2d::log("onTouchesMoved");
+}
+
+void Analytics::onTouchesEnded(const std::vector<cocos2d::Touch*>& touches, cocos2d::Event *pEvent)
+{
+    cocos2d::log("onTouchesEnded");
+}
+
+void Analytics::onTouchesCancelled(const std::vector<cocos2d::Touch*>& touches, cocos2d::Event *pEvent)
+{
+    cocos2d::log("onTouchesCancelled");
+}
+
+    
+bool Analytics::onTouchBegan(Touch *touch, Event *event)
+{
+    log("Single:Touch Began");
+    return true;
+}
+
+void Analytics::onTouchMoved(Touch *touch, Event *event)
+{
+    log("Single:Touch Moved!");
+}
+
+void Analytics::onTouchEnded(Touch *touch, Event *event)
+{
+    log("Single:Touch Ended!");
 }
     
 }

@@ -113,10 +113,10 @@ public:
     float _rubberEffectRecoveryTime;
     
     //CCStandartTouchDelegate
-    void onTouchBegan(__Set *pTouches, Event *pEvent);
-    void onTouchMoved(__Set *pTouches, Event *pEvent);
-    void onTouchEnded(__Set *pTouches, Event *pEvent);
-    void onTouchCancelled(__Set *pTouches, Event *pEvent);
+    void onTouchBegan(const std::vector<cocos2d::Touch*>& touches, cocos2d::Event *pEvent);
+    void onTouchMoved(const std::vector<cocos2d::Touch*>& touches, cocos2d::Event *pEvent);
+    void onTouchEnded(const std::vector<cocos2d::Touch*>& touches, cocos2d::Event *pEvent);
+    void onTouchCancelled(const std::vector<cocos2d::Touch*>& touches, cocos2d::Event *pEvent);
     
     // Updates position in frame mode.
     virtual void update(float dt);
