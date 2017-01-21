@@ -152,6 +152,7 @@ void Analytics::initFixedContents()
     // scroll view
     this->_p_scroll_view = static_cast<ui::ScrollView *>(
                                   this->_p_panel_background->getChildByName("scrollView"));
+    
     this->setFavoriteButtonState();
     
     
@@ -169,14 +170,9 @@ void Analytics::initFixedContents()
     
     //イベントリスナーを登録
     //this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener2, this->_p_scroll_view);
-    
 
     
-    
-    
-    
-    
-    
+    cocos2d::log("size w %f h %f x %f y %f", this->getContentSize().width, this->getContentSize().height, this->getPositionX(), this->getPositionY());
     
     this->addChild(this->_p_contents);
 }
@@ -205,6 +201,7 @@ void Analytics::initVariableContents()
     auto p_chart = scene::layout::helper::Chart::prepareChart(this, this->_m_sensor_main_id, v_chart_items, v_weather_items);
     this->_p_scroll_view->setInnerContainerSize(p_chart->getContentSize());
     this->_p_scroll_view->addChild(p_chart);
+    
     
     // detach wait animation
     this->_p_scene_main->detachWaitAnimation();
@@ -591,6 +588,6 @@ void Analytics::onTouchEnded(Touch *touch, Event *event)
 {
     log("Single:Touch Ended!");
 }
-    
+
 }
 }

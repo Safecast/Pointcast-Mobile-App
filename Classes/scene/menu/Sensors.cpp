@@ -39,6 +39,16 @@ bool Sensors::init() {
   if (!Node::init()) {
     return false;
   }
+    
+    
+    auto listener = EventListenerTouchAllAtOnce::create();
+    listener->setEnabled(true);
+    listener->onTouchesBegan = CC_CALLBACK_2(Sensors::onTouchesBegan, this);
+    listener->onTouchesMoved = CC_CALLBACK_2(Sensors::onTouchesMoved, this);
+    listener->onTouchesCancelled = CC_CALLBACK_2(Sensors::onTouchesCancelled, this);
+    listener->onTouchesEnded = CC_CALLBACK_2(Sensors::onTouchesEnded, this);
+    
+    this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this);
 
   // set task id
   this->task_id = Task_Id_World;
@@ -608,5 +618,31 @@ void Sensors::updateSortType(void) {
 
   p_text_sort_type->setString(label_name);
 }
+    
+    
+void Sensors::onTouchesBegan(const std::vector<cocos2d::Touch*>& touches, cocos2d::Event *pEvent)
+{
+    // CCLayerPanZoom::onTouchBegan(touches, pEvent);
+    cocos2d::log("onTouchesBegan");
+}
+
+void Sensors::onTouchesMoved(const std::vector<cocos2d::Touch*>& touches,cocos2d::Event *pEvent)
+{
+    
+    
+    cocos2d::log("onTouchesMoved");
+}
+
+void Sensors::onTouchesEnded(const std::vector<cocos2d::Touch*>& touches, cocos2d::Event *pEvent)
+{
+    cocos2d::log("onTouchesEnded");
+}
+
+void Sensors::onTouchesCancelled(const std::vector<cocos2d::Touch*>& touches, cocos2d::Event *pEvent)
+{
+    cocos2d::log("onTouchesCancelled");
+}
+    
+    
 }
 }

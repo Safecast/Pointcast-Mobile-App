@@ -94,6 +94,14 @@ public:
   void showAnalyticsDialog(int m_sensor_main_id);
 
   void closeAnalyticsDialog();
+    
+  virtual void onTouchesBegan(const std::vector<cocos2d::Touch*>& touches, cocos2d::Event *pEvent);
+
+  virtual void onTouchesMoved(const std::vector<cocos2d::Touch*>& touches,cocos2d::Event *pEvent);
+
+  virtual void onTouchesEnded(const std::vector<cocos2d::Touch*>& touches, cocos2d::Event *pEvent);
+
+  virtual void onTouchesCancelled(const std::vector<cocos2d::Touch*>& touches, cocos2d::Event *pEvent);
 
 private:
   Task_Id task_id;

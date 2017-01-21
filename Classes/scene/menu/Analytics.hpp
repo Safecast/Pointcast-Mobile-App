@@ -10,6 +10,7 @@
 #define Analytics_hpp
 #include <stdio.h>
 #include <vector>
+#include "extensions/cocos-ext.h"
 
 #include "lib/object/ChartItem.hpp"
 #include "lib/object/WeatherItem.hpp"
@@ -19,11 +20,12 @@
 #include "ui/CocosGUI.h"
 #include "lib/external/CCLayerPanZoom.h"
 
+
 namespace scene {
 
 namespace menu {
 
-class Analytics : public CCLayerPanZoom {
+class Analytics : public CCLayerPanZoom, cocos2d::extension::ScrollViewDelegate {
   // member
 public:
 private:

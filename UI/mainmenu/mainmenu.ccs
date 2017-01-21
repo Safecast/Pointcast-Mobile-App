@@ -15,6 +15,7 @@
         <Image Name="HelloWorld.png" />
         <Project Name="layerAnalytics.csd" Type="Layer" />
         <Project Name="layerChart.csd" Type="Layer" />
+        <Project Name="layerChartHeader.csd" Type="Layer" />
         <Project Name="layerFooter.csd" Type="Layer" />
         <Project Name="MenuAbout.csd" Type="Scene" />
         <Project Name="MenuAnalytics_landscape.csd" Type="Scene" />
@@ -43,7 +44,7 @@
         <Image Name="star_orange.png" />
         <Image Name="star_orange_wide.png" />
         <Image Name="star_red.png" />
-        <Project Name="layerChartHeader.csd" Type="Layer" />
+        <Project Name="TestLayer.csd" Type="Layer" />
       </RootFolder>
     </Group>
   </SolutionFolder>
