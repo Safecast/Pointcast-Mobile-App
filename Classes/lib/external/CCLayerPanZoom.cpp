@@ -122,7 +122,7 @@ bool CCLayerPanZoom::init()
 }
 
 #pragma mark CCStandardTouchDelegate Touch events
-void CCLayerPanZoom::onTouchBegan(const std::vector<cocos2d::Touch*>& touches, cocos2d::Event *pEvent)
+bool CCLayerPanZoom::onTouchBegan(const std::vector<cocos2d::Touch*>& touches, cocos2d::Event *pEvent)
 {
     Touch *pTouch;
     SetIterator setIter;
@@ -143,6 +143,8 @@ void CCLayerPanZoom::onTouchBegan(const std::vector<cocos2d::Touch*>& touches, c
     }
     else
         _singleTouchTimestamp = INFINITY;
+    
+    return false;
 }
 
 void CCLayerPanZoom::onTouchMoved(const std::vector<cocos2d::Touch*>& touches, cocos2d::Event *pEvent)
