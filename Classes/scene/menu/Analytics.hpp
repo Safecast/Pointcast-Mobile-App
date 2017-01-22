@@ -20,6 +20,11 @@
 #include "ui/CocosGUI.h"
 #include "lib/external/CCLayerPanZoom.h"
 
+namespace lib {
+namespace gesture {
+    class Pinch;
+}
+}
 
 namespace scene {
 
@@ -50,6 +55,8 @@ private:
   bool _portlate;
 
   cocos2d::ui::Button *_p_btn_favorite;
+
+  lib::gesture::Pinch* _pinch_gesture;
 
   // function
 public:
@@ -96,6 +103,8 @@ public:
   bool isPortlate();
     
   bool isLandscape();
+ 
+  bool isGesture(const std::vector<cocos2d::Touch*>& touches, cocos2d::Event *pEvent);
     
   time_t getIntervalStart();
     
@@ -108,12 +117,6 @@ public:
   virtual void onTouchesEnded(const std::vector<cocos2d::Touch*>& touches, cocos2d::Event *pEvent);
   
   virtual void onTouchesCancelled(const std::vector<cocos2d::Touch*>& touches, cocos2d::Event *pEvent);
-    
-  virtual bool onTouchBegan(Touch *touch, Event *event);
-  
-  virtual void onTouchMoved(Touch *touch, Event *event);
-  
-  virtual void onTouchEnded(Touch *touch, Event *event);
 
 };
 }

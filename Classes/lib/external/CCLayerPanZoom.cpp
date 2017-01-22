@@ -122,14 +122,13 @@ bool CCLayerPanZoom::init()
 }
 
 #pragma mark CCStandardTouchDelegate Touch events
-bool CCLayerPanZoom::onTouchBegan(const std::vector<cocos2d::Touch*>& touches, cocos2d::Event *pEvent)
+void CCLayerPanZoom::onTouchesBegan(const std::vector<cocos2d::Touch*>& touches, cocos2d::Event *pEvent)
 {
     Touch *pTouch;
-    SetIterator setIter;
     
     for (int i = 0; i < touches.size(); i++)
     {
-        pTouch = (Touch *)(*setIter);
+        pTouch = touches.at(0);
         _touches.pushBack(pTouch);
     }
     
@@ -143,11 +142,9 @@ bool CCLayerPanZoom::onTouchBegan(const std::vector<cocos2d::Touch*>& touches, c
     }
     else
         _singleTouchTimestamp = INFINITY;
-    
-    return false;
 }
 
-void CCLayerPanZoom::onTouchMoved(const std::vector<cocos2d::Touch*>& touches, cocos2d::Event *pEvent)
+void CCLayerPanZoom::onTouchesMoved(const std::vector<cocos2d::Touch*>& touches, cocos2d::Event *pEvent)
 {
     bool multitouch = _touches.size() > 1;
 	if (multitouch)
@@ -177,7 +174,7 @@ void CCLayerPanZoom::onTouchMoved(const std::vector<cocos2d::Touch*>& touches, c
         // Avoid scaling out from panBoundsRect when Rubber Effect is OFF.
         if (!_rubberEffectRatio)
         {
-            this->setScale( MAX(this->getScale(), this->minPossibleScale())); 
+            // this->setScale( MAX(this->getScale(), this->minPossibleScale()));
         }
         // If scale was changed -> set new scale and fix position with new scale
         if (this->getScale() != prevScale)
@@ -233,7 +230,7 @@ void CCLayerPanZoom::onTouchMoved(const std::vector<cocos2d::Touch*>& touches, c
     }	
 }
 
-void CCLayerPanZoom::onTouchEnded(const std::vector<cocos2d::Touch*>& touches, cocos2d::Event *pEvent)
+void CCLayerPanZoom::onTouchesEnded(const std::vector<cocos2d::Touch*>& touches, cocos2d::Event *pEvent)
 {
     _singleTouchTimestamp = INFINITY;
     
@@ -270,7 +267,7 @@ void CCLayerPanZoom::onTouchEnded(const std::vector<cocos2d::Touch*>& touches, c
     }
 }
 
-void CCLayerPanZoom::onTouchCancelled(const std::vector<cocos2d::Touch*>& touches, cocos2d::Event *pEvent)
+void CCLayerPanZoom::onTouchesCancelled(const std::vector<cocos2d::Touch*>& touches, cocos2d::Event *pEvent)
 {
     
     Touch *pTouch;

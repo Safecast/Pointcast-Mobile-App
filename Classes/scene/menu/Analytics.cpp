@@ -20,6 +20,7 @@
 #include "json/writer.h"
 
 #include "lib/Util.hpp"
+#include "lib/gesture/Pinch.hpp"
 #include "lib/native/Util.h"
 
 #include "lib/network/DataStoreSingleton.hpp"
@@ -55,6 +56,8 @@ bool Analytics::init() {
         return false;
     }
     
+    this->_pinch_gesture = new lib::gesture::Pinch();
+    
     this->setTouchEnabled(true);
     
     // set orientation
@@ -65,7 +68,8 @@ bool Analytics::init() {
         CCLOG("イベント受け取ったよ > %s",event->getEventName().c_str());
         this->onDidOrientation();
     });
-     auto listener = EventListenerTouchAllAtOnce::create();
+    
+    auto listener = EventListenerTouchAllAtOnce::create();
     listener->setEnabled(true);
     listener->onTouchesBegan = CC_CALLBACK_2(Analytics::onTouchesBegan, this);
     listener->onTouchesMoved = CC_CALLBACK_2(Analytics::onTouchesMoved, this);
@@ -73,6 +77,8 @@ bool Analytics::init() {
     listener->onTouchesEnded = CC_CALLBACK_2(Analytics::onTouchesEnded, this);
     
     this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this);
+    
+    this->setScale(1.0f);
     
     return true;
 }
@@ -154,23 +160,6 @@ void Analytics::initFixedContents()
                                   this->_p_panel_background->getChildByName("scrollView"));
     
     this->setFavoriteButtonState();
-    
-    
-    
-    
-    
-    
-    
-    //イベントリスナーを作成
-    auto listener2 = EventListenerTouchOneByOne::create();
-    
-    listener2->onTouchBegan = CC_CALLBACK_2(Analytics::onTouchBegan, this);
-    listener2->onTouchMoved = CC_CALLBACK_2(Analytics::onTouchMoved, this);
-    listener2->onTouchEnded = CC_CALLBACK_2(Analytics::onTouchEnded, this);
-    
-    //イベントリスナーを登録
-    //this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener2, this->_p_scroll_view);
-
     
     cocos2d::log("size w %f h %f x %f y %f", this->getContentSize().width, this->getContentSize().height, this->getPositionX(), this->getPositionY());
     
@@ -551,42 +540,47 @@ time_t Analytics::getIntervalEnd()
 
 void Analytics::onTouchesBegan(const std::vector<cocos2d::Touch*>& touches, cocos2d::Event *pEvent)
 {
-    CCLayerPanZoom::onTouchBegan(touches, pEvent);
     cocos2d::log("onTouchesBegan");
+    if(this->isGesture(touches, pEvent))
+    {
+        this->_pinch_gesture->init(touches, pEvent);
+    }
 }
 
 void Analytics::onTouchesMoved(const std::vector<cocos2d::Touch*>& touches,cocos2d::Event *pEvent)
 {
-    
-    
     cocos2d::log("onTouchesMoved");
+    if(this->isGesture(touches, pEvent))
+    {
+        this->_pinch_gesture->attachTouchesMove(touches, pEvent);
+    }
 }
 
 void Analytics::onTouchesEnded(const std::vector<cocos2d::Touch*>& touches, cocos2d::Event *pEvent)
 {
     cocos2d::log("onTouchesEnded");
+    if(this->isGesture(touches, pEvent))
+    {
+        this->_pinch_gesture->init(touches, pEvent);
+    }
 }
 
 void Analytics::onTouchesCancelled(const std::vector<cocos2d::Touch*>& touches, cocos2d::Event *pEvent)
 {
-    cocos2d::log("onTouchesCancelled");
-}
-
     
-bool Analytics::onTouchBegan(Touch *touch, Event *event)
+}
+    
+bool Analytics::isGesture(const std::vector<cocos2d::Touch*>& touches, cocos2d::Event *pEvent)
 {
-    log("Single:Touch Began");
+    //
+    
+    
+    if (touches.size() != 2)
+    {
+        return false;
+    }
+    
     return true;
-}
-
-void Analytics::onTouchMoved(Touch *touch, Event *event)
-{
-    log("Single:Touch Moved!");
-}
-
-void Analytics::onTouchEnded(Touch *touch, Event *event)
-{
-    log("Single:Touch Ended!");
 }
 
 }

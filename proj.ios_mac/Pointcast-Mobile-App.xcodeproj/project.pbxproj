@@ -47,6 +47,7 @@
 		151E7DDA1E27C717001758AA /* Footer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 151E7DD61E27C717001758AA /* Footer.cpp */; };
 		151E7DDB1E27C717001758AA /* Header.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 151E7DD81E27C717001758AA /* Header.cpp */; };
 		1525D8B11E2E5CAF0045118C /* CCLayerPanZoom.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1525D8AF1E2E5CAF0045118C /* CCLayerPanZoom.cpp */; };
+		15297E871E34FE160040EEA8 /* Pinch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 15297E851E34FE160040EEA8 /* Pinch.cpp */; };
 		1535AA2F1D56B598002516B9 /* (null) in Resources */ = {isa = PBXBuildFile; };
 		1535AA351D56BB2D002516B9 /* GameController.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1535AA341D56BB2D002516B9 /* GameController.framework */; };
 		1535AA371D56BB84002516B9 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1535AA361D56BB84002516B9 /* MediaPlayer.framework */; };
@@ -218,6 +219,8 @@
 		151E7DD91E27C717001758AA /* Header.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Header.hpp; sourceTree = "<group>"; };
 		1525D8AF1E2E5CAF0045118C /* CCLayerPanZoom.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCLayerPanZoom.cpp; sourceTree = "<group>"; };
 		1525D8B01E2E5CAF0045118C /* CCLayerPanZoom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCLayerPanZoom.h; sourceTree = "<group>"; };
+		15297E851E34FE160040EEA8 /* Pinch.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Pinch.cpp; sourceTree = "<group>"; };
+		15297E861E34FE160040EEA8 /* Pinch.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Pinch.hpp; sourceTree = "<group>"; };
 		1535AA341D56BB2D002516B9 /* GameController.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameController.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/GameController.framework; sourceTree = DEVELOPER_DIR; };
 		1535AA361D56BB84002516B9 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/MediaPlayer.framework; sourceTree = DEVELOPER_DIR; };
 		153FE5581E23920200EF6C8D /* Chart.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Chart.cpp; sourceTree = "<group>"; };
@@ -373,6 +376,7 @@
 		151952DC1D300E6B007F7C6A /* lib */ = {
 			isa = PBXGroup;
 			children = (
+				15297E841E34FE160040EEA8 /* gesture */,
 				151952DD1D300E6B007F7C6A /* external */,
 				151952E31D300E6B007F7C6A /* native */,
 				151952E81D300E6B007F7C6A /* network */,
@@ -546,6 +550,15 @@
 			name = native;
 			path = lib/native;
 			sourceTree = SOURCE_ROOT;
+		};
+		15297E841E34FE160040EEA8 /* gesture */ = {
+			isa = PBXGroup;
+			children = (
+				15297E851E34FE160040EEA8 /* Pinch.cpp */,
+				15297E861E34FE160040EEA8 /* Pinch.hpp */,
+			);
+			path = gesture;
+			sourceTree = "<group>";
 		};
 		19C28FACFE9D520D11CA2CBB /* Products */ = {
 			isa = PBXGroup;
@@ -989,6 +1002,7 @@
 				1519531F1D300E6B007F7C6A /* Map.cpp in Sources */,
 				151953141D300E6B007F7C6A /* CCActivityIndicator.cpp in Sources */,
 				1519531B1D300E6B007F7C6A /* Board.cpp in Sources */,
+				15297E871E34FE160040EEA8 /* Pinch.cpp in Sources */,
 				151953331D301211007F7C6A /* GoogleMapsManager.mm in Sources */,
 				503AE10017EB989F00D1A890 /* AppController.mm in Sources */,
 				151953251D300E6B007F7C6A /* Search.cpp in Sources */,
