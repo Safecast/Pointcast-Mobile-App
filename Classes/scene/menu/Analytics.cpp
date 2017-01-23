@@ -56,6 +56,11 @@ bool Analytics::init() {
         return false;
     }
     
+    this->_p_scroll_view = nullptr;
+    this->_p_chart_nodes = nullptr;
+    
+    this->scheduleUpdate();
+    
     this->_pinch_gesture = new lib::gesture::Pinch();
     
     this->setTouchEnabled(true);
@@ -77,8 +82,6 @@ bool Analytics::init() {
     listener->onTouchesEnded = CC_CALLBACK_2(Analytics::onTouchesEnded, this);
     
     this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this);
-    
-    this->setScale(1.0f);
     
     return true;
 }
@@ -187,9 +190,10 @@ void Analytics::initVariableContents()
     this->addChild(p_header);
     
     // draw chart
-    auto p_chart = scene::layout::helper::Chart::prepareChart(this, this->_m_sensor_main_id, v_chart_items, v_weather_items);
-    this->_p_scroll_view->setInnerContainerSize(p_chart->getContentSize());
-    this->_p_scroll_view->addChild(p_chart);
+    this->_p_chart_nodes = scene::layout::helper::Chart::prepareChart(this, this->_m_sensor_main_id, v_chart_items, v_weather_items);
+    // p_chart = scene::layout::helper::Chart::prepareChart(this, this->_m_sensor_main_id, v_chart_items, v_weather_items);
+    this->_p_scroll_view->setInnerContainerSize(this->_p_chart_nodes->getContentSize());
+    this->_p_scroll_view->addChild(this->_p_chart_nodes);
     
     
     // detach wait animation
@@ -450,10 +454,10 @@ ui::Widget *Analytics::prepareChartBoard(
   // chart_boardのサイズを変更
   p_chart_board->setContentSize(chart_prepare_data.chart_size);
 
-  scene::chart::Board *p_chart_nodes =
+  this->_p_chart_nodes =
       scene::chart::Board::create(chart_prepare_data);
 
-  p_chart_board->addChild(p_chart_nodes);
+  p_chart_board->addChild(this->_p_chart_nodes);
 
   ui::Widget *p_chart_board_widget = ui::Widget::create();
   Size chart_size = p_chart_board->getContentSize();
@@ -561,7 +565,7 @@ void Analytics::onTouchesEnded(const std::vector<cocos2d::Touch*>& touches, coco
     cocos2d::log("onTouchesEnded");
     if(this->isGesture(touches, pEvent))
     {
-        this->_pinch_gesture->init(touches, pEvent);
+        this->_pinch_gesture->finish();
     }
 }
 
@@ -581,6 +585,16 @@ bool Analytics::isGesture(const std::vector<cocos2d::Touch*>& touches, cocos2d::
     }
     
     return true;
+}
+    
+void Analytics::update(float delta){
+  
+    if (this->_p_chart_nodes != nullptr)
+    {
+        float scale = this->_pinch_gesture->getPinchScale();
+        cocos2d::log("set chart scale %f", scale);
+        this->_p_chart_nodes->setScale(scale);
+    }
 }
 
 }

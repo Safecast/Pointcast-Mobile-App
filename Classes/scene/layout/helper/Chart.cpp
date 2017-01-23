@@ -107,6 +107,7 @@ cocos2d::ui::Widget* Chart::prepareChart(scene::menu::Analytics* p_scene_analyti
     // chart_boardのサイズを変更
     // p_chart_board->setContentSize(chart_prepare_data.chart_size);
     
+    
     scene::chart::Board *p_chart_nodes =
         scene::chart::Board::create(chart_prepare_data);
     p_chart_nodes->setAnchorPoint(Vec2(0.0f,0.0f));

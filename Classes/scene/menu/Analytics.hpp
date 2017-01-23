@@ -30,7 +30,7 @@ namespace scene {
 
 namespace menu {
 
-class Analytics : public CCLayerPanZoom, cocos2d::extension::ScrollViewDelegate {
+class Analytics : public base::AbstructScene {
   // member
 public:
 private:
@@ -39,6 +39,8 @@ private:
   cocos2d::ui::Layout *_p_panel_background;
 
   cocos2d::ui::ScrollView *_p_scroll_view;
+    
+  cocos2d::Node*  _p_chart_nodes;
   
   scene::Main* _p_scene_main;
 
@@ -60,6 +62,8 @@ private:
 
   // function
 public:
+  void update(float delta);
+    
   virtual bool init();
 
   void initFixedContents();
