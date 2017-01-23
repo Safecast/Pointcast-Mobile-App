@@ -28,6 +28,8 @@ private:
     
     float _current_distance;
     
+    float _previous_distance;
+    
 public:
     
 // functions
@@ -44,6 +46,8 @@ public:
     void attachTouchesMove(const std::vector<cocos2d::Touch*>& touches,cocos2d::Event *pEvent);
     
     float getPinchScale();
+    
+    bool isChanged();
     
 };
 

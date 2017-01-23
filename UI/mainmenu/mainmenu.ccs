@@ -27,6 +27,7 @@
         <Image Name="More@2x.png" />
         <Image Name="one-finger-swipe-left-gesture-outlined-hand-symbol.png" />
         <Project Name="Scene.csd" Type="Scene" />
+        <Project Name="scroll.csd" Type="Scene" />
         <Project Name="Search.csd" Type="Layer" />
         <Image Name="search_blue.png" />
         <Project Name="sensors_record.csd" Type="Layer" />
@@ -45,7 +46,6 @@
         <Image Name="star_orange.png" />
         <Image Name="star_orange_wide.png" />
         <Image Name="star_red.png" />
-        <Project Name="scroll.csd" Type="Scene" />
       </RootFolder>
     </Group>
   </SolutionFolder>

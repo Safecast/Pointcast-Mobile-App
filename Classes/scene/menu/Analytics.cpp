@@ -195,17 +195,10 @@ void Analytics::initVariableContents()
     this->_p_scroll_view->setInnerContainerSize(this->_p_chart_nodes->getContentSize());
     this->_p_scroll_view->addChild(this->_p_chart_nodes);
     
-    
     // detach wait animation
     this->_p_scene_main->detachWaitAnimation();
 
 }
-    
-void Analytics::initChart()
-{
-    
-}
-    
 
 void Analytics::onEnter() {
   AbstructScene::onEnter();
@@ -365,7 +358,8 @@ Analytics::getWeatherData(std::string analytics_data) {
 
   return v_weather_items;
 }
-
+    
+/*
 ui::Widget *Analytics::prepareChartBoard(
     const std::vector<lib::object::ChartItem> v_chart_items,
     const std::vector<lib::object::WeatherItem> v_weather_items) {
@@ -412,6 +406,7 @@ ui::Widget *Analytics::prepareChartBoard(
   scene::chart::Board::PrepareData chart_prepare_data;
 
   // next 6hour (end point)
+  
   time_t now = time(NULL);
   struct tm *pnow = localtime(&now);
   int mod = pnow->tm_hour % 6;
@@ -468,7 +463,8 @@ ui::Widget *Analytics::prepareChartBoard(
 
   return p_chart_board_widget;
 }
-
+*/
+    
 void Analytics::setFavoriteButtonState(void) {
   if (this->_favorite) {
     this->_p_btn_favorite->loadTextures("res/icon/menu/star_orange_wide.png",
@@ -589,11 +585,17 @@ bool Analytics::isGesture(const std::vector<cocos2d::Touch*>& touches, cocos2d::
     
 void Analytics::update(float delta){
   
+    
+    
     if (this->_p_chart_nodes != nullptr)
     {
-        float scale = this->_pinch_gesture->getPinchScale();
-        cocos2d::log("set chart scale %f", scale);
-        this->_p_chart_nodes->setScale(scale);
+        if (this->_pinch_gesture->isChanged())
+        {
+            float scale = this->_pinch_gesture->getPinchScale();
+            if (scale == 0.0f) return;
+            cocos2d::log("set chart scale %f", scale);
+            this->_p_chart_nodes->setScale(scale);
+        }
     }
 }
 

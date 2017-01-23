@@ -69,8 +69,6 @@ public:
   void initFixedContents();
  
   void initVariableContents();
-   
-  void initChart();
     
   void initChartInterval();
 
@@ -86,11 +84,11 @@ public:
 
   void onCallbackPointcastAnalytics(cocos2d::network::HttpClient *sender,
                                     cocos2d::network::HttpResponse *response);
-
+/*
   cocos2d::ui::Widget *prepareChartBoard(
       const std::vector<lib::object::ChartItem> v_chart_items,
       const std::vector<lib::object::WeatherItem> v_weather_items);
-
+*/
   std::vector<lib::object::ChartItem> getChartData(std::string analytics_data);
 
   std::vector<lib::object::WeatherItem>
