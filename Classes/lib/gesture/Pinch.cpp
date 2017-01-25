@@ -67,7 +67,7 @@ float Pinch::getPinchScale()
     cocos2d::log("current_distance %f", this->_current_distance);
     if (_current_distance > 0.0f)
     {
-        float relative_scale = ((((this->_init_distance / this->_current_distance))) - 1.0f) * 0.2f;
+        float relative_scale = (((this->_current_distance / this->_init_distance)) - 1.0f) * 0.3f;
         cocos2d::log("relative_scale %f", relative_scale);
         this->_current_scale += relative_scale;
         
