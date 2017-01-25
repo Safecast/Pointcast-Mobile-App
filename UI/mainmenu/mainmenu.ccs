@@ -26,8 +26,6 @@
         <Image Name="More.png" />
         <Image Name="More@2x.png" />
         <Image Name="one-finger-swipe-left-gesture-outlined-hand-symbol.png" />
-        <Project Name="Scene.csd" Type="Scene" />
-        <Project Name="scroll.csd" Type="Scene" />
         <Project Name="Search.csd" Type="Layer" />
         <Image Name="search_blue.png" />
         <Project Name="sensors_record.csd" Type="Layer" />
