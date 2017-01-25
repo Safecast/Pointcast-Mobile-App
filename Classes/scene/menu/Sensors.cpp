@@ -619,30 +619,6 @@ void Sensors::updateSortType(void) {
   p_text_sort_type->setString(label_name);
 }
     
-    
-void Sensors::onTouchesBegan(const std::vector<cocos2d::Touch*>& touches, cocos2d::Event *pEvent)
-{
-    // CCLayerPanZoom::onTouchBegan(touches, pEvent);
-    cocos2d::log("onTouchesBegan");
-}
-
-void Sensors::onTouchesMoved(const std::vector<cocos2d::Touch*>& touches,cocos2d::Event *pEvent)
-{
-    
-    
-    cocos2d::log("onTouchesMoved");
-}
-
-void Sensors::onTouchesEnded(const std::vector<cocos2d::Touch*>& touches, cocos2d::Event *pEvent)
-{
-    cocos2d::log("onTouchesEnded");
-}
-
-void Sensors::onTouchesCancelled(const std::vector<cocos2d::Touch*>& touches, cocos2d::Event *pEvent)
-{
-    cocos2d::log("onTouchesCancelled");
-}
-    
-    
+  
 }
 }
