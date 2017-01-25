@@ -94,7 +94,7 @@ cocos2d::ui::Widget* Chart::prepareChart(scene::menu::Analytics* p_scene_analyti
     lib::network::DataStoreSingleton::getInstance()->getLocationItem(m_sensor_main_id);
     
     scene::chart::Board::Config config;
-    config.chart_size = Size(1240, 400);
+    config.chart_size = Size(1000, 400);
     config.chart_offset = Point(100, 100 + 100);
     config.v_chart_items = v_chart_items;
     config.v_weather_items = v_weather_items;
@@ -105,8 +105,13 @@ cocos2d::ui::Widget* Chart::prepareChart(scene::menu::Analytics* p_scene_analyti
     config.horizontal_line = 4;
     config.horizontal_unit = "time";
     config.conversion_rate = location_item.conversion_rate;
-    config.vertical_top_value = 1.0f;
-
+    if ((location_item.yesterday_average_value / location_item.dre2cpm) < 0.4f)
+    {
+        config.vertical_top_value = 0.5f;
+    } else {
+        config.vertical_top_value = 1.0f;
+    }
+    
     return config;
     
 }
