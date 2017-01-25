@@ -58,10 +58,11 @@ bool Analytics::init() {
     
     this->_p_scroll_view = nullptr;
     this->_p_chart_nodes = nullptr;
+    this->_current_scale = 1.0f;
     
     this->scheduleUpdate();
     
-    this->_pinch_gesture = new lib::gesture::Pinch();
+    this->_pinch_gesture = new lib::gesture::Pinch(2.0f, 1.0f);
     
     this->setTouchEnabled(true);
     
@@ -194,6 +195,8 @@ void Analytics::initVariableContents()
     // p_chart = scene::layout::helper::Chart::prepareChart(this, this->_m_sensor_main_id, v_chart_items, v_weather_items);
     this->_p_scroll_view->setInnerContainerSize(this->_p_chart_nodes->getContentSize());
     this->_p_scroll_view->addChild(this->_p_chart_nodes);
+    
+    this->_p_chart_nodes->setScale(this->_current_scale);
     
     // detach wait animation
     this->_p_scene_main->detachWaitAnimation();
@@ -540,16 +543,16 @@ time_t Analytics::getIntervalEnd()
 
 void Analytics::onTouchesBegan(const std::vector<cocos2d::Touch*>& touches, cocos2d::Event *pEvent)
 {
-    cocos2d::log("onTouchesBegan");
+    cocos2d::log("Analytics::onTouchesBegan touches %lu", touches.size());
     if(this->isGesture(touches, pEvent))
     {
-        this->_pinch_gesture->init(touches, pEvent);
+        this->_pinch_gesture->setBasePoint(touches, pEvent, this->_current_scale);
     }
 }
 
 void Analytics::onTouchesMoved(const std::vector<cocos2d::Touch*>& touches,cocos2d::Event *pEvent)
 {
-    cocos2d::log("onTouchesMoved");
+    cocos2d::log("Analytics::onTouchesMoved touches %lu", touches.size());
     if(this->isGesture(touches, pEvent))
     {
         this->_pinch_gesture->attachTouchesMove(touches, pEvent);
@@ -558,10 +561,10 @@ void Analytics::onTouchesMoved(const std::vector<cocos2d::Touch*>& touches,cocos
 
 void Analytics::onTouchesEnded(const std::vector<cocos2d::Touch*>& touches, cocos2d::Event *pEvent)
 {
-    cocos2d::log("onTouchesEnded");
+    cocos2d::log("Analytics::onTouchesEnded touches %lu", touches.size());
     if(this->isGesture(touches, pEvent))
     {
-        this->_pinch_gesture->finish();
+        this->_pinch_gesture->init();
     }
 }
 
@@ -594,9 +597,22 @@ void Analytics::update(float delta){
             float scale = this->_pinch_gesture->getPinchScale();
             if (scale == 0.0f) return;
             cocos2d::log("set chart scale %f", scale);
-            this->_p_chart_nodes->setScale(scale);
+            this->_current_scale = scale;
+            this->_p_chart_nodes->setScale(this->_current_scale);
+            this->_p_scroll_view->setInnerContainerSize(this->_p_chart_nodes->getBoundingBox().size);
+            this->_p_chart_nodes->setPositionY(0.0f);
         }
     }
+}
+    
+void Analytics::updateChartScale()
+{
+    this->_p_chart_nodes->setScale(this->_current_scale);
+    cocos2d::log("w %f h %f x %f y %f",  this->_p_chart_nodes->getBoundingBox().size.width, this->_p_chart_nodes->getBoundingBox().size.height, this->_p_chart_nodes->getPositionX(), this->_p_chart_nodes->getPositionY());
+    this->_p_scroll_view->setInnerContainerSize(this->_p_chart_nodes->getBoundingBox().size);
+    this->_p_chart_nodes->setPositionY(0.0f);
+    
+    
 }
 
 }

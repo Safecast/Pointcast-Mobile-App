@@ -44,6 +44,8 @@ private:
   
   scene::Main* _p_scene_main;
 
+  float _current_scale;
+    
   time_t _interval_start;
 
   time_t _interval_end;
@@ -111,6 +113,8 @@ public:
   time_t getIntervalStart();
     
   time_t getIntervalEnd();
+
+  void updateChartScale();
 
   virtual void onTouchesBegan(const std::vector<cocos2d::Touch*>& touches, cocos2d::Event *pEvent);
   

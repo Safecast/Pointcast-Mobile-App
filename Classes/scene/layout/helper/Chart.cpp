@@ -83,7 +83,7 @@ cocos2d::ui::Widget* Chart::prepareChart(scene::menu::Analytics* p_scene_analyti
         p_data_store_singleton->getLocationItem(m_sensor_main_id);
     
     // prepare chart_
-    chart_prepare_data.chart_size = Size(1240, 600);
+    chart_prepare_data.chart_size = Size(1240, 400);
     chart_prepare_data.chart_offset = Point(100, 100 + 100);
     chart_prepare_data.v_chart_items = v_chart_items;
     chart_prepare_data.v_weather_items = v_weather_items;

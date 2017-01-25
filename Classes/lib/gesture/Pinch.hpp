@@ -20,6 +20,10 @@ private:
       E_SECOND_FINGER
     };
     
+    float _max;
+
+    float _min;
+    
     cocos2d::Vec2 _init_point0;
     
     cocos2d::Vec2 _init_point1;
@@ -30,18 +34,24 @@ private:
     
     float _previous_distance;
     
+    float _previous_scale;
+    
+    float _current_scale;
+    
+    bool _initialized;
+    
 public:
     
 // functions
 private:
 public:
-    Pinch();
+    Pinch(float max, float min);
     
     ~Pinch();
     
-    void init(const std::vector<cocos2d::Touch*>& touches,cocos2d::Event *pEvent);
+    void setBasePoint(const std::vector<cocos2d::Touch*>& touches,cocos2d::Event *pEvent, float current_scale);
     
-    void finish();
+    void init();
     
     void attachTouchesMove(const std::vector<cocos2d::Touch*>& touches,cocos2d::Event *pEvent);
     
