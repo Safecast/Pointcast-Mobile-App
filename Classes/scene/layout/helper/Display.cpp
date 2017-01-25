@@ -31,7 +31,7 @@ namespace helper {
         if (Display::IsPortlate()) {
             return cocos2d::Size(display_size.width, display_size.height);
         } else {
-            return cocos2d::Size(display_size.height, display_size.width);
+            return cocos2d::Size(display_size.width, display_size.height);
         }
     }
 }
