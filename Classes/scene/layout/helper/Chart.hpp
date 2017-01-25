@@ -15,6 +15,7 @@
 #include "lib/object/WeatherItem.hpp"
 
 #include "scene/menu/Analytics.hpp"
+#include "scene/chart/Board.hpp"
 
 namespace scene {
 namespace layout {
@@ -33,6 +34,8 @@ public:
                                                   int m_sensor_main_id,
                                                   const std::vector<lib::object::ChartItem> v_chart_items,
                                                   const std::vector<lib::object::WeatherItem> v_weather_items);
+    
+    static scene::chart::Board::Config getConfig(const std::vector<lib::object::ChartItem> &v_chart_items, const std::vector<lib::object::WeatherItem> &v_weather_items, scene::menu::Analytics* p_scene_analytics, int m_sensor_main_id);
 private:
   };
         }
