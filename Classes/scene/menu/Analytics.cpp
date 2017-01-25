@@ -178,13 +178,14 @@ void Analytics::initVariableContents()
     const std::string analytics_data =
         p_data_store_singleton->getResponseAnalyticsData(this->_m_sensor_main_id);
     
+    std::vector<lib::object::ChartItem> v_chart_items;
+    std::vector<lib::object::WeatherItem> v_weather_items;
     
-    std::vector<lib::object::ChartItem> v_chart_items =
-                        this->getChartData(analytics_data);
-    
-    std::vector<lib::object::WeatherItem> v_weather_items =
-                        this->getWeatherData(analytics_data);
-    
+    if (analytics_data.length() > 0)
+    {
+        v_chart_items = this->getChartData(analytics_data);
+        v_weather_items = this->getWeatherData(analytics_data);
+    }
     
     // draw header
     auto p_header =  scene::layout::helper::Chart::prepareHeader(this, this->_m_sensor_main_id);
