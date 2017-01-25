@@ -75,14 +75,14 @@ bool Analytics::init() {
         this->onDidOrientation();
     });
     
-    auto listener = EventListenerTouchAllAtOnce::create();
-    listener->setEnabled(true);
-    listener->onTouchesBegan = CC_CALLBACK_2(Analytics::onTouchesBegan, this);
-    listener->onTouchesMoved = CC_CALLBACK_2(Analytics::onTouchesMoved, this);
-    listener->onTouchesCancelled = CC_CALLBACK_2(Analytics::onTouchesCancelled, this);
-    listener->onTouchesEnded = CC_CALLBACK_2(Analytics::onTouchesEnded, this);
+    this->_pinch_listener = EventListenerTouchAllAtOnce::create();
+    this->_pinch_listener->setEnabled(true);
+    this->_pinch_listener->onTouchesBegan = CC_CALLBACK_2(Analytics::onTouchesBegan, this);
+    this->_pinch_listener->onTouchesMoved = CC_CALLBACK_2(Analytics::onTouchesMoved, this);
+    this->_pinch_listener->onTouchesCancelled = CC_CALLBACK_2(Analytics::onTouchesCancelled, this);
+    this->_pinch_listener->onTouchesEnded = CC_CALLBACK_2(Analytics::onTouchesEnded, this);
     
-    this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this);
+    this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(this->_pinch_listener, this);
     
     return true;
 }
@@ -507,6 +507,15 @@ void Analytics::updateChartScale()
     this->_p_chart_nodes->setPositionY(0.0f);
     
     
+}
+    
+void Analytics::onExit()
+{
+    
+    AbstructScene::onExit();
+    
+    this->getEventDispatcher()->removeEventListener(this->_pinch_listener);
+
 }
 
 }

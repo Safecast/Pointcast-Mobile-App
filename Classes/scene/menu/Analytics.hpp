@@ -34,6 +34,9 @@ class Analytics : public base::AbstructScene {
   // member
 public:
 private:
+    
+  EventListenerTouchAllAtOnce* _pinch_listener;
+    
   cocos2d::Node *_p_contents;
     
   cocos2d::ui::Layout *_p_panel_background;
@@ -123,6 +126,8 @@ public:
   virtual void onTouchesEnded(const std::vector<cocos2d::Touch*>& touches, cocos2d::Event *pEvent);
   
   virtual void onTouchesCancelled(const std::vector<cocos2d::Touch*>& touches, cocos2d::Event *pEvent);
+    
+  virtual void onExit();
 
 };
 }
