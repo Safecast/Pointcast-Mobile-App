@@ -45,6 +45,8 @@
 #define VERTICAL_OPTIONAL_VALUE 10.0f
 
 USING_NS_CC;
+using namespace ui;
+
 using namespace rapidjson;
 
 namespace scene {
@@ -58,6 +60,7 @@ bool Analytics::init() {
     
     this->_p_scroll_view = nullptr;
     this->_p_chart_nodes = nullptr;
+    this->_p_scroll_view = nullptr;
     this->_current_scale = 1.0f;
     
     this->scheduleUpdate();
@@ -160,14 +163,25 @@ void Analytics::initFixedContents()
         });
 
     // scroll view
-    this->_p_scroll_view = static_cast<ui::ScrollView *>(
-                                  this->_p_panel_background->getChildByName("scrollView"));
+    // this->_p_scroll_view = static_cast<ui::ScrollView *>(
+    //                              this->_p_panel_background->getChildByName("scrollView"));
+
+    this->_p_page_view = static_cast<ui::PageView *>(
+        this->_p_panel_background->getChildByName("pageView"));
+    
+    //    void addEventListener(const ccPageViewCallback& callback);
+    //     typedef std::function<void(Ref*, EventType)> ccPageViewCallback;
+
+    this->_p_page_view->addEventListener(CC_CALLBACK_2(Analytics::pageViewEvent, this));
     
     this->setFavoriteButtonState();
     
     cocos2d::log("size w %f h %f x %f y %f", this->getContentSize().width, this->getContentSize().height, this->getPositionX(), this->getPositionY());
     
     this->addChild(this->_p_contents);
+    
+    auto p_empty_page = cocos2d::ui::Widget::create();
+    this->_p_page_view->insertPage(p_empty_page, 0);
 }
     
 void Analytics::initVariableContents()
@@ -193,11 +207,16 @@ void Analytics::initVariableContents()
     
     // draw chart
     this->_p_chart_nodes = scene::layout::helper::Chart::prepareChart(this, this->_m_sensor_main_id, v_chart_items, v_weather_items);
+    auto test = cocos2d::ui::Widget::create();
     // p_chart = scene::layout::helper::Chart::prepareChart(this, this->_m_sensor_main_id, v_chart_items, v_weather_items);
-    this->_p_scroll_view->setInnerContainerSize(this->_p_chart_nodes->getContentSize());
-    this->_p_scroll_view->addChild(this->_p_chart_nodes);
+    // this->_p_scroll_view->setInnerContainerSize(this->_p_chart_nodes->getContentSize());
+    // this->_p_scroll_view->addChild(this->_p_chart_nodes);
     
     this->_p_chart_nodes->setScale(this->_current_scale);
+    
+    this->_p_page_view->addPage(this->_p_chart_nodes);
+    cocos2d::log("p_page_preview %zd", this->_p_page_view->getChildrenCount());
+    this->_p_page_view->setCurrentPageIndex(this->_p_page_view->getChildrenCount() - 1);
     
     // detach wait animation
     this->_p_scene_main->detachWaitAnimation();
@@ -296,8 +315,8 @@ Analytics::getChartData(std::string analytics_data) {
             CCLOG("device_id %s", device_id);
             if (sensors.HasMember(device_id) && sensors[device_id].IsArray()) {
               const rapidjson::Value &analytics = sensors[device_id];
-              SizeType num = analytics.Size();
-              for (SizeType i = 0; i < num; i++) {
+              rapidjson::SizeType num = analytics.Size();
+              for (rapidjson::SizeType i = 0; i < num; i++) {
                 lib::object::ChartItem item;
                 item.value = analytics[i]["value"].GetInt();
                 item.major_label = analytics[i]["major_label"].GetInt();
@@ -344,8 +363,8 @@ Analytics::getWeatherData(std::string analytics_data) {
             CCLOG("device_id %s", device_id);
             if (weather.HasMember(device_id) && weather[device_id].IsArray()) {
               const rapidjson::Value &analytics = weather[device_id];
-              SizeType num = analytics.Size();
-              for (SizeType i = 0; i < num; i++) {
+              rapidjson::SizeType num = analytics.Size();
+              for (rapidjson::SizeType i = 0; i < num; i++) {
                 lib::object::WeatherItem item;
                 item.weather_main = analytics[i]["weather_main"].GetString();
                 item.icon = analytics[i]["icon"].GetString();
@@ -506,8 +525,6 @@ void Analytics::updateChartScale()
     cocos2d::log("w %f h %f x %f y %f",  this->_p_chart_nodes->getBoundingBox().size.width, this->_p_chart_nodes->getBoundingBox().size.height, this->_p_chart_nodes->getPositionX(), this->_p_chart_nodes->getPositionY());
     this->_p_scroll_view->setInnerContainerSize(this->_p_chart_nodes->getBoundingBox().size);
     this->_p_chart_nodes->setPositionY(0.0f);
-    
-    
 }
     
 void Analytics::onExit()
@@ -517,6 +534,11 @@ void Analytics::onExit()
     
     this->getEventDispatcher()->removeEventListener(this->_pinch_listener);
 
+}
+    
+void Analytics::pageViewEvent(cocos2d::Ref * pSender, cocos2d::ui::PageView::EventType type)
+{
+    cocos2d::log("Analytics::pageViewEvent");
 }
 
 }

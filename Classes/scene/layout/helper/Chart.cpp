@@ -94,7 +94,7 @@ cocos2d::ui::Widget* Chart::prepareChart(scene::menu::Analytics* p_scene_analyti
     lib::network::DataStoreSingleton::getInstance()->getLocationItem(m_sensor_main_id);
     
     scene::chart::Board::Config config;
-    config.chart_size = Size(1000, 400);
+    config.chart_size = Size(500, 400);
     config.chart_offset = Point(100, 100 + 100);
     config.v_chart_items = v_chart_items;
     config.v_weather_items = v_weather_items;

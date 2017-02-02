@@ -42,8 +42,10 @@ private:
   cocos2d::ui::Layout *_p_panel_background;
 
   cocos2d::ui::ScrollView *_p_scroll_view;
-    
-  cocos2d::Node*  _p_chart_nodes;
+
+  cocos2d::ui::PageView* _p_page_view;
+
+  cocos2d::ui::Widget*  _p_chart_nodes;
   
   scene::Main* _p_scene_main;
 
@@ -89,6 +91,9 @@ public:
 
   void onCallbackPointcastAnalytics(cocos2d::network::HttpClient *sender,
                                     cocos2d::network::HttpResponse *response);
+  
+  void pageViewEvent(cocos2d::Ref * psender, cocos2d::ui::PageView::EventType type);
+
 /*
   cocos2d::ui::Widget *prepareChartBoard(
       const std::vector<lib::object::ChartItem> v_chart_items,
