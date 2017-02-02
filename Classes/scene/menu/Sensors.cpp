@@ -39,6 +39,16 @@ bool Sensors::init() {
   if (!Node::init()) {
     return false;
   }
+    
+    
+    auto listener = EventListenerTouchAllAtOnce::create();
+    listener->setEnabled(true);
+    listener->onTouchesBegan = CC_CALLBACK_2(Sensors::onTouchesBegan, this);
+    listener->onTouchesMoved = CC_CALLBACK_2(Sensors::onTouchesMoved, this);
+    listener->onTouchesCancelled = CC_CALLBACK_2(Sensors::onTouchesCancelled, this);
+    listener->onTouchesEnded = CC_CALLBACK_2(Sensors::onTouchesEnded, this);
+    
+    this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this);
 
   // set task id
   this->task_id = Task_Id_World;
@@ -77,11 +87,13 @@ bool Sensors::init() {
           auto widget = listView->getItem(selectedIndex);
           auto location_item =
               p_datastore_singleton->getLocationItem(widget->getTag());
-
+            
+          /*
           if (location_item.sensor_status != 1) {
             // if status inactive
             return;
           }
+          */
 
           auto p_record = widget->getChildByTag(Tag_Id_Sensor_Record);
           p_record->getChildByName<ui::Layout *>("panelRecord")
@@ -606,5 +618,7 @@ void Sensors::updateSortType(void) {
 
   p_text_sort_type->setString(label_name);
 }
+    
+  
 }
 }

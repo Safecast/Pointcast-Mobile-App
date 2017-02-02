@@ -10,11 +10,21 @@
 #define Analytics_hpp
 #include <stdio.h>
 #include <vector>
+#include "extensions/cocos-ext.h"
 
 #include "lib/object/ChartItem.hpp"
 #include "lib/object/WeatherItem.hpp"
 #include "network/HttpClient.h"
 #include "scene/base/AbstructScene.hpp"
+#include "scene/Main.hpp"
+#include "ui/CocosGUI.h"
+#include "lib/external/CCLayerPanZoom.h"
+
+namespace lib {
+namespace gesture {
+    class Pinch;
+}
+}
 
 namespace scene {
 
@@ -24,7 +34,26 @@ class Analytics : public base::AbstructScene {
   // member
 public:
 private:
+    
+  EventListenerTouchAllAtOnce* _pinch_listener;
+    
   cocos2d::Node *_p_contents;
+    
+  cocos2d::ui::Layout *_p_panel_background;
+
+  cocos2d::ui::ScrollView *_p_scroll_view;
+
+  cocos2d::ui::PageView* _p_page_view;
+
+  cocos2d::ui::Widget*  _p_chart_nodes;
+  
+  scene::Main* _p_scene_main;
+
+  float _current_scale;
+    
+  time_t _interval_start;
+
+  time_t _interval_end;
 
   int _m_sensor_main_id;
 
@@ -36,11 +65,19 @@ private:
 
   cocos2d::ui::Button *_p_btn_favorite;
 
+  lib::gesture::Pinch* _pinch_gesture;
+
   // function
 public:
+  void update(float delta);
+    
   virtual bool init();
+
+  void initFixedContents();
  
-  void initContents();
+  void initVariableContents();
+    
+  void initChartInterval();
 
   virtual void onEnter();
     
@@ -54,11 +91,14 @@ public:
 
   void onCallbackPointcastAnalytics(cocos2d::network::HttpClient *sender,
                                     cocos2d::network::HttpResponse *response);
+  
+  void pageViewEvent(cocos2d::Ref * psender, cocos2d::ui::PageView::EventType type);
 
+/*
   cocos2d::ui::Widget *prepareChartBoard(
       const std::vector<lib::object::ChartItem> v_chart_items,
       const std::vector<lib::object::WeatherItem> v_weather_items);
-
+*/
   std::vector<lib::object::ChartItem> getChartData(std::string analytics_data);
 
   std::vector<lib::object::WeatherItem>
@@ -75,7 +115,25 @@ public:
   bool isPortlate();
     
   bool isLandscape();
+ 
+  bool isGesture(const std::vector<cocos2d::Touch*>& touches, cocos2d::Event *pEvent);
     
+  time_t getIntervalStart();
+    
+  time_t getIntervalEnd();
+
+  void updateChartScale();
+
+  virtual void onTouchesBegan(const std::vector<cocos2d::Touch*>& touches, cocos2d::Event *pEvent);
+  
+  virtual void onTouchesMoved(const std::vector<cocos2d::Touch*>& touches,cocos2d::Event *pEvent);
+
+  virtual void onTouchesEnded(const std::vector<cocos2d::Touch*>& touches, cocos2d::Event *pEvent);
+  
+  virtual void onTouchesCancelled(const std::vector<cocos2d::Touch*>& touches, cocos2d::Event *pEvent);
+    
+  virtual void onExit();
+
 };
 }
 }

@@ -15,10 +15,10 @@ namespace chart {
 
 USING_NS_CC;
 
-Board *Board::create(Board::PrepareData prepare_data) {
+Board *Board::create(Board::Config config) {
   Board *pRet = new (std::nothrow) Board();
-  pRet->_prepare_data = prepare_data;
-  pRet->setContentSize(pRet->_prepare_data.chart_size);
+  pRet->_config = config;
+  pRet->setContentSize(pRet->_config.chart_size);
   if (pRet && pRet->init()) {
     pRet->autorelease();
     return pRet;
@@ -45,10 +45,10 @@ void Board::onEnter() {
 
 void Board::drawBackGround() {
   static Point points[] = {
-      Point(0, 0), Point(this->_prepare_data.chart_size.width, 0),
-      Point(this->_prepare_data.chart_size.width,
-            this->_prepare_data.chart_size.height),
-      Point(0, this->_prepare_data.chart_size.height),
+      Point(0, 0), Point(this->_config.chart_size.width, 0),
+      Point(this->_config.chart_size.width,
+            this->_config.chart_size.height),
+      Point(0, this->_config.chart_size.height),
 
   };
   this->drawPolygon(points,         // 頂点の座標のデータ
@@ -61,50 +61,50 @@ void Board::drawBackGround() {
 
 void Board::drawFrame() {
   // Frame line vertical
-  this->drawSegment(this->_prepare_data.chart_offset, // start
-                    Point(this->_prepare_data.chart_offset.x,
-                          this->_prepare_data.chart_size.height +
-                              this->_prepare_data.chart_offset.y), // end
+  this->drawSegment(this->_config.chart_offset, // start
+                    Point(this->_config.chart_offset.x,
+                          this->_config.chart_size.height +
+                              this->_config.chart_offset.y), // end
                     1.0f,                                          // bold
                     Color4F::GRAY                                  // color
                     );
 
   // Frame line horizontal
-  this->drawSegment(this->_prepare_data.chart_offset, // start
-                    Point(this->_prepare_data.chart_offset.x +
-                              this->_prepare_data.chart_size.width,
-                          this->_prepare_data.chart_offset.y), // end
+  this->drawSegment(this->_config.chart_offset, // start
+                    Point(this->_config.chart_offset.x +
+                              this->_config.chart_size.width,
+                          this->_config.chart_offset.y), // end
                     1.0f,                                      // bold
                     Color4F::GRAY                              // color
                     );
 
   // line of vertical
   time_t interval =
-      this->_prepare_data.end_point - this->_prepare_data.start_point;
+      this->_config.end_point - this->_config.start_point;
 
-  for (int i = 1; i <= this->_prepare_data.vertical_line; i++) {
+  for (int i = 1; i <= this->_config.vertical_line; i++) {
     time_t point_time =
-        (int)(interval / this->_prepare_data.vertical_line * i) +
-        this->_prepare_data.start_point;
+        (int)(interval / this->_config.vertical_line * i) +
+        this->_config.start_point;
 
     double x = this->getX(point_time);
     this->drawSegment(
-        Point(x, this->_prepare_data.chart_offset.y), // start
-        Point(x, this->_prepare_data.chart_offset.y +
-                     this->_prepare_data.chart_size.height), // end
+        Point(x, this->_config.chart_offset.y), // start
+        Point(x, this->_config.chart_offset.y +
+                     this->_config.chart_size.height), // end
         1.0f,                                                // bold
         Color4F::GRAY                                        // color
         );
   }
 
-  for (int i = 1; i <= this->_prepare_data.horizontal_line; i++) {
-    double split_value = (double)(this->_prepare_data.vertical_top_value /
-                                  this->_prepare_data.horizontal_line * i);
+  for (int i = 1; i <= this->_config.horizontal_line; i++) {
+    double split_value = (double)(this->_config.vertical_top_value /
+                                  this->_config.horizontal_line * i);
 
     double y = this->getY(split_value);
-    this->drawSegment(Point(this->_prepare_data.chart_offset.x, y), // start
-                      Point(this->_prepare_data.chart_size.width +
-                                this->_prepare_data.chart_offset.x,
+    this->drawSegment(Point(this->_config.chart_offset.x, y), // start
+                      Point(this->_config.chart_size.width +
+                                this->_config.chart_offset.x,
                             y),     // end
                       1.0f,         // bold
                       Color4F::GRAY // color
@@ -115,16 +115,16 @@ void Board::drawFrame() {
 void Board::drawLabel() {
   // line of horizontal
   time_t interval =
-      this->_prepare_data.end_point - this->_prepare_data.start_point;
-  for (int i = 0; i <= this->_prepare_data.vertical_line; i++) {
-    if (i % 2 == 1 && i != this->_prepare_data.vertical_line) {
+      this->_config.end_point - this->_config.start_point;
+  for (int i = 0; i <= this->_config.vertical_line; i++) {
+    if (i % 2 == 1 && i != this->_config.vertical_line) {
       continue;
     }
     time_t point_time =
-        (int)(interval / this->_prepare_data.vertical_line * i) +
-        this->_prepare_data.start_point;
+        (int)(interval / this->_config.vertical_line * i) +
+        this->_config.start_point;
     double x = this->getX(point_time);
-    double y = this->_prepare_data.chart_offset.y;
+    double y = this->_config.chart_offset.y;
     const char *format = "%m/%d\n%H:%M";
     std::string time_string = lib::Util::getDatetimeString(point_time, format);
     auto p_text_time = Label::createWithSystemFont(time_string, "System", 24);
@@ -136,14 +136,14 @@ void Board::drawLabel() {
 
   // line of horizontal
   double last_x, last_y;
-  for (int i = 0; i <= this->_prepare_data.horizontal_line; i++) {
-    if (i == 0 && i != this->_prepare_data.horizontal_line) {
+  for (int i = 0; i <= this->_config.horizontal_line; i++) {
+    if (i == 0 && i != this->_config.horizontal_line) {
       continue;
     }
 
-    double point_value = (double)(this->_prepare_data.vertical_top_value /
-                                  this->_prepare_data.horizontal_line * i);
-    double x = this->_prepare_data.chart_offset.x - 20;
+    double point_value = (double)(this->_config.vertical_top_value /
+                                  this->_config.horizontal_line * i);
+    double x = this->_config.chart_offset.x - 20;
     double y = this->getY(point_value);
 
     const float usv = (double)point_value;
@@ -169,20 +169,20 @@ void Board::drawLabel() {
 
 void Board::drawPoint() {
 
-  for (int i = 0; i < this->_prepare_data.v_chart_items.size(); i++) {
-    lib::object::ChartItem chart_item = this->_prepare_data.v_chart_items.at(i);
-    if (this->_prepare_data.start_point > chart_item.timestamp ||
-        this->_prepare_data.end_point < chart_item.timestamp) {
+  for (int i = 0; i < this->_config.v_chart_items.size(); i++) {
+    lib::object::ChartItem chart_item = this->_config.v_chart_items.at(i);
+    if (this->_config.start_point > chart_item.timestamp ||
+        this->_config.end_point < chart_item.timestamp) {
       continue;
     }
 
     double x = this->getX(chart_item.timestamp);
     double y = this->getY((double)chart_item.value /
-                          (double)this->_prepare_data.conversion_rate);
+                          (double)this->_config.conversion_rate);
 
     // calculate color
     const float usv =
-        ((float)chart_item.value / (float)this->_prepare_data.conversion_rate);
+        ((float)chart_item.value / (float)this->_config.conversion_rate);
     cocos2d::Color3B color = lib::Util::GetLutColor(usv);
 
     this->drawDot(Point(x, y), 3.0f, Color4F(color));
@@ -202,12 +202,12 @@ void Board::drawWeather() {
 
   static std::string before_icon = "";
 
-  for (int i = 0; i < this->_prepare_data.v_weather_items.size(); i++) {
+  for (int i = 0; i < this->_config.v_weather_items.size(); i++) {
     lib::object::WeatherItem weather_item =
-        this->_prepare_data.v_weather_items.at(i);
+        this->_config.v_weather_items.at(i);
 
-    if (this->_prepare_data.start_point > weather_item.timestamp ||
-        this->_prepare_data.end_point < weather_item.timestamp) {
+    if (this->_config.start_point > weather_item.timestamp ||
+        this->_config.end_point < weather_item.timestamp) {
       continue;
     }
 
@@ -217,8 +217,8 @@ void Board::drawWeather() {
     }
 
     double x = this->getX(weather_item.timestamp);
-    double y = this->_prepare_data.chart_size.height +
-               this->_prepare_data.chart_offset.y + 20.0f;
+    double y = this->_config.chart_size.height +
+               this->_config.chart_offset.y + 20.0f;
 
     std::string icon = "res/icon/weather/" + weather_item.icon + ".png";
     auto p_weather = Sprite::create(icon);
@@ -236,20 +236,20 @@ void Board::drawWeather() {
 
 double Board::getX(time_t hrizontal_value) {
   double interval =
-      (double)(this->_prepare_data.end_point - this->_prepare_data.start_point);
+      (double)(this->_config.end_point - this->_config.start_point);
 
-  double x = (((hrizontal_value - this->_prepare_data.start_point) / interval) *
-              this->_prepare_data.chart_size.width) +
-             this->_prepare_data.chart_offset.x;
+  double x = (((hrizontal_value - this->_config.start_point) / interval) *
+              this->_config.chart_size.width) +
+             this->_config.chart_offset.x;
 
   return x;
 }
 
 double Board::getY(double vertical_value) {
   double y = (((double)vertical_value /
-               (double)this->_prepare_data.vertical_top_value) *
-              this->_prepare_data.chart_size.height) +
-             this->_prepare_data.chart_offset.y;
+               (double)this->_config.vertical_top_value) *
+              this->_config.chart_size.height) +
+             this->_config.chart_offset.y;
 
   return y;
 }

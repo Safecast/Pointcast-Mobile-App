@@ -14,9 +14,9 @@
         <LuaEncryptSign Value="" />
         <Android_PackageName Value="org.cocos.mainmenu" />
         <AndroidkeyStore Value="" />
-        <AndroidVersion Value="android-24" />
+        <AndroidVersion Value="android-25" />
         <iOS_Target Value="mainmenu-mobile" />
-        <iOS_BundleID Value="iPhone Developer: mitsuo-okada@united.jp (5K8RGYC425)" />
+        <iOS_BundleID Value="iPhone Developer: Mitsuo Okada (39M28873LA)" />
         <Platform Value="None" />
         <RunPlatform Value="Mac" />
         <FrameworkVersion Value="cocos2d-x-3.8" />
@@ -26,17 +26,6 @@
         <KeystoreAliasPassword Value="" />
         <EnableSourceMap Value="False" />
         <EnableHTML5Advanced Value="False" />
-      </Value>
-    </Item>
-    <Item Key="TabsParamsKey">
-      <Value ctype="TabsInfo">
-        <OpenedDocuments>
-          <FilePathData Path="MenuAnalytics_landscape.csd" />
-          <FilePathData Path="layerAnalytics.csd" />
-          <FilePathData Path="layerChart.csd" />
-          <FilePathData Path="MenuAnalytics_portlate.csd" />
-        </OpenedDocuments>
-        <ActiveDocument Path="MenuAnalytics_landscape.csd" />
       </Value>
     </Item>
   </Properties>

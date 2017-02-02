@@ -123,7 +123,7 @@ std::string DataStoreSingleton::getResponseAnalyticsData(int m_sensor_main_id) {
   return this->_p_m_http_analytics_response_data[m_sensor_main_id];
 }
 
-void DataStoreSingleton::requestPointcastAnalytics(int m_sensor_main_id) {
+void DataStoreSingleton::requestPointcastAnalytics(int m_sensor_main_id, time_t start_time, time_t end_time) {
   cocos2d::network::HttpRequest *request = new cocos2d::network::HttpRequest();
 
   this->_request_m_sensor_main_id = m_sensor_main_id;
@@ -136,10 +136,16 @@ void DataStoreSingleton::requestPointcastAnalytics(int m_sensor_main_id) {
   request->setResponseCallback(
       CC_CALLBACK_2(DataStoreSingleton::callbackHttpPointcastAnalytics, this));
 
+  // make post data
+  std::stringstream start_buf;
+  start_buf << start_time;
+  std::stringstream end_buf;
+  end_buf << end_time;
+
+  std::string postDataString = "start_time=" + start_buf.str() + "&end_time=" + end_buf.str();
+    
   // write the post data
-  const char *postData =
-      "visitor=cocos2d&TestSuite=Extensions Test/NetworkTest";
-  request->setRequestData(postData, strlen(postData));
+  request->setRequestData(postDataString.c_str(), strlen(postDataString.c_str()));
 
   cocos2d::network::HttpClient::getInstance()->send(request);
   request->release();

@@ -23,7 +23,7 @@ namespace chart {
 
 class Board : public cocos2d::DrawNode {
 public:
-  struct PrepareData {
+  struct Config {
   public:
     std::vector<lib::object::ChartItem> v_chart_items;
     std::vector<lib::object::WeatherItem> v_weather_items;
@@ -37,7 +37,7 @@ public:
     std::string horizontal_unit;
     double vertical_top_value;
     int conversion_rate;
-    PrepareData() {
+    Config() {
       std::vector<lib::object::ChartItem> v_chart_items;
       chart_size = cocos2d::Size();
       chart_offset = cocos2d::Point();
@@ -53,14 +53,14 @@ public:
   };
 
 private:
-  PrepareData _prepare_data;
+  Config _config;
 
   double getX(time_t hrizontal_value);
 
   double getY(double vertical_value);
 
 public:
-  static Board *create(PrepareData prepare_data);
+  static Board *create(Config config);
 
   void onEnter();
 

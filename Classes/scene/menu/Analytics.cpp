@@ -20,6 +20,7 @@
 #include "json/writer.h"
 
 #include "lib/Util.hpp"
+#include "lib/gesture/Pinch.hpp"
 #include "lib/native/Util.h"
 
 #include "lib/network/DataStoreSingleton.hpp"
@@ -28,6 +29,7 @@
 #include "scene/layout/helper/Contents.hpp"
 #include "scene/layout/helper/Display.hpp"
 #include "scene/layout/helper/Footer.hpp"
+#include "scene/layout/helper/Chart.hpp"
 
 #include "scene/menu/Sensors.hpp"
 
@@ -43,12 +45,52 @@
 #define VERTICAL_OPTIONAL_VALUE 10.0f
 
 USING_NS_CC;
+using namespace ui;
+
 using namespace rapidjson;
 
 namespace scene {
 
 namespace menu {
 
+bool Analytics::init() {
+    if (!base::AbstructScene::init()) {
+        return false;
+    }
+    
+    this->_p_scroll_view = nullptr;
+    this->_p_chart_nodes = nullptr;
+    this->_p_scroll_view = nullptr;
+    this->_current_scale = 1.0f;
+    
+    this->scheduleUpdate();
+    
+    this->_pinch_gesture = new lib::gesture::Pinch(2.0f, 1.0f);
+    
+    this->setTouchEnabled(true);
+    
+    // set orientation
+    this->_portlate = scene::layout::helper::Display::IsPortlate();
+    
+    // add notification
+    Director::getInstance()->getEventDispatcher()->addCustomEventListener("orientation",[=](cocos2d::EventCustom *event) {
+        CCLOG("イベント受け取ったよ > %s",event->getEventName().c_str());
+        this->onDidOrientation();
+    });
+    
+    this->_pinch_listener = EventListenerTouchAllAtOnce::create();
+    this->_pinch_listener->setEnabled(true);
+    this->_pinch_listener->onTouchesBegan = CC_CALLBACK_2(Analytics::onTouchesBegan, this);
+    this->_pinch_listener->onTouchesMoved = CC_CALLBACK_2(Analytics::onTouchesMoved, this);
+    this->_pinch_listener->onTouchesCancelled = CC_CALLBACK_2(Analytics::onTouchesCancelled, this);
+    this->_pinch_listener->onTouchesEnded = CC_CALLBACK_2(Analytics::onTouchesEnded, this);
+    
+    this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(this->_pinch_listener, this);
+    
+    return true;
+}
+    
+    
 void Analytics::prepare(int m_sensor_main_id) {
   // @note is here right?
   lib::network::DataStoreSingleton *p_data_store_singleton =
@@ -64,11 +106,13 @@ void Analytics::prepare(int m_sensor_main_id) {
 
   this->_favorite = lib::Util::getFavorite(this->_m_sensor_main_id);
  
-  this->setFavoriteButtonState();
 }
 
-void Analytics::initContents()
+void Analytics::initFixedContents()
 {
+    
+    this->_p_scene_main =
+        static_cast<scene::Main *>(this->getParent()->getParent());
     
     if (this->isPortlate()) {
         this->_p_contents =
@@ -82,9 +126,9 @@ void Analytics::initContents()
         
     }
     
-    auto panel =
-    this->_p_contents->getChildByName<ui::Layout *>("panelBackground");
-    auto label_back = panel->getChildByName<ui::Text *>("txtBack");
+    this->_p_panel_background =
+        this->_p_contents->getChildByName<ui::Layout *>("panelBackground");
+    auto label_back = this->_p_panel_background->getChildByName<ui::Text *>("txtBack");
     label_back->addTouchEventListener(
         [this](Ref *sender, ui::Widget::TouchEventType type) {
         if (type == ui::Widget::TouchEventType::ENDED) {
@@ -95,7 +139,7 @@ void Analytics::initContents()
     });
     
     // favorite
-    this->_p_btn_favorite = panel->getChildByName<ui::Button *>("btnFavorite");
+    this->_p_btn_favorite = this->_p_panel_background->getChildByName<ui::Button *>("btnFavorite");
     this->_p_btn_favorite->addTouchEventListener(
         [this](Ref *sender, ui::Widget::TouchEventType type) {
             CCLOG("p_button_favorite touchend %d", type);
@@ -117,30 +161,76 @@ void Analytics::initContents()
                 this->detachTouchParticle();
             }
         });
+
+    // scroll view
+    // this->_p_scroll_view = static_cast<ui::ScrollView *>(
+    //                              this->_p_panel_background->getChildByName("scrollView"));
+
+    this->_p_page_view = static_cast<ui::PageView *>(
+        this->_p_panel_background->getChildByName("pageView"));
+    
+    //    void addEventListener(const ccPageViewCallback& callback);
+    //     typedef std::function<void(Ref*, EventType)> ccPageViewCallback;
+
+    this->_p_page_view->addEventListener(CC_CALLBACK_2(Analytics::pageViewEvent, this));
+    
+    this->setFavoriteButtonState();
+    
+    cocos2d::log("size w %f h %f x %f y %f", this->getContentSize().width, this->getContentSize().height, this->getPositionX(), this->getPositionY());
     
     this->addChild(this->_p_contents);
+    
+    auto p_empty_page = cocos2d::ui::Widget::create();
+    this->_p_page_view->insertPage(p_empty_page, 0);
 }
     
-bool Analytics::init() {
-  if (!base::AbstructScene::init()) {
-    return false;
-  }
+void Analytics::initVariableContents()
+{
+    // prepare chart data
+    lib::network::DataStoreSingleton *p_data_store_singleton =
+                    lib::network::DataStoreSingleton::getInstance();
+    const std::string analytics_data =
+        p_data_store_singleton->getResponseAnalyticsData(this->_m_sensor_main_id);
     
-  // set orientation
-    this->_portlate = scene::layout::helper::Display::IsPortlate();
-  
-  // add notification
-  Director::getInstance()->getEventDispatcher()->addCustomEventListener("orientation",[=](cocos2d::EventCustom *event) {
-      CCLOG("イベント受け取ったよ > %s",event->getEventName().c_str());
-      this->onDidOrientation();
-  });
+    std::vector<lib::object::ChartItem> v_chart_items;
+    std::vector<lib::object::WeatherItem> v_weather_items;
     
-  this->initContents();
-  return true;
+    if (analytics_data.length() > 0)
+    {
+        v_chart_items = this->getChartData(analytics_data);
+        v_weather_items = this->getWeatherData(analytics_data);
+    }
+    
+    // draw header
+    auto p_header =  scene::layout::helper::Chart::prepareHeader(this, this->_m_sensor_main_id);
+    this->addChild(p_header);
+    
+    // draw chart
+    this->_p_chart_nodes = scene::layout::helper::Chart::prepareChart(this, this->_m_sensor_main_id, v_chart_items, v_weather_items);
+    auto test = cocos2d::ui::Widget::create();
+    // p_chart = scene::layout::helper::Chart::prepareChart(this, this->_m_sensor_main_id, v_chart_items, v_weather_items);
+    // this->_p_scroll_view->setInnerContainerSize(this->_p_chart_nodes->getContentSize());
+    // this->_p_scroll_view->addChild(this->_p_chart_nodes);
+    
+    this->_p_chart_nodes->setScale(this->_current_scale);
+    
+    this->_p_page_view->addPage(this->_p_chart_nodes);
+    cocos2d::log("p_page_preview %zd", this->_p_page_view->getChildrenCount());
+    this->_p_page_view->setCurrentPageIndex(this->_p_page_view->getChildrenCount() - 1);
+    
+    // detach wait animation
+    this->_p_scene_main->detachWaitAnimation();
+
 }
 
 void Analytics::onEnter() {
   AbstructScene::onEnter();
+    
+  // initialize chart interval
+  this->initChartInterval();
+
+  // initialize fixed contents
+  this->initFixedContents();
 
   // get Analytics Data
   // Http Request For Analytics Data
@@ -155,7 +245,8 @@ void Analytics::onEnter() {
   p_data_store_singleton->setResponseCallback(
       this, (cocos2d::network::SEL_HttpResponse)(
                 &Analytics::onCallbackPointcastAnalytics));
-  p_data_store_singleton->requestPointcastAnalytics(this->_m_sensor_main_id);
+    
+  p_data_store_singleton->requestPointcastAnalytics(this->_m_sensor_main_id, this->_interval_start, this->_interval_end);
     
   // enable rotate
   lib::native::Util::setRotateEnable(true);
@@ -191,38 +282,10 @@ void Analytics::onCallbackPointcastAnalytics(
     cocos2d::network::HttpResponse *response) {
   CCLOG("onCallbackPointcastAnalytics");
 
-  scene::Main *p_scene_main =
-      static_cast<scene::Main *>(this->getParent()->getParent());
-  p_scene_main->detachWaitAnimation();
-
-  // @note is here right?
-  lib::network::DataStoreSingleton *p_data_store_singleton =
-      lib::network::DataStoreSingleton::getInstance();
-
-  const std::string analytics_data =
-      p_data_store_singleton->getResponseAnalyticsData(this->_m_sensor_main_id);
-
-  CCLOG("analytics_data %s", analytics_data.c_str());
-
-  std::vector<lib::object::ChartItem> v_chart_items =
-      this->getChartData(analytics_data);
-
-  std::vector<lib::object::WeatherItem> v_weather_items =
-      this->getWeatherData(analytics_data);
-
-  auto p_chart_board_widget =
-      this->prepareChartBoard(v_chart_items, v_weather_items);
-
-  // base scene
-  auto p_panel_background = static_cast<ui::Layout *>(
-      this->_p_contents->getChildByName("panelBackground"));
-  // scroll view
-  auto p_scroll_view = static_cast<ui::ScrollView *>(
-      p_panel_background->getChildByName("scrollView"));
-  Size size = p_chart_board_widget->getContentSize();
-  p_scroll_view->setInnerContainerSize(p_chart_board_widget->getContentSize());
-  p_chart_board_widget->setAnchorPoint(Point(0.0f, 0.0f));
-  p_scroll_view->addChild(p_chart_board_widget);
+    
+  this->initVariableContents();
+    
+  
 }
 
 std::vector<lib::object::ChartItem>
@@ -252,8 +315,8 @@ Analytics::getChartData(std::string analytics_data) {
             CCLOG("device_id %s", device_id);
             if (sensors.HasMember(device_id) && sensors[device_id].IsArray()) {
               const rapidjson::Value &analytics = sensors[device_id];
-              SizeType num = analytics.Size();
-              for (SizeType i = 0; i < num; i++) {
+              rapidjson::SizeType num = analytics.Size();
+              for (rapidjson::SizeType i = 0; i < num; i++) {
                 lib::object::ChartItem item;
                 item.value = analytics[i]["value"].GetInt();
                 item.major_label = analytics[i]["major_label"].GetInt();
@@ -300,8 +363,8 @@ Analytics::getWeatherData(std::string analytics_data) {
             CCLOG("device_id %s", device_id);
             if (weather.HasMember(device_id) && weather[device_id].IsArray()) {
               const rapidjson::Value &analytics = weather[device_id];
-              SizeType num = analytics.Size();
-              for (SizeType i = 0; i < num; i++) {
+              rapidjson::SizeType num = analytics.Size();
+              for (rapidjson::SizeType i = 0; i < num; i++) {
                 lib::object::WeatherItem item;
                 item.weather_main = analytics[i]["weather_main"].GetString();
                 item.icon = analytics[i]["icon"].GetString();
@@ -318,110 +381,7 @@ Analytics::getWeatherData(std::string analytics_data) {
 
   return v_weather_items;
 }
-
-ui::Widget *Analytics::prepareChartBoard(
-    const std::vector<lib::object::ChartItem> v_chart_items,
-    const std::vector<lib::object::WeatherItem> v_weather_items) {
-  // load chart layout
-  auto p_chart_board =
-      CSLoader::getInstance()->createNode("res/layerChart.csb");
-  auto p_background =
-      p_chart_board->getChildByName<ui::Layout *>("panelBackground");
-
-  lib::network::DataStoreSingleton *p_data_store_singleton =
-      lib::network::DataStoreSingleton::getInstance();
-
-  lib::object::LocationItem location_item =
-      p_data_store_singleton->getLocationItem(this->_m_sensor_main_id);
-
-  auto p_text_city = p_background->getChildByName<ui::Text *>("textCity");
-  assert(p_text_city);
-  p_text_city->setString(location_item.name_en);
-  assert(p_text_city);
-
-  std::stringstream ss;
-  ss << "device_id : " << location_item.sensor1_device_id << "("
-     << location_item.tube_name << "/" << location_item.conversion_rate << ")";
-  auto p_text_senser_id =
-      p_background->getChildByName<ui::Text *>("txtSenserId");
-  p_text_senser_id->setContentSize(Size(400, 150));
-  p_text_senser_id->setPositionX(220);
-  assert(p_text_senser_id);
-
-  p_text_senser_id->setString(ss.str());
-
-  auto p_text_chart_title =
-      p_background->getChildByName<ui::Text *>("txtChartTitle");
-  p_text_chart_title->setString("Realtime Chart");
-
-  // if nothing data
-  if (v_chart_items.size() == 0) {
-    ui::Widget *p_chart_board_widget = ui::Widget::create();
-    p_chart_board_widget->setContentSize(p_chart_board->getContentSize());
-    p_chart_board_widget->addChild(p_chart_board);
-    return p_chart_board_widget;
-  }
-
-  scene::chart::Board::PrepareData chart_prepare_data;
-
-  // next 6hour (end point)
-  time_t now = time(NULL);
-  struct tm *pnow = localtime(&now);
-  int mod = pnow->tm_hour % 6;
-  pnow->tm_hour = pnow->tm_hour + (6 - mod);
-  pnow->tm_min = 0;
-  pnow->tm_sec = 0;
-
-  time_t end_time_stamp = mktime(pnow);
-
-  pnow->tm_hour = pnow->tm_hour - 48;
-  pnow->tm_min = 0;
-  pnow->tm_sec = 0;
-
-  time_t start_time_stamp = mktime(pnow);
-
-  CCLOG("start %ld end %ld", start_time_stamp, end_time_stamp);
-
-  // prepare chart_
-  chart_prepare_data.chart_size = Size(CHART_WIDTH, CHART_HEIGHT);
-  chart_prepare_data.chart_offset = Point(CHART_OFFSET_X, CHART_OFFSET_Y + 100);
-  chart_prepare_data.v_chart_items = v_chart_items;
-  chart_prepare_data.v_weather_items = v_weather_items;
-  chart_prepare_data.start_point = start_time_stamp;
-  chart_prepare_data.end_point = end_time_stamp;
-  chart_prepare_data.vertical_line = 8;
-  chart_prepare_data.vertical_unit = "usv";
-  chart_prepare_data.horizontal_line = 4;
-  chart_prepare_data.horizontal_unit = "time";
-  chart_prepare_data.conversion_rate = location_item.conversion_rate;
-
-  //  chart_prepare_data.vertical_top_value =
-  //      (int)(((int)((location_item.yesterday_average_value +
-  //                    VERTICAL_OPTIONAL_VALUE) /
-  //                   VERTICAL_VALUE_BASE) *
-  //             VERTICAL_VALUE_BASE) +
-  //            VERTICAL_VALUE_BASE);
-
-  chart_prepare_data.vertical_top_value = 1.0f;
-
-  // chart_boardのサイズを変更
-  p_chart_board->setContentSize(chart_prepare_data.chart_size);
-
-  scene::chart::Board *p_chart_nodes =
-      scene::chart::Board::create(chart_prepare_data);
-
-  p_chart_board->addChild(p_chart_nodes);
-
-  ui::Widget *p_chart_board_widget = ui::Widget::create();
-  Size chart_size = p_chart_board->getContentSize();
-  chart_size.height = chart_size.height + 100;
-  p_chart_board_widget->setContentSize(chart_size);
-  p_chart_board_widget->setTouchEnabled(true);
-  p_chart_board_widget->addChild(p_chart_board);
-
-  return p_chart_board_widget;
-}
-
+        
 void Analytics::setFavoriteButtonState(void) {
   if (this->_favorite) {
     this->_p_btn_favorite->loadTextures("res/icon/menu/star_orange_wide.png",
@@ -458,7 +418,7 @@ void Analytics::resetContents()
     this->_p_contents->removeFromParent();
     
     // init contents
-    this->initContents();
+    this->initFixedContents();
     
     // notify onEnter
     this->onEnter();
@@ -468,12 +428,118 @@ bool Analytics::isPortlate()
 {
     return this->_portlate;
 }
-    
-bool Analytics::isLandscape()
+
+bool Analytics::isLandscape() { return !this->_portlate; }
+
+void Analytics::initChartInterval()
 {
-    return !this->_portlate;
+    time_t now = time(NULL);
+    struct tm *pnow = localtime(&now);
+    pnow->tm_hour = 0;
+    pnow->tm_min = 0;
+    pnow->tm_sec = 0;
+    
+    this->_interval_end = mktime(pnow);
+    // interval 1 day
+    this->_interval_start = this->_interval_end - 86400;
+    
 }
     
+time_t Analytics::getIntervalStart()
+{
+    return this->_interval_start;
+}
     
+time_t Analytics::getIntervalEnd()
+{
+    return this->_interval_end;
+}
+
+void Analytics::onTouchesBegan(const std::vector<cocos2d::Touch*>& touches, cocos2d::Event *pEvent)
+{
+    cocos2d::log("Analytics::onTouchesBegan touches %lu", touches.size());
+    if(this->isGesture(touches, pEvent))
+    {
+        this->_pinch_gesture->setBasePoint(touches, pEvent, this->_current_scale);
+    }
+}
+
+void Analytics::onTouchesMoved(const std::vector<cocos2d::Touch*>& touches,cocos2d::Event *pEvent)
+{
+    cocos2d::log("Analytics::onTouchesMoved touches %lu", touches.size());
+    if(this->isGesture(touches, pEvent))
+    {
+        this->_pinch_gesture->attachTouchesMove(touches, pEvent);
+    }
+}
+
+void Analytics::onTouchesEnded(const std::vector<cocos2d::Touch*>& touches, cocos2d::Event *pEvent)
+{
+    cocos2d::log("Analytics::onTouchesEnded touches %lu", touches.size());
+    if(this->isGesture(touches, pEvent))
+    {
+        this->_pinch_gesture->init();
+    }
+}
+
+void Analytics::onTouchesCancelled(const std::vector<cocos2d::Touch*>& touches, cocos2d::Event *pEvent)
+{
+    
+}
+    
+bool Analytics::isGesture(const std::vector<cocos2d::Touch*>& touches, cocos2d::Event *pEvent)
+{
+    //
+    
+    
+    if (touches.size() != 2)
+    {
+        return false;
+    }
+    
+    return true;
+}
+    
+void Analytics::update(float delta){
+  
+    
+    
+    if (this->_p_chart_nodes != nullptr)
+    {
+        if (this->_pinch_gesture->isChanged())
+        {
+            float scale = this->_pinch_gesture->getPinchScale();
+            if (scale == 0.0f) return;
+            cocos2d::log("set chart scale %f", scale);
+            this->_current_scale = scale;
+            this->_p_chart_nodes->setScale(this->_current_scale);
+            this->_p_scroll_view->setInnerContainerSize(this->_p_chart_nodes->getBoundingBox().size);
+            this->_p_chart_nodes->setPositionY(0.0f);
+        }
+    }
+}
+    
+void Analytics::updateChartScale()
+{
+    this->_p_chart_nodes->setScale(this->_current_scale);
+    cocos2d::log("w %f h %f x %f y %f",  this->_p_chart_nodes->getBoundingBox().size.width, this->_p_chart_nodes->getBoundingBox().size.height, this->_p_chart_nodes->getPositionX(), this->_p_chart_nodes->getPositionY());
+    this->_p_scroll_view->setInnerContainerSize(this->_p_chart_nodes->getBoundingBox().size);
+    this->_p_chart_nodes->setPositionY(0.0f);
+}
+    
+void Analytics::onExit()
+{
+    
+    AbstructScene::onExit();
+    
+    this->getEventDispatcher()->removeEventListener(this->_pinch_listener);
+
+}
+    
+void Analytics::pageViewEvent(cocos2d::Ref * pSender, cocos2d::ui::PageView::EventType type)
+{
+    cocos2d::log("Analytics::pageViewEvent");
+}
+
 }
 }
