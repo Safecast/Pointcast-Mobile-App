@@ -1,0 +1,22 @@
+# Uncomment this line to define a global platform for your project
+# platform :ios, '9.0'
+
+target 'Pointcast-Mobile-App-desktop' do
+  # Uncomment this line if you're using Swift or would like to use dynamic frameworks
+  # use_frameworks!
+  # pod 'GoogleMaps'
+  # Pods for Pointcast-Mobile-App-desktop
+
+end
+
+target 'Pointcast-Mobile-App-mobile' do
+  # Uncomment this line if you're using Swift or would like to use dynamic frameworks
+  # use_frameworks!
+  pod 'GoogleMaps', '2.1.0'
+  pod 'Firebase/Core', '3.7.1'
+  pod 'Firebase/Messaging', '3.7.1'
+  # pod 'Firebase/Invites'
+  pod 'Firebase/Crash', '3.7.1'
+  # Pods for Pointcast-Mobile-App-mobile
+
+end
