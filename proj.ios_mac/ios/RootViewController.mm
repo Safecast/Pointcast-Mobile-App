@@ -1,6 +1,6 @@
 /****************************************************************************
  Copyright (c) 2013      cocos2d-x.org
- Copyright (c) 2013-2014 Chukong Technologies Inc.
+ Copyright (c) 2013-2016 Chukong Technologies Inc.
 
  http://www.cocos2d-x.org
 
@@ -33,11 +33,8 @@
 
     BOOL rotateEnable = false;
 /*
- // The designated initializer.  Override if you create the controller
-programmatically and want to perform customization that is not appropriate for
-viewDidLoad.
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
+ // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     if ((self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])) {
         // Custom initialization
     }
@@ -45,21 +42,37 @@ viewDidLoad.
 }
 */
 
-/*
-// Implement loadView to create a view hierarchy programmatically, without using
-a nib.
+// Implement loadView to create a view hierarchy programmatically, without using a nib.
 - (void)loadView {
+    // Initialize the CCEAGLView
+    CCEAGLView *eaglView = [CCEAGLView viewWithFrame: [UIScreen mainScreen].bounds
+                                         pixelFormat: (__bridge NSString *)cocos2d::GLViewImpl::_pixelFormat
+                                         depthFormat: cocos2d::GLViewImpl::_depthFormat
+                                  preserveBackbuffer: NO
+                                          sharegroup: nil
+                                       multiSampling: NO
+                                     numberOfSamples: 0 ];
+    
+    // Enable or disable multiple touches
+    [eaglView setMultipleTouchEnabled:YES];
+    
+    // Set EAGLView as view of RootViewController
+    self.view = eaglView;
 }
-*/
 
-/*
-*/
-// Override to allow orientations other than the default portrait orientation.
-// This method is deprecated on ios6
-- (BOOL)shouldAutorotateToInterfaceOrientation:
-    (UIInterfaceOrientation)interfaceOrientation {
-    return UIInterfaceOrientationIsLandscape(interfaceOrientation);
+// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
+- (void)viewDidLoad {
+    [super viewDidLoad];
 }
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+}
+
 
 // For ios6, use supportedInterfaceOrientations & shouldAutorotate instead
 - (NSUInteger)supportedInterfaceOrientations {
@@ -74,24 +87,23 @@ a nib.
 #endif
 }
 
-- (BOOL)shouldAutorotate {
+- (BOOL) shouldAutorotate {
     NSLog(@"rt: %d",rotateEnable);
     return rotateEnable;
 }
 
-- (void)didRotateFromInterfaceOrientation:
-    (UIInterfaceOrientation)fromInterfaceOrientation {
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
     [super didRotateFromInterfaceOrientation:fromInterfaceOrientation];
 
     auto glview = cocos2d::Director::getInstance()->getOpenGLView();
 
     if (glview) {
         CCEAGLView *eaglview = (CCEAGLView *)glview->getEAGLView();
-
+        
         if (eaglview) {
             cocos2d::Size drawing_area_size = scene::layout::helper::Display::GetDrawingArea();
             cocos2d::Application::getInstance()->applicationScreenSizeChanged(
-                (int)drawing_area_size.width, (int)drawing_area_size.height);
+                                                                              (int)drawing_area_size.width, (int)drawing_area_size.height);
             
             UIScreen *sc = [UIScreen mainScreen];
             CGRect rect = sc.bounds;
@@ -100,23 +112,15 @@ a nib.
             auto glview = director->getOpenGLView();
             glview->setFrameSize((int)drawing_area_size.width, (int)drawing_area_size.height);
             director->getOpenGLView()->setDesignResolutionSize(
-                (int)drawing_area_size.width, (int)drawing_area_size.height,
-                ResolutionPolicy::NO_BORDER);
+                                                               (int)drawing_area_size.width, (int)drawing_area_size.height,
+                                                               ResolutionPolicy::NO_BORDER);
         }
     }
-    
     // push event notification
     cocos2d::Director::getInstance()->getEventDispatcher()->dispatchCustomEvent("orientation");
 }
 
-- (void)willRotateToInterfaceOrientation:
-(UIInterfaceOrientation)toInterfaceOrientation
-                                duration:(NSTimeInterval)duration
-{
-    NSLog(@"willRotateToInterfaceOrientation");
-}
-
-// fix not hide status on ios7
+//fix not hide status on ios7
 - (BOOL)prefersStatusBarHidden {
     return YES;
 }
@@ -128,16 +132,6 @@ a nib.
     // Release any cached data, images, etc that aren't in use.
 }
 
-- (void)viewDidUnload {
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
-}
-
-- (void)dealloc {
-    [super dealloc];
-}
-
 - (void)setRotateEnable:(BOOL)flag {
     rotateEnable = flag;
 }
@@ -146,11 +140,9 @@ a nib.
     return rotateEnable;
 }
 
-/* */
-// Implement viewDidLoad to do additional setup after loading the view,
-// typically from a nib.
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    NSLog(@"aaa");
+- (BOOL)shouldAutorotateToInterfaceOrientation:
+(UIInterfaceOrientation)interfaceOrientation {
+    return UIInterfaceOrientationIsLandscape(interfaceOrientation);
 }
+
 @end

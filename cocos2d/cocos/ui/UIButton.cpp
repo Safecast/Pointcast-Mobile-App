@@ -1,5 +1,5 @@
 /****************************************************************************
-Copyright (c) 2013-2014 Chukong Technologies Inc.
+Copyright (c) 2013-2016 Chukong Technologies Inc.
 
 http://www.cocos2d-x.org
 
@@ -156,6 +156,25 @@ void Button::createTitleRenderer()
     _titleRenderer = Label::create();
     _titleRenderer->setAnchorPoint(Vec2::ANCHOR_MIDDLE);
     addProtectedChild(_titleRenderer, TITLE_RENDERER_Z, -1);
+}
+
+/** replaces the current Label node with a new one */
+void Button::setTitleLabel(Label* label)
+{
+    if (_titleRenderer != label) {
+        CC_SAFE_RELEASE(_titleRenderer);
+        _titleRenderer = label;
+        CC_SAFE_RETAIN(_titleRenderer);
+
+        addProtectedChild(_titleRenderer, TITLE_RENDERER_Z, -1);
+        updateTitleLocation();
+    }
+}
+
+/** returns the current Label being used */
+Label* Button::getTitleLabel() const
+{
+    return _titleRenderer;
 }
 
 void Button::setScale9Enabled(bool able)
@@ -453,7 +472,7 @@ void Button::onPressStateChangedToNormal()
             _buttonNormalRenderer->setScale(1.0);
             _buttonClickedRenderer->setScale(1.0);
 
-            if(nullptr != _titleRenderer)
+            if (nullptr != _titleRenderer)
             {
                 _titleRenderer->stopAllActions();
                 if (_unifySize)
@@ -474,7 +493,7 @@ void Button::onPressStateChangedToNormal()
         _buttonNormalRenderer->stopAllActions();
         _buttonNormalRenderer->setScale(1.0);
 
-        if(nullptr != _titleRenderer)
+        if (nullptr != _titleRenderer)
         {
             _titleRenderer->stopAllActions();
             _titleRenderer->setScaleX(1.0f);
@@ -500,14 +519,14 @@ void Button::onPressStateChangedToPressed()
             _buttonClickedRenderer->stopAllActions();
 
             Action *zoomAction = ScaleTo::create(ZOOM_ACTION_TIME_STEP,
-                                                 1.0 + _zoomScale,
-                                                 1.0 + _zoomScale);
+                                                 1.0f + _zoomScale,
+                                                 1.0f + _zoomScale);
             _buttonClickedRenderer->runAction(zoomAction);
 
-            _buttonNormalRenderer->setScale(1.0 + _zoomScale,
-                                            1.0 + _zoomScale);
+            _buttonNormalRenderer->setScale(1.0f + _zoomScale,
+                                            1.0f + _zoomScale);
 
-            if(nullptr != _titleRenderer)
+            if (nullptr != _titleRenderer)
             {
                 _titleRenderer->stopAllActions();
                 Action *zoomTitleAction = ScaleTo::create(ZOOM_ACTION_TIME_STEP,
@@ -523,9 +542,9 @@ void Button::onPressStateChangedToPressed()
         _buttonDisabledRenderer->setVisible(false);
 
         _buttonNormalRenderer->stopAllActions();
-        _buttonNormalRenderer->setScale(1.0 +_zoomScale, 1.0 + _zoomScale);
+        _buttonNormalRenderer->setScale(1.0f +_zoomScale, 1.0f + _zoomScale);
 
-        if(nullptr != _titleRenderer)
+        if (nullptr != _titleRenderer)
         {
             _titleRenderer->stopAllActions();
             _titleRenderer->setScaleX(1.0f + _zoomScale);
@@ -586,7 +605,7 @@ void Button::updateContentSize()
 void Button::onSizeChanged()
 {
     Widget::onSizeChanged();
-    if(nullptr != _titleRenderer)
+    if (nullptr != _titleRenderer)
     {
         updateTitleLocation();
     }
@@ -714,7 +733,7 @@ void Button::setTitleText(const std::string& text)
     updateTitleLocation();
 }
 
-const std::string Button::getTitleText() const
+std::string Button::getTitleText() const
 {
     if(nullptr == _titleRenderer)
     {
@@ -824,7 +843,7 @@ Label* Button::getTitleRenderer()const
     return _titleRenderer;
 }
 
-const std::string Button::getTitleFontName() const
+std::string Button::getTitleFontName() const
 {
     if (nullptr != _titleRenderer)
     {
@@ -864,21 +883,29 @@ void Button::copySpecialProperties(Widget *widget)
     {
         _prevIgnoreSize = button->_prevIgnoreSize;
         setScale9Enabled(button->_scale9Enabled);
-        auto normalSprite = button->_buttonNormalRenderer->getSprite();
-        if (nullptr != normalSprite)
-        {
-            loadTextureNormal(normalSprite->getSpriteFrame());
-        }
-        auto clickedSprite = button->_buttonClickedRenderer->getSprite();
-        if (nullptr != clickedSprite)
-        {
-            loadTexturePressed(clickedSprite->getSpriteFrame());
-        }
-        auto disabledSprite = button->_buttonDisabledRenderer->getSprite();
-        if (nullptr != disabledSprite)
-        {
-            loadTextureDisabled(disabledSprite->getSpriteFrame());
-        }
+
+        // clone the inner sprite: https://github.com/cocos2d/cocos2d-x/issues/16924
+        button->_buttonNormalRenderer->copyTo(_buttonNormalRenderer);
+        _normalFileName = button->_normalFileName;
+        _normalTextureSize = button->_normalTextureSize;
+        _normalTexType = button->_normalTexType;
+        _normalTextureLoaded = button->_normalTextureLoaded;
+        setupNormalTexture(!_normalFileName.empty());
+
+        button->_buttonClickedRenderer->copyTo(_buttonClickedRenderer);
+        _clickedFileName = button->_clickedFileName;
+        _pressedTextureSize = button->_pressedTextureSize;
+        _pressedTexType = button->_pressedTexType;
+        _pressedTextureLoaded = button->_pressedTextureLoaded;
+        setupPressedTexture(!_clickedFileName.empty());
+
+        button->_buttonDisabledRenderer->copyTo(_buttonDisabledRenderer);
+        _disabledFileName = button->_disabledFileName;
+        _disabledTextureSize = button->_disabledTextureSize;
+        _disabledTexType = button->_disabledTexType;
+        _disabledTextureLoaded = button->_disabledTextureLoaded;
+        setupDisabledTexture(!_disabledFileName.empty());
+
         setCapInsetsNormalRenderer(button->_capInsetsNormal);
         setCapInsetsPressedRenderer(button->_capInsetsPressed);
         setCapInsetsDisabledRenderer(button->_capInsetsDisabled);

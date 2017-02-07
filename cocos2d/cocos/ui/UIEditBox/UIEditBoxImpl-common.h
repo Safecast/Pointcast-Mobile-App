@@ -28,8 +28,8 @@
 #define __UIEditBoxIMPLICOMMON_H__
 
 #include "platform/CCPlatformConfig.h"
-
-#include "UIEditBoxImpl.h"
+#include "ui/UIEditBox/UIEditBoxImpl-common.h"
+#include "ui/UIEditBox/UIEditBoxImpl.h"
 
 NS_CC_BEGIN
 
@@ -37,7 +37,7 @@ namespace ui {
 
 class EditBox;
 
-class EditBoxImplCommon : public EditBoxImpl
+class CC_GUI_DLL EditBoxImplCommon : public EditBoxImpl
 {
 public:
     /**
@@ -66,7 +66,8 @@ public:
 
     virtual void setMaxLength(int maxLength) override;
     virtual int  getMaxLength() override;
-    
+    virtual void setTextHorizontalAlignment(cocos2d::TextHAlignment alignment) override;
+
     virtual const char* getText(void) override;
     virtual void refreshInactiveText();
     
@@ -92,8 +93,8 @@ public:
     
     void editBoxEditingDidBegin();
     void editBoxEditingChanged(const std::string& text);
-    void editBoxEditingDidEnd(const std::string& text);
-    
+    void editBoxEditingDidEnd(const std::string& text, EditBoxDelegate::EditBoxEndAction action = EditBoxDelegate::EditBoxEndAction::UNKNOWN);
+
     virtual bool isEditing() override = 0;
     virtual void createNativeControl(const Rect& frame) = 0;
     virtual void setNativeFont(const char* pFontName, int fontSize) = 0;
@@ -103,11 +104,11 @@ public:
     virtual void setNativeInputMode(EditBox::InputMode inputMode) = 0;
     virtual void setNativeInputFlag(EditBox::InputFlag inputFlag) = 0;
     virtual void setNativeReturnType(EditBox::KeyboardReturnType returnType) = 0;
+    virtual void setNativeTextHorizontalAlignment(cocos2d::TextHAlignment alignment) = 0;
     virtual void setNativeText(const char* pText) = 0;
     virtual void setNativePlaceHolder(const char* pText) = 0;
     virtual void setNativeVisible(bool visible) = 0;
     virtual void updateNativeFrame(const Rect& rect) = 0;
-    virtual void setNativeContentSize(const Size& size) = 0;
     virtual const char* getNativeDefaultFontName() = 0;
     virtual void nativeOpenKeyboard() = 0;
     virtual void nativeCloseKeyboard() = 0;
@@ -115,16 +116,19 @@ public:
 
 
 private:
-	void			initInactiveLabels(const Size& size);
-	void			setInactiveText(const char* pText);
-    void            placeInactiveLabels();
-	
+    void         initInactiveLabels(const Size& size);
+    void         setInactiveText(const char* pText);
+    void         refreshLabelAlignment();
+    void         placeInactiveLabels(const Size& size);
+    virtual void doAnimationWhenKeyboardMove(float duration, float distance)override {};
+
     Label* _label;
     Label* _labelPlaceHolder;
     EditBox::InputMode    _editBoxInputMode;
     EditBox::InputFlag    _editBoxInputFlag;
     EditBox::KeyboardReturnType  _keyboardReturnType;
-    
+    cocos2d::TextHAlignment _alignment;
+
     std::string _text;
     std::string _placeHolder;
     

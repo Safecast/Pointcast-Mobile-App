@@ -22,7 +22,7 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#import "UITextView+CCUITextInput.h"
+#import "ui/UIEditBox/iOS/UITextView+CCUITextInput.h"
 
 
 @implementation UITextView (CCUITextInput)
@@ -40,6 +40,15 @@
 - (NSString *)ccui_placeholder
 {
     SEL selector = @selector(placeholder);
+    if ([self respondsToSelector:selector]) {
+        return [self performSelector:selector];
+    }
+    return nil;
+}
+
+- (UILabel *)ccui_placeholderLabel
+{
+    SEL selector = @selector(placeHolderLabel);
     if ([self respondsToSelector:selector]) {
         return [self performSelector:selector];
     }
@@ -72,6 +81,16 @@
 - (void)ccui_setFont:(UIFont *)ccui_font
 {
     self.font = ccui_font;
+}
+
+- (NSTextAlignment)ccui_alignment
+{
+  return self.textAlignment;
+}
+
+- (void)ccui_setTextHorizontalAlignment:(NSTextAlignment)ccui_alignment
+{
+  self.textAlignment = ccui_alignment;
 }
 
 - (BOOL)ccui_secureTextEntry

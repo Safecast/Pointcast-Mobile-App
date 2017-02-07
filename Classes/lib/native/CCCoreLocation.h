@@ -14,7 +14,7 @@
 #include <iostream>
 // #include "grosdefine.h"
 
-#if (CC_TARGET_PLATFORM == CC_TARGET_OS_IPHONE)
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
 #include "CoreLocation_interface.h"
 #endif
 
@@ -40,7 +40,7 @@ public:
 private:
   cocos2d::SEL_CallFuncND _pSelector;
   cocos2d::Object *_pTarget;
-#if (CC_TARGET_PLATFORM == CC_TARGET_OS_IPHONE)
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
   CoreLocationImpl *_localisationImpl;
 #endif
   locationStruct _loc;
@@ -51,12 +51,12 @@ public:
   void getLocationDone(float longi, float lati);
   bool isLocationAvailable();
   static CCCoreLocation *getInstance();
-#if (CC_TARGET_PLATFORM == CC_TARGET_OS_IPHONE)
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
   void requestLocation(void);
 #endif
 };
 
-#ifndef CC_TARGET_OS_IPHONE
+#ifndef CC_PLATFORM_IOS
 
 #ifdef __cplusplus
 extern "C" {

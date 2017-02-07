@@ -1,6 +1,6 @@
 /****************************************************************************
  Copyright (c) 2013      cocos2d-x.org
- Copyright (c) 2013-2014 Chukong Technologies Inc.
+ Copyright (c) 2013-2016 Chukong Technologies Inc.
 
  http://www.cocos2d-x.org
 
@@ -24,12 +24,13 @@
  ****************************************************************************/
 
 #import <UIKit/UIKit.h>
-#import <GoogleMaps/GoogleMaps.h>
 
-@interface RootViewController : UIViewController<UIPickerViewDelegate> {
-    NSArray *pickerViewData;
+
+@interface RootViewController : UIViewController {
+
 }
-- (BOOL)prefersStatusBarHidden;
-- (void)setRotateEnable;
+- (BOOL) prefersStatusBarHidden;
+- (void)setRotateEnable:(BOOL)flag;
 - (BOOL)getRotateEnable;
+
 @end
