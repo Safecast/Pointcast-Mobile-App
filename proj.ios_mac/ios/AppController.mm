@@ -73,6 +73,11 @@ static AppController *_instance;
     _viewController.wantsFullScreenLayout = YES;
     
 
+    //// Override point for customization after application launch.
+    //ノーティフィケーション登録。
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deviceOrientationDidChange:) name:UIDeviceOrientationDidChangeNotification object:nil];
+    
+    
     // Set RootViewController to window
     if ( [[UIDevice currentDevice].systemVersion floatValue] < 6.0)
     {
@@ -85,7 +90,12 @@ static AppController *_instance;
         [window setRootViewController:_viewController];
     }
 
+    //通知開始
+    [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
     [window makeKeyAndVisible];
+    
+    // set default rotate
+    [_viewController setRotateEnable:NO];
 
     [[UIApplication sharedApplication] setStatusBarHidden:true];
     
@@ -93,10 +103,61 @@ static AppController *_instance;
     cocos2d::GLView *glview = cocos2d::GLViewImpl::createWithEAGLView((__bridge void *)_viewController.view);
     cocos2d::Director::getInstance()->setOpenGLView(glview);
     
+    // Google Map Sdk
+    [GMSServices provideAPIKey:@"AIzaSyBQXSpJyWV8nhjS5QVogEekt7k-cAaFQ-k"];
+    
+    // Notification
+    if ([[[UIDevice currentDevice] systemVersion] compare:@"8.0.0" options:NSNumericSearch] != NSOrderedAscending) {
+        // >= iOS 8.0.0
+        UIUserNotificationType notificationTypes = UIUserNotificationTypeAlert | UIUserNotificationTypeBadge | UIUserNotificationTypeSound;
+        UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:notificationTypes categories:nil];
+        [application registerUserNotificationSettings:settings];
+        [application registerForRemoteNotifications];
+    } else {
+        // < iOS 8.0.0
+        UIRemoteNotificationType notificationTypes = (UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound);
+        [[UIApplication sharedApplication] registerForRemoteNotificationTypes:notificationTypes];
+    }
+    
+    // Firebase
+    // [FIRApp configure];
+    
+    // Sort Picker
+    [self initSortPicker];
+    
+    _instance = self;
+    
     //run the cocos2d-x game scene
     app->run();
 
     return YES;
+}
+
+- (void)deviceOrientationDidChange:(NSNotification*)notification {
+    /*
+     UIDeviceOrientation orientation;
+     orientation = [UIDevice currentDevice].orientation;
+     NSString *msg = nil;
+     if(orientation == UIDeviceOrientationUnknown) {
+     msg = @"不明";
+     }
+     if(orientation == UIDeviceOrientationPortrait) {
+     msg = @"縦";
+     }
+     if(orientation == UIDeviceOrientationPortraitUpsideDown) {
+     msg = @"縦（上下逆）";
+     }
+     if(orientation == UIDeviceOrientationLandscapeLeft) {
+     msg = @"横（左側上）";
+     }
+     if(orientation == UIDeviceOrientationLandscapeRight) {
+     msg = @"横（右側上）";
+     }
+     if(orientation == UIDeviceOrientationFaceDown) {
+     msg = @"画面下向き";
+     }
+     // NSLog(msg);
+     */
 }
 
 
