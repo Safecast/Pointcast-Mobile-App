@@ -26,10 +26,12 @@
 #import "RootViewController.h"
 #import "cocos2d.h"
 #import "platform/ios/CCEAGLView-ios.h"
-
+#include "lib/Util.hpp"
+#include "scene/layout/helper/Display.hpp"
 
 @implementation RootViewController
 
+    BOOL rotateEnable = false;
 /*
  // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
@@ -73,14 +75,21 @@
 
 
 // For ios6, use supportedInterfaceOrientations & shouldAutorotate instead
+- (NSUInteger)supportedInterfaceOrientations {
 #ifdef __IPHONE_6_0
-- (NSUInteger) supportedInterfaceOrientations{
-    return UIInterfaceOrientationMaskAllButUpsideDown;
-}
+    // return UIInterfaceOrientationMaskPortrait; //縦
+    // return UIInterfaceOrientationMaskLandscapeLeft; 左
+    // return UIInterfaceOrientationMaskLandscapeRight; 右
+    // return UIInterfaceOrientationMaskLandscape; 左右
+    // return UIInterfaceOrientationMaskPortraitUpsideDown; 縦（上下逆）
+    return UIInterfaceOrientationMaskAll;  // 全方位
+    // return UIInterfaceOrientationMaskAllButUpsideDown; 縦（上下逆）を除いた全方位
 #endif
+}
 
 - (BOOL) shouldAutorotate {
-    return YES;
+    NSLog(@"rt: %d",rotateEnable);
+    return rotateEnable;
 }
 
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
@@ -88,16 +97,27 @@
 
     auto glview = cocos2d::Director::getInstance()->getOpenGLView();
 
-    if (glview)
-    {
-        CCEAGLView *eaglview = (__bridge CCEAGLView *)glview->getEAGLView();
-
-        if (eaglview)
-        {
-            CGSize s = CGSizeMake([eaglview getWidth], [eaglview getHeight]);
-            cocos2d::Application::getInstance()->applicationScreenSizeChanged((int) s.width, (int) s.height);
+    if (glview) {
+        CCEAGLView *eaglview = (CCEAGLView *)glview->getEAGLView();
+        
+        if (eaglview) {
+            cocos2d::Size drawing_area_size = scene::layout::helper::Display::GetDrawingArea();
+            cocos2d::Application::getInstance()->applicationScreenSizeChanged(
+                                                                              (int)drawing_area_size.width, (int)drawing_area_size.height);
+            
+            UIScreen *sc = [UIScreen mainScreen];
+            CGRect rect = sc.bounds;
+            NSLog(@"%.1f, %.1f", rect.size.width, rect.size.height);
+            auto director = cocos2d::Director::getInstance();
+            auto glview = director->getOpenGLView();
+            glview->setFrameSize((int)drawing_area_size.width, (int)drawing_area_size.height);
+            director->getOpenGLView()->setDesignResolutionSize(
+                                                               (int)drawing_area_size.width, (int)drawing_area_size.height,
+                                                               ResolutionPolicy::NO_BORDER);
         }
     }
+    // push event notification
+    cocos2d::Director::getInstance()->getEventDispatcher()->dispatchCustomEvent("orientation");
 }
 
 //fix not hide status on ios7
@@ -112,5 +132,17 @@
     // Release any cached data, images, etc that aren't in use.
 }
 
+- (void)setRotateEnable:(BOOL)flag {
+    rotateEnable = flag;
+}
+
+- (BOOL)getRotateEnable {
+    return rotateEnable;
+}
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:
+(UIInterfaceOrientation)interfaceOrientation {
+    return UIInterfaceOrientationIsLandscape(interfaceOrientation);
+}
 
 @end

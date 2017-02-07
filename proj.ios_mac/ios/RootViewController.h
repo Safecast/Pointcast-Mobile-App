@@ -30,5 +30,7 @@
 
 }
 - (BOOL) prefersStatusBarHidden;
+- (void)setRotateEnable:(BOOL)flag;
+- (BOOL)getRotateEnable;
 
 @end

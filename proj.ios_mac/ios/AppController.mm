@@ -36,13 +36,24 @@
 
 @implementation AppController
 
+
 @synthesize window;
 
 #pragma mark -
 #pragma mark Application lifecycle
 
 // cocos2d application instance
-static AppDelegate s_sharedApplication;
+static AppDelegate s_sharedApplicatio;
+
+static AppController *_instance;
+
++ (AppController *)getInstance {
+    return _instance;
+}
+
+- (RootViewController *)getRootViewController {
+    return self.viewController;
+}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
