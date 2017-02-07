@@ -46,8 +46,21 @@
 		156BB8A71E48AAA200EDBBAF /* libiconv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 156BB8A61E48AAA200EDBBAF /* libiconv.tbd */; };
 		156BB8A91E48AB1200EDBBAF /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 156BB8A81E48AB1200EDBBAF /* libz.tbd */; };
 		156BB8B61E48B15300EDBBAF /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 156BB8B51E48B15300EDBBAF /* Security.framework */; };
-		1AC6FB21180E996B004C840B /* ReferenceProxy in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AC6FAF9180E9839004C840B /* libcocos2d Mac.a */; };
-		1AC6FB30180E99EB004C840B /* ReferenceProxy in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AC6FB07180E9839004C840B /* libcocos2d iOS.a */; };
+		159A3D3A1E49E4D300991CF3 /* GameController.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 159A3D391E49E4D300991CF3 /* GameController.framework */; };
+		159A3D3D1E49E67A00991CF3 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 159A3D3C1E49E67A00991CF3 /* CoreData.framework */; };
+		159A3D3E1E49E69000991CF3 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 156BB89C1E48A9E300EDBBAF /* GLKit.framework */; };
+		159A3D401E49E69700991CF3 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 159A3D3F1E49E69700991CF3 /* ImageIO.framework */; };
+		159A3D421E49E6A100991CF3 /* libicucore.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 159A3D411E49E6A100991CF3 /* libicucore.tbd */; };
+		159A3D441E49E6A900991CF3 /* libstdc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 159A3D431E49E6A900991CF3 /* libstdc++.tbd */; };
+		159A3D461E49E6BF00991CF3 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 159A3D451E49E6BF00991CF3 /* QuartzCore.framework */; };
+		159A3D481E49E6C600991CF3 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 159A3D471E49E6C600991CF3 /* SystemConfiguration.framework */; };
+		159A3D4A1E49EB6400991CF3 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 159A3D491E49EB6400991CF3 /* CoreGraphics.framework */; };
+		159A3D4D1E49EDA400991CF3 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 159A3D4C1E49EDA400991CF3 /* GoogleService-Info.plist */; };
+		159A3D511E49EEF500991CF3 /* libGoogleToolboxForMac.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 159A3D501E49EEF500991CF3 /* libGoogleToolboxForMac.a */; };
+		159A3D531E49EF0600991CF3 /* libPods-Pointcast-Mobile-App-desktop.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 159A3D521E49EF0600991CF3 /* libPods-Pointcast-Mobile-App-desktop.a */; };
+		159A3D571E49F1DB00991CF3 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 159A3D561E49F1DB00991CF3 /* MediaPlayer.framework */; };
+		1AC6FB21180E996B004C840B /* libcocos2d Mac.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AC6FAF9180E9839004C840B /* libcocos2d Mac.a */; };
+		1AC6FB30180E99EB004C840B /* libcocos2d iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AC6FB07180E9839004C840B /* libcocos2d iOS.a */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		288765A50DF7441C002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765A40DF7441C002DB57D /* CoreGraphics.framework */; };
 		3EACC98F19EE6D4300EB3C5E /* res in Resources */ = {isa = PBXBuildFile; fileRef = 3EACC98E19EE6D4300EB3C5E /* res */; };
@@ -214,6 +227,18 @@
 		156BB8A61E48AAA200EDBBAF /* libiconv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libiconv.tbd; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.2.sdk/usr/lib/libiconv.tbd; sourceTree = DEVELOPER_DIR; };
 		156BB8A81E48AB1200EDBBAF /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.2.sdk/usr/lib/libz.tbd; sourceTree = DEVELOPER_DIR; };
 		156BB8B51E48B15300EDBBAF /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.2.sdk/System/Library/Frameworks/Security.framework; sourceTree = DEVELOPER_DIR; };
+		159A3D391E49E4D300991CF3 /* GameController.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameController.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.2.sdk/System/Library/Frameworks/GameController.framework; sourceTree = DEVELOPER_DIR; };
+		159A3D3C1E49E67A00991CF3 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.2.sdk/System/Library/Frameworks/CoreData.framework; sourceTree = DEVELOPER_DIR; };
+		159A3D3F1E49E69700991CF3 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.2.sdk/System/Library/Frameworks/ImageIO.framework; sourceTree = DEVELOPER_DIR; };
+		159A3D411E49E6A100991CF3 /* libicucore.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libicucore.tbd; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.2.sdk/usr/lib/libicucore.tbd; sourceTree = DEVELOPER_DIR; };
+		159A3D431E49E6A900991CF3 /* libstdc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.tbd"; path = "Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.2.sdk/usr/lib/libstdc++.tbd"; sourceTree = DEVELOPER_DIR; };
+		159A3D451E49E6BF00991CF3 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.2.sdk/System/Library/Frameworks/QuartzCore.framework; sourceTree = DEVELOPER_DIR; };
+		159A3D471E49E6C600991CF3 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.2.sdk/System/Library/Frameworks/SystemConfiguration.framework; sourceTree = DEVELOPER_DIR; };
+		159A3D491E49EB6400991CF3 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.2.sdk/System/Library/Frameworks/CoreGraphics.framework; sourceTree = DEVELOPER_DIR; };
+		159A3D4C1E49EDA400991CF3 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "ios/GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
+		159A3D501E49EEF500991CF3 /* libGoogleToolboxForMac.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libGoogleToolboxForMac.a; path = "../../../../Users/mitsuo/Library/Developer/Xcode/DerivedData/Pointcast-Mobile-App-fyzjqpshkgwmujfpmvftywjoqgdb/Build/Products/Debug-iphoneos/GoogleToolboxForMac/libGoogleToolboxForMac.a"; sourceTree = "<group>"; };
+		159A3D521E49EF0600991CF3 /* libPods-Pointcast-Mobile-App-desktop.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-Pointcast-Mobile-App-desktop.a"; path = "Pods/../build/Debug-iphoneos/libPods-Pointcast-Mobile-App-desktop.a"; sourceTree = "<group>"; };
+		159A3D561E49F1DB00991CF3 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.2.sdk/System/Library/Frameworks/MediaPlayer.framework; sourceTree = DEVELOPER_DIR; };
 		1AC6FAE5180E9839004C840B /* cocos2d_libs.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = cocos2d_libs.xcodeproj; path = ../cocos2d/build/cocos2d_libs.xcodeproj; sourceTree = "<group>"; };
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1D6058910D05DD3D006BFB54 /* Pointcast-Mobile-App-mobile.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Pointcast-Mobile-App-mobile.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -274,15 +299,27 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				156BB8B61E48B15300EDBBAF /* Security.framework in Frameworks */,
+				159A3D571E49F1DB00991CF3 /* MediaPlayer.framework in Frameworks */,
+				159A3D531E49EF0600991CF3 /* libPods-Pointcast-Mobile-App-desktop.a in Frameworks */,
+				159A3D511E49EEF500991CF3 /* libGoogleToolboxForMac.a in Frameworks */,
+				159A3D4A1E49EB6400991CF3 /* CoreGraphics.framework in Frameworks */,
+				159A3D461E49E6BF00991CF3 /* QuartzCore.framework in Frameworks */,
+				159A3D481E49E6C600991CF3 /* SystemConfiguration.framework in Frameworks */,
+				156BB89B1E48A9AA00EDBBAF /* OpenGLES.framework in Frameworks */,
 				156BB8A91E48AB1200EDBBAF /* libz.tbd in Frameworks */,
+				159A3D441E49E6A900991CF3 /* libstdc++.tbd in Frameworks */,
+				159A3D421E49E6A100991CF3 /* libicucore.tbd in Frameworks */,
+				159A3D401E49E69700991CF3 /* ImageIO.framework in Frameworks */,
+				159A3D3E1E49E69000991CF3 /* GLKit.framework in Frameworks */,
+				156BB8A11E48AA5000EDBBAF /* CoreText.framework in Frameworks */,
+				156BB89F1E48AA3C00EDBBAF /* CoreLocation.framework in Frameworks */,
+				159A3D3D1E49E67A00991CF3 /* CoreData.framework in Frameworks */,
+				159A3D3A1E49E4D300991CF3 /* GameController.framework in Frameworks */,
+				156BB8B61E48B15300EDBBAF /* Security.framework in Frameworks */,
 				156BB8A71E48AAA200EDBBAF /* libiconv.tbd in Frameworks */,
 				156BB8A51E48AA8000EDBBAF /* UIKit.framework in Frameworks */,
 				156BB8A31E48AA6000EDBBAF /* CoreMotion.framework in Frameworks */,
-				156BB8A11E48AA5000EDBBAF /* CoreText.framework in Frameworks */,
-				156BB89F1E48AA3C00EDBBAF /* CoreLocation.framework in Frameworks */,
-				156BB89B1E48A9AA00EDBBAF /* OpenGLES.framework in Frameworks */,
-				1AC6FB30180E99EB004C840B /* ReferenceProxy in Frameworks */,
+				1AC6FB30180E99EB004C840B /* libcocos2d iOS.a in Frameworks */,
 				1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */,
 				288765A50DF7441C002DB57D /* CoreGraphics.framework in Frameworks */,
 				BF1C47F01293687400B63C5D /* QuartzCore.framework in Frameworks */,
@@ -297,7 +334,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1AC6FB21180E996B004C840B /* ReferenceProxy in Frameworks */,
+				1AC6FB21180E996B004C840B /* libcocos2d Mac.a in Frameworks */,
 				8262943E1AAF051F00CB7CF7 /* Security.framework in Frameworks */,
 				503AE11B17EB9C5A00D1A890 /* IOKit.framework in Frameworks */,
 				5087E78B17EB975400C73F5D /* OpenGL.framework in Frameworks */,
@@ -317,6 +354,7 @@
 		080E96DDFE201D6D7F000001 /* ios */ = {
 			isa = PBXGroup;
 			children = (
+				159A3D4C1E49EDA400991CF3 /* GoogleService-Info.plist */,
 				5087E77117EB970100C73F5D /* Icons */,
 				503AE0FA17EB989F00D1A890 /* AppController.h */,
 				503AE0FB17EB989F00D1A890 /* AppController.mm */,
@@ -544,7 +582,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		29B97314FDCFA39411CA2CEA = {
+		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
 				156BB88E1E48A7BC00EDBBAF /* lib */,
@@ -563,6 +601,17 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				159A3D561E49F1DB00991CF3 /* MediaPlayer.framework */,
+				159A3D521E49EF0600991CF3 /* libPods-Pointcast-Mobile-App-desktop.a */,
+				159A3D501E49EEF500991CF3 /* libGoogleToolboxForMac.a */,
+				159A3D491E49EB6400991CF3 /* CoreGraphics.framework */,
+				159A3D471E49E6C600991CF3 /* SystemConfiguration.framework */,
+				159A3D451E49E6BF00991CF3 /* QuartzCore.framework */,
+				159A3D431E49E6A900991CF3 /* libstdc++.tbd */,
+				159A3D411E49E6A100991CF3 /* libicucore.tbd */,
+				159A3D3F1E49E69700991CF3 /* ImageIO.framework */,
+				159A3D3C1E49E67A00991CF3 /* CoreData.framework */,
+				159A3D391E49E4D300991CF3 /* GameController.framework */,
 				156BB8B51E48B15300EDBBAF /* Security.framework */,
 				156BB8A81E48AB1200EDBBAF /* libz.tbd */,
 				156BB8A61E48AAA200EDBBAF /* libiconv.tbd */,
@@ -685,6 +734,7 @@
 				1D60588F0D05DD3D006BFB54 /* Frameworks */,
 				CEFE81EEDF36447531CCDEA0 /* [CP] Embed Pods Frameworks */,
 				B13D1D92C84F48FF04C0BAD0 /* [CP] Copy Pods Resources */,
+				159A3D4B1E49ED7200991CF3 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -740,7 +790,7 @@
 				French,
 				German,
 			);
-			mainGroup = 29B97314FDCFA39411CA2CEA;
+			mainGroup = 29B97314FDCFA39411CA2CEA /* CustomTemplate */;
 			productRefGroup = 19C28FACFE9D520D11CA2CBB /* Products */;
 			projectDirPath = "";
 			projectReferences = (
@@ -803,6 +853,7 @@
 				50EF629617ECD46A001EB2F8 /* Icon-40.png in Resources */,
 				5087E78217EB970100C73F5D /* Icon-144.png in Resources */,
 				3EACC98F19EE6D4300EB3C5E /* res in Resources */,
+				159A3D4D1E49EDA400991CF3 /* GoogleService-Info.plist in Resources */,
 				50EF629817ECD46A001EB2F8 /* Icon-80.png in Resources */,
 				5087E78417EB970100C73F5D /* Icon-57.png in Resources */,
 				5087E77E17EB970100C73F5D /* Default.png in Resources */,
@@ -828,6 +879,19 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		159A3D4B1E49ED7200991CF3 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "cp ${SRCROOT}/../ForBuild/GoogleService-Info/${CONFIGURATION}-GoogleService-Info.plist ${SRCROOT}/ios/GoogleService-Info.plist";
+		};
 		4027965AD5180BFBF4066CAA /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1014,10 +1078,15 @@
 				);
 				INFOPLIST_FILE = ios/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
-				LIBRARY_SEARCH_PATHS = "$(SRCROOT)/../cocos2d/build/lib";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../cocos2d/build/lib",
+					"$(PROJECT_DIR)/build/Debug-iphoneos",
+				);
 				OTHER_LDFLAGS = (
 					"$(_COCOS_LIB_IOS_BEGIN)",
 					"$(_COCOS_LIB_IOS_END)",
+					"$(inherited)",
 				);
 				SDKROOT = iphoneos;
 				STRIP_PNG_TEXT = NO;
@@ -1054,10 +1123,15 @@
 				);
 				INFOPLIST_FILE = ios/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
-				LIBRARY_SEARCH_PATHS = "$(SRCROOT)/../cocos2d/build/lib";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../cocos2d/build/lib",
+					"$(PROJECT_DIR)/build/Debug-iphoneos",
+				);
 				OTHER_LDFLAGS = (
 					"$(_COCOS_LIB_IOS_BEGIN)",
 					"$(_COCOS_LIB_IOS_END)",
+					"$(inherited)",
 				);
 				SDKROOT = iphoneos;
 				STRIP_PNG_TEXT = NO;
