@@ -120,7 +120,7 @@ static AppController *_instance;
     }
     
     // Firebase
-    // [FIRApp configure];
+    [FIRApp configure];
     
     // Sort Picker
     [self initSortPicker];
