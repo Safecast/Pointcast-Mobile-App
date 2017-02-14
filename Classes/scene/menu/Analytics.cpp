@@ -189,8 +189,9 @@ void Analytics::initVariableContents()
     // prepare chart data
     lib::network::DataStoreSingleton *p_data_store_singleton =
                     lib::network::DataStoreSingleton::getInstance();
+    
     const std::string analytics_data =
-        p_data_store_singleton->getResponseAnalyticsData(this->_m_sensor_main_id);
+        p_data_store_singleton->getResponseAnalyticsData(this->_m_sensor_main_id, this->_interval_start, this->_interval_end);
     
     std::vector<lib::object::ChartItem> v_chart_items;
     std::vector<lib::object::WeatherItem> v_weather_items;
