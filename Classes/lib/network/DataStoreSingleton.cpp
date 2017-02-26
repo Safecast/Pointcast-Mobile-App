@@ -187,7 +187,7 @@ void DataStoreSingleton::storeAnalyticsData(int m_sensor_main_id, time_t start_t
 std::string DataStoreSingleton::getAnalyticsCacheFilePath(std::string cache_key)
 {
     std::string cache_file_path = cocos2d::FileUtils::getInstance()->getWritablePath();
-    cache_file_path = cache_file_path + "/" + DataStoreSingleton::CACHE_DIR + "/" + cache_key;
+    cache_file_path = cache_file_path + DataStoreSingleton::CACHE_DIR + "/" + cache_key + ".dat";
     return cache_file_path;
 }
     

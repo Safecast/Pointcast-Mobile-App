@@ -9,7 +9,9 @@
 #ifndef Analytics_hpp
 #define Analytics_hpp
 #include <stdio.h>
+#include <map>
 #include <vector>
+
 #include "extensions/cocos-ext.h"
 
 #include "lib/object/ChartItem.hpp"
@@ -45,7 +47,11 @@ private:
 
   cocos2d::ui::PageView* _p_page_view;
 
-  cocos2d::ui::Widget*  _p_chart_nodes;
+  std::map<std::string, cocos2d::ui::Widget*> _p_chart_nodes;
+    
+  cocos2d::ui::Widget* _p_empty_page;
+    
+  std::string _current_cache_key;
   
   scene::Main* _p_scene_main;
 
@@ -76,8 +82,12 @@ public:
   void initFixedContents();
  
   void initVariableContents();
+
+  void drawChart();
     
   void initChartInterval();
+  
+  void shiftInterval(int diff);
 
   virtual void onEnter();
     

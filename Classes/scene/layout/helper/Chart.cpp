@@ -63,7 +63,7 @@ cocos2d::ui::Widget *Chart::prepareHeader(scene::menu::Analytics* p_scene_analyt
     return static_cast<cocos2d::ui::Widget*>(p_chart_board);
 }
 
-cocos2d::ui::Widget* Chart::prepareChart(scene::menu::Analytics* p_scene_analytics,
+void Chart::prepareChart(cocos2d::ui::Widget* p_chart_board_widget, scene::menu::Analytics* p_scene_analytics,
                                            int m_sensor_main_id,
                                            const std::vector<lib::object::ChartItem> v_chart_items,
                                            const std::vector<lib::object::WeatherItem> v_weather_items)
@@ -75,15 +75,12 @@ cocos2d::ui::Widget* Chart::prepareChart(scene::menu::Analytics* p_scene_analyti
     scene::chart::Board *p_chart_nodes =
         scene::chart::Board::create(chart_config);
     
-    ui::Widget *p_chart_board_widget = ui::Widget::create();
     p_chart_board_widget->setContentSize(p_chart_nodes->getContentSize());
     p_chart_board_widget->setTouchEnabled(true);
     p_chart_board_widget->setAnchorPoint(Vec2(0.0f, 0.0f));
     p_chart_board_widget->addChild(p_chart_nodes);
     
     cocos2d::log("p_chart_board_widget size %f, %f pos %f, %f", p_chart_board_widget->getContentSize().width,  p_chart_board_widget->getContentSize().height, p_chart_board_widget->getPositionX(), p_chart_board_widget->getPositionY());
-    
-    return p_chart_board_widget;
 
 }
     

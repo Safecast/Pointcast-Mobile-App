@@ -59,8 +59,6 @@ bool Analytics::init() {
     }
     
     this->_p_scroll_view = nullptr;
-    this->_p_chart_nodes = nullptr;
-    this->_p_scroll_view = nullptr;
     this->_current_scale = 1.0f;
     
     this->scheduleUpdate();
@@ -174,53 +172,66 @@ void Analytics::initFixedContents()
 
     this->_p_page_view->addEventListener(CC_CALLBACK_2(Analytics::pageViewEvent, this));
     
+    // generate empty page
+    this->_p_empty_page = cocos2d::ui::Widget::create();
+    this->_p_page_view->insertPage(this->_p_empty_page, 0);
+    
     this->setFavoriteButtonState();
     
     cocos2d::log("size w %f h %f x %f y %f", this->getContentSize().width, this->getContentSize().height, this->getPositionX(), this->getPositionY());
     
     this->addChild(this->_p_contents);
-    
-    auto p_empty_page = cocos2d::ui::Widget::create();
-    this->_p_page_view->insertPage(p_empty_page, 0);
+
 }
     
 void Analytics::initVariableContents()
 {
+    // draw header
+    auto p_header =  scene::layout::helper::Chart::prepareHeader(this, this->_m_sensor_main_id);
+    this->addChild(p_header);
+    
+    // draw chart
+    this->drawChart();
+    
+    // detach wait animation
+    this->_p_scene_main->detachWaitAnimation();
+    
+    this->_p_page_view->setCurrentPageIndex(1);
+}
+
+void Analytics::drawChart()
+{
     // prepare chart data
     lib::network::DataStoreSingleton *p_data_store_singleton =
-                    lib::network::DataStoreSingleton::getInstance();
+                        lib::network::DataStoreSingleton::getInstance();
     
     const std::string analytics_data =
-        p_data_store_singleton->getResponseAnalyticsData(this->_m_sensor_main_id, this->_interval_start, this->_interval_end);
+                        p_data_store_singleton->getResponseAnalyticsData(this->_m_sensor_main_id, this->_interval_start, this->_interval_end);
+    
+    this->_current_cache_key = p_data_store_singleton->getAnalyticsCacheKey(this->_m_sensor_main_id, this->_interval_start, this->_interval_end);
     
     std::vector<lib::object::ChartItem> v_chart_items;
     std::vector<lib::object::WeatherItem> v_weather_items;
-    
+
     if (analytics_data.length() > 0)
     {
         v_chart_items = this->getChartData(analytics_data);
         v_weather_items = this->getWeatherData(analytics_data);
     }
     
-    // draw header
-    auto p_header =  scene::layout::helper::Chart::prepareHeader(this, this->_m_sensor_main_id);
-    this->addChild(p_header);
-    
     // draw chart
-    this->_p_chart_nodes = scene::layout::helper::Chart::prepareChart(this, this->_m_sensor_main_id, v_chart_items, v_weather_items);
-    auto test = cocos2d::ui::Widget::create();
-    // p_chart = scene::layout::helper::Chart::prepareChart(this, this->_m_sensor_main_id, v_chart_items, v_weather_items);
-    // this->_p_scroll_view->setInnerContainerSize(this->_p_chart_nodes->getContentSize());
-    // this->_p_scroll_view->addChild(this->_p_chart_nodes);
+    scene::layout::helper::Chart::prepareChart(this->_p_empty_page, this, this->_m_sensor_main_id, v_chart_items, v_weather_items);
+    this->_p_chart_nodes[this->_current_cache_key] = this->_p_empty_page;
     
-    this->_p_chart_nodes->setScale(this->_current_scale);
+    // int index = (this->_p_chart_nodes.size() == 1) ? 0 : 1;
     
-    this->_p_page_view->addPage(this->_p_chart_nodes);
-    cocos2d::log("p_page_preview %zd", this->_p_page_view->getChildrenCount());
-    this->_p_page_view->setCurrentPageIndex(this->_p_page_view->getChildrenCount() - 1);
+    // this->_p_page_view->insertPage(this->_p_chart_nodes[this->_current_cache_key], index);
+    // this->_p_empty_page = this->_p_chart_nodes[this->_current_cache_key] ;
     
-    // detach wait animation
-    this->_p_scene_main->detachWaitAnimation();
+    // generate empty page
+    this->_p_empty_page = cocos2d::ui::Widget::create();
+    this->_p_page_view->insertPage(this->_p_empty_page, 0);
+    
 
 }
 
@@ -247,7 +258,7 @@ void Analytics::onEnter() {
       this, (cocos2d::network::SEL_HttpResponse)(
                 &Analytics::onCallbackPointcastAnalytics));
     
-  p_data_store_singleton->requestPointcastAnalytics(this->_m_sensor_main_id, this->_interval_start, this->_interval_end);
+  p_data_store_singleton->storeAnalyticsData(this->_m_sensor_main_id, this->_interval_start, this->_interval_end, true);
     
   // enable rotate
   lib::native::Util::setRotateEnable(true);
@@ -445,6 +456,12 @@ void Analytics::initChartInterval()
     this->_interval_start = this->_interval_end - 86400;
     
 }
+
+void Analytics::shiftInterval(int diff)
+{
+    this->_interval_start += diff;
+    this->_interval_end += diff;
+}
     
 time_t Analytics::getIntervalStart()
 {
@@ -504,8 +521,8 @@ bool Analytics::isGesture(const std::vector<cocos2d::Touch*>& touches, cocos2d::
 void Analytics::update(float delta){
   
     
-    
-    if (this->_p_chart_nodes != nullptr)
+    /*
+    if (this->_p_chart_nodes[this->_current_cache_key] != nullptr)
     {
         if (this->_pinch_gesture->isChanged())
         {
@@ -513,19 +530,19 @@ void Analytics::update(float delta){
             if (scale == 0.0f) return;
             cocos2d::log("set chart scale %f", scale);
             this->_current_scale = scale;
-            this->_p_chart_nodes->setScale(this->_current_scale);
-            this->_p_scroll_view->setInnerContainerSize(this->_p_chart_nodes->getBoundingBox().size);
-            this->_p_chart_nodes->setPositionY(0.0f);
+            this->_p_chart_nodes[this->_current_cache_key]->setScale(this->_current_scale);
+            this->_p_scroll_view->setInnerContainerSize(this->_p_chart_nodes[this->_current_cache_key]->getBoundingBox().size);
+            this->_p_chart_nodes[this->_current_cache_key]->setPositionY(0.0f);
         }
     }
+     */
 }
     
 void Analytics::updateChartScale()
 {
-    this->_p_chart_nodes->setScale(this->_current_scale);
-    cocos2d::log("w %f h %f x %f y %f",  this->_p_chart_nodes->getBoundingBox().size.width, this->_p_chart_nodes->getBoundingBox().size.height, this->_p_chart_nodes->getPositionX(), this->_p_chart_nodes->getPositionY());
-    this->_p_scroll_view->setInnerContainerSize(this->_p_chart_nodes->getBoundingBox().size);
-    this->_p_chart_nodes->setPositionY(0.0f);
+    this->_p_chart_nodes[this->_current_cache_key]->setScale(this->_current_scale);
+    this->_p_scroll_view->setInnerContainerSize(this->_p_chart_nodes[this->_current_cache_key]->getBoundingBox().size);
+    this->_p_chart_nodes[this->_current_cache_key]->setPositionY(0.0f);
 }
     
 void Analytics::onExit()
@@ -539,6 +556,22 @@ void Analytics::onExit()
     
 void Analytics::pageViewEvent(cocos2d::Ref * pSender, cocos2d::ui::PageView::EventType type)
 {
+    
+    auto p_page_view = static_cast<cocos2d::ui::PageView*>(pSender);
+    int current_page_index = p_page_view->getCurrentPageIndex();
+    if (current_page_index == 0)
+    {
+        // 日付を2日戻す
+        this->shiftInterval(-2 * 86400);
+        
+        // ページがないはずなので作る
+        lib::network::DataStoreSingleton *p_data_store_singleton =
+            lib::network::DataStoreSingleton::getInstance();
+        p_data_store_singleton->storeAnalyticsData(this->_m_sensor_main_id, this->_interval_start, this->_interval_end, true);
+        
+        // this->drawChart();
+    }
+    
     cocos2d::log("Analytics::pageViewEvent");
 }
 
