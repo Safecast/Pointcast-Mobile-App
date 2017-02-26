@@ -160,17 +160,11 @@ void Analytics::initFixedContents()
             }
         });
 
-    // scroll view
-    // this->_p_scroll_view = static_cast<ui::ScrollView *>(
-    //                              this->_p_panel_background->getChildByName("scrollView"));
-
     this->_p_page_view = static_cast<ui::PageView *>(
         this->_p_panel_background->getChildByName("pageView"));
     
-    //    void addEventListener(const ccPageViewCallback& callback);
-    //     typedef std::function<void(Ref*, EventType)> ccPageViewCallback;
-
     this->_p_page_view->addEventListener(CC_CALLBACK_2(Analytics::pageViewEvent, this));
+    
     
     // generate empty page
     this->_p_empty_page = cocos2d::ui::Widget::create();
@@ -186,6 +180,7 @@ void Analytics::initFixedContents()
     
 void Analytics::initVariableContents()
 {
+
     // draw header
     auto p_header =  scene::layout::helper::Chart::prepareHeader(this, this->_m_sensor_main_id);
     this->addChild(p_header);
@@ -222,11 +217,6 @@ void Analytics::drawChart()
     // draw chart
     scene::layout::helper::Chart::prepareChart(this->_p_empty_page, this, this->_m_sensor_main_id, v_chart_items, v_weather_items);
     this->_p_chart_nodes[this->_current_cache_key] = this->_p_empty_page;
-    
-    // int index = (this->_p_chart_nodes.size() == 1) ? 0 : 1;
-    
-    // this->_p_page_view->insertPage(this->_p_chart_nodes[this->_current_cache_key], index);
-    // this->_p_empty_page = this->_p_chart_nodes[this->_current_cache_key] ;
     
     // generate empty page
     this->_p_empty_page = cocos2d::ui::Widget::create();
@@ -568,8 +558,6 @@ void Analytics::pageViewEvent(cocos2d::Ref * pSender, cocos2d::ui::PageView::Eve
         lib::network::DataStoreSingleton *p_data_store_singleton =
             lib::network::DataStoreSingleton::getInstance();
         p_data_store_singleton->storeAnalyticsData(this->_m_sensor_main_id, this->_interval_start, this->_interval_end, true);
-        
-        // this->drawChart();
     }
     
     cocos2d::log("Analytics::pageViewEvent");
