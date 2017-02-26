@@ -76,6 +76,8 @@ bool Analytics::init() {
         this->onDidOrientation();
     });
     
+    this->_p_store_callback = CallFunc::create(CC_CALLBACK_0(Analytics::onCallbackDataStore, this));
+    
     this->_pinch_listener = EventListenerTouchAllAtOnce::create();
     this->_pinch_listener->setEnabled(true);
     this->_pinch_listener->onTouchesBegan = CC_CALLBACK_2(Analytics::onTouchesBegan, this);
@@ -247,8 +249,9 @@ void Analytics::onEnter() {
   p_data_store_singleton->setResponseCallback(
       this, (cocos2d::network::SEL_HttpResponse)(
                 &Analytics::onCallbackPointcastAnalytics));
-    
-  p_data_store_singleton->storeAnalyticsData(this->_m_sensor_main_id, this->_interval_start, this->_interval_end, true);
+  
+  this->_p_store_callback->retain();
+  p_data_store_singleton->storeAnalyticsData(this->_m_sensor_main_id, this->_interval_start, this->_interval_end, true, this->_p_store_callback);
     
   // enable rotate
   lib::native::Util::setRotateEnable(true);
@@ -279,14 +282,17 @@ void Analytics::close() {
   lib::native::Util::setRotateEnable(false);
 }
 
+void Analytics::onCallbackDataStore()
+{
+    this->initVariableContents();
+}
+    
 void Analytics::onCallbackPointcastAnalytics(
     cocos2d::network::HttpClient *sender,
     cocos2d::network::HttpResponse *response) {
   CCLOG("onCallbackPointcastAnalytics");
-
     
   this->initVariableContents();
-    
   
 }
 
@@ -557,7 +563,8 @@ void Analytics::pageViewEvent(cocos2d::Ref * pSender, cocos2d::ui::PageView::Eve
         // ページがないはずなので作る
         lib::network::DataStoreSingleton *p_data_store_singleton =
             lib::network::DataStoreSingleton::getInstance();
-        p_data_store_singleton->storeAnalyticsData(this->_m_sensor_main_id, this->_interval_start, this->_interval_end, true);
+        this->_p_store_callback->retain();
+        p_data_store_singleton->storeAnalyticsData(this->_m_sensor_main_id, this->_interval_start, this->_interval_end, true,this->_p_store_callback);
     }
     
     cocos2d::log("Analytics::pageViewEvent");

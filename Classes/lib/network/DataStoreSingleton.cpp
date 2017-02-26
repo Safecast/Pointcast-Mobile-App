@@ -31,7 +31,7 @@ const std::string DataStoreSingleton::end_point =
 
 const std::string DataStoreSingleton::CACHE_DIR = "cahce";
 
-DataStoreSingleton::DataStoreSingleton() {
+DataStoreSingleton::DataStoreSingleton():_p_store_callback(nullptr) {
   // safecast office
   this->_loc.latitude = 35.656064f;
   this->_loc.longitude = 139.695505f;
@@ -166,8 +166,11 @@ void DataStoreSingleton::requestPointcastAnalytics(int m_sensor_main_id, time_t 
 }
 
 void DataStoreSingleton::storeAnalyticsData(int m_sensor_main_id, time_t start_time,
-                                        time_t end_time, bool force_store)
+                                        time_t end_time, bool force_store, cocos2d::CallFunc* callback)
 {
+    
+    this->_p_store_callback = callback;
+    
     // get cache key
     std::string cache_key = this->getAnalyticsCacheKey(m_sensor_main_id, start_time, end_time);
     
@@ -176,7 +179,7 @@ void DataStoreSingleton::storeAnalyticsData(int m_sensor_main_id, time_t start_t
     {
         if (this->hasAnalyticsData(cache_key))
         {
-            return;
+            this->_p_store_callback->execute();
         }
     }
     
@@ -243,10 +246,14 @@ void DataStoreSingleton::callbackHttpPointcastAnalytics(
   // store data to file
   std::string cache_file_path = this->getAnalyticsCacheFilePath(cache_key);
   cocos2d::FileUtils::getInstance()->writeStringToFile(string_response_data, cache_key);
+
+  this->_p_store_callback->execute();
     
+  /*
   if (this->_p_callbackObject && this->_p_callbackFunction) {
     (this->_p_callbackObject->*this->_p_callbackFunction)(sender, response);
   }
+  */
 }
 
 void DataStoreSingleton::storeSensorListData(std::string response) {

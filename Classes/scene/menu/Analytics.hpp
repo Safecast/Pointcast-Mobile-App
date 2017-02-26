@@ -54,6 +54,8 @@ private:
   std::string _current_cache_key;
   
   scene::Main* _p_scene_main;
+    
+  cocos2d::CallFunc* _p_store_callback;
 
   float _current_scale;
     
@@ -101,6 +103,7 @@ public:
 
   void onCallbackPointcastAnalytics(cocos2d::network::HttpClient *sender,
                                     cocos2d::network::HttpResponse *response);
+  void onCallbackDataStore();
   
   void pageViewEvent(cocos2d::Ref * psender, cocos2d::ui::PageView::EventType type);
 

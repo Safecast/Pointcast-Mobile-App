@@ -61,6 +61,9 @@ private:
 
   // singleton instance
   static DataStoreSingleton *_p_instance;
+    
+  // callback function
+  cocos2d::CallFunc* _p_store_callback;
 
   // data store
   std::map<E_Http_Request_Id, std::string> _p_m_http_response_data;
@@ -112,8 +115,8 @@ public:
     
   std::string getAnalyticsCacheFilePath(std::string cache_key);
 
-  void storeAnalyticsData(int m_sensor_main_id, time_t start_time, time_t end_time, bool force_store);
-
+  void storeAnalyticsData(int m_sensor_main_id, time_t start_time, time_t end_time, bool force_store, cocos2d::CallFunc* callback);
+  
   bool hasAnalyticsData(std::string cache_key);
   
   lib::object::LocationItem getLocationItem(int m_sensor_main_id);
