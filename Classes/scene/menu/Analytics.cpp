@@ -223,7 +223,6 @@ void Analytics::drawChart()
     // generate empty page
     this->_p_empty_page = cocos2d::ui::Widget::create();
     this->_p_page_view->insertPage(this->_p_empty_page, 0);
-    
 
 }
 
@@ -251,6 +250,7 @@ void Analytics::onEnter() {
                 &Analytics::onCallbackPointcastAnalytics));
   
   this->_p_store_callback->retain();
+  this->attachWaitAnimation();
   p_data_store_singleton->storeAnalyticsData(this->_m_sensor_main_id, this->_interval_start, this->_interval_end, true, this->_p_store_callback);
     
   // enable rotate
@@ -285,6 +285,7 @@ void Analytics::close() {
 void Analytics::onCallbackDataStore()
 {
     this->initVariableContents();
+    this->detachWaitAnimation();
 }
     
 void Analytics::onCallbackPointcastAnalytics(
@@ -564,6 +565,7 @@ void Analytics::pageViewEvent(cocos2d::Ref * pSender, cocos2d::ui::PageView::Eve
         lib::network::DataStoreSingleton *p_data_store_singleton =
             lib::network::DataStoreSingleton::getInstance();
         this->_p_store_callback->retain();
+        this->attachWaitAnimation();
         p_data_store_singleton->storeAnalyticsData(this->_m_sensor_main_id, this->_interval_start, this->_interval_end, true,this->_p_store_callback);
     }
     
