@@ -91,7 +91,7 @@ void Chart::prepareChart(cocos2d::ui::Widget* p_chart_board_widget, scene::menu:
     lib::network::DataStoreSingleton::getInstance()->getLocationItem(m_sensor_main_id);
     
     scene::chart::Board::Config config;
-    config.chart_size = Size(640, 500);
+    config.chart_size = Size(620, 400);
     config.chart_offset = Point(100, 100 + 100);
     config.v_chart_items = v_chart_items;
     config.v_weather_items = v_weather_items;
