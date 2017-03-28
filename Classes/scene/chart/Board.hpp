@@ -27,7 +27,7 @@ public:
   public:
     std::vector<lib::object::ChartItem> v_chart_items;
     std::vector<lib::object::WeatherItem> v_weather_items;
-    cocos2d::Size chart_size;
+    cocos2d::Size board_size;
     cocos2d::Point chart_offset;
     time_t start_point;
     time_t end_point;
@@ -39,7 +39,7 @@ public:
     int conversion_rate;
     Config() {
       std::vector<lib::object::ChartItem> v_chart_items;
-      chart_size = cocos2d::Size();
+      board_size = cocos2d::Size();
       chart_offset = cocos2d::Point();
       start_point = 0;
       end_point = 0;
@@ -68,11 +68,15 @@ public:
 
   void drawFrame();
 
+  void getVerticalLineConfig(float &bold, float &offset_diff,  cocos2d::Color4F &color, int i, int length);
+    
   void drawLabel();
 
   void drawPoint();
 
   void drawWeather();
+    
+  cocos2d::Size getChartSize();
 
 private:
 };

@@ -10,6 +10,7 @@
 #include "cocostudio/CocoStudio.h"
 #include "ui/CocosGUI.h"
 #include "lib/network/DataStoreSingleton.hpp"
+#include "scene/layout/helper/Display.hpp"
 
 #include "scene/chart/Board.hpp"
 
@@ -91,8 +92,14 @@ void Chart::prepareChart(cocos2d::ui::Widget* p_chart_board_widget, scene::menu:
     lib::network::DataStoreSingleton::getInstance()->getLocationItem(m_sensor_main_id);
     
     scene::chart::Board::Config config;
-    config.chart_size = Size(580, 400);
-    config.chart_offset = Point(100, 100 + 100);
+    if (scene::layout::helper::Display::IsPortlate())
+    {
+        config.board_size = Size(640, 400);
+        config.chart_offset = Point(40, 200);
+    } else {
+        config.board_size = Size(1280, 400);
+        config.chart_offset = Point(100, 100);
+    }
     config.v_chart_items = v_chart_items;
     config.v_weather_items = v_weather_items;
     config.start_point = p_scene_analytics->getIntervalStart();
@@ -102,8 +109,11 @@ void Chart::prepareChart(cocos2d::ui::Widget* p_chart_board_widget, scene::menu:
     config.horizontal_line = 4;
     config.horizontal_unit = "time";
     config.conversion_rate = location_item.conversion_rate;
-    if ((location_item.yesterday_average_value / location_item.dre2cpm) < 0.4f)
+    float avg = (location_item.yesterday_average_value / location_item.dre2cpm) ;
+    if (avg < 0.2f)
     {
+        config.vertical_top_value = 0.2f;
+    } else if(avg < 0.5f) {
         config.vertical_top_value = 0.5f;
     } else {
         config.vertical_top_value = 1.0f;

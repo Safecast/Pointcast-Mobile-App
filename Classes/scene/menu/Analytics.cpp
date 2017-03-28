@@ -34,9 +34,9 @@
 #include "scene/menu/Sensors.hpp"
 
 // #define CHART_WIDTH 560.0f
-#define CHART_WIDTH 1200.0f
+#define CHART_WIDTH 600.0f
 #define CHART_HEIGHT 400.0f
-#define CHART_OFFSET_X 100.0f
+#define CHART_OFFSET_X 20.0f
 #define CHART_OFFSET_Y 20.0f
 #define LABEL_OFFSET_X -20.0f
 #define LABEL_OFFSET_Y -20.0f
@@ -558,8 +558,8 @@ void Analytics::pageViewEvent(cocos2d::Ref * pSender, cocos2d::ui::PageView::Eve
     int current_page_index = p_page_view->getCurrentPageIndex();
     if (current_page_index == 0)
     {
-        // 日付を2日戻す
-        this->shiftInterval(-2 * 86400);
+        // 日付を1日戻す
+        this->shiftInterval(-1 * 86400);
         
         // ページがないはずなので作る
         lib::network::DataStoreSingleton *p_data_store_singleton =

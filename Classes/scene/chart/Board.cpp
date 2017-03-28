@@ -18,7 +18,7 @@ USING_NS_CC;
 Board *Board::create(Board::Config config) {
   Board *pRet = new (std::nothrow) Board();
   pRet->_config = config;
-  pRet->setContentSize(pRet->_config.chart_size);
+  // pRet->setContentSize(pRet->_config.board_size);
   if (pRet && pRet->init()) {
     pRet->autorelease();
     return pRet;
@@ -45,10 +45,10 @@ void Board::onEnter() {
 
 void Board::drawBackGround() {
   static Point points[] = {
-      Point(0, 0), Point(this->_config.chart_size.width, 0),
-      Point(this->_config.chart_size.width,
-            this->_config.chart_size.height),
-      Point(0, this->_config.chart_size.height),
+      Point(0, 0), Point(this->_config.board_size.width, 0),
+      Point(this->_config.board_size.width,
+            this->_config.board_size.height),
+      Point(0, this->_config.board_size.height),
 
   };
   this->drawPolygon(points,         // 頂点の座標のデータ
@@ -61,55 +61,61 @@ void Board::drawBackGround() {
 
 void Board::drawFrame() {
   // Frame line vertical
-  this->drawSegment(this->_config.chart_offset, // start
-                    Point(this->_config.chart_offset.x,
-                          this->_config.chart_size.height +
-                              this->_config.chart_offset.y), // end
-                    1.0f,                                          // bold
-                    Color4F::GRAY                                  // color
-                    );
-
-  // Frame line horizontal
-  this->drawSegment(this->_config.chart_offset, // start
-                    Point(this->_config.chart_offset.x +
-                              this->_config.chart_size.width,
-                          this->_config.chart_offset.y), // end
-                    1.0f,                                      // bold
-                    Color4F::GRAY                              // color
-                    );
-
   // line of vertical
-  time_t interval =
-      this->_config.end_point - this->_config.start_point;
-
-  for (int i = 1; i <= this->_config.vertical_line; i++) {
-    time_t point_time =
-        (int)(interval / this->_config.vertical_line * i) +
-        this->_config.start_point;
-
+  time_t interval = this->_config.end_point - this->_config.start_point;
+  for (int i = 0; i <= this->_config.vertical_line; i++) {
+      
+    time_t point_time = (int)(interval / this->_config.vertical_line * i) +
+                            this->_config.start_point;
+  
     double x = this->getX(point_time);
-    this->drawSegment(
-        Point(x, this->_config.chart_offset.y), // start
-        Point(x, this->_config.chart_offset.y +
-                     this->_config.chart_size.height), // end
-        1.0f,                                                // bold
-        Color4F::GRAY                                        // color
-        );
+    this->drawSegment(Point(x, this->_config.chart_offset.y), // start
+                      Point(x, this->_config.chart_offset.y +
+                                   this->getChartSize().height), // end
+                      1.0f,                                          // bold
+                      Color4F::GRAY                                  // color
+                      );
   }
 
-  for (int i = 1; i <= this->_config.horizontal_line; i++) {
+  // line of horizontal
+  for (int i = 0; i <= this->_config.horizontal_line; i++) {
+    float bold;
+    float offset_diff;
+    Color4F color;
+      
+    this->getVerticalLineConfig(bold,offset_diff,color,i,this->_config.horizontal_line);
+    
     double split_value = (double)(this->_config.vertical_top_value /
                                   this->_config.horizontal_line * i);
 
     double y = this->getY(split_value);
-    this->drawSegment(Point(this->_config.chart_offset.x, y), // start
-                      Point(this->_config.chart_size.width +
-                                this->_config.chart_offset.x,
+    this->drawSegment(Point(this->_config.chart_offset.x - offset_diff, y), // start
+                      Point(this->getChartSize().width +
+                                this->_config.chart_offset.x + offset_diff,
                             y),     // end
-                      1.0f,         // bold
-                      Color4F::GRAY // color
+                      bold,         // bold
+                      color // color
                       );
   }
+}
+    
+void Board::getVerticalLineConfig(float &bold, float &offset_diff,  cocos2d::Color4F &color, int i, int length)
+{
+    if (i == 0 || i == length)
+    {
+        bold = 3.0f;
+        offset_diff = 20.0f;
+        color = Color4F(128, 128, 128, 100);
+    } else if(i == 2) {
+        bold = 1.2f;
+        offset_diff = 0.0f;
+        color = Color4F(128, 128, 128, 100);
+    } else {
+        bold = 1.0f;
+        offset_diff = 0.0f;
+        color = Color4F(64, 64, 64, 100);
+    }
+
 }
 
 void Board::drawLabel() {
@@ -217,7 +223,7 @@ void Board::drawWeather() {
     }
 
     double x = this->getX(weather_item.timestamp);
-    double y = this->_config.chart_size.height +
+    double y = this->_config.board_size.height +
                this->_config.chart_offset.y + 20.0f;
 
     std::string icon = "res/icon/weather/" + weather_item.icon + ".png";
@@ -239,7 +245,7 @@ double Board::getX(time_t hrizontal_value) {
       (double)(this->_config.end_point - this->_config.start_point);
 
   double x = (((hrizontal_value - this->_config.start_point) / interval) *
-              this->_config.chart_size.width) +
+              this->getChartSize().width) +
              this->_config.chart_offset.x;
 
   return x;
@@ -248,10 +254,21 @@ double Board::getX(time_t hrizontal_value) {
 double Board::getY(double vertical_value) {
   double y = (((double)vertical_value /
                (double)this->_config.vertical_top_value) *
-              this->_config.chart_size.height) +
+              this->_config.board_size.height) +
              this->_config.chart_offset.y;
 
   return y;
 }
+    
+Size Board::getChartSize() {
+    
+    Size size;
+    size.width = this->_config.board_size.width - (this->_config.chart_offset.x * 2);
+    size.height = this->_config.board_size.height;
+    
+    return size;
+}
+    
+    
 }
 }
