@@ -43,12 +43,12 @@
 		151953321D301211007F7C6A /* CoreLocation.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1519532D1D301211007F7C6A /* CoreLocation.mm */; };
 		151953331D301211007F7C6A /* GoogleMapsManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1519532F1D301211007F7C6A /* GoogleMapsManager.mm */; };
 		151953341D301211007F7C6A /* Util.mm in Sources */ = {isa = PBXBuildFile; fileRef = 151953301D301211007F7C6A /* Util.mm */; };
-		1535AA2F1D56B598002516B9 /* BuildFile in Resources */ = {isa = PBXBuildFile; };
+		1535AA2F1D56B598002516B9 /* (null) in Resources */ = {isa = PBXBuildFile; };
 		1535AA351D56BB2D002516B9 /* GameController.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1535AA341D56BB2D002516B9 /* GameController.framework */; };
 		1535AA371D56BB84002516B9 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1535AA361D56BB84002516B9 /* MediaPlayer.framework */; };
 		155532F61D6B627200D451A5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 155532F51D6B627200D451A5 /* GoogleService-Info.plist */; };
-		1AC6FB21180E996B004C840B /* ReferenceProxy in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AC6FAF9180E9839004C840B /* libcocos2d Mac.a */; };
-		1AC6FB30180E99EB004C840B /* ReferenceProxy in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AC6FB07180E9839004C840B /* libcocos2d iOS.a */; };
+		1AC6FB21180E996B004C840B /* libcocos2d Mac.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AC6FAF9180E9839004C840B /* libcocos2d Mac.a */; };
+		1AC6FB30180E99EB004C840B /* libcocos2d iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AC6FB07180E9839004C840B /* libcocos2d iOS.a */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		288765A50DF7441C002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765A40DF7441C002DB57D /* CoreGraphics.framework */; };
@@ -299,7 +299,7 @@
 				ED545A7C1B68A1F400C3958E /* libiconv.dylib in Frameworks */,
 				52B47A471A53D09C004E4C60 /* Security.framework in Frameworks */,
 				151953311D301211007F7C6A /* GoogleMaps.framework in Frameworks */,
-				1AC6FB30180E99EB004C840B /* ReferenceProxy in Frameworks */,
+				1AC6FB30180E99EB004C840B /* libcocos2d iOS.a in Frameworks */,
 				D6B0611B1803AB670077942B /* CoreMotion.framework in Frameworks */,
 				1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */,
 				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
@@ -319,7 +319,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				ED545A7E1B68A1FA00C3958E /* libiconv.dylib in Frameworks */,
-				1AC6FB21180E996B004C840B /* ReferenceProxy in Frameworks */,
+				1AC6FB21180E996B004C840B /* libcocos2d Mac.a in Frameworks */,
 				5087E76717EB910900C73F5D /* libz.dylib in Frameworks */,
 				8262943E1AAF051F00CB7CF7 /* Security.framework in Frameworks */,
 				503AE11B17EB9C5A00D1A890 /* IOKit.framework in Frameworks */,
@@ -540,7 +540,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		29B97314FDCFA39411CA2CEA = {
+		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
 				A4F5433B1D9FE5450045C3E7 /* Pointcast-Mobile-App-mobile.entitlements */,
@@ -758,7 +758,7 @@
 				French,
 				German,
 			);
-			mainGroup = 29B97314FDCFA39411CA2CEA;
+			mainGroup = 29B97314FDCFA39411CA2CEA /* CustomTemplate */;
 			productRefGroup = 19C28FACFE9D520D11CA2CBB /* Products */;
 			projectDirPath = "";
 			projectReferences = (
@@ -811,7 +811,7 @@
 				521A8EA919F11F5000D177D7 /* fonts in Resources */,
 				50EF62A317ECD613001EB2F8 /* Icon-50.png in Resources */,
 				155532F61D6B627200D451A5 /* GoogleService-Info.plist in Resources */,
-				1535AA2F1D56B598002516B9 /* BuildFile in Resources */,
+				1535AA2F1D56B598002516B9 /* (null) in Resources */,
 				5087E78017EB970100C73F5D /* Icon-114.png in Resources */,
 				50EF62A217ECD613001EB2F8 /* Icon-29.png in Resources */,
 				50EF629617ECD46A001EB2F8 /* Icon-40.png in Resources */,
@@ -1054,6 +1054,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
+				DEVELOPMENT_TEAM = 7S5AAN8833;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1087,7 +1088,8 @@
 					"$(_COCOS_LIB_IOS_END)",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.momokoito.pointcast.staging;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "4db0f6ac-c920-404c-9c3e-c7df3ed5958e";
+				PROVISIONING_PROFILE_SPECIFIER = PointcastStaging;
 				Prefix = .staging;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1140,9 +1142,10 @@
 				AppName = DevPointcast;
 				BUNDLE_IDENTIFIER_SUFIX = .dev;
 				CODE_SIGN_ENTITLEMENTS = "Pointcast-Mobile-App-mobile/Pointcast-Mobile-App-mobile.entitlements";
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Mitsuo Okada (39M28873LA)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
+				DEVELOPMENT_TEAM = 7S5AAN8833;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1176,7 +1179,8 @@
 					"$(_COCOS_LIB_IOS_END)",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.momokoito.pointcast.dev;
-				PROVISIONING_PROFILE = "5df5c9b4-ee82-47a6-acd2-b4d81778616f";
+				PROVISIONING_PROFILE = "687e8d6f-f488-46d2-873f-f27873ee1bc2";
+				PROVISIONING_PROFILE_SPECIFIER = PointcastDev;
 				Prefix = .dev;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";

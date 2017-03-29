@@ -22,7 +22,7 @@ PODS:
     - GoogleInterchangeUtilities (~> 1.2)
     - GoogleSymbolUtilities (~> 1.1)
     - GoogleUtilities (~> 1.2)
-  - FirebaseInstanceID (1.0.8)
+  - FirebaseInstanceID (1.0.9)
   - FirebaseMessaging (1.2.0):
     - FirebaseAnalytics (~> 3.3)
     - FirebaseInstanceID (~> 1.0)
@@ -54,7 +54,7 @@ SPEC CHECKSUMS:
   FirebaseAnalytics: 0533a00b681e08fd0b2cd0444b7ddf0ef9fd7a1a
   FirebaseCore: 5a885548bbc5f0c410b04f8e9ac9d73ff1221907
   FirebaseCrash: 2efeb3715b76ac843b841529ce413efb67e5fd4d
-  FirebaseInstanceID: ba1e640935235e5fac39dfa816fe7660e72e1a8a
+  FirebaseInstanceID: 2d0518b1378fe9d685ef40cbdd63d2fdc1125339
   FirebaseMessaging: 789d23fd796594dfb55dcf36cd325541df887c22
   GoogleInterchangeUtilities: d5bc4d88d5b661ab72f9d70c58d02ca8c27ad1f7
   GoogleIPhoneUtilities: 63f25e93a3ddcb66884d182aab3a660d98f1479b
@@ -64,4 +64,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: bf1b9e5ef3744ffe71501f47dc7130ffbed81c71
 
-COCOAPODS: 1.1.1
+COCOAPODS: 1.2.0
