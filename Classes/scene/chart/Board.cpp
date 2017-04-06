@@ -37,11 +37,13 @@ void Board::onEnter() {
 
   this->drawFrame();
 
-  this->drawLabel();
-
-  this->drawPoint();
-
-  this->drawWeather();
+    if (!this->_config.is_empty) {
+        this->drawLabel();
+        
+        this->drawPoint();
+        
+        this->drawWeather();
+    }
 }
 
 void Board::drawBackGround() {
@@ -132,11 +134,11 @@ void Board::getVerticalLineConfig(float &bold, float &offset_diff,  cocos2d::Col
 
 void Board::drawLabel() {
     
-  // label of horizontal
+  // label of horizontal(hour)
   time_t interval =
       this->_config.end_point - this->_config.start_point;
   for (int i = 0; i <= this->_config.vertical_line; i++) {
-    if (i % 2 == 1 && i != this->_config.vertical_line) {
+    if ((i % 2 == 1 && i != this->_config.vertical_line)) {
       continue;
     }
     time_t point_time =
@@ -144,7 +146,7 @@ void Board::drawLabel() {
         this->_config.start_point;
     double x = this->getX(point_time);
     double y = this->_config.chart_offset.y;
-    const char *format = "%H:%M";
+    const char *format = "%H";
     std::string time_string = lib::Util::getDatetimeString(point_time, format);
     auto p_text_time = Label::createWithSystemFont(time_string, "System", 24);
     p_text_time->setAnchorPoint(Point(0.5f, 1.0f));
@@ -185,6 +187,16 @@ void Board::drawLabel() {
   p_text_unit->setPosition(Point(last_x, last_y + 30));
   p_text_unit->setColor(unit_color);
   this->addChild(p_text_unit);
+    
+  // date
+  const char *format = "%b %dth, %Y";
+  std::string date_string = lib::Util::getDatetimeString(this->_config.start_point, format);
+  auto p_text_date = Label::createWithSystemFont(date_string, "System", 30);
+  p_text_date->setAnchorPoint(Point(0.0f, 0.0f));
+  p_text_date->setPosition(Point(10, this->_config.board_size.height + this->_config.chart_offset.y + 60));
+  p_text_date->setColor(unit_color);
+  this->addChild(p_text_date);
+    
 }
 
 void Board::drawPoint() {

@@ -37,6 +37,7 @@ public:
     std::string horizontal_unit;
     double vertical_top_value;
     int conversion_rate;
+    bool is_empty;
     Config() {
       std::vector<lib::object::ChartItem> v_chart_items;
       board_size = cocos2d::Size();
@@ -49,6 +50,7 @@ public:
       horizontal_unit = "";
       vertical_top_value = 0.0f;
       conversion_rate = 0;
+      is_empty = false;
     }
   };
 

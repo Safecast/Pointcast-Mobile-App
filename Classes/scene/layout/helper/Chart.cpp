@@ -67,11 +67,12 @@ cocos2d::ui::Widget *Chart::prepareHeader(scene::menu::Analytics* p_scene_analyt
 void Chart::prepareChart(cocos2d::ui::Widget* p_chart_board_widget, scene::menu::Analytics* p_scene_analytics,
                                            int m_sensor_main_id,
                                            const std::vector<lib::object::ChartItem> v_chart_items,
-                                           const std::vector<lib::object::WeatherItem> v_weather_items)
+                                           const std::vector<lib::object::WeatherItem> v_weather_items, bool is_empty)
 {
     
     // get chart config
-    scene::chart::Board::Config chart_config = Chart::getConfig(v_chart_items, v_weather_items, p_scene_analytics, m_sensor_main_id);
+    scene::chart::Board::Config chart_config = Chart::getConfig(v_chart_items, v_weather_items, p_scene_analytics, m_sensor_main_id, is_empty);
+    chart_config.is_empty = is_empty;
     
     scene::chart::Board *p_chart_nodes =
         scene::chart::Board::create(chart_config);
@@ -86,7 +87,7 @@ void Chart::prepareChart(cocos2d::ui::Widget* p_chart_board_widget, scene::menu:
 
 }
     
-    scene::chart::Board::Config Chart::getConfig(const std::vector<lib::object::ChartItem> &v_chart_items, const std::vector<lib::object::WeatherItem> &v_weather_items, scene::menu::Analytics* p_scene_analytics,int m_sensor_main_id)
+scene::chart::Board::Config Chart::getConfig(const std::vector<lib::object::ChartItem> &v_chart_items, const std::vector<lib::object::WeatherItem> &v_weather_items, scene::menu::Analytics* p_scene_analytics, int m_sensor_main_id, bool is_empty)
 {
 
     lib::object::LocationItem location_item =
@@ -119,6 +120,7 @@ void Chart::prepareChart(cocos2d::ui::Widget* p_chart_board_widget, scene::menu:
     } else {
         config.vertical_top_value = 5.0f;
     }
+    config.is_empty = is_empty;
     
     return config;
     

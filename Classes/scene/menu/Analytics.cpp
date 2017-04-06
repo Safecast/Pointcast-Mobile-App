@@ -222,6 +222,7 @@ void Analytics::drawChart()
     
     // generate empty page
     this->_p_empty_page = cocos2d::ui::Widget::create();
+    scene::layout::helper::Chart::prepareChart(this->_p_empty_page, this, this->_m_sensor_main_id, v_chart_items, v_weather_items, true);
     this->_p_page_view->insertPage(this->_p_empty_page, 0);
 
 }
@@ -448,10 +449,8 @@ void Analytics::initChartInterval()
     pnow->tm_min = 0;
     pnow->tm_sec = 0;
     
-    this->_interval_end = mktime(pnow);
-    // interval 1 day
-    this->_interval_start = this->_interval_end - 86400;
-    
+    this->_interval_start = mktime(pnow);
+    this->_interval_end = this->_interval_start + 86400;
 }
 
 void Analytics::shiftInterval(int diff)
