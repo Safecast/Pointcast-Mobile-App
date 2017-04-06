@@ -154,6 +154,7 @@ void Board::drawLabel() {
   }
 
   // label of horizontal
+  Color3B unit_color = Color3B(30, 144, 255);
   double last_x, last_y;
   for (int i = 0; i <= this->_config.horizontal_line; i++) {
     if (i != this->_config.horizontal_line / 2) {
@@ -172,7 +173,7 @@ void Board::drawLabel() {
     auto p_text_time = Label::createWithSystemFont(value_string, "System", 24);
     p_text_time->setAnchorPoint(Point(1.0f, 0.5f));
     p_text_time->setPosition(Point(x, y));
-    p_text_time->setColor(Color3B::BLACK);
+    p_text_time->setColor(unit_color);
     this->addChild(p_text_time);
     last_x = x;
     last_y = y;
@@ -182,7 +183,7 @@ void Board::drawLabel() {
   auto p_text_unit = Label::createWithSystemFont("μSv/h", "System", 24);
   p_text_unit->setAnchorPoint(Point(1.0f, 0.5f));
   p_text_unit->setPosition(Point(last_x, last_y + 30));
-  p_text_unit->setColor(Color3B::BLACK);
+  p_text_unit->setColor(unit_color);
   this->addChild(p_text_unit);
 }
 
