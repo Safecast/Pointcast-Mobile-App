@@ -8,6 +8,7 @@
 
 #include "Board.hpp"
 #include "lib/Util.hpp"
+#include "scene/layout/helper/Chart.hpp"
 
 namespace scene {
 
@@ -45,23 +46,28 @@ void Board::onEnter() {
 
 void Board::drawBackGround() {
   static Point points[] = {
-      Point(0, 0), Point(this->_config.board_size.width, 0),
+      Point(0, this->_config.chart_offset.y), Point(this->_config.board_size.width, this->_config.chart_offset.y),
       Point(this->_config.board_size.width,
-            this->_config.board_size.height),
-      Point(0, this->_config.board_size.height),
+            this->_config.board_size.height + this->_config.chart_offset.y),
+      Point(0, this->_config.board_size.height + this->_config.chart_offset.y),
 
   };
+    
+    
+  Color4F fill_color = Color4F((225.0f/255.0f), (225.0f/255.0f), (255.0f/255.0f), 1.0f);
+  Color4F border_color = Color4F(0.0f, (178.0f/255.0f), (255.0f/255.0f), 1.0f);
+    
   this->drawPolygon(points,         // 頂点の座標のデータ
                     4,              // 角数
-                    Color4F::WHITE, // 図形の色
-                    1,              // 枠線の太さ
-                    Color4F::WHITE  // 枠線の色
+                    fill_color, // 図形の色
+                    0.0f,              // 枠線の太さ
+                    border_color  // 枠線の色
                     );
 }
 
 void Board::drawFrame() {
   // Frame line vertical
-  // line of vertical
+  // line of vertical(縦線)
   time_t interval = this->_config.end_point - this->_config.start_point;
   for (int i = 0; i <= this->_config.vertical_line; i++) {
       
@@ -72,12 +78,12 @@ void Board::drawFrame() {
     this->drawSegment(Point(x, this->_config.chart_offset.y), // start
                       Point(x, this->_config.chart_offset.y +
                                    this->getChartSize().height), // end
-                      1.0f,                                          // bold
+                      0.5f,                                          // bold
                       Color4F::GRAY                                  // color
                       );
   }
 
-  // line of horizontal
+  // line of horizontal(横線)
   for (int i = 0; i <= this->_config.horizontal_line; i++) {
     float bold;
     float offset_diff;
@@ -89,13 +95,19 @@ void Board::drawFrame() {
                                   this->_config.horizontal_line * i);
 
     double y = this->getY(split_value);
-    this->drawSegment(Point(this->_config.chart_offset.x - offset_diff, y), // start
-                      Point(this->getChartSize().width +
-                                this->_config.chart_offset.x + offset_diff,
-                            y),     // end
-                      bold,         // bold
-                      color // color
-                      );
+    
+      Point start_point = Point(this->_config.chart_offset.x - offset_diff, y);
+      Point end_point = Point(this->_config.board_size.width,
+                              y);
+      
+      
+        this->drawSegment(Point(0, y), // start
+                          Point(this->_config.board_size.width,
+                                y),     // end
+                          bold,         // bold
+                          color // color
+                          );
+   
   }
 }
     
@@ -103,15 +115,15 @@ void Board::getVerticalLineConfig(float &bold, float &offset_diff,  cocos2d::Col
 {
     if (i == 0 || i == length)
     {
-        bold = 3.0f;
+        bold = 1.5f;
         offset_diff = 20.0f;
         color = Color4F(128, 128, 128, 100);
     } else if(i == 2) {
-        bold = 1.2f;
+        bold = 0.5f;
         offset_diff = 0.0f;
         color = Color4F(128, 128, 128, 100);
     } else {
-        bold = 1.0f;
+        bold = 0.5f;
         offset_diff = 0.0f;
         color = Color4F(64, 64, 64, 100);
     }
@@ -119,7 +131,8 @@ void Board::getVerticalLineConfig(float &bold, float &offset_diff,  cocos2d::Col
 }
 
 void Board::drawLabel() {
-  // line of horizontal
+    
+  // label of horizontal
   time_t interval =
       this->_config.end_point - this->_config.start_point;
   for (int i = 0; i <= this->_config.vertical_line; i++) {
@@ -131,7 +144,7 @@ void Board::drawLabel() {
         this->_config.start_point;
     double x = this->getX(point_time);
     double y = this->_config.chart_offset.y;
-    const char *format = "%m/%d\n%H:%M";
+    const char *format = "%H:%M";
     std::string time_string = lib::Util::getDatetimeString(point_time, format);
     auto p_text_time = Label::createWithSystemFont(time_string, "System", 24);
     p_text_time->setAnchorPoint(Point(0.5f, 1.0f));
@@ -140,16 +153,16 @@ void Board::drawLabel() {
     this->addChild(p_text_time);
   }
 
-  // line of horizontal
+  // label of horizontal
   double last_x, last_y;
   for (int i = 0; i <= this->_config.horizontal_line; i++) {
-    if (i == 0 && i != this->_config.horizontal_line) {
+    if (i != this->_config.horizontal_line / 2) {
       continue;
     }
 
     double point_value = (double)(this->_config.vertical_top_value /
                                   this->_config.horizontal_line * i);
-    double x = this->_config.chart_offset.x - 20;
+    double x = this->_config.chart_offset.x + 30;
     double y = this->getY(point_value);
 
     const float usv = (double)point_value;

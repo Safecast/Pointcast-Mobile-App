@@ -79,6 +79,7 @@ void Chart::prepareChart(cocos2d::ui::Widget* p_chart_board_widget, scene::menu:
     p_chart_board_widget->setContentSize(p_chart_nodes->getContentSize());
     p_chart_board_widget->setTouchEnabled(true);
     p_chart_board_widget->setAnchorPoint(Vec2(0.0f, 0.0f));
+    //
     p_chart_board_widget->addChild(p_chart_nodes);
     
     cocos2d::log("p_chart_board_widget size %f, %f pos %f, %f", p_chart_board_widget->getContentSize().width,  p_chart_board_widget->getContentSize().height, p_chart_board_widget->getPositionX(), p_chart_board_widget->getPositionY());
@@ -110,19 +111,29 @@ void Chart::prepareChart(cocos2d::ui::Widget* p_chart_board_widget, scene::menu:
     config.horizontal_unit = "time";
     config.conversion_rate = location_item.conversion_rate;
     float avg = (location_item.yesterday_average_value / location_item.dre2cpm) ;
-    if (avg < 0.2f)
+    if (avg < 0.3f)
     {
-        config.vertical_top_value = 0.2f;
-    } else if(avg < 0.5f) {
         config.vertical_top_value = 0.5f;
-    } else {
+    } else if(avg < 1.0f) {
         config.vertical_top_value = 1.0f;
+    } else {
+        config.vertical_top_value = 5.0f;
     }
     
     return config;
     
 }
-    
+
+    void Chart::drawDottedLine(cocos2d::DrawNode* p_node, float line_width, float line_interval, Point start_point, Point end_point, float interval, cocos2d::Color4F color) {
+
+        Vec2 current_vec2;
+        while(true)
+        {
+            
+            p_node->drawSegment(start_point, end_point, 1.0f, color);
+            break;
+        }
+    }
 }
 }
 }

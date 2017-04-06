@@ -6,7 +6,7 @@
       <ObjectData Name="Scene" ctype="GameNodeObjectData">
         <Size X="640.0000" Y="200.0000" />
         <Children>
-          <AbstractNodeData Name="panelBackground" ActionTag="-2103491179" Tag="12" IconVisible="False" LeftMargin="-6.4259" RightMargin="6.4259" TopMargin="-933.4216" BottomMargin="-2.5784" TouchEnable="True" ClipAble="False" ComboBoxIndex="1" ColorAngle="90.0000" Scale9Width="1" Scale9Height="1" ctype="PanelObjectData">
+          <AbstractNodeData Name="panelBackground" ActionTag="-2103491179" Tag="12" IconVisible="False" TopMargin="-936.0000" TouchEnable="True" ClipAble="False" ComboBoxIndex="1" ColorAngle="90.0000" Scale9Width="1" Scale9Height="1" ctype="PanelObjectData">
             <Size X="640.0000" Y="1136.0000" />
             <Children>
               <AbstractNodeData Name="txtBack" ActionTag="2106866594" Tag="50" IconVisible="False" LeftMargin="451.4702" RightMargin="8.5298" TopMargin="-2.0000" BottomMargin="1038.0000" TouchEnable="True" IsCustomSize="True" FontSize="36" LabelText="Back" HorizontalAlignmentType="HT_Center" VerticalAlignmentType="VT_Center" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="TextObjectData">
@@ -71,10 +71,10 @@
               </AbstractNodeData>
             </Children>
             <AnchorPoint />
-            <Position X="-6.4259" Y="-2.5784" />
+            <Position />
             <Scale ScaleX="1.0000" ScaleY="1.0000" />
             <CColor A="255" R="255" G="255" B="255" />
-            <PrePosition X="-0.0100" Y="-0.0129" />
+            <PrePosition />
             <PreSize X="1.0000" Y="5.6800" />
             <SingleColor A="255" R="255" G="255" B="255" />
             <FirstColor A="255" R="150" G="200" B="255" />

@@ -36,6 +36,8 @@ public:
                                                   const std::vector<lib::object::WeatherItem> v_weather_items);
     
     static scene::chart::Board::Config getConfig(const std::vector<lib::object::ChartItem> &v_chart_items, const std::vector<lib::object::WeatherItem> &v_weather_items, scene::menu::Analytics* p_scene_analytics, int m_sensor_main_id);
+    
+    static void drawDottedLine(cocos2d::DrawNode* p_node, float line_width, float line_interval, cocos2d::Point start_point, cocos2d::Point end_point, float interval, cocos2d::Color4F color);
 private:
   };
         }
