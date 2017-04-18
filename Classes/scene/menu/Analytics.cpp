@@ -24,6 +24,7 @@
 #include "lib/native/Util.h"
 
 #include "lib/network/DataStoreSingleton.hpp"
+
 #include "scene/Main.hpp"
 #include "scene/chart/Board.hpp"
 #include "scene/layout/helper/Contents.hpp"
@@ -176,8 +177,40 @@ void Analytics::initFixedContents()
     
     cocos2d::log("size w %f h %f x %f y %f", this->getContentSize().width, this->getContentSize().height, this->getPositionX(), this->getPositionY());
     
+    this->_prev_button = RoundedBoxSprite::create();
+    std::string str = "Prev";
+    auto _prev_button_size = Size(350,80);
+    this->_prev_button->setParam(_prev_button_size, Color3B(111,201,88), 10, 10, str, Color3B::WHITE, 40);
+    this->_prev_button->setPosition(200, 200);
+    this->_prev_button->setContentSize(_prev_button_size);
+    
+    this->_p_contents->addChild(this->_prev_button);
+    
     this->addChild(this->_p_contents);
 
+    //イベントリスナーを作成
+    auto listener = EventListenerTouchOneByOne::create();
+    
+    //タッチ開始
+    listener->onTouchBegan = [this](Touch* touch, Event* event){
+        auto target = (RoundedBoxSprite*)event->getCurrentTarget();
+        Rect targetBox = this->_prev_button->getBoundingBox();
+        Point touchPoint = touch->getLocation();
+        if (targetBox.containsPoint(touchPoint))
+        {
+            log("PrevButton:%d", target->getTag());
+            ssize_t idx = this->_p_page_view->getCurrentPageIndex() - 1;
+            this->_p_page_view->setCurrentPageIndex(idx - 1);
+            this->changePage(idx);
+
+            return true;
+        }
+        
+        return false;
+    };
+    
+    //イベントリスナーを登録
+    this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this->_prev_button);
 }
     
 void Analytics::initVariableContents()
@@ -494,6 +527,21 @@ void Analytics::onTouchesEnded(const std::vector<cocos2d::Touch*>& touches, coco
     {
         this->_pinch_gesture->init();
     }
+    
+    // prev button
+    for(int i=0; i < touches.size(); i++){
+        //targetBox : タッチされたスプライトの領域
+        Rect target_box = this->_prev_button->getBoundingBox();
+        
+        //touchPoint : タッチされた場所
+        Point touch_point = Vec2(touches.at(i)->getLocationInView().x, touches.at(i)->getLocationInView().y);
+        
+        //touchPointがtargetBoxの中に含まれているか判定
+        if (target_box.containsPoint(touch_point))
+        {
+            log("tapped!!");
+        }
+    }
 }
 
 void Analytics::onTouchesCancelled(const std::vector<cocos2d::Touch*>& touches, cocos2d::Event *pEvent)
@@ -552,23 +600,26 @@ void Analytics::onExit()
     
 void Analytics::pageViewEvent(cocos2d::Ref * pSender, cocos2d::ui::PageView::EventType type)
 {
-    
     auto p_page_view = static_cast<cocos2d::ui::PageView*>(pSender);
-    int current_page_index = p_page_view->getCurrentPageIndex();
-    if (current_page_index == 0)
+    ssize_t current_page_index = p_page_view->getCurrentPageIndex();
+    this->changePage(current_page_index);
+}
+    
+void Analytics::changePage(ssize_t index)
+{
+    if (index == 0)
     {
         // 日付を1日戻す
         this->shiftInterval(-1 * 86400);
         
         // ページがないはずなので作る
         lib::network::DataStoreSingleton *p_data_store_singleton =
-            lib::network::DataStoreSingleton::getInstance();
+        lib::network::DataStoreSingleton::getInstance();
         this->_p_store_callback->retain();
         this->attachWaitAnimation();
         p_data_store_singleton->storeAnalyticsData(this->_m_sensor_main_id, this->_interval_start, this->_interval_end, true,this->_p_store_callback);
     }
-    
-    cocos2d::log("Analytics::pageViewEvent");
+
 }
 
 }

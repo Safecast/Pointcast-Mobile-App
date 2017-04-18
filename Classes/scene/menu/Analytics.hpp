@@ -16,6 +16,7 @@
 
 #include "lib/object/ChartItem.hpp"
 #include "lib/object/WeatherItem.hpp"
+#include "lib/external/RoundedBoxSprite.h"
 #include "network/HttpClient.h"
 #include "scene/base/AbstructScene.hpp"
 #include "scene/Main.hpp"
@@ -48,6 +49,8 @@ private:
   cocos2d::ui::PageView* _p_page_view;
 
   std::map<std::string, cocos2d::ui::Widget*> _p_chart_nodes;
+    
+  RoundedBoxSprite* _prev_button;
     
   cocos2d::ui::Widget* _p_empty_page;
     
@@ -106,6 +109,8 @@ public:
   void onCallbackDataStore();
   
   void pageViewEvent(cocos2d::Ref * psender, cocos2d::ui::PageView::EventType type);
+ 
+  void changePage(ssize_t index);
 
 /*
   cocos2d::ui::Widget *prepareChartBoard(

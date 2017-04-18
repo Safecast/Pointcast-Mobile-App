@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1519752C1E97E38500A57202 /* RoundedBoxSprite.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1519752B1E97E38500A57202 /* RoundedBoxSprite.cpp */; };
 		156BB8721E48A43000EDBBAF /* AppDelegate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 156BB8271E48A43000EDBBAF /* AppDelegate.cpp */; };
 		156BB8731E48A43000EDBBAF /* CCActivityIndicator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 156BB82B1E48A43000EDBBAF /* CCActivityIndicator.cpp */; };
 		156BB8741E48A43000EDBBAF /* CCLayerPanZoom.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 156BB82D1E48A43000EDBBAF /* CCLayerPanZoom.cpp */; };
@@ -152,6 +153,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		151975291E97E32B00A57202 /* RoundedBoxSprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RoundedBoxSprite.h; sourceTree = "<group>"; };
+		1519752B1E97E38500A57202 /* RoundedBoxSprite.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RoundedBoxSprite.cpp; sourceTree = "<group>"; };
 		156BB8271E48A43000EDBBAF /* AppDelegate.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AppDelegate.cpp; sourceTree = "<group>"; };
 		156BB8281E48A43000EDBBAF /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		156BB82B1E48A43000EDBBAF /* CCActivityIndicator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCActivityIndicator.cpp; sourceTree = "<group>"; };
@@ -391,6 +394,8 @@
 				156BB82F1E48A43000EDBBAF /* picojson.h */,
 				156BB8301E48A43000EDBBAF /* SpriteBlur.cpp */,
 				156BB8311E48A43000EDBBAF /* SpriteBlur.h */,
+				151975291E97E32B00A57202 /* RoundedBoxSprite.h */,
+				1519752B1E97E38500A57202 /* RoundedBoxSprite.cpp */,
 			);
 			path = external;
 			sourceTree = "<group>";
@@ -1011,6 +1016,7 @@
 				156BB8861E48A43000EDBBAF /* Analytics.cpp in Sources */,
 				156BB8761E48A43000EDBBAF /* Pinch.cpp in Sources */,
 				503AE10217EB989F00D1A890 /* RootViewController.mm in Sources */,
+				1519752C1E97E38500A57202 /* RoundedBoxSprite.cpp in Sources */,
 				156BB8781E48A43000EDBBAF /* DataStoreSingleton.cpp in Sources */,
 				156BB8791E48A43000EDBBAF /* LocationItem.cpp in Sources */,
 				156BB87E1E48A43000EDBBAF /* Chart.cpp in Sources */,
