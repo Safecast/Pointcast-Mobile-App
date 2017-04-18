@@ -51,6 +51,8 @@ private:
   std::map<std::string, cocos2d::ui::Widget*> _p_chart_nodes;
     
   RoundedBoxSprite* _prev_button;
+
+  RoundedBoxSprite* _next_button;
     
   cocos2d::ui::Widget* _p_empty_page;
     

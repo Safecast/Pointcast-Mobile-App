@@ -178,13 +178,24 @@ void Analytics::initFixedContents()
     cocos2d::log("size w %f h %f x %f y %f", this->getContentSize().width, this->getContentSize().height, this->getPositionX(), this->getPositionY());
     
     this->_prev_button = RoundedBoxSprite::create();
-    std::string str = "Prev";
-    auto _prev_button_size = Size(350,80);
-    this->_prev_button->setParam(_prev_button_size, Color3B(111,201,88), 10, 10, str, Color3B::WHITE, 40);
-    this->_prev_button->setPosition(200, 200);
-    this->_prev_button->setContentSize(_prev_button_size);
+    std::string prev_str = "Prev";
+    auto prev_button_size = Size(200, 50);
+    this->_prev_button->setParam(prev_button_size, Color3B(111,201,88), 10, 10, prev_str, Color3B::WHITE, 24);
+    this->_prev_button->setPosition(100, 200);
+    this->_prev_button->setContentSize(prev_button_size);
+    this->_prev_button->setAnchorPoint(Vec2(0.0f, 0.5f));
+    
+    this->_next_button = RoundedBoxSprite::create();
+    std::string next_str = "Next";
+    auto next_button_size = Size(200,50);
+    this->_next_button->setParam(next_button_size, Color3B(111,201,88), 10, 10, next_str, Color3B::WHITE, 24);
+    this->_next_button->setPosition(340, 200);
+    this->_next_button->setContentSize(next_button_size);
+    this->_next_button->setAnchorPoint(Vec2(0.0f, 0.5f));
+    
     
     this->_p_contents->addChild(this->_prev_button);
+    this->_p_contents->addChild(this->_next_button);
     
     this->addChild(this->_p_contents);
 
@@ -193,12 +204,9 @@ void Analytics::initFixedContents()
     
     //タッチ開始
     listener->onTouchBegan = [this](Touch* touch, Event* event){
-        auto target = (RoundedBoxSprite*)event->getCurrentTarget();
-        Rect targetBox = this->_prev_button->getBoundingBox();
         Point touchPoint = touch->getLocation();
-        if (targetBox.containsPoint(touchPoint))
+        if (this->_prev_button->getBoundingBox().containsPoint(touchPoint))
         {
-            log("PrevButton:%d", target->getTag());
             ssize_t idx = this->_p_page_view->getCurrentPageIndex() - 1;
             this->_p_page_view->setCurrentPageIndex(idx - 1);
             this->changePage(idx);
@@ -206,11 +214,22 @@ void Analytics::initFixedContents()
             return true;
         }
         
+        if (this->_next_button->getBoundingBox().containsPoint(touchPoint))
+        {
+            ssize_t idx = this->_p_page_view->getCurrentPageIndex() + 1;
+            this->_p_page_view->setCurrentPageIndex(idx);
+            this->changePage(idx);
+            
+            return true;
+        }
+
         return false;
     };
     
     //イベントリスナーを登録
     this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this->_prev_button);
+    // this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this->_next_button);
+    
 }
     
 void Analytics::initVariableContents()
