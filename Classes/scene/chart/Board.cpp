@@ -48,10 +48,10 @@ void Board::onEnter() {
 
 void Board::drawBackGround() {
   static Point points[] = {
-      Point(0, this->_config.chart_offset.y), Point(this->_config.board_size.width, this->_config.chart_offset.y),
-      Point(this->_config.board_size.width,
+      Point(this->_config.chart_offset.x, this->_config.chart_offset.y), Point(this->_config.board_size.width - this->_config.chart_offset.x, this->_config.chart_offset.y),
+      Point(this->_config.board_size.width - this->_config.chart_offset.x,
             this->_config.board_size.height + this->_config.chart_offset.y),
-      Point(0, this->_config.board_size.height + this->_config.chart_offset.y),
+      Point(this->_config.chart_offset.x, this->_config.board_size.height + this->_config.chart_offset.y),
 
   };
     
@@ -103,8 +103,8 @@ void Board::drawFrame() {
                               y);
       
       
-        this->drawSegment(Point(0, y), // start
-                          Point(this->_config.board_size.width,
+        this->drawSegment(Point(this->_config.chart_offset.x, y), // start
+                          Point(this->_config.board_size.width - this->_config.chart_offset.x,
                                 y),     // end
                           bold,         // bold
                           color // color
@@ -266,11 +266,11 @@ void Board::drawWeather() {
   }
 }
 
-double Board::getX(time_t hrizontal_value) {
+double Board::getX(time_t horizontal_value) {
   double interval =
       (double)(this->_config.end_point - this->_config.start_point);
 
-  double x = (((hrizontal_value - this->_config.start_point) / interval) *
+  double x = (((horizontal_value - this->_config.start_point) / interval) *
               this->getChartSize().width) +
              this->_config.chart_offset.x;
 

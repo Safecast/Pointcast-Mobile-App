@@ -57,7 +57,7 @@ public:
 private:
   Config _config;
 
-  double getX(time_t hrizontal_value);
+  double getX(time_t horizontal_value);
 
   double getY(double vertical_value);
 

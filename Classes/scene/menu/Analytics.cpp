@@ -179,7 +179,7 @@ void Analytics::initFixedContents()
     
     this->_prev_button = RoundedBoxSprite::create();
     std::string prev_str = "Prev";
-    auto prev_button_size = Size(200, 80);
+    auto prev_button_size = Size(200, 60);
     this->_prev_button->setParam(prev_button_size, Color3B(111,201,88), 10, 10, prev_str, Color3B::WHITE, 24);
     this->_prev_button->setPosition(100, 250);
     this->_prev_button->setContentSize(prev_button_size);
@@ -187,7 +187,7 @@ void Analytics::initFixedContents()
     
     this->_next_button = RoundedBoxSprite::create();
     std::string next_str = "Next";
-    auto next_button_size = Size(200,80);
+    auto next_button_size = Size(200, 60);
     this->_next_button->setParam(next_button_size, Color3B(111,201,88), 10, 10, next_str, Color3B::WHITE, 24);
     this->_next_button->setPosition(640, 250);
     this->_next_button->setContentSize(next_button_size);
