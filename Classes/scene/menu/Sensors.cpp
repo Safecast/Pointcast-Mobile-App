@@ -424,7 +424,7 @@ void Sensors::showAnalyticsDialog(int m_sensor_main_id) {
   //        this, 0.4f, scene::layout::helper::Contents::Forward_To_Left_e,
   //        false);
 
-  this->addChild(p_modal_mesurements_analytics);
+  this->addChild(p_modal_mesurements_analytics , 2);
 }
 
 void Sensors::closeAnalyticsDialog() {

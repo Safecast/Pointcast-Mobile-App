@@ -256,7 +256,7 @@ std::vector<std::pair<int, int>> Util::GetSortedLocationIndex(
 
   std::vector<std::pair<int, int>> v_sensors_key_value;
 
-  // make key valu
+  // make key value
   for (auto item : m_sensors) {
     std::pair<int, int> key_value;
     switch (sort_id) {

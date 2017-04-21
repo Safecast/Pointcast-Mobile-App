@@ -79,15 +79,15 @@ bool Analytics::init() {
     
     this->_p_store_callback = CallFunc::create(CC_CALLBACK_0(Analytics::onCallbackDataStore, this));
     
+    /*
     this->_pinch_listener = EventListenerTouchAllAtOnce::create();
     this->_pinch_listener->setEnabled(true);
     this->_pinch_listener->onTouchesBegan = CC_CALLBACK_2(Analytics::onTouchesBegan, this);
     this->_pinch_listener->onTouchesMoved = CC_CALLBACK_2(Analytics::onTouchesMoved, this);
     this->_pinch_listener->onTouchesCancelled = CC_CALLBACK_2(Analytics::onTouchesCancelled, this);
     this->_pinch_listener->onTouchesEnded = CC_CALLBACK_2(Analytics::onTouchesEnded, this);
-    
     this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(this->_pinch_listener, this);
-    
+    */
     return true;
 }
     
@@ -555,6 +555,7 @@ void Analytics::onTouchesEnded(const std::vector<cocos2d::Touch*>& touches, coco
     }
     
     // prev button
+    /*
     for(int i=0; i < touches.size(); i++){
         //targetBox : タッチされたスプライトの領域
         Rect target_box = this->_prev_button->getBoundingBox();
@@ -568,6 +569,7 @@ void Analytics::onTouchesEnded(const std::vector<cocos2d::Touch*>& touches, coco
             log("tapped!!");
         }
     }
+     */
 }
 
 void Analytics::onTouchesCancelled(const std::vector<cocos2d::Touch*>& touches, cocos2d::Event *pEvent)
@@ -643,6 +645,7 @@ void Analytics::changePage(ssize_t index)
         lib::network::DataStoreSingleton::getInstance();
         this->_p_store_callback->retain();
         this->attachWaitAnimation();
+        
         p_data_store_singleton->storeAnalyticsData(this->_m_sensor_main_id, this->_interval_start, this->_interval_end, true,this->_p_store_callback);
     }
 
