@@ -10,6 +10,7 @@
 #include "cocostudio/CocoStudio.h"
 #include "ui/CocosGUI.h"
 #include "lib/network/DataStoreSingleton.hpp"
+#include "scene/layout/helper/Display.hpp"
 
 #include "scene/chart/Board.hpp"
 
@@ -63,39 +64,44 @@ cocos2d::ui::Widget *Chart::prepareHeader(scene::menu::Analytics* p_scene_analyt
     return static_cast<cocos2d::ui::Widget*>(p_chart_board);
 }
 
-cocos2d::ui::Widget* Chart::prepareChart(scene::menu::Analytics* p_scene_analytics,
+void Chart::prepareChart(cocos2d::ui::Widget* p_chart_board_widget, scene::menu::Analytics* p_scene_analytics,
                                            int m_sensor_main_id,
                                            const std::vector<lib::object::ChartItem> v_chart_items,
-                                           const std::vector<lib::object::WeatherItem> v_weather_items)
+                                           const std::vector<lib::object::WeatherItem> v_weather_items, bool is_empty)
 {
     
     // get chart config
-    scene::chart::Board::Config chart_config = Chart::getConfig(v_chart_items, v_weather_items, p_scene_analytics, m_sensor_main_id);
+    scene::chart::Board::Config chart_config = Chart::getConfig(v_chart_items, v_weather_items, p_scene_analytics, m_sensor_main_id, is_empty);
+    chart_config.is_empty = is_empty;
     
     scene::chart::Board *p_chart_nodes =
         scene::chart::Board::create(chart_config);
     
-    ui::Widget *p_chart_board_widget = ui::Widget::create();
     p_chart_board_widget->setContentSize(p_chart_nodes->getContentSize());
     p_chart_board_widget->setTouchEnabled(true);
     p_chart_board_widget->setAnchorPoint(Vec2(0.0f, 0.0f));
+    //
     p_chart_board_widget->addChild(p_chart_nodes);
     
     cocos2d::log("p_chart_board_widget size %f, %f pos %f, %f", p_chart_board_widget->getContentSize().width,  p_chart_board_widget->getContentSize().height, p_chart_board_widget->getPositionX(), p_chart_board_widget->getPositionY());
-    
-    return p_chart_board_widget;
 
 }
     
-    scene::chart::Board::Config Chart::getConfig(const std::vector<lib::object::ChartItem> &v_chart_items, const std::vector<lib::object::WeatherItem> &v_weather_items, scene::menu::Analytics* p_scene_analytics,int m_sensor_main_id)
+scene::chart::Board::Config Chart::getConfig(const std::vector<lib::object::ChartItem> &v_chart_items, const std::vector<lib::object::WeatherItem> &v_weather_items, scene::menu::Analytics* p_scene_analytics, int m_sensor_main_id, bool is_empty)
 {
 
     lib::object::LocationItem location_item =
     lib::network::DataStoreSingleton::getInstance()->getLocationItem(m_sensor_main_id);
     
     scene::chart::Board::Config config;
-    config.chart_size = Size(500, 400);
-    config.chart_offset = Point(100, 100 + 100);
+    if (scene::layout::helper::Display::IsPortlate())
+    {
+        config.board_size = Size(640, 400);
+        config.chart_offset = Point(40, 200);
+    } else {
+        config.board_size = Size(1280, 400);
+        config.chart_offset = Point(100, 100);
+    }
     config.v_chart_items = v_chart_items;
     config.v_weather_items = v_weather_items;
     config.start_point = p_scene_analytics->getIntervalStart();
@@ -105,17 +111,31 @@ cocos2d::ui::Widget* Chart::prepareChart(scene::menu::Analytics* p_scene_analyti
     config.horizontal_line = 4;
     config.horizontal_unit = "time";
     config.conversion_rate = location_item.conversion_rate;
-    if ((location_item.yesterday_average_value / location_item.dre2cpm) < 0.4f)
+    float avg = (location_item.yesterday_average_value / location_item.dre2cpm) ;
+    if (avg < 0.3f)
     {
         config.vertical_top_value = 0.5f;
-    } else {
+    } else if(avg < 1.0f) {
         config.vertical_top_value = 1.0f;
+    } else {
+        config.vertical_top_value = 5.0f;
     }
+    config.is_empty = is_empty;
     
     return config;
     
 }
-    
+
+    void Chart::drawDottedLine(cocos2d::DrawNode* p_node, float line_width, float line_interval, Point start_point, Point end_point, float interval, cocos2d::Color4F color) {
+
+        Vec2 current_vec2;
+        while(true)
+        {
+            
+            p_node->drawSegment(start_point, end_point, 1.0f, color);
+            break;
+        }
+    }
 }
 }
 }

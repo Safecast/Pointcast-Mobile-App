@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1516DED61EA9DB120063FBFC /* pointcast.asset.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1516DED51EA9DB120063FBFC /* pointcast.asset.xcassets */; };
+		1519752C1E97E38500A57202 /* RoundedBoxSprite.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1519752B1E97E38500A57202 /* RoundedBoxSprite.cpp */; };
 		156BB8721E48A43000EDBBAF /* AppDelegate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 156BB8271E48A43000EDBBAF /* AppDelegate.cpp */; };
 		156BB8731E48A43000EDBBAF /* CCActivityIndicator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 156BB82B1E48A43000EDBBAF /* CCActivityIndicator.cpp */; };
 		156BB8741E48A43000EDBBAF /* CCLayerPanZoom.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 156BB82D1E48A43000EDBBAF /* CCLayerPanZoom.cpp */; };
@@ -152,6 +154,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1516DED51EA9DB120063FBFC /* pointcast.asset.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = pointcast.asset.xcassets; path = ios/pointcast.asset.xcassets; sourceTree = "<group>"; };
+		151975291E97E32B00A57202 /* RoundedBoxSprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RoundedBoxSprite.h; sourceTree = "<group>"; };
+		1519752B1E97E38500A57202 /* RoundedBoxSprite.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RoundedBoxSprite.cpp; sourceTree = "<group>"; };
 		156BB8271E48A43000EDBBAF /* AppDelegate.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AppDelegate.cpp; sourceTree = "<group>"; };
 		156BB8281E48A43000EDBBAF /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		156BB82B1E48A43000EDBBAF /* CCActivityIndicator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCActivityIndicator.cpp; sourceTree = "<group>"; };
@@ -391,6 +396,8 @@
 				156BB82F1E48A43000EDBBAF /* picojson.h */,
 				156BB8301E48A43000EDBBAF /* SpriteBlur.cpp */,
 				156BB8311E48A43000EDBBAF /* SpriteBlur.h */,
+				151975291E97E32B00A57202 /* RoundedBoxSprite.h */,
+				1519752B1E97E38500A57202 /* RoundedBoxSprite.cpp */,
 			);
 			path = external;
 			sourceTree = "<group>";
@@ -585,6 +592,7 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
+				1516DED51EA9DB120063FBFC /* pointcast.asset.xcassets */,
 				156BB88E1E48A7BC00EDBBAF /* lib */,
 				46880B8319C43A87006E1F66 /* Classes */,
 				46880B7519C43A67006E1F66 /* Resources */,
@@ -845,6 +853,7 @@
 				46880B7D19C43A67006E1F66 /* CloseSelected.png in Resources */,
 				5087E77D17EB970100C73F5D /* Default-568h@2x.png in Resources */,
 				5087E78517EB970100C73F5D /* Icon-72.png in Resources */,
+				1516DED61EA9DB120063FBFC /* pointcast.asset.xcassets in Resources */,
 				521A8E6519F0C34300D177D7 /* Default-736h@3x.png in Resources */,
 				521A8EA919F11F5000D177D7 /* fonts in Resources */,
 				50EF62A317ECD613001EB2F8 /* Icon-50.png in Resources */,
@@ -1011,6 +1020,7 @@
 				156BB8861E48A43000EDBBAF /* Analytics.cpp in Sources */,
 				156BB8761E48A43000EDBBAF /* Pinch.cpp in Sources */,
 				503AE10217EB989F00D1A890 /* RootViewController.mm in Sources */,
+				1519752C1E97E38500A57202 /* RoundedBoxSprite.cpp in Sources */,
 				156BB8781E48A43000EDBBAF /* DataStoreSingleton.cpp in Sources */,
 				156BB8791E48A43000EDBBAF /* LocationItem.cpp in Sources */,
 				156BB87E1E48A43000EDBBAF /* Chart.cpp in Sources */,
@@ -1055,6 +1065,8 @@
 			baseConfigurationReference = C1443D3B4B5641563A31AF30 /* Pods-Pointcast-Mobile-App-mobile.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
 				DEVELOPMENT_TEAM = 7S5AAN8833;
@@ -1090,7 +1102,7 @@
 				);
 				SDKROOT = iphoneos;
 				STRIP_PNG_TEXT = NO;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				USER_HEADER_SEARCH_PATHS = "$(_COCOS_HEADER_IOS_BEGIN) $(_COCOS_HEADER_IOS_END)";
 				VALID_ARCHS = "arm64 armv7";
 			};
@@ -1101,6 +1113,8 @@
 			baseConfigurationReference = 3C5F8C75D9362ED3470F60B6 /* Pods-Pointcast-Mobile-App-mobile.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
 				DEVELOPMENT_TEAM = 7S5AAN8833;
@@ -1135,7 +1149,7 @@
 				);
 				SDKROOT = iphoneos;
 				STRIP_PNG_TEXT = NO;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				USER_HEADER_SEARCH_PATHS = "$(_COCOS_HEADER_IOS_BEGIN) $(_COCOS_HEADER_IOS_END)";
 				VALID_ARCHS = "arm64 armv7";
 			};

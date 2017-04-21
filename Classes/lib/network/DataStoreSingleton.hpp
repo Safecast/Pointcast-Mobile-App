@@ -47,8 +47,12 @@ private:
   /** last updated at */
   time_t last_updated_at;
 
+  /** url endpoint */
   static const std::string end_point;
 
+  /** cache dir */
+  static const std::string CACHE_DIR;
+    
   /** callback object */
   cocos2d::Node *_p_callbackObject;
 
@@ -57,6 +61,9 @@ private:
 
   // singleton instance
   static DataStoreSingleton *_p_instance;
+    
+  // callback function
+  cocos2d::CallFunc* _p_store_callback;
 
   // data store
   std::map<E_Http_Request_Id, std::string> _p_m_http_response_data;
@@ -65,7 +72,7 @@ private:
   std::map<int, lib::object::LocationItem> _p_m_http_sensor_main_response_data;
 
   // analytics data store
-  std::map<int, std::string> _p_m_http_analytics_response_data;
+  std::map<std::string, std::string> _p_m_http_analytics_response_data;
 
   // store request m_sensor_main_id
   int _request_m_sensor_main_id;
@@ -100,8 +107,18 @@ public:
 
   std::string getResponseData(E_Http_Request_Id http_request_id);
 
-  std::string getResponseAnalyticsData(int m_sensor_main_id);
+  std::string getResponseAnalyticsData(int m_sensor_main_id, time_t start_time, time_t end_time);
+  
+  std::string getResponseAnalyticsDataFromCache(int m_sensor_main_id, time_t start_time, time_t end_time);
+    
+  std::string getAnalyticsCacheKey(int m_sensor_main_id, time_t start_time, time_t end_time);
+    
+  std::string getAnalyticsCacheFilePath(std::string cache_key);
 
+  void storeAnalyticsData(int m_sensor_main_id, time_t start_time, time_t end_time, bool force_store, cocos2d::CallFunc* callback);
+  
+  bool hasAnalyticsData(std::string cache_key);
+  
   lib::object::LocationItem getLocationItem(int m_sensor_main_id);
 
   std::map<int, lib::object::LocationItem> getLocationItemAll(void) const;

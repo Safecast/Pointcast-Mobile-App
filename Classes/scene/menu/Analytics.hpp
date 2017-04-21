@@ -9,11 +9,14 @@
 #ifndef Analytics_hpp
 #define Analytics_hpp
 #include <stdio.h>
+#include <map>
 #include <vector>
+
 #include "extensions/cocos-ext.h"
 
 #include "lib/object/ChartItem.hpp"
 #include "lib/object/WeatherItem.hpp"
+#include "lib/external/RoundedBoxSprite.h"
 #include "network/HttpClient.h"
 #include "scene/base/AbstructScene.hpp"
 #include "scene/Main.hpp"
@@ -45,9 +48,19 @@ private:
 
   cocos2d::ui::PageView* _p_page_view;
 
-  cocos2d::ui::Widget*  _p_chart_nodes;
+  std::map<std::string, cocos2d::ui::Widget*> _p_chart_nodes;
+    
+  RoundedBoxSprite* _prev_button;
+
+  RoundedBoxSprite* _next_button;
+    
+  cocos2d::ui::Widget* _p_empty_page;
+    
+  std::string _current_cache_key;
   
   scene::Main* _p_scene_main;
+    
+  cocos2d::CallFunc* _p_store_callback;
 
   float _current_scale;
     
@@ -76,8 +89,12 @@ public:
   void initFixedContents();
  
   void initVariableContents();
+
+  void drawChart();
     
   void initChartInterval();
+  
+  void shiftInterval(int diff);
 
   virtual void onEnter();
     
@@ -91,8 +108,11 @@ public:
 
   void onCallbackPointcastAnalytics(cocos2d::network::HttpClient *sender,
                                     cocos2d::network::HttpResponse *response);
+  void onCallbackDataStore();
   
   void pageViewEvent(cocos2d::Ref * psender, cocos2d::ui::PageView::EventType type);
+ 
+  void changePage(ssize_t index);
 
 /*
   cocos2d::ui::Widget *prepareChartBoard(

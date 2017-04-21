@@ -24,6 +24,7 @@
 #include "lib/native/Util.h"
 
 #include "lib/network/DataStoreSingleton.hpp"
+
 #include "scene/Main.hpp"
 #include "scene/chart/Board.hpp"
 #include "scene/layout/helper/Contents.hpp"
@@ -34,9 +35,9 @@
 #include "scene/menu/Sensors.hpp"
 
 // #define CHART_WIDTH 560.0f
-#define CHART_WIDTH 1200.0f
+#define CHART_WIDTH 600.0f
 #define CHART_HEIGHT 400.0f
-#define CHART_OFFSET_X 100.0f
+#define CHART_OFFSET_X 20.0f
 #define CHART_OFFSET_Y 20.0f
 #define LABEL_OFFSET_X -20.0f
 #define LABEL_OFFSET_Y -20.0f
@@ -59,8 +60,6 @@ bool Analytics::init() {
     }
     
     this->_p_scroll_view = nullptr;
-    this->_p_chart_nodes = nullptr;
-    this->_p_scroll_view = nullptr;
     this->_current_scale = 1.0f;
     
     this->scheduleUpdate();
@@ -77,6 +76,8 @@ bool Analytics::init() {
         CCLOG("イベント受け取ったよ > %s",event->getEventName().c_str());
         this->onDidOrientation();
     });
+    
+    this->_p_store_callback = CallFunc::create(CC_CALLBACK_0(Analytics::onCallbackDataStore, this));
     
     this->_pinch_listener = EventListenerTouchAllAtOnce::create();
     this->_pinch_listener->setEnabled(true);
@@ -162,64 +163,126 @@ void Analytics::initFixedContents()
             }
         });
 
-    // scroll view
-    // this->_p_scroll_view = static_cast<ui::ScrollView *>(
-    //                              this->_p_panel_background->getChildByName("scrollView"));
-
     this->_p_page_view = static_cast<ui::PageView *>(
         this->_p_panel_background->getChildByName("pageView"));
     
-    //    void addEventListener(const ccPageViewCallback& callback);
-    //     typedef std::function<void(Ref*, EventType)> ccPageViewCallback;
-
     this->_p_page_view->addEventListener(CC_CALLBACK_2(Analytics::pageViewEvent, this));
+    
+    
+    // generate empty page
+    this->_p_empty_page = cocos2d::ui::Widget::create();
+    this->_p_page_view->insertPage(this->_p_empty_page, 0);
     
     this->setFavoriteButtonState();
     
     cocos2d::log("size w %f h %f x %f y %f", this->getContentSize().width, this->getContentSize().height, this->getPositionX(), this->getPositionY());
     
     this->addChild(this->_p_contents);
+
     
-    auto p_empty_page = cocos2d::ui::Widget::create();
-    this->_p_page_view->insertPage(p_empty_page, 0);
+    /*
+     
+    this->_prev_button = RoundedBoxSprite::create();
+    std::string prev_str = "Prev";
+    auto prev_button_size = Size(200, 60);
+    this->_prev_button->setParam(prev_button_size, Color3B(111,201,88), 10, 10, prev_str, Color3B::WHITE, 24);
+    this->_prev_button->setPosition(100, 200);
+    this->_prev_button->setContentSize(prev_button_size);
+    this->_prev_button->setAnchorPoint(Vec2(0.0f, 0.5f));
+    
+    this->_next_button = RoundedBoxSprite::create();
+    std::string next_str = "Next";
+    auto next_button_size = Size(200, 60);
+    this->_next_button->setParam(next_button_size, Color3B(111,201,88), 10, 10, next_str, Color3B::WHITE, 24);
+    this->_next_button->setPosition(640, 200);
+    this->_next_button->setContentSize(next_button_size);
+    this->_next_button->setAnchorPoint(Vec2(0.5f, 0.5f));
+    
+    
+    this->_p_contents->addChild(this->_prev_button);
+    this->_p_contents->addChild(this->_next_button);
+    
+    
+    //イベントリスナーを作成
+    auto listener = EventListenerTouchOneByOne::create();
+    
+    //タッチ開始
+    listener->onTouchBegan = [this](Touch* touch, Event* event){
+        Point touchPoint = touch->getLocation();
+        if (this->_prev_button->getBoundingBox().containsPoint(touchPoint))
+        {
+            CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("res/sound/se/click.mp3");
+            ssize_t idx = this->_p_page_view->getCurrentPageIndex() - 1;
+            this->_p_page_view->setCurrentPageIndex(idx - 1);
+            this->changePage(idx);
+
+            return true;
+        }
+        
+        if (this->_next_button->getBoundingBox().containsPoint(touchPoint))
+        {
+            CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("res/sound/se/click.mp3");
+            ssize_t idx = this->_p_page_view->getCurrentPageIndex() + 1;
+            this->_p_page_view->setCurrentPageIndex(idx);
+            this->changePage(idx);
+            
+            return true;
+        }
+
+        return false;
+    };
+    
+    //イベントリスナーを登録
+    this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this->_prev_button);
+    // this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this->_next_button);
+    */
+    
 }
     
 void Analytics::initVariableContents()
 {
+
+    // draw header
+    auto p_header =  scene::layout::helper::Chart::prepareHeader(this, this->_m_sensor_main_id);
+    this->addChild(p_header);
+    
+    // draw chart
+    this->drawChart();
+    
+    // detach wait animation
+    this->_p_scene_main->detachWaitAnimation();
+    
+    this->_p_page_view->setCurrentPageIndex(1);
+}
+
+void Analytics::drawChart()
+{
     // prepare chart data
     lib::network::DataStoreSingleton *p_data_store_singleton =
-                    lib::network::DataStoreSingleton::getInstance();
+                        lib::network::DataStoreSingleton::getInstance();
+    
     const std::string analytics_data =
-        p_data_store_singleton->getResponseAnalyticsData(this->_m_sensor_main_id);
+                        p_data_store_singleton->getResponseAnalyticsData(this->_m_sensor_main_id, this->_interval_start, this->_interval_end);
+    
+    this->_current_cache_key = p_data_store_singleton->getAnalyticsCacheKey(this->_m_sensor_main_id, this->_interval_start, this->_interval_end);
     
     std::vector<lib::object::ChartItem> v_chart_items;
     std::vector<lib::object::WeatherItem> v_weather_items;
-    
+
     if (analytics_data.length() > 0)
     {
         v_chart_items = this->getChartData(analytics_data);
         v_weather_items = this->getWeatherData(analytics_data);
     }
     
-    // draw header
-    auto p_header =  scene::layout::helper::Chart::prepareHeader(this, this->_m_sensor_main_id);
-    this->addChild(p_header);
-    
     // draw chart
-    this->_p_chart_nodes = scene::layout::helper::Chart::prepareChart(this, this->_m_sensor_main_id, v_chart_items, v_weather_items);
-    auto test = cocos2d::ui::Widget::create();
-    // p_chart = scene::layout::helper::Chart::prepareChart(this, this->_m_sensor_main_id, v_chart_items, v_weather_items);
-    // this->_p_scroll_view->setInnerContainerSize(this->_p_chart_nodes->getContentSize());
-    // this->_p_scroll_view->addChild(this->_p_chart_nodes);
+    scene::layout::helper::Chart::prepareChart(this->_p_empty_page, this, this->_m_sensor_main_id, v_chart_items, v_weather_items);
+    this->_p_chart_nodes[this->_current_cache_key] = this->_p_empty_page;
     
-    this->_p_chart_nodes->setScale(this->_current_scale);
-    
-    this->_p_page_view->addPage(this->_p_chart_nodes);
-    cocos2d::log("p_page_preview %zd", this->_p_page_view->getChildrenCount());
-    this->_p_page_view->setCurrentPageIndex(this->_p_page_view->getChildrenCount() - 1);
-    
-    // detach wait animation
-    this->_p_scene_main->detachWaitAnimation();
+    // generate empty page
+    this->_p_empty_page = cocos2d::ui::Widget::create();
+    scene::layout::helper::Chart::prepareChart(this->_p_empty_page, this, this->_m_sensor_main_id, v_chart_items, v_weather_items, true);
+    this->_p_page_view->insertPage(this->_p_empty_page, 0);
 
 }
 
@@ -245,8 +308,10 @@ void Analytics::onEnter() {
   p_data_store_singleton->setResponseCallback(
       this, (cocos2d::network::SEL_HttpResponse)(
                 &Analytics::onCallbackPointcastAnalytics));
-    
-  p_data_store_singleton->requestPointcastAnalytics(this->_m_sensor_main_id, this->_interval_start, this->_interval_end);
+  
+  this->_p_store_callback->retain();
+  this->attachWaitAnimation();
+  p_data_store_singleton->storeAnalyticsData(this->_m_sensor_main_id, this->_interval_start, this->_interval_end, true, this->_p_store_callback);
     
   // enable rotate
   lib::native::Util::setRotateEnable(true);
@@ -277,14 +342,18 @@ void Analytics::close() {
   lib::native::Util::setRotateEnable(false);
 }
 
+void Analytics::onCallbackDataStore()
+{
+    this->initVariableContents();
+    this->detachWaitAnimation();
+}
+    
 void Analytics::onCallbackPointcastAnalytics(
     cocos2d::network::HttpClient *sender,
     cocos2d::network::HttpResponse *response) {
   CCLOG("onCallbackPointcastAnalytics");
-
     
   this->initVariableContents();
-    
   
 }
 
@@ -439,10 +508,14 @@ void Analytics::initChartInterval()
     pnow->tm_min = 0;
     pnow->tm_sec = 0;
     
-    this->_interval_end = mktime(pnow);
-    // interval 1 day
-    this->_interval_start = this->_interval_end - 86400;
-    
+    this->_interval_start = mktime(pnow);
+    this->_interval_end = this->_interval_start + 86400;
+}
+
+void Analytics::shiftInterval(int diff)
+{
+    this->_interval_start += diff;
+    this->_interval_end += diff;
 }
     
 time_t Analytics::getIntervalStart()
@@ -480,6 +553,21 @@ void Analytics::onTouchesEnded(const std::vector<cocos2d::Touch*>& touches, coco
     {
         this->_pinch_gesture->init();
     }
+    
+    // prev button
+    for(int i=0; i < touches.size(); i++){
+        //targetBox : タッチされたスプライトの領域
+        Rect target_box = this->_prev_button->getBoundingBox();
+        
+        //touchPoint : タッチされた場所
+        Point touch_point = Vec2(touches.at(i)->getLocationInView().x, touches.at(i)->getLocationInView().y);
+        
+        //touchPointがtargetBoxの中に含まれているか判定
+        if (target_box.containsPoint(touch_point))
+        {
+            log("tapped!!");
+        }
+    }
 }
 
 void Analytics::onTouchesCancelled(const std::vector<cocos2d::Touch*>& touches, cocos2d::Event *pEvent)
@@ -503,8 +591,8 @@ bool Analytics::isGesture(const std::vector<cocos2d::Touch*>& touches, cocos2d::
 void Analytics::update(float delta){
   
     
-    
-    if (this->_p_chart_nodes != nullptr)
+    /*
+    if (this->_p_chart_nodes[this->_current_cache_key] != nullptr)
     {
         if (this->_pinch_gesture->isChanged())
         {
@@ -512,19 +600,19 @@ void Analytics::update(float delta){
             if (scale == 0.0f) return;
             cocos2d::log("set chart scale %f", scale);
             this->_current_scale = scale;
-            this->_p_chart_nodes->setScale(this->_current_scale);
-            this->_p_scroll_view->setInnerContainerSize(this->_p_chart_nodes->getBoundingBox().size);
-            this->_p_chart_nodes->setPositionY(0.0f);
+            this->_p_chart_nodes[this->_current_cache_key]->setScale(this->_current_scale);
+            this->_p_scroll_view->setInnerContainerSize(this->_p_chart_nodes[this->_current_cache_key]->getBoundingBox().size);
+            this->_p_chart_nodes[this->_current_cache_key]->setPositionY(0.0f);
         }
     }
+     */
 }
     
 void Analytics::updateChartScale()
 {
-    this->_p_chart_nodes->setScale(this->_current_scale);
-    cocos2d::log("w %f h %f x %f y %f",  this->_p_chart_nodes->getBoundingBox().size.width, this->_p_chart_nodes->getBoundingBox().size.height, this->_p_chart_nodes->getPositionX(), this->_p_chart_nodes->getPositionY());
-    this->_p_scroll_view->setInnerContainerSize(this->_p_chart_nodes->getBoundingBox().size);
-    this->_p_chart_nodes->setPositionY(0.0f);
+    this->_p_chart_nodes[this->_current_cache_key]->setScale(this->_current_scale);
+    this->_p_scroll_view->setInnerContainerSize(this->_p_chart_nodes[this->_current_cache_key]->getBoundingBox().size);
+    this->_p_chart_nodes[this->_current_cache_key]->setPositionY(0.0f);
 }
     
 void Analytics::onExit()
@@ -538,7 +626,26 @@ void Analytics::onExit()
     
 void Analytics::pageViewEvent(cocos2d::Ref * pSender, cocos2d::ui::PageView::EventType type)
 {
-    cocos2d::log("Analytics::pageViewEvent");
+    auto p_page_view = static_cast<cocos2d::ui::PageView*>(pSender);
+    ssize_t current_page_index = p_page_view->getCurrentPageIndex();
+    this->changePage(current_page_index);
+}
+    
+void Analytics::changePage(ssize_t index)
+{
+    if (index == 0)
+    {
+        // 日付を1日戻す
+        this->shiftInterval(-1 * 86400);
+        
+        // ページがないはずなので作る
+        lib::network::DataStoreSingleton *p_data_store_singleton =
+        lib::network::DataStoreSingleton::getInstance();
+        this->_p_store_callback->retain();
+        this->attachWaitAnimation();
+        p_data_store_singleton->storeAnalyticsData(this->_m_sensor_main_id, this->_interval_start, this->_interval_end, true,this->_p_store_callback);
+    }
+
 }
 
 }
