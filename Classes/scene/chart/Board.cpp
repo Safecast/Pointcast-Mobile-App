@@ -77,10 +77,11 @@ void Board::drawFrame() {
                             this->_config.start_point;
   
     double x = this->getX(point_time);
+    float line_weight = (i==0 || i == this->_config.vertical_line) ? 1.5f : 0.5f;
     this->drawSegment(Point(x, this->_config.chart_offset.y), // start
                       Point(x, this->_config.chart_offset.y +
                                    this->getChartSize().height), // end
-                      0.5f,                                          // bold
+                      line_weight,                                          // bold
                       Color4F::GRAY                                  // color
                       );
   }
@@ -138,7 +139,7 @@ void Board::drawLabel() {
   time_t interval =
       this->_config.end_point - this->_config.start_point;
   for (int i = 0; i <= this->_config.vertical_line; i++) {
-    if ((i % 2 == 1 && i != this->_config.vertical_line)) {
+    if ((i % 2 == 1 && i != this->_config.vertical_line) || i == this->_config.vertical_line) {
       continue;
     }
     time_t point_time =

@@ -177,11 +177,16 @@ void Analytics::initFixedContents()
     
     cocos2d::log("size w %f h %f x %f y %f", this->getContentSize().width, this->getContentSize().height, this->getPositionX(), this->getPositionY());
     
+    this->addChild(this->_p_contents);
+
+    
+    /*
+     
     this->_prev_button = RoundedBoxSprite::create();
     std::string prev_str = "Prev";
     auto prev_button_size = Size(200, 60);
     this->_prev_button->setParam(prev_button_size, Color3B(111,201,88), 10, 10, prev_str, Color3B::WHITE, 24);
-    this->_prev_button->setPosition(100, 250);
+    this->_prev_button->setPosition(100, 200);
     this->_prev_button->setContentSize(prev_button_size);
     this->_prev_button->setAnchorPoint(Vec2(0.0f, 0.5f));
     
@@ -189,7 +194,7 @@ void Analytics::initFixedContents()
     std::string next_str = "Next";
     auto next_button_size = Size(200, 60);
     this->_next_button->setParam(next_button_size, Color3B(111,201,88), 10, 10, next_str, Color3B::WHITE, 24);
-    this->_next_button->setPosition(640, 250);
+    this->_next_button->setPosition(640, 200);
     this->_next_button->setContentSize(next_button_size);
     this->_next_button->setAnchorPoint(Vec2(0.5f, 0.5f));
     
@@ -197,8 +202,7 @@ void Analytics::initFixedContents()
     this->_p_contents->addChild(this->_prev_button);
     this->_p_contents->addChild(this->_next_button);
     
-    this->addChild(this->_p_contents);
-
+    
     //イベントリスナーを作成
     auto listener = EventListenerTouchOneByOne::create();
     
@@ -231,6 +235,7 @@ void Analytics::initFixedContents()
     //イベントリスナーを登録
     this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this->_prev_button);
     // this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this->_next_button);
+    */
     
 }
     
