@@ -126,20 +126,20 @@ void Sort::close(int sort_id, bool has_desc) {
 
 std::string Sort::getLableName(int sort_id) {
   switch (sort_id) {
-  case scene::menu::Sensors::Sort_Id_Device_Id: {
-    return "Device Id";
-    break;
-  }
   case scene::menu::Sensors::Sort_Id_μSv_Hour: {
-    return "μSv/hour";
+      return "Radiation Value";
+      break;
+  }
+  case scene::menu::Sensors::Sort_Id_Device_Id: {
+    return "Device ID";
     break;
   }
   case scene::menu::Sensors::Sort_Id_Near_Point: {
-    return "Near Point";
+    return "Location Distance";
     break;
   }
   case scene::menu::Sensors::Sort_Id_Active_Inactive: {
-    return "Active / Inactive";
+    return "Sensor Status";
     break;
   }
 

@@ -45,6 +45,8 @@ public:
   enum Zorders {
 
     Zorders_Main_Contents = 1,
+      
+    Zorders_Analytics_Dialog,
 
     Zorders_Footer,
 
