@@ -179,9 +179,6 @@ void Analytics::initFixedContents()
     
     this->addChild(this->_p_contents);
 
-    
-    /*
-     
     this->_prev_button = RoundedBoxSprite::create();
     std::string prev_str = "Prev";
     auto prev_button_size = Size(200, 60);
@@ -197,7 +194,6 @@ void Analytics::initFixedContents()
     this->_next_button->setPosition(640, 200);
     this->_next_button->setContentSize(next_button_size);
     this->_next_button->setAnchorPoint(Vec2(0.5f, 0.5f));
-    
     
     this->_p_contents->addChild(this->_prev_button);
     this->_p_contents->addChild(this->_next_button);
@@ -235,7 +231,6 @@ void Analytics::initFixedContents()
     //イベントリスナーを登録
     this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this->_prev_button);
     // this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this->_next_button);
-    */
     
 }
     
@@ -280,9 +275,7 @@ void Analytics::drawChart()
     this->_p_chart_nodes[this->_current_cache_key] = this->_p_empty_page;
     
     // generate empty page
-    this->_p_empty_page = cocos2d::ui::Widget::create();
-    scene::layout::helper::Chart::prepareChart(this->_p_empty_page, this, this->_m_sensor_main_id, v_chart_items, v_weather_items, true);
-    this->_p_page_view->insertPage(this->_p_empty_page, 0);
+    this->
 
 }
 
