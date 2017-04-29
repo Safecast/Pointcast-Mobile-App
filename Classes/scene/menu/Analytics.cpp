@@ -59,7 +59,7 @@ bool Analytics::init() {
         return false;
     }
     
-    this->_p_scroll_view = nullptr;
+    this->_p_chart_scroll_view = nullptr;
     this->_current_scale = 1.0f;
     
     this->scheduleUpdate();
@@ -163,15 +163,9 @@ void Analytics::initFixedContents()
             }
         });
 
-    this->_p_page_view = static_cast<ui::PageView *>(
-        this->_p_panel_background->getChildByName("pageView"));
+    this->_p_chart_scroll_view = static_cast<ui::PageView *>(
+        this->_p_panel_background->getChildByName("chartScrollView"));
     
-    this->_p_page_view->addEventListener(CC_CALLBACK_2(Analytics::pageViewEvent, this));
-    
-    
-    // generate empty page
-    this->_p_empty_page = cocos2d::ui::Widget::create();
-    this->_p_page_view->insertPage(this->_p_empty_page, 0);
     
     this->setFavoriteButtonState();
     
@@ -208,9 +202,9 @@ void Analytics::initFixedContents()
         if (this->_prev_button->getBoundingBox().containsPoint(touchPoint))
         {
             CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("res/sound/se/click.mp3");
-            ssize_t idx = this->_p_page_view->getCurrentPageIndex() - 1;
-            this->_p_page_view->setCurrentPageIndex(idx - 1);
-            this->changePage(idx);
+            // ssize_t idx = this->_p_page_view->getCurrentPageIndex() - 1;
+            // this->_p_page_view->setCurrentPageIndex(idx - 1);
+            // this->changePage(idx);
 
             return true;
         }
@@ -218,9 +212,9 @@ void Analytics::initFixedContents()
         if (this->_next_button->getBoundingBox().containsPoint(touchPoint))
         {
             CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("res/sound/se/click.mp3");
-            ssize_t idx = this->_p_page_view->getCurrentPageIndex() + 1;
-            this->_p_page_view->setCurrentPageIndex(idx);
-            this->changePage(idx);
+            // ssize_t idx = this->_p_page_view->getCurrentPageIndex() + 1;
+            // this->_p_page_view->setCurrentPageIndex(idx);
+            // this->changePage(idx);
             
             return true;
         }
@@ -247,7 +241,6 @@ void Analytics::initVariableContents()
     // detach wait animation
     this->_p_scene_main->detachWaitAnimation();
     
-    this->_p_page_view->setCurrentPageIndex(1);
 }
 
 void Analytics::drawChart()
@@ -271,12 +264,13 @@ void Analytics::drawChart()
     }
     
     // draw chart
-    scene::layout::helper::Chart::prepareChart(this->_p_empty_page, this, this->_m_sensor_main_id, v_chart_items, v_weather_items);
-    this->_p_chart_nodes[this->_current_cache_key] = this->_p_empty_page;
+    if (this->_p_chart_widget == nullptr) {
+        this->_p_chart_widget = cocos2d::ui::Widget::create();
+    }
+    scene::layout::helper::Chart::prepareChart(this->_p_chart_widget, this, this->_m_sensor_main_id, v_chart_items, v_weather_items);
     
-    // generate empty page
-    this->
-
+    this->_p_chart_scroll_view->addChild(this->_p_chart_widget);
+    
 }
 
 void Analytics::onEnter() {
@@ -606,7 +600,7 @@ void Analytics::update(float delta){
 void Analytics::updateChartScale()
 {
     this->_p_chart_nodes[this->_current_cache_key]->setScale(this->_current_scale);
-    this->_p_scroll_view->setInnerContainerSize(this->_p_chart_nodes[this->_current_cache_key]->getBoundingBox().size);
+    this->_p_chart_scroll_view->setInnerContainerSize(this->_p_chart_nodes[this->_current_cache_key]->getBoundingBox().size);
     this->_p_chart_nodes[this->_current_cache_key]->setPositionY(0.0f);
 }
     

@@ -44,17 +44,15 @@ private:
     
   cocos2d::ui::Layout *_p_panel_background;
 
-  cocos2d::ui::ScrollView *_p_scroll_view;
-
-  cocos2d::ui::PageView* _p_page_view;
+  cocos2d::ui::ScrollView *_p_chart_scroll_view;
+    
+  cocos2d::ui::Widget* _p_chart_widget;
 
   std::map<std::string, cocos2d::ui::Widget*> _p_chart_nodes;
     
   RoundedBoxSprite* _prev_button;
 
   RoundedBoxSprite* _next_button;
-    
-  cocos2d::ui::Widget* _p_empty_page;
     
   std::string _current_cache_key;
   

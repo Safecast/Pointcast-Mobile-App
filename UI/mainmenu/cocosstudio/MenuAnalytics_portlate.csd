@@ -56,7 +56,7 @@
                 <OutlineColor A="255" R="255" G="0" B="0" />
                 <ShadowColor A="255" R="110" G="110" B="110" />
               </AbstractNodeData>
-              <AbstractNodeData Name="pageView" ActionTag="1629394628" Tag="27" IconVisible="False" TopMargin="336.0000" BottomMargin="100.0000" TouchEnable="True" ClipAble="False" BackColorAlpha="102" ComboBoxIndex="1" ColorAngle="90.0000" Scale9Width="1" Scale9Height="1" ScrollDirectionType="0" ctype="PageViewObjectData">
+              <AbstractNodeData Name="chartScrollView" ActionTag="-604063375" Tag="71" IconVisible="False" TopMargin="336.0000" BottomMargin="100.0000" TouchEnable="True" ClipAble="False" BackColorAlpha="102" ComboBoxIndex="1" ColorAngle="90.0000" ScrollDirectionType="Vertical" ctype="ScrollViewObjectData">
                 <Size X="640.0000" Y="700.0000" />
                 <AnchorPoint />
                 <Position Y="100.0000" />
@@ -64,10 +64,11 @@
                 <CColor A="255" R="255" G="255" B="255" />
                 <PrePosition Y="0.0880" />
                 <PreSize X="1.0000" Y="0.6162" />
-                <SingleColor A="255" R="255" G="255" B="255" />
-                <FirstColor A="255" R="150" G="150" B="100" />
+                <SingleColor A="255" R="255" G="150" B="100" />
+                <FirstColor A="255" R="255" G="150" B="100" />
                 <EndColor A="255" R="255" G="255" B="255" />
                 <ColorVector ScaleY="1.0000" />
+                <InnerNodeSize Width="640" Height="700" />
               </AbstractNodeData>
             </Children>
             <AnchorPoint />
