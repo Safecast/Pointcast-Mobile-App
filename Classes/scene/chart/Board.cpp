@@ -139,7 +139,7 @@ void Board::drawLabel() {
   time_t interval =
       this->_config.end_point - this->_config.start_point;
   for (int i = 0; i <= this->_config.vertical_line; i++) {
-    if ((i % 2 == 1 && i != this->_config.vertical_line) || i == this->_config.vertical_line) {
+    if (i % 2 == 1) {
       continue;
     }
     time_t point_time =
@@ -157,10 +157,11 @@ void Board::drawLabel() {
   }
 
   // label of horizontal
-  Color3B unit_color = Color3B(30, 144, 255);
+  Color3B unit_color = Color3B(0, 0, 0);
   double last_x, last_y;
   for (int i = 0; i <= this->_config.horizontal_line; i++) {
-    if (i != this->_config.horizontal_line / 2) {
+    // 条件にハマったらラベル書かない
+    if (i % 2 == 1 || i == 0) {
       continue;
     }
 
