@@ -92,7 +92,7 @@ public:
     
   void initChartInterval();
   
-  void shiftInterval(int diff);
+  void shiftIntervalSec(int diff);
 
   virtual void onEnter();
     
@@ -110,7 +110,7 @@ public:
   
   void pageViewEvent(cocos2d::Ref * psender, cocos2d::ui::PageView::EventType type);
  
-  void changePage(ssize_t index);
+  void changePage(int index);
 
 /*
   cocos2d::ui::Widget *prepareChartBoard(
