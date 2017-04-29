@@ -174,8 +174,8 @@ void Analytics::initFixedContents()
     this->addChild(this->_p_contents);
 
     // Prev,Nextボタンにリスナーをアタッチ
-    auto NextButton = this->_p_panel_background->getChildByName<ui::Button *>("NextButton");
-    NextButton->addTouchEventListener(
+    this->_p_next_button = this->_p_panel_background->getChildByName<ui::Button *>("NextButton");
+    this->_p_next_button->addTouchEventListener(
         [this](Ref *sender, ui::Widget::TouchEventType type) {
           CCLOG("NextButton touchend %d", type);
           if (type == ui::Widget::TouchEventType::ENDED) {
@@ -185,8 +185,8 @@ void Analytics::initFixedContents()
               this->changePage(diff_days);
           }
         });
-    auto PrevButton = this->_p_panel_background->getChildByName<ui::Button *>("PrevButton");
-    PrevButton->addTouchEventListener(
+    this->_p_prev_button = this->_p_panel_background->getChildByName<ui::Button *>("PrevButton");
+    this->_p_prev_button->addTouchEventListener(
         [this](Ref *sender, ui::Widget::TouchEventType type) {
           CCLOG("NextButton touchend %d", type);
           if (type == ui::Widget::TouchEventType::ENDED) {
@@ -305,6 +305,11 @@ void Analytics::drawChart()
     scene::layout::helper::Chart::prepareChart(this->_p_chart_widget, this, this->_m_sensor_main_id, v_chart_items, v_weather_items);
     
     this->_p_chart_scroll_view->addChild(this->_p_chart_widget);
+    
+    // 表示が今日なら、Nextを無効化
+    time_t now = time(NULL);
+    bool button_state = (now > this->_interval_start && now < this->_interval_end) ? false : true;
+    this->_p_next_button->setEnabled(button_state);
     
 }
 

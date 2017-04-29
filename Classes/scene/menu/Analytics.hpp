@@ -47,7 +47,11 @@ private:
   cocos2d::ui::ScrollView *_p_chart_scroll_view;
     
   cocos2d::ui::Widget* _p_chart_widget;
-
+    
+  cocos2d::ui::Button* _p_next_button;
+    
+  cocos2d::ui::Button* _p_prev_button;
+    
   std::map<std::string, cocos2d::ui::Widget*> _p_chart_nodes;
     
   RoundedBoxSprite* _prev_button;
