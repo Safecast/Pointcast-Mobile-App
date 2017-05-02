@@ -1,5 +1,5 @@
 /****************************************************************************
-Copyright (c) 2013-2014 Chukong Technologies Inc.
+Copyright (c) 2013-2016 Chukong Technologies Inc.
 
 http://www.cocos2d-x.org
 
@@ -272,21 +272,21 @@ void Layout::stencilClippingVisit(Renderer *renderer, const Mat4& parentTransfor
     //
     // draw children and protectedChildren zOrder < 0
     //
-    for( ; i < _children.size(); i++ )
+    for(auto size = _children.size(); i < size; i++)
     {
         auto node = _children.at(i);
         
-        if ( node && node->getLocalZOrder() < 0 )
+        if (node && node->getLocalZOrder() < 0)
             node->visit(renderer, _modelViewTransform, flags);
         else
             break;
     }
     
-    for( ; j < _protectedChildren.size(); j++ )
+    for(auto size = _protectedChildren.size(); j < size; j++)
     {
         auto node = _protectedChildren.at(j);
         
-        if ( node && node->getLocalZOrder() < 0 )
+        if (node && node->getLocalZOrder() < 0)
             node->visit(renderer, _modelViewTransform, flags);
         else
             break;
@@ -300,10 +300,10 @@ void Layout::stencilClippingVisit(Renderer *renderer, const Mat4& parentTransfor
     //
     // draw children and protectedChildren zOrder >= 0
     //
-    for(auto it=_protectedChildren.cbegin()+j; it != _protectedChildren.cend(); ++it)
+    for(auto it=_protectedChildren.cbegin()+j, itCend = _protectedChildren.cend(); it != itCend; ++it)
         (*it)->visit(renderer, _modelViewTransform, flags);
     
-    for(auto it=_children.cbegin()+i; it != _children.cend(); ++it)
+    for(auto it=_children.cbegin()+i, itCend = _children.cend(); it != itCend; ++it)
         (*it)->visit(renderer, _modelViewTransform, flags);
 
     
@@ -428,7 +428,7 @@ Layout::ClippingType Layout::getClippingType()const
     return _clippingType;
 }
     
-void Layout::setStencilClippingSize(const Size &size)
+void Layout::setStencilClippingSize(const Size& /*size*/)
 {
     if (_clippingEnabled && _clippingType == ClippingType::STENCIL)
     {
@@ -494,7 +494,7 @@ const Rect& Layout::getClippingRect()
             float bottomOffset = worldPos.y - parentClippingRect.origin.y;
             if (bottomOffset < 0.0f)
             {
-                finalY = parentClippingRect.origin.x;
+                finalY = parentClippingRect.origin.y;
                 finalHeight += bottomOffset;
             }
             if (finalWidth < 0.0f)
@@ -1048,7 +1048,7 @@ Size Layout::getLayoutAccumulatedSize()const
         }
     }
     
-    //substract extra size
+    //subtract extra size
     Type type = this->getLayoutType();
     if (type == Type::HORIZONTAL)
     {
@@ -1066,7 +1066,7 @@ Vec2 Layout::getWorldCenterPoint(Widget* widget)const
     Layout *layout = dynamic_cast<Layout*>(widget);
     //FIXEDME: we don't need to calculate the content size of layout anymore
     Size widgetSize = layout ? layout->getLayoutAccumulatedSize() :  widget->getContentSize();
-//    CCLOG("contnet size : width = %f, height = %f", widgetSize.width, widgetSize.height);
+//    CCLOG("content size : width = %f, height = %f", widgetSize.width, widgetSize.height);
     return widget->convertToWorldSpace(Vec2(widgetSize.width/2, widgetSize.height/2));
 }
 
@@ -1156,7 +1156,7 @@ int Layout::findFirstFocusEnabledWidgetIndex()
         }
         index++;
     }
-    CCASSERT(0, "invalide operation");
+    CCASSERT(0, "invalid operation");
     return 0;
 }
 
@@ -1470,7 +1470,7 @@ Widget* Layout::getPreviousFocusedWidget(FocusDirection direction, Widget *curre
         }
         else
         {
-            //handling the disabled widget, there is no actual focus lose or get, so we don't need any envet
+            //handling the disabled widget, there is no actual focus lose or get, so we don't need any event
             return this->getPreviousFocusedWidget(direction, nextWidget);
         }
     }

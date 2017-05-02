@@ -327,7 +327,7 @@ void NavMeshAgent::preUpdate(float delta)
     }
 }
 
-void NavMeshAgent::postUpdate(float delta)
+void NavMeshAgent::postUpdate(float /*delta*/)
 {
     if ((_syncFlag & AGENT_TO_NODE) != 0)
         syncToNode();
@@ -349,7 +349,7 @@ void NavMeshAgent::syncToNode()
         _owner->setPosition3D(pos);
         _state = agent->state;
         if (_needAutoOrientation){
-            if ( fabs(agent->vel[0]) > 0.3f || fabs(agent->vel[1]) > 0.3f || fabs(agent->vel[2]) > 0.3f)
+            if (std::abs(agent->vel[0]) > 0.3f || std::abs(agent->vel[1]) > 0.3f || std::abs(agent->vel[2]) > 0.3f)
             {
                 Vec3 axes(_rotRefAxes);
                 axes.normalize();

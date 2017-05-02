@@ -15,6 +15,7 @@
         <Image Name="HelloWorld.png" />
         <Project Name="layerAnalytics.csd" Type="Layer" />
         <Project Name="layerChart.csd" Type="Layer" />
+        <Project Name="layerChartHeader.csd" Type="Layer" />
         <Project Name="layerFooter.csd" Type="Layer" />
         <Project Name="MenuAbout.csd" Type="Scene" />
         <Project Name="MenuAnalytics_landscape.csd" Type="Scene" />
@@ -24,7 +25,14 @@
         <Project Name="MenuSensorList.csd" Type="Scene" />
         <Image Name="More.png" />
         <Image Name="More@2x.png" />
+        <Image Name="NextDisableButton.png" />
+        <Image Name="NextNormalButon.png" />
+        <Image Name="NextNormalButton.png" />
+        <Image Name="NextPressButon.png" />
         <Image Name="one-finger-swipe-left-gesture-outlined-hand-symbol.png" />
+        <Image Name="PrevDisableButton.png" />
+        <Image Name="PrevNormalButton.png" />
+        <Image Name="PrevPressButton.png" />
         <Project Name="Search.csd" Type="Layer" />
         <Image Name="search_blue.png" />
         <Project Name="sensors_record.csd" Type="Layer" />

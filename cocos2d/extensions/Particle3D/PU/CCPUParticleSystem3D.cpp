@@ -731,7 +731,7 @@ void PUParticleSystem3D::emitParticles( float elapsedTime )
 
 }
 
-const float PUParticleSystem3D::getDefaultWidth( void ) const
+float PUParticleSystem3D::getDefaultWidth() const
 {
     return _defaultWidth;
 }
@@ -741,7 +741,7 @@ void PUParticleSystem3D::setDefaultWidth( const float width )
     _defaultWidth = width;
 }
 
-const float PUParticleSystem3D::getDefaultHeight( void ) const
+float PUParticleSystem3D::getDefaultHeight() const
 {
     return _defaultHeight;
 }
@@ -751,7 +751,7 @@ void PUParticleSystem3D::setDefaultHeight( const float height )
     _defaultHeight = height;
 }
 
-const float PUParticleSystem3D::getDefaultDepth( void ) const
+float PUParticleSystem3D::getDefaultDepth() const
 {
     return _defaultDepth;
 }
@@ -1048,6 +1048,8 @@ void PUParticleSystem3D::convertToUnixStylePath( std::string &path )
     for (auto &iter : path){
         if (iter == '\\') iter = '/';
     }
+#else
+    CC_UNUSED_PARAM(path);
 #endif
 }
 
@@ -1307,7 +1309,7 @@ bool PUParticleSystem3D::makeParticleLocal( PUParticle3D* particle )
     return true;
 }
 
-void PUParticleSystem3D::processMotion( PUParticle3D* particle, float timeElapsed, const Vec3 &scl, bool firstParticle )
+void PUParticleSystem3D::processMotion( PUParticle3D* particle, float timeElapsed, const Vec3 &scl, bool /*firstParticle*/ )
 {
     if (particle->isFreezed())
     return;

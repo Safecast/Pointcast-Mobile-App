@@ -1,5 +1,5 @@
 /****************************************************************************
-Copyright (c) 2013-2014 Chukong Technologies Inc.
+Copyright (c) 2013-2016 Chukong Technologies Inc.
 
 http://www.cocos2d-x.org
 
@@ -210,7 +210,7 @@ public:
      * Query the button title content.
      *@return Get the button's title content.
      */
-    const std::string getTitleText() const;
+    std::string getTitleText() const;
 
     /**
      * Change the color of button's title.
@@ -246,7 +246,7 @@ public:
      * Query the font name of button's title
      *@return font name in std::string
      */
-    const std::string getTitleFontName() const;
+    std::string getTitleFontName() const;
 
     /**
      * Sets the title's text horizontal alignment.
@@ -262,6 +262,13 @@ public:
      * @param vAlignment see TextVAlignment.
      */
     void setTitleAlignment(TextHAlignment hAlignment, TextVAlignment vAlignment);
+
+    /** replaces the current Label node with a new one */
+    void setTitleLabel(Label* label);
+
+    /** returns the current Label being used */
+    Label* getTitleLabel() const;
+
 
     /** @brief When user pressed the button, the button will zoom to a scale.
      * The final scale of the button  equals (button original scale + _zoomScale)

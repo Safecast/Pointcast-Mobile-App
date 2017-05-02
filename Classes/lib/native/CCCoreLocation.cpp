@@ -9,7 +9,7 @@
 #include "cocos-ext.h"
 #include "lib/network/DataStoreSingleton.hpp"
 
-#ifndef CC_TARGET_OS_IPHONE
+#ifndef CC_PLATFORM_IOS
 #include "android/InterfaceJNI.h"
 #endif
 
@@ -48,7 +48,7 @@ bool CCCoreLocation::isLocationAvailable() {
   return false;
 }
 
-#ifdef CC_TARGET_OS_IPHONE
+#ifdef CC_PLATFORM_IOS
 void CCCoreLocation::requestLocation(void) {
   this->_localisationImpl->requestLocation();
 }
@@ -60,7 +60,7 @@ void CCCoreLocation::getLocation(CCObject *pTarget,
   _pSelector = pSelector;
   _pTarget = pTarget;
 
-#ifdef CC_TARGET_OS_IPHONE
+#ifdef CC_PLATFORM_IOS
   _localisationImpl->init();
 #else
   InterfaceJNI::getLocation();
@@ -73,7 +73,7 @@ void CCCoreLocation::getLocationDone(float lati, float longi) {
   p_data_store_singleton->setLocation(lati, longi);
 }
 
-#ifndef CC_TARGET_OS_IPHONE
+#ifndef CC_PLATFORM_IOS
 
 #ifdef __cplusplus
 extern "C" {

@@ -2,12 +2,13 @@
 //  Main.cpp
 //  pointcast
 //
-//  Created by Leverages Mitsuo Okada on 2015/10/29.
+//  Created by Mitsuo Okada on 2015/10/29.
 //
 //
 
 #include "cocostudio/CocoStudio.h"
 #include "ui/CocosGUI.h"
+#include "SimpleAudioEngine.h"
 
 #include "lib/native/CCCoreLocation.h"
 #include "lib/network/DataStoreSingleton.hpp"
@@ -37,12 +38,11 @@ bool Main::init() {
   }
 
   // add notification
-  Director::getInstance()->getEventDispatcher()->addCustomEventListener("lowermenu_visible",[=](cocos2d::EventCustom *event) {
+  Director::getInstance()->getEventDispatcher()->addCustomEventListener("footer_visible",[=](cocos2d::EventCustom *event) {
       CCLOG("イベント受け取ったよ > %s",event->getEventName().c_str());
       auto visible = (cocos2d::Value *)event->getUserData();
       this->setLowerMenuVisible(visible->asBool());
   });
-    
     
   // Corelocation から現在位置を取得しておく
   CCCoreLocation *p_core_location = new CCCoreLocation();
@@ -86,7 +86,7 @@ void Main::onEnter(void) {
   lib::network::DataStoreSingleton *p_data_store_singleton =
       lib::network::DataStoreSingleton::getInstance();
 
-  this->attachWaitAnimation();
+  // this->attachWelcomeAnimation();
 
   // http request pointcast/home.json
   p_data_store_singleton->setResponseCallback(
@@ -164,16 +164,28 @@ void Main::setLowerMenu(void) {
 
 void Main::touchTopic(void) {
   CCLOG("touchTopic");
+  
+  // click se
+  CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("res/sound/se/click.mp3");
+
   this->nextScene(E_Scene_Id::Scene_Topic_Opend_e);
 }
 
 void Main::touchSensors(void) {
   CCLOG("touchList");
+    
+  // click se
+  CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("res/sound/se/click.mp3");
+    
   this->nextScene(E_Scene_Id::Scene_Sensors_Opend_e);
 }
 
 void Main::touchSensorsBack() {
   auto p_current_contents = this->getChildByTag(this->_e_scene_id);
+
+  // click se
+  CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic(
+      "res/sound/se/click.mp3");
 
   if (p_current_contents == NULL) {
     return;
@@ -186,11 +198,15 @@ void Main::touchSensorsBack() {
 
 void Main::touchMap(void) {
   CCLOG("touchMap");
+  // click se
+  CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("res/sound/se/click.mp3");
   this->nextScene(E_Scene_Id::Scene_Map_Opend_e);
 }
 
 void Main::touchAbout(void) {
   CCLOG("touchAbout");
+  // click se
+  CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("res/sound/se/click.mp3");
   this->nextScene(E_Scene_Id::Scene_About_Opend_e);
 }
 
@@ -299,7 +315,7 @@ void Main::touchAboutBack(void) {
 void Main::setScheduleHome(void) {
   // SetScheduler
   float interval = 300.0f; // @todo optimize
-  schedule(schedule_selector(Main::updateHome), interval);
+  schedule(schedule_selector(::scene::Main::updateHome), interval);
 }
 
 void Main::updateHome(float dt) {
