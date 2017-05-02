@@ -13,7 +13,9 @@
 
 static CoreLocationImpl *myinstanceT = NULL;
 
-void CoreLocationImpl::requestLocation() { [self requestLocation]; }
+void CoreLocationImpl::requestLocation() {
+   // [self requestLocation];
+}
 
 CoreLocationImpl *CoreLocationImpl::getInstance() {
   if (myinstanceT == NULL) {

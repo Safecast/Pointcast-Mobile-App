@@ -38,7 +38,7 @@
 #include "Manifest.h"
 #include "extensions/ExtensionMacros.h"
 #include "extensions/ExtensionExport.h"
-#include "json/document.h"
+#include "json/document-wrapper.h"
 
 
 NS_CC_EXT_BEGIN
@@ -72,7 +72,7 @@ public:
     
     /** @brief Create function for creating a new AssetsManagerEx
      @param manifestUrl   The url for the local manifest file
-     @param storagePath   The storage path for downloaded assetes
+     @param storagePath   The storage path for downloaded assets
      @warning   The cached manifest in your storage path have higher priority and will be searched first,
                 only if it doesn't exist, AssetsManagerEx will use the given manifestUrl.
      */
@@ -189,6 +189,9 @@ protected:
     
 private:
     void batchDownload();
+
+    // Called when one DownloadUnits finished
+    void onDownloadUnitsFinished();
     
     //! The event of the current AssetsManagerEx in event dispatcher
     std::string _eventName;
@@ -232,7 +235,14 @@ private:
     Manifest *_remoteManifest;
     
     //! Whether user have requested to update
-    bool _waitToUpdate;
+    enum class UpdateEntry : char
+    {
+        NONE,
+        CHECK_UPDATE,
+        DO_UPDATE
+    };
+
+    UpdateEntry _updateEntry;
     
     //! All assets unit to download
     DownloadUnits _downloadUnits;

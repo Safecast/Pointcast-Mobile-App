@@ -2,7 +2,7 @@
 //  Util.mm
 //  pointcast
 //
-//  Created by Leverages Mitsuo Okada on 2015/12/08.
+//  Created by Mitsuo Okada on 2015/12/08.
 //
 //
 
@@ -39,6 +39,18 @@ void Util::changeRotate(int type)
     [[UIDevice currentDevice] setValue:value forKey:@"orientation"];
 }
 
+void Util::showSortPicker()
+{
+    AppController *app = [AppController getInstance];
+    [app showSortPicker];
+}
+
+void Util::showSearchWordInputText()
+{
+    AppController *app = [AppController getInstance];
+    [app showSearchWordInputText];
+}
+    
 }
     
 }

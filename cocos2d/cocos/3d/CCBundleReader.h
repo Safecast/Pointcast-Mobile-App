@@ -59,7 +59,7 @@ public:
     
     /**
      * initialise
-     * @param lpbuffer The data buffer pointer
+     * @param buffer The data buffer pointer
      * @param length The data buffer size
      */
     void init(char* buffer, ssize_t length);
@@ -183,7 +183,7 @@ inline bool BundleReader::read<char>(char *ptr)
 * specialization for std::string
 */
 template<>
-inline bool BundleReader::read<std::string>(std::string *ptr)
+inline bool BundleReader::read<std::string>(std::string* /*ptr*/)
 {
     CCLOG("can not read std::string, use readString() instead");
     return false;

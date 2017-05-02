@@ -2,7 +2,7 @@
 //  Board.hpp
 //  pointcast
 //
-//  Created by Leverages Mitsuo Okada on 2015/11/20.
+//  Created by Mitsuo Okada on 2015/11/20.
 //
 //
 
@@ -23,11 +23,11 @@ namespace chart {
 
 class Board : public cocos2d::DrawNode {
 public:
-  struct PrepareData {
+  struct Config {
   public:
     std::vector<lib::object::ChartItem> v_chart_items;
     std::vector<lib::object::WeatherItem> v_weather_items;
-    cocos2d::Size chart_size;
+    cocos2d::Size board_size;
     cocos2d::Point chart_offset;
     time_t start_point;
     time_t end_point;
@@ -37,9 +37,10 @@ public:
     std::string horizontal_unit;
     double vertical_top_value;
     int conversion_rate;
-    PrepareData() {
+    bool is_empty;
+    Config() {
       std::vector<lib::object::ChartItem> v_chart_items;
-      chart_size = cocos2d::Size();
+      board_size = cocos2d::Size();
       chart_offset = cocos2d::Point();
       start_point = 0;
       end_point = 0;
@@ -49,18 +50,19 @@ public:
       horizontal_unit = "";
       vertical_top_value = 0.0f;
       conversion_rate = 0;
+      is_empty = false;
     }
   };
 
 private:
-  PrepareData _prepare_data;
+  Config _config;
 
-  double getX(time_t hrizontal_value);
+  double getX(time_t horizontal_value);
 
   double getY(double vertical_value);
 
 public:
-  static Board *create(PrepareData prepare_data);
+  static Board *create(Config config);
 
   void onEnter();
 
@@ -68,11 +70,15 @@ public:
 
   void drawFrame();
 
+  void getVerticalLineConfig(float &bold, float &offset_diff,  cocos2d::Color4F &color, int i, int length);
+    
   void drawLabel();
 
   void drawPoint();
 
   void drawWeather();
+    
+  cocos2d::Size getChartSize();
 
 private:
 };

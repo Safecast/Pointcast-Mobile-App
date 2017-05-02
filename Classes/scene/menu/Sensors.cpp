@@ -2,7 +2,7 @@
 //  Sensors.cpp
 //  pointcast
 //
-//  Created by Leverages Mitsuo Okada on 2015/10/29.
+//  Created by Mitsuo Okada on 2015/10/29.
 //
 //
 
@@ -12,8 +12,11 @@
 
 #include "cocostudio/CocoStudio.h"
 #include "ui/CocosGUI.h"
+#include "SimpleAudioEngine.h"
 
 #include "lib/Util.hpp"
+#include "lib/native/Util.h"
+
 #include "lib/network/DataStoreSingleton.hpp"
 #include "scene/layout/helper/Contents.hpp"
 #include "scene/modal/Search.hpp"
@@ -23,7 +26,7 @@
 
 #include "scene/Main.hpp"
 #include "scene/layout/helper/Contents.hpp"
-#include "scene/menu/MesurementsAnalytics.hpp"
+#include "scene/menu/Analytics.hpp"
 
 USING_NS_CC;
 using namespace rapidjson;
@@ -36,6 +39,16 @@ bool Sensors::init() {
   if (!Node::init()) {
     return false;
   }
+    
+    
+    auto listener = EventListenerTouchAllAtOnce::create();
+    listener->setEnabled(true);
+    listener->onTouchesBegan = CC_CALLBACK_2(Sensors::onTouchesBegan, this);
+    listener->onTouchesMoved = CC_CALLBACK_2(Sensors::onTouchesMoved, this);
+    listener->onTouchesCancelled = CC_CALLBACK_2(Sensors::onTouchesCancelled, this);
+    listener->onTouchesEnded = CC_CALLBACK_2(Sensors::onTouchesEnded, this);
+    
+    this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this);
 
   // set task id
   this->task_id = Task_Id_World;
@@ -74,17 +87,22 @@ bool Sensors::init() {
           auto widget = listView->getItem(selectedIndex);
           auto location_item =
               p_datastore_singleton->getLocationItem(widget->getTag());
-
+            
+          /*
           if (location_item.sensor_status != 1) {
             // if status inactive
             return;
           }
+          */
 
           auto p_record = widget->getChildByTag(Tag_Id_Sensor_Record);
           p_record->getChildByName<ui::Layout *>("panelRecord")
               ->setColor(Color3B(250, 219, 218));
           CCLOG("selected index %ld", selectedIndex);
-
+          // Click Se
+          CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic(
+              "res/sound/se/click.mp3");
+            
           this->showAnalyticsDialog(widget->getTag());
         } else {
           CCLOG("touch list event type %d", eventType);
@@ -162,24 +180,57 @@ bool Sensors::init() {
   // initialize sort type
   this->updateSortType();
 
-  // this->nextScene(Task_Id_World);
+  // register notification
+  Director::getInstance()->getEventDispatcher()->addCustomEventListener(
+      "select_sort_type", [=](cocos2d::EventCustom *event) {
+        CCLOG("イベント受け取ったよ > %s", event->getEventName().c_str());
+        auto sort_id = (cocos2d::Value *)event->getUserData();
+        this->setSortId(sort_id->asInt());
+        this->refresh();
 
-  return true;
+      });
+
+    // register notification
+  Director::getInstance()->getEventDispatcher()->addCustomEventListener(
+      "search_sensor", [=](cocos2d::EventCustom *event) {
+        CCLOG("イベント受け取ったよ > %s", event->getEventName().c_str());
+        auto key_word = (cocos2d::Value *)event->getUserData();
+        this->setKeyWord(key_word->asString());
+        this->refresh();
+      });
+
+      // this->nextScene(Task_Id_World);
+
+      return true;
 }
 
 void Sensors::touchBack() {
+  // click se
+  CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("res/sound/se/click.mp3");
+    
   auto p_parent_scene = static_cast<scene::Main *>(this->getParent());
   p_parent_scene->touchSensorsBack();
 }
 
 void Sensors::touchSearch(Ref *sender) {
   CCLOG("Sensors::touchSearch");
-  this->detachTouchParticle();
+    
+    // click se
+    CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("res/sound/se/click.mp3");
+
+    this->detachTouchParticle();
+
+    lib::native::Util::showSearchWordInputText();
+    return;
+    
+
   // this->attachBlueEffect(20.0f, 20.0f, 3);
   // MessageBox("sorry. comming soom.", "search");
 
   auto p_modal_search = scene::modal::Search::create();
 
+  this->detachTouchParticle();
+    
   CallFunc *callback = CallFunc::create(
       p_modal_search, SEL_CallFunc(&scene::modal::Search::detachSlideIn));
 
@@ -192,6 +243,20 @@ void Sensors::touchSearch(Ref *sender) {
 
 void Sensors::touchSort(Ref *sender) {
   CCLOG("Sensors::touchSort");
+  // click se
+  CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic(
+      "res/sound/se/click.mp3");
+
+  this->detachTouchParticle();
+
+  lib::native::Util::showSortPicker();
+  return;
+  
+    /*
+  // click se
+  CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("res/sound/se/click.mp3");
+    
+  
   this->detachTouchParticle();
   // MessageBox("sorry. comming soom.", "sort");
 
@@ -205,11 +270,22 @@ void Sensors::touchSort(Ref *sender) {
       callback, true);
 
   this->getParent()->addChild(p_modal_sort, Zorders_Modal_Dialog);
+     */
 }
 
-void Sensors::touchPanelFavorite() { this->nextScene(Task_Id_Favorite); }
+void Sensors::touchPanelFavorite() {
+    // click se
+    CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("res/sound/se/click.mp3");
+    
+    this->nextScene(Task_Id_Favorite);
+}
 
-void Sensors::touchPanelWorld() { this->nextScene(Task_Id_World); }
+void Sensors::touchPanelWorld() {
+    // click se
+    CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("res/sound/se/click.mp3");
+    
+    this->nextScene(Task_Id_World);
+}
 
 void Sensors::removeAnimationDone(Node *sender, ssize_t index) {}
 
@@ -335,7 +411,7 @@ void Sensors::setMesurementData(cocos2d::Node *panel,
 
 void Sensors::showAnalyticsDialog(int m_sensor_main_id) {
   auto p_modal_mesurements_analytics =
-      scene::menu::MesurementsAnalytics::create();
+      scene::menu::Analytics::create();
   p_modal_mesurements_analytics->setTag(Tag_Id_Mesurements_Analytics);
   p_modal_mesurements_analytics->prepare(m_sensor_main_id);
 
@@ -348,12 +424,12 @@ void Sensors::showAnalyticsDialog(int m_sensor_main_id) {
   //        this, 0.4f, scene::layout::helper::Contents::Forward_To_Left_e,
   //        false);
 
-  this->addChild(p_modal_mesurements_analytics);
+  this->addChild(p_modal_mesurements_analytics , 2);
 }
 
 void Sensors::closeAnalyticsDialog() {
   auto p_modal_mesurements_analytics =
-      static_cast<scene::menu::MesurementsAnalytics *>(
+      static_cast<scene::menu::Analytics *>(
           this->getChildByTag(Tag_Id_Mesurements_Analytics));
 
   // Slide Out Animation
@@ -445,7 +521,7 @@ void Sensors::showSensorListOneOfEach(void) {
       lib::network::DataStoreSingleton::getInstance()->getLocationItemAll();
 
   // search(filter)
-  lib::Util::Filter(m_sensors, this->getKeyWord());
+  lib::Util::filter(m_sensors, this->getKeyWord());
 
   // get sorted index
   std::vector<std::pair<int, int>> v_sensors_index =
@@ -542,5 +618,7 @@ void Sensors::updateSortType(void) {
 
   p_text_sort_type->setString(label_name);
 }
+    
+  
 }
 }

@@ -22,7 +22,7 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#import "UITextField+CCUITextInput.h"
+#import "ui/UIEditBox/iOS/UITextField+CCUITextInput.h"
 
 @implementation UITextField (CCUITextInput)
 
@@ -64,6 +64,16 @@
 - (void)ccui_setFont:(UIFont *)ccui_font
 {
     self.font = ccui_font;
+}
+
+- (NSTextAlignment)ccui_alignment
+{
+  return self.textAlignment;
+}
+
+- (void)ccui_setTextHorizontalAlignment:(NSTextAlignment)ccui_alignment
+{
+  self.textAlignment = ccui_alignment;
 }
 
 - (BOOL)ccui_secureTextEntry

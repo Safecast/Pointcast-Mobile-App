@@ -1,5 +1,5 @@
 /****************************************************************************
-Copyright (c) 2013-2014 Chukong Technologies Inc.
+Copyright (c) 2013-2016 Chukong Technologies Inc.
 
 http://www.cocos2d-x.org
 
@@ -247,7 +247,7 @@ public:
     //override "ignoreContentAdaptWithSize" method of widget.
     virtual void ignoreContentAdaptWithSize(bool ignore) override;
     
-    //override the widget's hitTest function to perfom its own
+    //override the widget's hitTest function to perform its own
     virtual bool hitTest(const Vec2 &pt, const Camera* camera, Vec3 *p) const override;
     /**
      * Returns the "class name" of widget.
@@ -264,6 +264,11 @@ public:
      * @since v3.3
      */
     float getZoomScale()const;
+
+    Sprite* getSlidBallNormalRenderer() const;
+    Sprite* getSlidBallPressedRenderer() const;
+    Sprite* getSlidBallDisabledRenderer() const;
+    Node* getSlidBallRenderer() const;
 
     ResourceData getBackFile();
     ResourceData getProgressBarFile();
@@ -300,7 +305,9 @@ protected:
     Scale9Sprite*  _barRenderer;
     Scale9Sprite* _progressBarRenderer;
     Size _barTextureSize;
+    Rect _originalBarRect;
     Size _progressBarTextureSize;
+    Rect _originalProgressBarRect;
     
     Sprite* _slidBallNormalRenderer;
     Sprite* _slidBallPressedRenderer;

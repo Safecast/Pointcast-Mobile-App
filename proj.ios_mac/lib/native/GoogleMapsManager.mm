@@ -2,7 +2,7 @@
 //  GoogleMapsManager.mm
 //  pointcast
 //
-//  Created by Leverages Mitsuo Okada on 2015/12/08.
+//  Created by Mitsuo Okada on 2015/12/08.
 //
 //
 

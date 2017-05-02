@@ -45,10 +45,10 @@ public:
   };
 
   enum Sort_Id {
-    // sort by device id
-    Sort_Id_Device_Id = 0,
     // sort by μSv/Hour
-    Sort_Id_μSv_Hour,
+    Sort_Id_μSv_Hour = 0,
+    // sort by device id
+    Sort_Id_Device_Id,
     // near point
     Sort_Id_Near_Point,
     // active / inactive
