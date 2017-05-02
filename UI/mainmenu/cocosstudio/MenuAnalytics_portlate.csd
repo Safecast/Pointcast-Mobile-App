@@ -56,18 +56,49 @@
                 <OutlineColor A="255" R="255" G="0" B="0" />
                 <ShadowColor A="255" R="110" G="110" B="110" />
               </AbstractNodeData>
-              <AbstractNodeData Name="pageView" ActionTag="1629394628" Tag="27" IconVisible="False" TopMargin="336.0000" BottomMargin="100.0000" TouchEnable="True" ClipAble="False" BackColorAlpha="102" ComboBoxIndex="1" ColorAngle="90.0000" Scale9Width="1" Scale9Height="1" ScrollDirectionType="0" ctype="PageViewObjectData">
+              <AbstractNodeData Name="chartScrollView" ActionTag="-604063375" Tag="71" IconVisible="False" TopMargin="236.0000" BottomMargin="200.0000" TouchEnable="True" ClipAble="True" BackColorAlpha="102" ComboBoxIndex="1" ColorAngle="90.0000" ScrollDirectionType="Vertical_Horizontal" ctype="ScrollViewObjectData">
                 <Size X="640.0000" Y="700.0000" />
                 <AnchorPoint />
-                <Position Y="100.0000" />
+                <Position Y="200.0000" />
                 <Scale ScaleX="1.0000" ScaleY="1.0000" />
                 <CColor A="255" R="255" G="255" B="255" />
-                <PrePosition Y="0.0880" />
+                <PrePosition Y="0.1761" />
                 <PreSize X="1.0000" Y="0.6162" />
                 <SingleColor A="255" R="255" G="255" B="255" />
-                <FirstColor A="255" R="150" G="150" B="100" />
+                <FirstColor A="255" R="255" G="150" B="100" />
                 <EndColor A="255" R="255" G="255" B="255" />
                 <ColorVector ScaleY="1.0000" />
+                <InnerNodeSize Width="640" Height="700" />
+              </AbstractNodeData>
+              <AbstractNodeData Name="PrevButton" ActionTag="676079608" Tag="74" IconVisible="False" LeftMargin="20.0000" RightMargin="420.0000" TopMargin="946.0000" BottomMargin="130.0000" TouchEnable="True" FontSize="14" Scale9Enable="True" LeftEage="15" RightEage="15" TopEage="11" BottomEage="11" Scale9OriginX="15" Scale9OriginY="11" Scale9Width="170" Scale9Height="38" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="ButtonObjectData">
+                <Size X="200.0000" Y="60.0000" />
+                <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
+                <Position X="120.0000" Y="160.0000" />
+                <Scale ScaleX="1.0000" ScaleY="1.0000" />
+                <CColor A="255" R="255" G="255" B="255" />
+                <PrePosition X="0.1875" Y="0.1408" />
+                <PreSize X="0.3125" Y="0.0528" />
+                <TextColor A="255" R="65" G="65" B="70" />
+                <DisabledFileData Type="Normal" Path="PrevDisableButton.png" Plist="" />
+                <PressedFileData Type="Normal" Path="PrevPressButton.png" Plist="" />
+                <NormalFileData Type="Normal" Path="PrevNormalButton.png" Plist="" />
+                <OutlineColor A="255" R="255" G="0" B="0" />
+                <ShadowColor A="255" R="110" G="110" B="110" />
+              </AbstractNodeData>
+              <AbstractNodeData Name="NextButton" ActionTag="-591020989" Tag="75" IconVisible="False" LeftMargin="420.0000" RightMargin="20.0000" TopMargin="946.0000" BottomMargin="130.0000" TouchEnable="True" FontSize="14" Scale9Enable="True" LeftEage="15" RightEage="15" TopEage="11" BottomEage="11" Scale9OriginX="15" Scale9OriginY="11" Scale9Width="170" Scale9Height="38" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="ButtonObjectData">
+                <Size X="200.0000" Y="60.0000" />
+                <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
+                <Position X="520.0000" Y="160.0000" />
+                <Scale ScaleX="1.0000" ScaleY="1.0000" />
+                <CColor A="255" R="255" G="255" B="255" />
+                <PrePosition X="0.8125" Y="0.1408" />
+                <PreSize X="0.3125" Y="0.0528" />
+                <TextColor A="255" R="65" G="65" B="70" />
+                <DisabledFileData Type="Normal" Path="NextDisableButton.png" Plist="" />
+                <PressedFileData Type="Normal" Path="NextPressButon.png" Plist="" />
+                <NormalFileData Type="Normal" Path="NextNormalButon.png" Plist="" />
+                <OutlineColor A="255" R="255" G="0" B="0" />
+                <ShadowColor A="255" R="110" G="110" B="110" />
               </AbstractNodeData>
             </Children>
             <AnchorPoint />

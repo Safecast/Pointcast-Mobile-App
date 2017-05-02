@@ -97,7 +97,7 @@ scene::chart::Board::Config Chart::getConfig(const std::vector<lib::object::Char
     if (scene::layout::helper::Display::IsPortlate())
     {
         config.board_size = Size(640, 400);
-        config.chart_offset = Point(40, 200);
+        config.chart_offset = Point(40, 100);
     } else {
         config.board_size = Size(1280, 400);
         config.chart_offset = Point(100, 100);

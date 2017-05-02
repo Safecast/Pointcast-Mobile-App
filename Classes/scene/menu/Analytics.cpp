@@ -59,7 +59,7 @@ bool Analytics::init() {
         return false;
     }
     
-    this->_p_scroll_view = nullptr;
+    this->_p_chart_scroll_view = nullptr;
     this->_current_scale = 1.0f;
     
     this->scheduleUpdate();
@@ -163,15 +163,9 @@ void Analytics::initFixedContents()
             }
         });
 
-    this->_p_page_view = static_cast<ui::PageView *>(
-        this->_p_panel_background->getChildByName("pageView"));
+    this->_p_chart_scroll_view = static_cast<ui::PageView *>(
+        this->_p_panel_background->getChildByName("chartScrollView"));
     
-    this->_p_page_view->addEventListener(CC_CALLBACK_2(Analytics::pageViewEvent, this));
-    
-    
-    // generate empty page
-    this->_p_empty_page = cocos2d::ui::Widget::create();
-    this->_p_page_view->insertPage(this->_p_empty_page, 0);
     
     this->setFavoriteButtonState();
     
@@ -179,13 +173,38 @@ void Analytics::initFixedContents()
     
     this->addChild(this->_p_contents);
 
+    // Prev,Nextボタンにリスナーをアタッチ
+    this->_p_next_button = this->_p_panel_background->getChildByName<ui::Button *>("NextButton");
+    this->_p_next_button->addTouchEventListener(
+        [this](Ref *sender, ui::Widget::TouchEventType type) {
+          CCLOG("NextButton touchend %d", type);
+          if (type == ui::Widget::TouchEventType::ENDED) {
+              // click se
+              CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("res/sound/se/click.mp3");
+              const int diff_days = 1;
+              this->changePage(diff_days);
+          }
+        });
+    this->_p_prev_button = this->_p_panel_background->getChildByName<ui::Button *>("PrevButton");
+    this->_p_prev_button->addTouchEventListener(
+        [this](Ref *sender, ui::Widget::TouchEventType type) {
+          CCLOG("NextButton touchend %d", type);
+          if (type == ui::Widget::TouchEventType::ENDED) {
+              // click se
+              CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("res/sound/se/click.mp3");
+              const int diff_days = -1;
+              this->changePage(diff_days);
+          }
+        });
+    
+    /*
     this->_prev_button = RoundedBoxSprite::create();
     std::string prev_str = "Prev";
     auto prev_button_size = Size(200, 60);
     this->_prev_button->setParam(prev_button_size, Color3B(111,201,88), 10, 10, prev_str, Color3B::WHITE, 24);
-    this->_prev_button->setPosition(100, 200);
+    this->_prev_button->setPosition(200, 200);
     this->_prev_button->setContentSize(prev_button_size);
-    this->_prev_button->setAnchorPoint(Vec2(0.0f, 0.5f));
+    this->_prev_button->setAnchorPoint(Vec2(0.5f, 0.5f));
     
     this->_next_button = RoundedBoxSprite::create();
     std::string next_str = "Next";
@@ -193,7 +212,7 @@ void Analytics::initFixedContents()
     this->_next_button->setParam(next_button_size, Color3B(111,201,88), 10, 10, next_str, Color3B::WHITE, 24);
     this->_next_button->setPosition(640, 200);
     this->_next_button->setContentSize(next_button_size);
-    this->_next_button->setAnchorPoint(Vec2(0.5f, 0.5f));
+    this->_next_button->setAnchorPoint(Vec2(0.0f, 0.0f));
     
     this->_p_contents->addChild(this->_prev_button);
     this->_p_contents->addChild(this->_next_button);
@@ -205,33 +224,41 @@ void Analytics::initFixedContents()
     //タッチ開始
     listener->onTouchBegan = [this](Touch* touch, Event* event){
         Point touchPoint = touch->getLocation();
+        cocos2d::log("touch point : %f, %f", touchPoint.x, touchPoint.y);
+        cocos2d::log("_prev_button rect : (X1,X2,Y1,Y2)(%f,%f,%f,%f)",
+                     this->_prev_button->getPositionX(),this->_prev_button->getPositionX() + this->_prev_button->getContentSize().width, this->_prev_button->getPositionY(),this->_prev_button->getPositionY() + this->_prev_button->getContentSize().height);
+        cocos2d::log("_next_button rect : (X1,X2,Y1,Y2)(%f,%f,%f,%f)",
+                     this->_next_button->getPositionX(),this->_next_button->getPositionX() + this->_next_button->getContentSize().width, this->_next_button->getPositionY(),this->_next_button->getPositionY() + this->_next_button->getContentSize().height);
+        
         if (this->_prev_button->getBoundingBox().containsPoint(touchPoint))
         {
-            CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("res/sound/se/click.mp3");
-            ssize_t idx = this->_p_page_view->getCurrentPageIndex() - 1;
-            this->_p_page_view->setCurrentPageIndex(idx - 1);
-            this->changePage(idx);
+            cocos2d::log("prev contain");
 
+            CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("res/sound/se/click.mp3");
+            int diff_days = -1;
+            this->changePage(diff_days);
             return true;
         }
         
         if (this->_next_button->getBoundingBox().containsPoint(touchPoint))
         {
+            cocos2d::log("next contain");
+
             CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("res/sound/se/click.mp3");
-            ssize_t idx = this->_p_page_view->getCurrentPageIndex() + 1;
-            this->_p_page_view->setCurrentPageIndex(idx);
-            this->changePage(idx);
-            
+            int diff_days = 1;
+            this->changePage(diff_days);
             return true;
         }
+        cocos2d::log("no contain");
 
         return false;
     };
     
     //イベントリスナーを登録
-    this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this->_prev_button);
-    // this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this->_next_button);
     
+    this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this->_next_button);
+    // this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this->_next_button);
+    */
 }
     
 void Analytics::initVariableContents()
@@ -247,7 +274,6 @@ void Analytics::initVariableContents()
     // detach wait animation
     this->_p_scene_main->detachWaitAnimation();
     
-    this->_p_page_view->setCurrentPageIndex(1);
 }
 
 void Analytics::drawChart()
@@ -271,12 +297,20 @@ void Analytics::drawChart()
     }
     
     // draw chart
-    scene::layout::helper::Chart::prepareChart(this->_p_empty_page, this, this->_m_sensor_main_id, v_chart_items, v_weather_items);
-    this->_p_chart_nodes[this->_current_cache_key] = this->_p_empty_page;
-    
-    // generate empty page
-    this->
+    if (this->_p_chart_widget != nullptr) {
+        this->_p_chart_widget->removeFromParent();
+    }
+    this->_p_chart_widget = cocos2d::ui::Widget::create();
 
+    scene::layout::helper::Chart::prepareChart(this->_p_chart_widget, this, this->_m_sensor_main_id, v_chart_items, v_weather_items);
+    
+    this->_p_chart_scroll_view->addChild(this->_p_chart_widget);
+    
+    // 表示が今日なら、Nextを無効化
+    time_t now = time(NULL);
+    bool button_state = (now > this->_interval_start && now < this->_interval_end) ? false : true;
+    this->_p_next_button->setEnabled(button_state);
+    
 }
 
 void Analytics::onEnter() {
@@ -293,9 +327,7 @@ void Analytics::onEnter() {
   lib::network::DataStoreSingleton *p_data_store_singleton =
       lib::network::DataStoreSingleton::getInstance();
 
-  scene::Main *p_scene_main =
-      static_cast<scene::Main *>(this->getParent()->getParent());
-  p_scene_main->attachWaitAnimation();
+  this->_p_scene_main->attachWaitAnimation();
 
   // http request pointcast/home.json
   p_data_store_singleton->setResponseCallback(
@@ -303,7 +335,7 @@ void Analytics::onEnter() {
                 &Analytics::onCallbackPointcastAnalytics));
   
   this->_p_store_callback->retain();
-  this->attachWaitAnimation();
+  this->_p_scene_main->attachWaitAnimation();
   p_data_store_singleton->storeAnalyticsData(this->_m_sensor_main_id, this->_interval_start, this->_interval_end, true, this->_p_store_callback);
     
   // enable rotate
@@ -338,7 +370,7 @@ void Analytics::close() {
 void Analytics::onCallbackDataStore()
 {
     this->initVariableContents();
-    this->detachWaitAnimation();
+    this->_p_scene_main->detachWaitAnimation();
 }
     
 void Analytics::onCallbackPointcastAnalytics(
@@ -505,7 +537,7 @@ void Analytics::initChartInterval()
     this->_interval_end = this->_interval_start + 86400;
 }
 
-void Analytics::shiftInterval(int diff)
+void Analytics::shiftIntervalSec(int diff)
 {
     this->_interval_start += diff;
     this->_interval_end += diff;
@@ -606,7 +638,7 @@ void Analytics::update(float delta){
 void Analytics::updateChartScale()
 {
     this->_p_chart_nodes[this->_current_cache_key]->setScale(this->_current_scale);
-    this->_p_scroll_view->setInnerContainerSize(this->_p_chart_nodes[this->_current_cache_key]->getBoundingBox().size);
+    this->_p_chart_scroll_view->setInnerContainerSize(this->_p_chart_nodes[this->_current_cache_key]->getBoundingBox().size);
     this->_p_chart_nodes[this->_current_cache_key]->setPositionY(0.0f);
 }
     
@@ -626,21 +658,19 @@ void Analytics::pageViewEvent(cocos2d::Ref * pSender, cocos2d::ui::PageView::Eve
     this->changePage(current_page_index);
 }
     
-void Analytics::changePage(ssize_t index)
+void Analytics::changePage(int index)
 {
-    if (index == 0)
-    {
-        // 日付を1日戻す
-        this->shiftInterval(-1 * 86400);
-        
-        // ページがないはずなので作る
-        lib::network::DataStoreSingleton *p_data_store_singleton =
-        lib::network::DataStoreSingleton::getInstance();
-        this->_p_store_callback->retain();
-        this->attachWaitAnimation();
-        
-        p_data_store_singleton->storeAnalyticsData(this->_m_sensor_main_id, this->_interval_start, this->_interval_end, true,this->_p_store_callback);
-    }
+  
+    // 日付を1日戻す
+    this->shiftIntervalSec(index * 86400);
+    
+    // ページがないはずなので作る
+    lib::network::DataStoreSingleton *p_data_store_singleton =
+    lib::network::DataStoreSingleton::getInstance();
+    this->_p_store_callback->retain();
+    this->_p_scene_main->attachWaitAnimation();
+    
+    p_data_store_singleton->storeAnalyticsData(this->_m_sensor_main_id, this->_interval_start, this->_interval_end, true,this->_p_store_callback);
 
 }
 
