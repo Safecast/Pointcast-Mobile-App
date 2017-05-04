@@ -56,7 +56,7 @@
                 <OutlineColor A="255" R="255" G="0" B="0" />
                 <ShadowColor A="255" R="110" G="110" B="110" />
               </AbstractNodeData>
-              <AbstractNodeData Name="chartScrollView" ActionTag="-604063375" Tag="71" IconVisible="False" TopMargin="236.0000" BottomMargin="200.0000" TouchEnable="True" ClipAble="True" BackColorAlpha="102" ComboBoxIndex="1" ColorAngle="90.0000" ScrollDirectionType="Vertical_Horizontal" ctype="ScrollViewObjectData">
+              <AbstractNodeData Name="chartScrollView" ActionTag="-604063375" Tag="71" IconVisible="False" TopMargin="236.0000" BottomMargin="200.0000" TouchEnable="True" ClipAble="True" BackColorAlpha="102" ComboBoxIndex="1" ColorAngle="90.0000" Scale9Width="1" Scale9Height="1" ScrollDirectionType="Vertical_Horizontal" ctype="ScrollViewObjectData">
                 <Size X="640.0000" Y="700.0000" />
                 <AnchorPoint />
                 <Position Y="200.0000" />
@@ -99,6 +99,16 @@
                 <NormalFileData Type="Normal" Path="NextNormalButon.png" Plist="" />
                 <OutlineColor A="255" R="255" G="0" B="0" />
                 <ShadowColor A="255" R="110" G="110" B="110" />
+              </AbstractNodeData>
+              <AbstractNodeData Name="mapButton" ActionTag="1106417998" Tag="15" IconVisible="False" LeftMargin="496.4836" RightMargin="43.5164" TopMargin="206.4299" BottomMargin="829.5701" LeftEage="74" RightEage="74" TopEage="74" BottomEage="74" Scale9OriginX="74" Scale9OriginY="74" Scale9Width="77" Scale9Height="77" ctype="ImageViewObjectData">
+                <Size X="100.0000" Y="100.0000" />
+                <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
+                <Position X="546.4836" Y="879.5701" />
+                <Scale ScaleX="1.0000" ScaleY="1.0000" />
+                <CColor A="255" R="255" G="255" B="255" />
+                <PrePosition X="0.8539" Y="0.7743" />
+                <PreSize X="0.1563" Y="0.0880" />
+                <FileData Type="Normal" Path="mapicon.png" Plist="" />
               </AbstractNodeData>
             </Children>
             <AnchorPoint />

@@ -27,6 +27,7 @@
 
 #include "scene/Main.hpp"
 #include "scene/chart/Board.hpp"
+#include "scene/modal/Dialog.hpp"
 #include "scene/layout/helper/Contents.hpp"
 #include "scene/layout/helper/Display.hpp"
 #include "scene/layout/helper/Footer.hpp"
@@ -378,7 +379,12 @@ void Analytics::onCallbackPointcastAnalytics(
     cocos2d::network::HttpResponse *response) {
   CCLOG("onCallbackPointcastAnalytics");
     
-  this->initVariableContents();
+    if (response->getResponseCode() == 200) {
+        auto p_dialog = scene::modal::Dialog::create();
+        this->_p_scene_main->addChild(p_dialog, INT_MAX);
+    }
+    
+  // this->initVariableContents();
   
 }
 

@@ -249,11 +249,11 @@ void DataStoreSingleton::callbackHttpPointcastAnalytics(
 
   this->_p_store_callback->execute();
     
-  /*
+  
   if (this->_p_callbackObject && this->_p_callbackFunction) {
     (this->_p_callbackObject->*this->_p_callbackFunction)(sender, response);
   }
-  */
+  
 }
 
 void DataStoreSingleton::storeSensorListData(std::string response) {
