@@ -194,21 +194,21 @@ bool Sensors::init() {
 
   // register notification
   Director::getInstance()->getEventDispatcher()->addCustomEventListener(
-      "select_sort_type", [=](cocos2d::EventCustom *event) {
+      "select_sort_type", [&](cocos2d::EventCustom *event) {
         CCLOG("イベント受け取ったよ > %s", event->getEventName().c_str());
         auto sort_id = (cocos2d::Value *)event->getUserData();
         this->setSortId(sort_id->asInt());
-        this->refresh();
+        this->refreshNoUpdate();
 
       });
 
   // register notification
   Director::getInstance()->getEventDispatcher()->addCustomEventListener(
-      "search_sensor", [=](cocos2d::EventCustom *event) {
+      "search_sensor", [&](cocos2d::EventCustom *event) {
         CCLOG("イベント受け取ったよ > %s", event->getEventName().c_str());
         auto key_word = (cocos2d::Value *)event->getUserData();
         this->setKeyWord(key_word->asString());
-        this->refresh();
+        this->refreshNoUpdate();
       });
 
   // this->nextScene(Task_Id_World);
@@ -482,44 +482,13 @@ void Sensors::updateSensorData() {
   
 void Sensors::onCallbackUpdateSensorData(cocos2d::network::HttpClient *sender,
                                 cocos2d::network::HttpResponse *response) {
-  scene::Main *p_scene_main = static_cast<scene::Main *>(this->getParent());
-  p_scene_main->detachWaitAnimation();
   
   if (response->getResponseCode() == 200) {
-    auto p_panel =
-    this->_p_contents->getChildByName<ui::Layout *>("panelBackground");
-    
-    // last updated at
-    auto label_last_updated_at =
-    p_panel->getChildByName<ui::Text *>("txtLastUpdatedAt");
-    label_last_updated_at->setString(
-                                     lib::network::DataStoreSingleton::getInstance()
-                                     ->getLastUpdatedAtToFormatString());
-    
-    auto p_tab_world = p_panel->getChildByName<LayerGradient *>("panelWorld");
-    auto p_tab_favorite =
-    p_panel->getChildByName<LayerGradient *>("panelFavorite");
-    
-    const Color3B enbale_color = Color3B(30, 144, 255);
-    const Color3B disable_color = Color3B(191, 191, 191);
-    
-    if (this->task_id == Task_Id_World) {
-      p_tab_world->setStartColor(enbale_color);
-      p_tab_favorite->setStartColor(disable_color);
-    } else if (this->task_id == Task_Id_Favorite) {
-      p_tab_world->setStartColor(disable_color);
-      p_tab_favorite->setStartColor(enbale_color);
-    }
-    
-    // clear list
-    // ひょっとすると消さないで現在の値を更新する必要があるかも
-    auto p_list_view = p_panel->getChildByName<ui::ListView *>("listSensors");
-    p_list_view->removeAllChildren();
-    
-    this->showSensorListOneOfEach();
-    
-    this->updateSortType();
+    this->refreshNoUpdate();
   } else {
+    // wait animation消す
+    scene::Main *p_scene_main = static_cast<scene::Main *>(this->getParent());
+    p_scene_main->detachWaitAnimation();
     // リトライのダイアログ出す
     cocos2d::CallFunc *p_yes_callfunc =
     cocos2d::CallFunc::create(this, callfunc_selector(Main::retryRequest));
@@ -529,19 +498,52 @@ void Sensors::onCallbackUpdateSensorData(cocos2d::network::HttpClient *sender,
     p_no_callfunc->retain();
     
     auto p_dialog = scene::modal::Dialog::create(
-                                                 "Connection failure...", "Cannot connect to server.\nDo you want to "
-                                                 "retry?\n(If you select 「Cancel」 then Exit "
-                                                 "App.)",
-                                                 "Retry", p_yes_callfunc);
+      "Connection failure...", "Cannot connect to server.\nDo you want to "
+      "retry?\n(If you select 「Cancel」 then Exit "
+      "App.)",
+      "Retry", p_yes_callfunc);
     p_dialog->setNoCondition("Cancel", p_no_callfunc);
     p_dialog->show();
     this->addChild(p_dialog);
   }
+}
   
   
+void Sensors::refreshNoUpdate(void) {
+  auto p_panel =
+  this->_p_contents->getChildByName<ui::Layout *>("panelBackground");
   
- 
+  // last updated at
+  auto label_last_updated_at =
+  p_panel->getChildByName<ui::Text *>("txtLastUpdatedAt");
+  label_last_updated_at->setString(
+                                   lib::network::DataStoreSingleton::getInstance()
+                                   ->getLastUpdatedAtToFormatString());
   
+  auto p_tab_world = p_panel->getChildByName<LayerGradient *>("panelWorld");
+  auto p_tab_favorite =
+  p_panel->getChildByName<LayerGradient *>("panelFavorite");
+  
+  const Color3B enbale_color = Color3B(30, 144, 255);
+  const Color3B disable_color = Color3B(191, 191, 191);
+  
+  if (this->task_id == Task_Id_World) {
+    p_tab_world->setStartColor(enbale_color);
+    p_tab_favorite->setStartColor(disable_color);
+  } else if (this->task_id == Task_Id_Favorite) {
+    p_tab_world->setStartColor(disable_color);
+    p_tab_favorite->setStartColor(enbale_color);
+  }
+  
+  // clear list
+  // ひょっとすると消さないで現在の値を更新する必要があるかも
+  auto p_list_view = p_panel->getChildByName<ui::ListView *>("listSensors");
+  p_list_view->removeAllChildren();
+  
+  this->showSensorListOneOfEach();
+  
+  this->updateSortType();
+
 }
   
 void Sensors::refresh(void) {

@@ -8,7 +8,9 @@
 
 #include "Board.hpp"
 #include "lib/Util.hpp"
+#include "lib/external/RoundedBoxSprite.h"
 #include "scene/layout/helper/Chart.hpp"
+
 
 namespace scene {
 
@@ -135,7 +137,7 @@ void Board::getVerticalLineConfig(float &bold, float &offset_diff,  cocos2d::Col
 
 void Board::drawLabel() {
     
-  // label of horizontal(hour)
+  // 時刻(横軸)
   time_t interval =
       this->_config.end_point - this->_config.start_point;
   for (int i = 0; i <= this->_config.vertical_line; i++) {
@@ -156,7 +158,7 @@ void Board::drawLabel() {
     this->addChild(p_text_time);
   }
 
-  // label of horizontal
+  // 線量(縦軸)
   Color3B unit_color = Color3B(0, 0, 0);
   double last_x, last_y;
   for (int i = 0; i <= this->_config.horizontal_line; i++) {
@@ -174,11 +176,25 @@ void Board::drawLabel() {
     std::string value_string =
         std::to_string(lib::Util::round(usv, 2)).substr(0, 4);
     // + "\n" +this->_prepare_data.vertical_unit;
+    /*
     auto p_text_time = Label::createWithSystemFont(value_string, "System", 24);
     p_text_time->setAnchorPoint(Point(1.0f, 0.5f));
     p_text_time->setPosition(Point(x, y));
     p_text_time->setColor(unit_color);
     this->addChild(p_text_time);
+    */
+    {
+      auto rounded_usv = RoundedBoxSprite::create();
+      auto rounded_usv_size = Size(80, 30);
+      rounded_usv->setParam(rounded_usv_size, Color3B(205,205,205), 10, 10,
+                                   value_string, Color3B::WHITE, 24);
+      rounded_usv->setPosition(x - 30, y);
+      rounded_usv->setContentSize(rounded_usv_size);
+      rounded_usv->setAnchorPoint(Vec2(0.0f, 0.0f));
+      this->addChild(rounded_usv);
+    }
+    
+    
     last_x = x;
     last_y = y;
   }
