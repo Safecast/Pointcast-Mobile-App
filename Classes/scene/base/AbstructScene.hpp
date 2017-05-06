@@ -65,7 +65,7 @@ public:
   virtual void attachWaitAnimation(void);
 
   virtual void detachWaitAnimation(void);
-
+    
   virtual void attachTouchParticle(cocos2d::Point p);
 
   virtual void detachTouchParticle(void);

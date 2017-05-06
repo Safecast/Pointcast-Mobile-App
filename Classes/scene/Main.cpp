@@ -12,12 +12,12 @@
 
 #include "lib/native/CCCoreLocation.h"
 #include "lib/network/DataStoreSingleton.hpp"
+#include "scene/modal/Dialog.hpp"
 #include "scene/layout/helper/Contents.hpp"
 #include "scene/menu/About.hpp"
 #include "scene/menu/Map.hpp"
 #include "scene/menu/Sensors.hpp"
 #include "scene/menu/Topic.hpp"
-
 #include "scene/Main.hpp"
 
 USING_NS_CC;
@@ -37,13 +37,16 @@ bool Main::init() {
     return false;
   }
 
+  this->_connect_server_at_first = false;
+
   // add notification
-  Director::getInstance()->getEventDispatcher()->addCustomEventListener("footer_visible",[=](cocos2d::EventCustom *event) {
-      CCLOG("イベント受け取ったよ > %s",event->getEventName().c_str());
-      auto visible = (cocos2d::Value *)event->getUserData();
-      this->setLowerMenuVisible(visible->asBool());
-  });
-    
+  Director::getInstance()->getEventDispatcher()->addCustomEventListener(
+      "footer_visible", [=](cocos2d::EventCustom *event) {
+        CCLOG("イベント受け取ったよ > %s", event->getEventName().c_str());
+        auto visible = (cocos2d::Value *)event->getUserData();
+        this->setLowerMenuVisible(visible->asBool());
+      });
+
   // Corelocation から現在位置を取得しておく
   CCCoreLocation *p_core_location = new CCCoreLocation();
   p_core_location->requestLocation();
@@ -63,7 +66,7 @@ bool Main::init() {
   this->setLowerMenu();
 
   // set initial scene
-  this->nextScene(E_Scene_Id::Scene_Topic_Opend_e);
+  this->nextScene(E_Scene_Id::Scene_Initialized_e);
 
   // set first view
   // disble welcome animation
@@ -85,9 +88,6 @@ void Main::onEnter(void) {
   // Http Request For Home Data
   lib::network::DataStoreSingleton *p_data_store_singleton =
       lib::network::DataStoreSingleton::getInstance();
-
-  // this->attachWelcomeAnimation();
-
   // http request pointcast/home.json
   p_data_store_singleton->setResponseCallback(
       this,
@@ -97,16 +97,48 @@ void Main::onEnter(void) {
 
 void Main::onCallbackPointcastHome(cocos2d::network::HttpClient *sender,
                                    cocos2d::network::HttpResponse *response) {
-  // remove wait animation
-  // this->detachWaitAnimation();
-
-  // and after automatically
-  this->setScheduleHome();
-
-  // Go Sensors
-  this->touchSensors();
 
   CCLOG("Home::onCallbackPointcastHome");
+
+  if (response->getResponseCode() == 200) {
+
+    // 初回のみ
+    if (this->_connect_server_at_first == false) {
+      // センサーを開く
+      this->nextScene(Scene_Sensors_Opend_e);
+
+      // 定期実行もセットする
+      this->setScheduleHome();
+      this->_connect_server_at_first = true;
+    }
+
+    // リクエストが正常に取得できていたらセンサーの値を更新する
+    if (this->_e_scene_id == Scene_Sensors_Opend_e) {
+      // if sensors appear update list
+      menu::Sensors *p_current_scene =
+          static_cast<menu::Sensors *>(this->getChildByTag(Tag_Id_Sensor));
+      if (p_current_scene) {
+        p_current_scene->refresh();
+      }
+    }
+  } else {
+    // リトライのダイアログ出す
+    cocos2d::CallFunc *p_yes_callfunc =
+        cocos2d::CallFunc::create(this, callfunc_selector(Main::retryRequest));
+    p_yes_callfunc->retain();
+    cocos2d::CallFunc *p_no_callfunc =
+        cocos2d::CallFunc::create(this, callfunc_selector(Main::retryCancel));
+    p_no_callfunc->retain();
+
+    auto p_dialog = scene::modal::Dialog::create(
+        "Connection failure...", "Cannot connect to server.\nDo you want to "
+                                 "retry?\n(If you select 「Cancel」 then Exit "
+                                 "App.)",
+        "Retry", p_yes_callfunc);
+    p_dialog->setNoCondition("Cancel", p_no_callfunc);
+    p_dialog->show();
+    this->addChild(p_dialog);
+  }
 }
 
 void Main::setLowerMenu(void) {
@@ -164,19 +196,21 @@ void Main::setLowerMenu(void) {
 
 void Main::touchTopic(void) {
   CCLOG("touchTopic");
-  
+
   // click se
-  CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("res/sound/se/click.mp3");
+  CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic(
+      "res/sound/se/click.mp3");
 
   this->nextScene(E_Scene_Id::Scene_Topic_Opend_e);
 }
 
 void Main::touchSensors(void) {
   CCLOG("touchList");
-    
+
   // click se
-  CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("res/sound/se/click.mp3");
-    
+  CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic(
+      "res/sound/se/click.mp3");
+
   this->nextScene(E_Scene_Id::Scene_Sensors_Opend_e);
 }
 
@@ -199,14 +233,16 @@ void Main::touchSensorsBack() {
 void Main::touchMap(void) {
   CCLOG("touchMap");
   // click se
-  CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("res/sound/se/click.mp3");
+  CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic(
+      "res/sound/se/click.mp3");
   this->nextScene(E_Scene_Id::Scene_Map_Opend_e);
 }
 
 void Main::touchAbout(void) {
   CCLOG("touchAbout");
   // click se
-  CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("res/sound/se/click.mp3");
+  CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic(
+      "res/sound/se/click.mp3");
   this->nextScene(E_Scene_Id::Scene_About_Opend_e);
 }
 
@@ -328,17 +364,8 @@ void Main::updateHome(float dt) {
   // http request pointcast/home.json
   p_data_store_singleton->setResponseCallback(
       this,
-      (cocos2d::network::SEL_HttpResponse)(&Main::onCallbackScheduleHome));
+      (cocos2d::network::SEL_HttpResponse)(&Main::onCallbackPointcastHome));
   p_data_store_singleton->requestPointcastHome();
-
-  if (this->_e_scene_id == Scene_Sensors_Opend_e) {
-    // if sensors appear update list
-    menu::Sensors *p_current_scene = static_cast<menu::Sensors *>(
-        this->getChildByTag(Scene_Sensors_Opend_e));
-    if (p_current_scene) {
-      p_current_scene->refresh();
-    }
-  }
 
   CCLOG("Main::updateHome");
 }
@@ -347,14 +374,24 @@ void Main::onCallbackScheduleHome(cocos2d::network::HttpClient *sender,
                                   cocos2d::network::HttpResponse *response) {
 
   CCLOG("Home::onCallbackScheduleHome");
-  // @todo mutex unlock
 }
 
 void Main::unScheduleHome(void) {}
-    
-void Main::setLowerMenuVisible(bool visible)
-{
-    this->_p_footer->setVisible(visible);
+
+void Main::setLowerMenuVisible(bool visible) {
+  this->_p_footer->setVisible(visible);
 }
-    
+
+void Main::retryRequest() {
+  // リトライする
+  float dely = 1.0f; //
+  scheduleOnce(schedule_selector(::scene::Main::updateHome), dely);
+}
+  
+void Main::retryCancel() {
+  Director::getInstance()->end();
+  // @todo objective-c lifecycle
+  exit(1);
+}
+  
 }

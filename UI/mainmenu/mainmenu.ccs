@@ -3,8 +3,11 @@
   <SolutionFolder>
     <Group ctype="ResourceGroup">
       <RootFolder Name=".">
+        <Image Name="buttonBackground_skyblue.png" />
         <Project Name="chartTest.csd" Type="Layer" />
         <Image Name="circle_blue.png" />
+        <Image Name="dialog_base.png" />
+        <Project Name="dialogBase.csd" Type="Layer" />
         <Image Name="footer_map1@x2.png" />
         <Image Name="footer_map2@x2.png" />
         <Image Name="footer_sensors1@x2.png" />
@@ -17,6 +20,7 @@
         <Project Name="layerChart.csd" Type="Layer" />
         <Project Name="layerChartHeader.csd" Type="Layer" />
         <Project Name="layerFooter.csd" Type="Layer" />
+        <Image Name="mapicon.png" />
         <Project Name="MenuAbout.csd" Type="Scene" />
         <Project Name="MenuAnalytics_landscape.csd" Type="Scene" />
         <Project Name="MenuAnalytics_portlate.csd" Type="Scene" />

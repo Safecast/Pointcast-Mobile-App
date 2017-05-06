@@ -46,6 +46,9 @@ private:
 
   // scene id
   E_Scene_Id _e_scene_id;
+  
+  // initialized network
+  bool _connect_server_at_first;
 
   scene::base::AbstructScene::Object_Tag_Id _current_contents_tag_id;
 
@@ -90,6 +93,10 @@ public:
   void unScheduleHome(void);
     
   void setLowerMenuVisible(bool visible);
+  
+  void retryRequest();
+  
+  void retryCancel();
 
   CREATE_FUNC(Main);
 
