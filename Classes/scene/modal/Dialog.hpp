@@ -71,6 +71,8 @@ public:
 
   void setYesCallback(cocos2d::CallFunc *callback);
   
+  void executeValues();
+  
   void executeLayout();
 
   void show();

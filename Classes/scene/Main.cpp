@@ -36,16 +36,17 @@ bool Main::init() {
   if (!AbstructScene::init()) {
     return false;
   }
-  
+
   this->_connect_server_at_first = false;
 
   // add notification
-  Director::getInstance()->getEventDispatcher()->addCustomEventListener("footer_visible",[=](cocos2d::EventCustom *event) {
-      CCLOG("イベント受け取ったよ > %s",event->getEventName().c_str());
-      auto visible = (cocos2d::Value *)event->getUserData();
-      this->setLowerMenuVisible(visible->asBool());
-  });
-    
+  Director::getInstance()->getEventDispatcher()->addCustomEventListener(
+      "footer_visible", [=](cocos2d::EventCustom *event) {
+        CCLOG("イベント受け取ったよ > %s", event->getEventName().c_str());
+        auto visible = (cocos2d::Value *)event->getUserData();
+        this->setLowerMenuVisible(visible->asBool());
+      });
+
   // Corelocation から現在位置を取得しておく
   CCCoreLocation *p_core_location = new CCCoreLocation();
   p_core_location->requestLocation();
@@ -76,7 +77,7 @@ bool Main::init() {
 
   // add footer
   this->addChild(this->_p_footer, Zorders_Footer);
-  
+
   return true;
 }
 
@@ -96,15 +97,16 @@ void Main::onEnter(void) {
 
 void Main::onCallbackPointcastHome(cocos2d::network::HttpClient *sender,
                                    cocos2d::network::HttpResponse *response) {
-  
-  
+
+  CCLOG("Home::onCallbackPointcastHome");
+
   if (response->getResponseCode() == 200) {
-    
+
     // 初回のみ
     if (this->_connect_server_at_first == false) {
       // センサーを開く
       this->nextScene(Scene_Sensors_Opend_e);
-      
+
       // 定期実行もセットする
       this->setScheduleHome();
       this->_connect_server_at_first = true;
@@ -119,24 +121,24 @@ void Main::onCallbackPointcastHome(cocos2d::network::HttpClient *sender,
         p_current_scene->refresh();
       }
     }
-
-
   } else {
     // リトライのダイアログ出す
-    cocos2d::CallFunc* p_yes_callfunc = cocos2d::CallFunc::create(this, callfunc_selector(Main::retryRequest));
+    cocos2d::CallFunc *p_yes_callfunc =
+        cocos2d::CallFunc::create(this, callfunc_selector(Main::retryRequest));
     p_yes_callfunc->retain();
-    cocos2d::CallFunc* p_no_callfunc = cocos2d::CallFunc::create(this, callfunc_selector(Main::retryCancel));
+    cocos2d::CallFunc *p_no_callfunc =
+        cocos2d::CallFunc::create(this, callfunc_selector(Main::retryCancel));
     p_no_callfunc->retain();
-    
-    auto p_dialog = scene::modal::Dialog::create("Connection failure...", "Cannot connect to server.\nDo you want to retry?\n(If you select 「Cancel」 then Exit App.)", "Retry", p_yes_callfunc);
+
+    auto p_dialog = scene::modal::Dialog::create(
+        "Connection failure...", "Cannot connect to server.\nDo you want to "
+                                 "retry?\n(If you select 「Cancel」 then Exit "
+                                 "App.)",
+        "Retry", p_yes_callfunc);
     p_dialog->setNoCondition("Cancel", p_no_callfunc);
     p_dialog->show();
-    this->addChild(p_dialog, INT_MAX);
+    this->addChild(p_dialog);
   }
-  
-
-
-  CCLOG("Home::onCallbackPointcastHome");
 }
 
 void Main::setLowerMenu(void) {
@@ -194,19 +196,21 @@ void Main::setLowerMenu(void) {
 
 void Main::touchTopic(void) {
   CCLOG("touchTopic");
-  
+
   // click se
-  CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("res/sound/se/click.mp3");
+  CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic(
+      "res/sound/se/click.mp3");
 
   this->nextScene(E_Scene_Id::Scene_Topic_Opend_e);
 }
 
 void Main::touchSensors(void) {
   CCLOG("touchList");
-    
+
   // click se
-  CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("res/sound/se/click.mp3");
-    
+  CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic(
+      "res/sound/se/click.mp3");
+
   this->nextScene(E_Scene_Id::Scene_Sensors_Opend_e);
 }
 
@@ -229,14 +233,16 @@ void Main::touchSensorsBack() {
 void Main::touchMap(void) {
   CCLOG("touchMap");
   // click se
-  CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("res/sound/se/click.mp3");
+  CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic(
+      "res/sound/se/click.mp3");
   this->nextScene(E_Scene_Id::Scene_Map_Opend_e);
 }
 
 void Main::touchAbout(void) {
   CCLOG("touchAbout");
   // click se
-  CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("res/sound/se/click.mp3");
+  CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic(
+      "res/sound/se/click.mp3");
   this->nextScene(E_Scene_Id::Scene_About_Opend_e);
 }
 
@@ -372,12 +378,10 @@ void Main::onCallbackScheduleHome(cocos2d::network::HttpClient *sender,
 
 void Main::unScheduleHome(void) {}
 
-void Main::setLowerMenuVisible(bool visible)
-{
-    this->_p_footer->setVisible(visible);
+void Main::setLowerMenuVisible(bool visible) {
+  this->_p_footer->setVisible(visible);
 }
-  
-  
+
 void Main::retryRequest() {
   // リトライする
   float dely = 1.0f; //

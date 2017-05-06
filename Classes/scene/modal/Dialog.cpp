@@ -9,6 +9,9 @@
 #include "scene/base/AbstructScene.hpp"
 #include "cocostudio/CocoStudio.h"
 
+#include "lib/native/Util.h"
+
+
 USING_NS_CC;
 
 using namespace ui;
@@ -65,7 +68,7 @@ void Dialog::setNoCondition(std::string no_button_string,
   this->dialog_mode_ = DIALOG_MODE_YESNO;
 }
 
-void Dialog::executeLayout() {
+void Dialog::executeValues() {
 
   // オブジェクトを格納
   auto title_label = static_cast<cocos2d::ui::Text *>(
@@ -81,7 +84,7 @@ void Dialog::executeLayout() {
   // タイトル、本文をセット
   title_label->setString(title_string_);
   description_label->setString(description_string_);
-
+  
   // ボタンの表示をセット
   target_panel_with_buttons->setVisible(true);
   target_panel_with_buttons->setTouchEnabled(true);
@@ -106,12 +109,32 @@ void Dialog::executeLayout() {
           }
         });
   }
-  // 大きさを調整
+
+}
+  
+void Dialog::executeLayout(){
+  // @todo: 本文サイズに合わせてダイアログの大きさを可変にする
+  
+  // 本文のエリアの高さ
+  
+  // ダイアログの高さ
+  
+  // ダイアログの位置
+  cocos2d::Size frame_size = lib::native::Util::getDisplaySize();
+  this->_p_contents->setPosition(frame_size / 2);
+  this->_p_contents->setAnchorPoint(Vec2(0.5f, 0.5f));
+  
 }
 
 void Dialog::show() {
+  // 設定された値を反映
+  this->executeValues();
   // レイアウトを整える
   this->executeLayout();
+  
+  // @todo: Fade IN(下記のコードでは動かない)
+  // auto action = FadeIn::create(3.0f);
+  // this->_p_contents->runAction(action);
 }
   
 void Dialog::close(BUTTON_TYPE button_type) {
