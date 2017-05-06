@@ -96,6 +96,10 @@ public:
     
   void initChartInterval();
   
+  void retryRequest();
+  
+  void retryCancel();
+  
   void shiftIntervalSec(int diff);
 
   virtual void onEnter();
@@ -114,7 +118,7 @@ public:
   
   void pageViewEvent(cocos2d::Ref * psender, cocos2d::ui::PageView::EventType type);
  
-  void changePage(int index);
+  void updateChartWithDiffDays(int diff_days);
 
 /*
   cocos2d::ui::Widget *prepareChartBoard(

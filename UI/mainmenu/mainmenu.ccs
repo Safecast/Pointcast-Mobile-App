@@ -3,6 +3,7 @@
   <SolutionFolder>
     <Group ctype="ResourceGroup">
       <RootFolder Name=".">
+        <Image Name="buttonBackground_skyblue.png" />
         <Project Name="chartTest.csd" Type="Layer" />
         <Image Name="circle_blue.png" />
         <Image Name="dialog_base.png" />

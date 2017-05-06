@@ -96,28 +96,29 @@ void DataStoreSingleton::callbackHttpPointcastHome(
   CCLOG("CallbackHttpPointcastHome %ld %s", response->getResponseCode(), data);
 
   // @todo check error
-  assert(response);
-  assert(response->getResponseCode() == 200);
+  // assert(response);
+  // assert(response->getResponseCode() == 200);
 
-  // last updated at
-  time(&this->last_updated_at);
+  if (response->getResponseCode() == 200) {
+    // last updated at
+    time(&this->last_updated_at);
+    
+    std::string string_response_data =
+    lib::Util::createResponseBodyStringFromResponse(response);
 
-  std::string string_response_data =
-      lib::Util::createResponseBodyStringFromResponse(response);
-
-  // store data
-  this->_p_m_http_response_data[Request_Pointcast_Home_e] =
-      string_response_data;
-
-  this->storeSensorListData(string_response_data);
+    // store data
+    this->_p_m_http_response_data[Request_Pointcast_Home_e] =
+    string_response_data;
+    
+    this->storeSensorListData(string_response_data);
+  }
 
   if (this->_p_callbackObject && this->_p_callbackFunction) {
     (this->_p_callbackObject->*this->_p_callbackFunction)(sender, response);
   }
 }
 
-std::string
-DataStoreSingleton::getResponseData(E_Http_Request_Id http_request_id) {
+std::string DataStoreSingleton::getResponseData(E_Http_Request_Id http_request_id) {
   return this->_p_m_http_response_data[http_request_id];
 }
 
@@ -231,24 +232,26 @@ void DataStoreSingleton::callbackHttpPointcastAnalytics(
         data);
 
   // @todo check error
-  assert(response);
+  // assert(response);
   CCLOG("response code %ld", response->getResponseCode());
-  assert(response->getResponseCode() == 200);
-
-  std::string string_response_data =
-      lib::Util::createResponseBodyStringFromResponse(response);
-
-  // store data to memory
-  std::string cache_key = response->getHttpRequest()->getTag();
-  this->_p_m_http_analytics_response_data[cache_key] =
-      string_response_data;
+  // assert(response->getResponseCode() == 200);
   
-  // store data to file
-  std::string cache_file_path = this->getAnalyticsCacheFilePath(cache_key);
-  cocos2d::FileUtils::getInstance()->writeStringToFile(string_response_data, cache_key);
+  if (response->getResponseCode() == 200) {
+    std::string string_response_data =
+    lib::Util::createResponseBodyStringFromResponse(response);
+    
+    // store data to memory
+    std::string cache_key = response->getHttpRequest()->getTag();
+    this->_p_m_http_analytics_response_data[cache_key] =
+    string_response_data;
+    
+    // store data to file
+    std::string cache_file_path = this->getAnalyticsCacheFilePath(cache_key);
+    cocos2d::FileUtils::getInstance()->writeStringToFile(string_response_data, cache_key);
+  }
 
   this->_p_store_callback->execute();
-    
+  this->_p_store_callback->release();
   
   if (this->_p_callbackObject && this->_p_callbackFunction) {
     (this->_p_callbackObject->*this->_p_callbackFunction)(sender, response);
