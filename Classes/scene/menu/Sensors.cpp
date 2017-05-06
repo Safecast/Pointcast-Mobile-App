@@ -21,7 +21,7 @@
 #include "scene/layout/helper/Contents.hpp"
 #include "scene/modal/Search.hpp"
 #include "scene/modal/Sort.hpp"
-
+#include "scene/modal/Dialog.hpp"
 #include "network/HttpClient.h"
 
 #include "scene/Main.hpp"
@@ -463,44 +463,91 @@ void Sensors::closeAnalyticsDialog() {
   this->setMesurementData(p_record, location_item);
 }
 
-void Sensors::refresh(void) {
-
+void Sensors::updateSensorData() {
   scene::Main *p_scene_main = static_cast<scene::Main *>(this->getParent());
   p_scene_main->attachWaitAnimation();
-
-  auto p_panel =
-      this->_p_contents->getChildByName<ui::Layout *>("panelBackground");
-
-  // last updated at
-  auto label_last_updated_at =
-      p_panel->getChildByName<ui::Text *>("txtLastUpdatedAt");
-  label_last_updated_at->setString(
-      lib::network::DataStoreSingleton::getInstance()
-          ->getLastUpdatedAtToFormatString());
-
-  auto p_tab_world = p_panel->getChildByName<LayerGradient *>("panelWorld");
-  auto p_tab_favorite =
-      p_panel->getChildByName<LayerGradient *>("panelFavorite");
-
-  const Color3B enbale_color = Color3B(30, 144, 255);
-  const Color3B disable_color = Color3B(191, 191, 191);
-
-  if (this->task_id == Task_Id_World) {
-    p_tab_world->setStartColor(enbale_color);
-    p_tab_favorite->setStartColor(disable_color);
-  } else if (this->task_id == Task_Id_Favorite) {
-    p_tab_world->setStartColor(disable_color);
-    p_tab_favorite->setStartColor(enbale_color);
+  
+  // Http Request For Home Data
+  lib::network::DataStoreSingleton *p_data_store_singleton =
+                  lib::network::DataStoreSingleton::getInstance();
+  
+  // http request pointcast/home.json
+  p_data_store_singleton->setResponseCallback(
+    this,
+    (cocos2d::network::SEL_HttpResponse)(&Sensors::onCallbackUpdateSensorData));
+  p_data_store_singleton->requestPointcastHome();
+  
+  CCLOG("Sensors::updateSensorData");
+}
+  
+void Sensors::onCallbackUpdateSensorData(cocos2d::network::HttpClient *sender,
+                                cocos2d::network::HttpResponse *response) {
+  scene::Main *p_scene_main = static_cast<scene::Main *>(this->getParent());
+  p_scene_main->detachWaitAnimation();
+  
+  if (response->getResponseCode() == 200) {
+    auto p_panel =
+    this->_p_contents->getChildByName<ui::Layout *>("panelBackground");
+    
+    // last updated at
+    auto label_last_updated_at =
+    p_panel->getChildByName<ui::Text *>("txtLastUpdatedAt");
+    label_last_updated_at->setString(
+                                     lib::network::DataStoreSingleton::getInstance()
+                                     ->getLastUpdatedAtToFormatString());
+    
+    auto p_tab_world = p_panel->getChildByName<LayerGradient *>("panelWorld");
+    auto p_tab_favorite =
+    p_panel->getChildByName<LayerGradient *>("panelFavorite");
+    
+    const Color3B enbale_color = Color3B(30, 144, 255);
+    const Color3B disable_color = Color3B(191, 191, 191);
+    
+    if (this->task_id == Task_Id_World) {
+      p_tab_world->setStartColor(enbale_color);
+      p_tab_favorite->setStartColor(disable_color);
+    } else if (this->task_id == Task_Id_Favorite) {
+      p_tab_world->setStartColor(disable_color);
+      p_tab_favorite->setStartColor(enbale_color);
+    }
+    
+    // clear list
+    // ひょっとすると消さないで現在の値を更新する必要があるかも
+    auto p_list_view = p_panel->getChildByName<ui::ListView *>("listSensors");
+    p_list_view->removeAllChildren();
+    
+    this->showSensorListOneOfEach();
+    
+    this->updateSortType();
+  } else {
+    // リトライのダイアログ出す
+    cocos2d::CallFunc *p_yes_callfunc =
+    cocos2d::CallFunc::create(this, callfunc_selector(Main::retryRequest));
+    p_yes_callfunc->retain();
+    cocos2d::CallFunc *p_no_callfunc =
+    cocos2d::CallFunc::create(this, callfunc_selector(Main::retryCancel));
+    p_no_callfunc->retain();
+    
+    auto p_dialog = scene::modal::Dialog::create(
+                                                 "Connection failure...", "Cannot connect to server.\nDo you want to "
+                                                 "retry?\n(If you select 「Cancel」 then Exit "
+                                                 "App.)",
+                                                 "Retry", p_yes_callfunc);
+    p_dialog->setNoCondition("Cancel", p_no_callfunc);
+    p_dialog->show();
+    this->addChild(p_dialog);
   }
-
-  // clear list
-  // ひょっとすると消さないで現在の値を更新する必要があるかも
-  auto p_list_view = p_panel->getChildByName<ui::ListView *>("listSensors");
-  p_list_view->removeAllChildren();
-
-  this->showSensorListOneOfEach();
-
-  this->updateSortType();
+  
+  
+  
+ 
+  
+}
+  
+void Sensors::refresh(void) {
+  // http -> request sensor data
+  this->updateSensorData();
+  
 }
 
 void Sensors::nextScene(Task_Id task_id) {
@@ -630,7 +677,17 @@ void Sensors::updateSortType(void) {
 
   p_text_sort_type->setString(label_name);
 }
-    
+  
+void Sensors::retryRequest() {
+  // リトライする
+  this->refresh();
+}
+
+void Sensors::retryCancel() {
+  Director::getInstance()->end();
+  // @todo objective-c lifecycle
+  exit(1);
+}
   
 }
 }

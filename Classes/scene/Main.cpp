@@ -94,13 +94,21 @@ void Main::onEnter(void) {
   scene::base::AbstructScene::onEnter();
 
   // Http Request For Home Data
+  /*
   lib::network::DataStoreSingleton *p_data_store_singleton =
       lib::network::DataStoreSingleton::getInstance();
+   
   // http request pointcast/home.json
   p_data_store_singleton->setResponseCallback(
       this,
       (cocos2d::network::SEL_HttpResponse)(&Main::onCallbackPointcastHome));
   p_data_store_singleton->requestPointcastHome();
+   
+  */
+  
+  // 最初にセンサーページ開く
+  this->nextScene(E_Scene_Id::Scene_Sensors_Opend_e);
+  
 }
 
 void Main::onCallbackPointcastHome(cocos2d::network::HttpClient *sender,
@@ -111,15 +119,16 @@ void Main::onCallbackPointcastHome(cocos2d::network::HttpClient *sender,
   if (response->getResponseCode() == 200) {
 
     // 初回のみ
+    /*
     if (this->_connect_server_at_first == false) {
       // センサーを開く
       this->nextScene(Scene_Sensors_Opend_e);
-
-      // 定期実行もセットする
-      this->setScheduleHome();
       this->_connect_server_at_first = true;
     }
-
+    */
+    
+    this->nextScene(E_Scene_Id::Scene_Sensors_Opend_e);
+    
     // リクエストが正常に取得できていたらセンサーの値を更新する
     if (this->_e_scene_id == Scene_Sensors_Opend_e) {
       // if sensors appear update list
@@ -218,7 +227,10 @@ void Main::touchSensors(void) {
   // click se
   CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic(
       "res/sound/se/click.mp3");
-
+  
+  // float dely = 0.0f; //
+  // scheduleOnce(schedule_selector(::scene::Main::updateSensors), dely);
+  // callbackでnextSceneする
   this->nextScene(E_Scene_Id::Scene_Sensors_Opend_e);
 }
 
@@ -282,7 +294,7 @@ void Main::nextScene(E_Scene_Id next_scene_id) {
     p_next_scene = menu::Sensors::create();
     tag = Tag_Id_Sensor;
     callback =
-        CallFunc::create(p_next_scene, SEL_CallFunc(&menu::Sensors::refresh));
+        CallFunc::create(p_next_scene, SEL_CallFunc(&menu::Sensors::updateSensorData));
     break;
   case Scene_Map_Opend_e:
     p_next_scene = menu::Map::create();
@@ -296,8 +308,6 @@ void Main::nextScene(E_Scene_Id next_scene_id) {
       callback =
         CallFunc::create(p_next_scene, SEL_CallFunc(&menu::About::refresh));
       break;
-    
-      
   default:
     assert(false);
     break;
@@ -312,6 +322,7 @@ void Main::nextScene(E_Scene_Id next_scene_id) {
       callback);
   this->_e_scene_id = next_scene_id;
   this->addChild(p_next_scene, Zorders_Main_Contents);
+  
 }
 
 void Main::attachWelcomeAnimation(void) {
@@ -366,11 +377,12 @@ void Main::touchAboutBack(void) {
 
 void Main::setScheduleHome(void) {
   // SetScheduler
-  float interval = 300.0f; // @todo optimize
-  schedule(schedule_selector(::scene::Main::updateHome), interval);
+  // float interval = 300.0f; // @todo optimize
+  float interval = 15.0f; // @todo optimize
+  schedule(schedule_selector(::scene::Main::updateSensors), interval);
 }
 
-void Main::updateHome(float dt) {
+void Main::updateSensors(float dt) {
 
   this->attachWaitAnimation();
   
@@ -384,7 +396,7 @@ void Main::updateHome(float dt) {
       (cocos2d::network::SEL_HttpResponse)(&Main::onCallbackPointcastHome));
   p_data_store_singleton->requestPointcastHome();
 
-  CCLOG("Main::updateHome");
+  CCLOG("Main::updateSensors");
 }
 
 void Main::onCallbackScheduleHome(cocos2d::network::HttpClient *sender,
@@ -402,7 +414,7 @@ void Main::setLowerMenuVisible(bool visible) {
 void Main::retryRequest() {
   // リトライする
   float dely = 0.0f; //
-  scheduleOnce(schedule_selector(::scene::Main::updateHome), dely);
+  scheduleOnce(schedule_selector(::scene::Main::updateSensors), dely);
 }
   
 void Main::retryCancel() {
