@@ -47,5 +47,10 @@ void About::touchBack() {
   auto p_parent_scene = static_cast<scene::Main *>(this->getParent());
   p_parent_scene->touchAboutBack();
 }
+  
+void About::refresh() {
+  return;
+}
+  
 }
 }

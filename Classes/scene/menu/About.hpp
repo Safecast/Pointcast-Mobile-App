@@ -16,20 +16,22 @@
 namespace scene {
 namespace menu {
 class About : public cocos2d::Node {
-    // member
-   public:
-   private:
-    Node* _p_contents;
+  // member
+public:
+private:
+  Node *_p_contents;
 
-    // function
-   public:
-    virtual bool init();
+  // function
+public:
+  virtual bool init();
 
-    void touchBack();
+  void touchBack();
 
-    CREATE_FUNC(About);
+  void refresh();
 
-   private:
+  CREATE_FUNC(About);
+
+private:
 };
 }
 }

@@ -30,6 +30,28 @@
                 <OutlineColor A="255" R="255" G="0" B="0" />
                 <ShadowColor A="255" R="110" G="110" B="110" />
               </AbstractNodeData>
+              <AbstractNodeData Name="txtBack" ActionTag="684814611" VisibleForFrame="False" Tag="126" IconVisible="False" LeftMargin="451.4702" RightMargin="8.5298" TopMargin="-2.0000" BottomMargin="1038.0000" IsCustomSize="True" FontSize="36" LabelText="Back" HorizontalAlignmentType="HT_Center" VerticalAlignmentType="VT_Center" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="TextObjectData">
+                <Size X="180.0000" Y="100.0000" />
+                <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
+                <Position X="541.4702" Y="1088.0000" />
+                <Scale ScaleX="1.0000" ScaleY="1.0000" />
+                <CColor A="255" R="30" G="144" B="255" />
+                <PrePosition X="0.8460" Y="0.9577" />
+                <PreSize X="0.2813" Y="0.0880" />
+                <OutlineColor A="255" R="255" G="0" B="0" />
+                <ShadowColor A="255" R="110" G="110" B="110" />
+              </AbstractNodeData>
+              <AbstractNodeData Name="Text_1" ActionTag="216371226" Tag="43" IconVisible="False" LeftMargin="158.1169" RightMargin="150.8831" TopMargin="419.3235" BottomMargin="662.6765" FontSize="48" LabelText="Coming Soon..." ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="TextObjectData">
+                <Size X="331.0000" Y="54.0000" />
+                <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
+                <Position X="323.6169" Y="689.6765" />
+                <Scale ScaleX="1.0000" ScaleY="1.0000" />
+                <CColor A="255" R="255" G="165" B="0" />
+                <PrePosition X="0.5057" Y="0.6071" />
+                <PreSize X="0.5172" Y="0.0475" />
+                <OutlineColor A="255" R="255" G="0" B="0" />
+                <ShadowColor A="255" R="110" G="110" B="110" />
+              </AbstractNodeData>
             </Children>
             <AnchorPoint />
             <Position />
@@ -41,17 +63,6 @@
             <FirstColor A="255" R="150" G="200" B="255" />
             <EndColor A="255" R="255" G="255" B="255" />
             <ColorVector ScaleY="1.0000" />
-          </AbstractNodeData>
-          <AbstractNodeData Name="Text_1" ActionTag="216371226" Tag="43" IconVisible="False" LeftMargin="158.1169" RightMargin="150.8831" TopMargin="-516.6765" BottomMargin="662.6765" FontSize="48" LabelText="Coming Soon..." ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="TextObjectData">
-            <Size X="331.0000" Y="54.0000" />
-            <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
-            <Position X="323.6169" Y="689.6765" />
-            <Scale ScaleX="1.0000" ScaleY="1.0000" />
-            <CColor A="255" R="255" G="165" B="0" />
-            <PrePosition X="0.5057" Y="3.4484" />
-            <PreSize X="0.5172" Y="0.2700" />
-            <OutlineColor A="255" R="255" G="0" B="0" />
-            <ShadowColor A="255" R="110" G="110" B="110" />
           </AbstractNodeData>
         </Children>
       </ObjectData>

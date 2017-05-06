@@ -33,6 +33,8 @@ public:
     Tag_Id_Sensor_Record,
 
     Tag_Id_Map,
+    
+    Tag_Id_About,
 
     // Animation
     Tag_Id_Wait_Animation_e = 9001,
