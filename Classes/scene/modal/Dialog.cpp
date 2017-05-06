@@ -52,7 +52,7 @@ bool Dialog::init() {
   this->_p_contents =
       cocos2d::CSLoader::getInstance()->createNode("res/dialogBase.csb");
 
-  this->addChild(this->_p_contents, 99999);
+  this->addChild(this->_p_contents, INT_MAX);
 
   return true;
 }

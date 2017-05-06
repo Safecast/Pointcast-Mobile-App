@@ -407,12 +407,12 @@ void Analytics::onCallbackPointcastAnalytics(
     // リトライダイアログ出す
     cocos2d::CallFunc* p_yes_callfunc = cocos2d::CallFunc::create(this, callfunc_selector(Analytics::retryRequest));
     p_yes_callfunc->retain();
-    cocos2d::CallFunc* p_no_callfunc = cocos2d::CallFunc::create(this, callfunc_selector(Analytics::retryCancel));
+    cocos2d::CallFunc *p_no_callfunc = cocos2d::CallFunc::create(
+        this, callfunc_selector(Analytics::retryCancel));
     p_no_callfunc->retain();
     
-    auto p_dialog = scene::modal::Dialog::create("title", "test", "Yes", p_yes_callfunc);
-    p_dialog->setNoCondition("Cancel", p_no_callfunc);
-    p_dialog->show();
+    auto p_dialog = scene::modal::Dialog::create("Connection failure...", "Cannot connect to server.\nDo you want to retry?\n(If you select 「Cancel」 then Exit App.)", "Retry", p_yes_callfunc);
+    p_dialog->setNoCondition("Cancel", p_no_callfunc); p_dialog->show();
     this->_p_scene_main->addChild(p_dialog, INT_MAX);
     return;
   } else {

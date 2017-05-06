@@ -128,8 +128,8 @@ void Main::onCallbackPointcastHome(cocos2d::network::HttpClient *sender,
     cocos2d::CallFunc* p_no_callfunc = cocos2d::CallFunc::create(this, callfunc_selector(Main::retryCancel));
     p_no_callfunc->retain();
     
-    auto p_dialog = scene::modal::Dialog::create("Cannot Connect To Server", "Do you want to retry?\n(If you select No then Exit App.)", "Yes", p_yes_callfunc);
-    p_dialog->setNoCondition("No", p_no_callfunc);
+    auto p_dialog = scene::modal::Dialog::create("Connection failure...", "Cannot connect to server.\nDo you want to retry?\n(If you select 「Cancel」 then Exit App.)", "Retry", p_yes_callfunc);
+    p_dialog->setNoCondition("Cancel", p_no_callfunc);
     p_dialog->show();
     this->addChild(p_dialog, INT_MAX);
   }
