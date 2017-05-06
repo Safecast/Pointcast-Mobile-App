@@ -66,6 +66,8 @@ public:
                                   cocos2d::network::HttpResponse *response);
   
   void refresh(void);
+  
+  void refreshNoUpdate(void);
 
   void showSensorListOneOfEach(void);
 
