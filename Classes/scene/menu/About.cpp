@@ -55,6 +55,13 @@ bool About::init() {
      });
   }
   
+  // app version
+  
+  auto label_version =
+    panel->getChildByName<ui::Text *>("txtVersion");
+  label_version->setString("ver " + Application::getInstance()->getVersion());
+ 
+  
   this->addChild(this->_p_contents);
 
   return true;

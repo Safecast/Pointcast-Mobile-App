@@ -123,9 +123,20 @@
                 <Scale ScaleX="1.0000" ScaleY="1.0000" />
                 <CColor A="255" R="255" G="255" B="255" />
                 <PrePosition Y="0.6470" />
-                <PreSize X="0.0719" Y="0.0405" />
+                <PreSize X="1.0000" Y="0.2641" />
                 <FileData Type="Normal" Path="aboutTopPicture.jpg" Plist="" />
                 <BlendFunc Src="770" Dst="771" />
+              </AbstractNodeData>
+              <AbstractNodeData Name="txtVersion" ActionTag="-525234019" Tag="134" IconVisible="False" LeftMargin="35.9477" RightMargin="511.0523" TopMargin="34.0054" BottomMargin="1073.9946" FontSize="24" LabelText="ver 1.0.x" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="TextObjectData">
+                <Size X="93.0000" Y="28.0000" />
+                <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
+                <Position X="82.4477" Y="1087.9946" />
+                <Scale ScaleX="1.0000" ScaleY="1.0000" />
+                <CColor A="255" R="77" G="77" B="77" />
+                <PrePosition X="0.1288" Y="0.9577" />
+                <PreSize X="0.1453" Y="0.0246" />
+                <OutlineColor A="255" R="255" G="0" B="0" />
+                <ShadowColor A="255" R="110" G="110" B="110" />
               </AbstractNodeData>
             </Children>
             <AnchorPoint />
