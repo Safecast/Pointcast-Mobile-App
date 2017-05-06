@@ -414,9 +414,11 @@ void Analytics::onCallbackPointcastAnalytics(
     p_dialog->setNoCondition("Cancel", p_no_callfunc);
     p_dialog->show();
     this->_p_scene_main->addChild(p_dialog, INT_MAX);
+    return;
+  } else {
+    this->initVariableContents();
   }
 
-  // this->initVariableContents();
 }
 
 std::vector<lib::object::ChartItem>
@@ -700,6 +702,7 @@ void Analytics::retryCancel() {
   // リトライしない場合アプリケーション終了
   cocos2d::log("Analytics::retryCancel()");
   Director::getInstance()->end();
+  exit(1);
 }
   
 }
