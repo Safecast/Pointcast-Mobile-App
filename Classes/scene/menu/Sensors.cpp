@@ -39,16 +39,17 @@ bool Sensors::init() {
   if (!Node::init()) {
     return false;
   }
-    
-    
-    auto listener = EventListenerTouchAllAtOnce::create();
-    listener->setEnabled(true);
-    listener->onTouchesBegan = CC_CALLBACK_2(Sensors::onTouchesBegan, this);
-    listener->onTouchesMoved = CC_CALLBACK_2(Sensors::onTouchesMoved, this);
-    listener->onTouchesCancelled = CC_CALLBACK_2(Sensors::onTouchesCancelled, this);
-    listener->onTouchesEnded = CC_CALLBACK_2(Sensors::onTouchesEnded, this);
-    
-    this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this);
+
+  auto listener = EventListenerTouchAllAtOnce::create();
+  listener->setEnabled(true);
+  listener->onTouchesBegan = CC_CALLBACK_2(Sensors::onTouchesBegan, this);
+  listener->onTouchesMoved = CC_CALLBACK_2(Sensors::onTouchesMoved, this);
+  listener->onTouchesCancelled =
+      CC_CALLBACK_2(Sensors::onTouchesCancelled, this);
+  listener->onTouchesEnded = CC_CALLBACK_2(Sensors::onTouchesEnded, this);
+
+  this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener,
+                                                                     this);
 
   // set task id
   this->task_id = Task_Id_World;
@@ -87,7 +88,7 @@ bool Sensors::init() {
           auto widget = listView->getItem(selectedIndex);
           auto location_item =
               p_datastore_singleton->getLocationItem(widget->getTag());
-            
+
           /*
           if (location_item.sensor_status != 1) {
             // if status inactive
@@ -102,7 +103,7 @@ bool Sensors::init() {
           // Click Se
           CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic(
               "res/sound/se/click.mp3");
-            
+
           this->showAnalyticsDialog(widget->getTag());
         } else {
           CCLOG("touch list event type %d", eventType);
@@ -149,6 +150,17 @@ bool Sensors::init() {
         }
       });
 
+  // sort
+  auto button_about = p_panel->getChildByName<ui::ImageView *>("imgAbout");
+  button_about->addTouchEventListener(
+      [this](Ref *sender, ui::Widget::TouchEventType type) {
+        if (type == ui::Widget::TouchEventType::ENDED) {
+          cocos2d::EventCustom customEvent("touch_about");
+          cocos2d::Director::getInstance()->getEventDispatcher()->dispatchEvent(
+              &customEvent);
+        }
+      });
+
   // panel world
   auto panel_world = p_panel->getChildByName<ui::Button *>("panelWorld");
   panel_world->addTouchEventListener(
@@ -190,7 +202,7 @@ bool Sensors::init() {
 
       });
 
-    // register notification
+  // register notification
   Director::getInstance()->getEventDispatcher()->addCustomEventListener(
       "search_sensor", [=](cocos2d::EventCustom *event) {
         CCLOG("イベント受け取ったよ > %s", event->getEventName().c_str());
@@ -199,30 +211,31 @@ bool Sensors::init() {
         this->refresh();
       });
 
-      // this->nextScene(Task_Id_World);
+  // this->nextScene(Task_Id_World);
 
-      return true;
+  return true;
 }
 
 void Sensors::touchBack() {
   // click se
-  CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("res/sound/se/click.mp3");
-    
+  CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic(
+      "res/sound/se/click.mp3");
+
   auto p_parent_scene = static_cast<scene::Main *>(this->getParent());
   p_parent_scene->touchSensorsBack();
 }
 
 void Sensors::touchSearch(Ref *sender) {
   CCLOG("Sensors::touchSearch");
-    
-    // click se
-    CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("res/sound/se/click.mp3");
 
-    this->detachTouchParticle();
+  // click se
+  CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic(
+      "res/sound/se/click.mp3");
 
-    lib::native::Util::showSearchWordInputText();
-    return;
-    
+  this->detachTouchParticle();
+
+  lib::native::Util::showSearchWordInputText();
+  return;
 
   // this->attachBlueEffect(20.0f, 20.0f, 3);
   // MessageBox("sorry. comming soom.", "search");
@@ -230,7 +243,7 @@ void Sensors::touchSearch(Ref *sender) {
   auto p_modal_search = scene::modal::Search::create();
 
   this->detachTouchParticle();
-    
+
   CallFunc *callback = CallFunc::create(
       p_modal_search, SEL_CallFunc(&scene::modal::Search::detachSlideIn));
 
@@ -251,40 +264,42 @@ void Sensors::touchSort(Ref *sender) {
 
   lib::native::Util::showSortPicker();
   return;
-  
-    /*
-  // click se
-  CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("res/sound/se/click.mp3");
-    
-  
-  this->detachTouchParticle();
-  // MessageBox("sorry. comming soom.", "sort");
 
-  auto p_modal_sort = scene::modal::Sort::create();
+  /*
+// click se
+CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("res/sound/se/click.mp3");
 
-  CallFunc *callback = CallFunc::create(
-      p_modal_sort, SEL_CallFunc(&scene::modal::Sort::detachSlideIn));
 
-  scene::layout::helper::Contents::SlideIn(
-      p_modal_sort, 0.2f, scene::layout::helper::Contents::Forward_To_Right_e,
-      callback, true);
+this->detachTouchParticle();
+// MessageBox("sorry. comming soom.", "sort");
 
-  this->getParent()->addChild(p_modal_sort, Zorders_Modal_Dialog);
-     */
+auto p_modal_sort = scene::modal::Sort::create();
+
+CallFunc *callback = CallFunc::create(
+    p_modal_sort, SEL_CallFunc(&scene::modal::Sort::detachSlideIn));
+
+scene::layout::helper::Contents::SlideIn(
+    p_modal_sort, 0.2f, scene::layout::helper::Contents::Forward_To_Right_e,
+    callback, true);
+
+this->getParent()->addChild(p_modal_sort, Zorders_Modal_Dialog);
+   */
 }
 
 void Sensors::touchPanelFavorite() {
-    // click se
-    CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("res/sound/se/click.mp3");
-    
-    this->nextScene(Task_Id_Favorite);
+  // click se
+  CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic(
+      "res/sound/se/click.mp3");
+
+  this->nextScene(Task_Id_Favorite);
 }
 
 void Sensors::touchPanelWorld() {
-    // click se
-    CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("res/sound/se/click.mp3");
-    
-    this->nextScene(Task_Id_World);
+  // click se
+  CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic(
+      "res/sound/se/click.mp3");
+
+  this->nextScene(Task_Id_World);
 }
 
 void Sensors::removeAnimationDone(Node *sender, ssize_t index) {}
@@ -362,13 +377,13 @@ void Sensors::setMesurementData(cocos2d::Node *panel,
                                          location_item.conversion_rate);
   double peak_value = static_cast<double>(location_item.yesterday_peak_value /
                                           location_item.conversion_rate);
-    
-  int alarm_value =static_cast<int>(location_item.alarm_value);
+
+  int alarm_value = static_cast<int>(location_item.alarm_value);
 
   // @note round method
   avg_value = lib::Util::round(avg_value, 3);
   peak_value = lib::Util::round(peak_value, 3);
-  
+
   ss4 << avg_value << " μSv/hour";
   ss5 << peak_value << " μSv/hour";
   ss7 << alarm_value << " cpm";
@@ -379,15 +394,14 @@ void Sensors::setMesurementData(cocos2d::Node *panel,
   auto p_text_avg_value =
       p_panel_record->getChildByName<ui::Text *>("txtYesterdayAverage");
   p_text_avg_value->setString(ss4.str());
-  
+
   auto p_text_peak_value =
       p_panel_record->getChildByName<ui::Text *>("txtYesterdayPeak");
   p_text_peak_value->setString(ss5.str());
-  
+
   auto p_text_alarm_value =
       p_panel_record->getChildByName<ui::Text *>("txtSensorAlarm");
   p_text_alarm_value->setString(ss7.str());
-    
 
   // favorite
   auto p_button_favorite =
@@ -410,8 +424,7 @@ void Sensors::setMesurementData(cocos2d::Node *panel,
 }
 
 void Sensors::showAnalyticsDialog(int m_sensor_main_id) {
-  auto p_modal_mesurements_analytics =
-      scene::menu::Analytics::create();
+  auto p_modal_mesurements_analytics = scene::menu::Analytics::create();
   p_modal_mesurements_analytics->setTag(Tag_Id_Mesurements_Analytics);
   p_modal_mesurements_analytics->prepare(m_sensor_main_id);
 
@@ -424,13 +437,12 @@ void Sensors::showAnalyticsDialog(int m_sensor_main_id) {
   //        this, 0.4f, scene::layout::helper::Contents::Forward_To_Left_e,
   //        false);
 
-  this->addChild(p_modal_mesurements_analytics , 2);
+  this->addChild(p_modal_mesurements_analytics, 2);
 }
 
 void Sensors::closeAnalyticsDialog() {
-  auto p_modal_mesurements_analytics =
-      static_cast<scene::menu::Analytics *>(
-          this->getChildByTag(Tag_Id_Mesurements_Analytics));
+  auto p_modal_mesurements_analytics = static_cast<scene::menu::Analytics *>(
+      this->getChildByTag(Tag_Id_Mesurements_Analytics));
 
   // Slide Out Animation
   scene::layout::helper::Contents::SlideOut(

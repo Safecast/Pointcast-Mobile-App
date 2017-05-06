@@ -3,6 +3,8 @@
   <SolutionFolder>
     <Group ctype="ResourceGroup">
       <RootFolder Name=".">
+        <Image Name="abount_icon.png" />
+        <Image Name="aboutTopPicture.jpg" />
         <Image Name="buttonBackground_skyblue.png" />
         <Project Name="chartTest.csd" Type="Layer" />
         <Image Name="circle_blue.png" />
@@ -20,6 +22,8 @@
         <Project Name="layerChart.csd" Type="Layer" />
         <Project Name="layerChartHeader.csd" Type="Layer" />
         <Project Name="layerFooter.csd" Type="Layer" />
+        <Image Name="lineButtonBackgroundNormal.png" />
+        <Image Name="lineButtonBackgroundSelect.png" />
         <Image Name="mapicon.png" />
         <Project Name="MenuAbout.csd" Type="Scene" />
         <Project Name="MenuAnalytics_landscape.csd" Type="Scene" />
@@ -27,6 +31,7 @@
         <Project Name="MenuMain.csd" Type="Scene" />
         <Project Name="MenuMap.csd" Type="Scene" />
         <Project Name="MenuSensorList.csd" Type="Scene" />
+        <Project Name="MenuSensorList.old.csd" Type="Scene" />
         <Image Name="More.png" />
         <Image Name="More@2x.png" />
         <Image Name="NextDisableButton.png" />

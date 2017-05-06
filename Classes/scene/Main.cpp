@@ -46,6 +46,14 @@ bool Main::init() {
         auto visible = (cocos2d::Value *)event->getUserData();
         this->setLowerMenuVisible(visible->asBool());
       });
+  
+  Director::getInstance()->getEventDispatcher()->addCustomEventListener(
+      "touch_about", [=](cocos2d::EventCustom *event) {
+        CCLOG("イベント受け取ったよ > %s", event->getEventName().c_str());
+        //auto visible = (cocos2d::Value *)event->getUserData();
+        //this->setLowerMenuVisible(visible->asBool());
+        this->touchAbout();
+      });
 
   // Corelocation から現在位置を取得しておく
   CCCoreLocation *p_core_location = new CCCoreLocation();
@@ -282,6 +290,14 @@ void Main::nextScene(E_Scene_Id next_scene_id) {
     callback =
         CallFunc::create(p_next_scene, SEL_CallFunc(&menu::Map::refresh));
     break;
+  case Scene_About_Opend_e:
+      p_next_scene = menu::About::create();
+      tag = Tag_Id_About;
+      callback =
+        CallFunc::create(p_next_scene, SEL_CallFunc(&menu::About::refresh));
+      break;
+    
+      
   default:
     assert(false);
     break;
@@ -335,14 +351,14 @@ void Main::attachWelcomeAnimation(void) {
 }
 
 void Main::touchMapBack(void) {
-  auto p_current_contents = this->getChildByTag(this->_e_scene_id);
+  auto p_current_contents = this->getChildByTag(this->_current_contents_tag_id);
   scene::layout::helper::Contents::SlideOut(
       p_current_contents, 0.2f,
       scene::layout::helper::Contents::Forward_To_Bottom_e);
 }
 
 void Main::touchAboutBack(void) {
-  auto p_current_contents = this->getChildByTag(this->_e_scene_id);
+  auto p_current_contents = this->getChildByTag(this->_current_contents_tag_id);
   scene::layout::helper::Contents::SlideOut(
       p_current_contents, 0.2f,
       scene::layout::helper::Contents::Forward_To_Bottom_e);
@@ -356,7 +372,8 @@ void Main::setScheduleHome(void) {
 
 void Main::updateHome(float dt) {
 
-  // @todo mutex lock
+  this->attachWaitAnimation();
+  
   // Http Request For Home Data
   lib::network::DataStoreSingleton *p_data_store_singleton =
       lib::network::DataStoreSingleton::getInstance();
@@ -384,7 +401,7 @@ void Main::setLowerMenuVisible(bool visible) {
 
 void Main::retryRequest() {
   // リトライする
-  float dely = 1.0f; //
+  float dely = 0.0f; //
   scheduleOnce(schedule_selector(::scene::Main::updateHome), dely);
 }
   
