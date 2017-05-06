@@ -85,7 +85,7 @@
                 <OutlineColor A="255" R="255" G="0" B="0" />
                 <ShadowColor A="255" R="110" G="110" B="110" />
               </AbstractNodeData>
-              <AbstractNodeData Name="NextButton" ActionTag="-591020989" Tag="75" IconVisible="False" LeftMargin="420.0000" RightMargin="20.0000" TopMargin="946.0000" BottomMargin="130.0000" TouchEnable="True" FontSize="14" Scale9Enable="True" LeftEage="15" RightEage="15" TopEage="11" BottomEage="11" Scale9OriginX="15" Scale9OriginY="11" Scale9Width="170" Scale9Height="38" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="ButtonObjectData">
+              <AbstractNodeData Name="NextButton" ActionTag="-591020989" Tag="75" IconVisible="False" LeftMargin="420.0000" RightMargin="20.0000" TopMargin="946.0000" BottomMargin="130.0000" TouchEnable="True" FontSize="14" Scale9Enable="True" LeftEage="15" RightEage="15" TopEage="11" BottomEage="11" Scale9OriginX="15" Scale9OriginY="11" Scale9Width="170" Scale9Height="38" DisplayState="False" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="ButtonObjectData">
                 <Size X="200.0000" Y="60.0000" />
                 <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
                 <Position X="520.0000" Y="160.0000" />
@@ -99,16 +99,6 @@
                 <NormalFileData Type="Normal" Path="NextNormalButon.png" Plist="" />
                 <OutlineColor A="255" R="255" G="0" B="0" />
                 <ShadowColor A="255" R="110" G="110" B="110" />
-              </AbstractNodeData>
-              <AbstractNodeData Name="mapButton" ActionTag="1106417998" Tag="15" IconVisible="False" LeftMargin="496.4836" RightMargin="43.5164" TopMargin="206.4299" BottomMargin="829.5701" LeftEage="74" RightEage="74" TopEage="74" BottomEage="74" Scale9OriginX="74" Scale9OriginY="74" Scale9Width="77" Scale9Height="77" ctype="ImageViewObjectData">
-                <Size X="100.0000" Y="100.0000" />
-                <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
-                <Position X="546.4836" Y="879.5701" />
-                <Scale ScaleX="1.0000" ScaleY="1.0000" />
-                <CColor A="255" R="255" G="255" B="255" />
-                <PrePosition X="0.8539" Y="0.7743" />
-                <PreSize X="0.1563" Y="0.0880" />
-                <FileData Type="Normal" Path="mapicon.png" Plist="" />
               </AbstractNodeData>
             </Children>
             <AnchorPoint />
