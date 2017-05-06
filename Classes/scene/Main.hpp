@@ -85,7 +85,7 @@ public:
 
   void setScheduleHome(void);
 
-  void updateHome(float dt);
+  void updateSensors(float dt);
 
   void onCallbackScheduleHome(cocos2d::network::HttpClient *sender,
                               cocos2d::network::HttpResponse *response);
