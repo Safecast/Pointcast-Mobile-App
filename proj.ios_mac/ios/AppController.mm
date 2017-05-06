@@ -577,6 +577,7 @@ numberOfRowsInComponent:(NSInteger)component{
     // Retunキー(右下のボタン)を押した時に呼ばれるメソッド
     // YESを返した場合は編集が終了し、
     // NO を返した場合は編集が終了しない
+    [self doneInputSearch:textField];
     return YES;
 }
 
