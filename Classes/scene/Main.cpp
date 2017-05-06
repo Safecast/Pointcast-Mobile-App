@@ -356,7 +356,8 @@ void Main::setScheduleHome(void) {
 
 void Main::updateHome(float dt) {
 
-  // @todo mutex lock
+  this->attachWaitAnimation();
+  
   // Http Request For Home Data
   lib::network::DataStoreSingleton *p_data_store_singleton =
       lib::network::DataStoreSingleton::getInstance();
@@ -384,7 +385,7 @@ void Main::setLowerMenuVisible(bool visible) {
 
 void Main::retryRequest() {
   // リトライする
-  float dely = 1.0f; //
+  float dely = 0.0f; //
   scheduleOnce(schedule_selector(::scene::Main::updateHome), dely);
 }
   
