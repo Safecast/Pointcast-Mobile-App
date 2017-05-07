@@ -60,6 +60,7 @@
 		159A3D4D1E49EDA400991CF3 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 159A3D4C1E49EDA400991CF3 /* GoogleService-Info.plist */; };
 		159A3D511E49EEF500991CF3 /* libGoogleToolboxForMac.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 159A3D501E49EEF500991CF3 /* libGoogleToolboxForMac.a */; };
 		159A3D571E49F1DB00991CF3 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 159A3D561E49F1DB00991CF3 /* MediaPlayer.framework */; };
+		15FEBEF71EBB78460056D5ED /* Dialog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 15FEBEF51EBB78460056D5ED /* Dialog.cpp */; };
 		1AC6FB21180E996B004C840B /* libcocos2d Mac.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AC6FAF9180E9839004C840B /* libcocos2d Mac.a */; };
 		1AC6FB30180E99EB004C840B /* libcocos2d iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AC6FB07180E9839004C840B /* libcocos2d iOS.a */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
@@ -224,6 +225,8 @@
 		159A3D501E49EEF500991CF3 /* libGoogleToolboxForMac.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libGoogleToolboxForMac.a; path = "../../../../Users/mitsuo/Library/Developer/Xcode/DerivedData/Pointcast-Mobile-App-fyzjqpshkgwmujfpmvftywjoqgdb/Build/Products/Debug-iphoneos/GoogleToolboxForMac/libGoogleToolboxForMac.a"; sourceTree = "<group>"; };
 		159A3D521E49EF0600991CF3 /* libPods-Pointcast-Mobile-App-desktop.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-Pointcast-Mobile-App-desktop.a"; path = "Pods/../build/Debug-iphoneos/libPods-Pointcast-Mobile-App-desktop.a"; sourceTree = "<group>"; };
 		159A3D561E49F1DB00991CF3 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.2.sdk/System/Library/Frameworks/MediaPlayer.framework; sourceTree = DEVELOPER_DIR; };
+		15FEBEF51EBB78460056D5ED /* Dialog.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Dialog.cpp; sourceTree = "<group>"; };
+		15FEBEF61EBB78460056D5ED /* Dialog.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Dialog.hpp; sourceTree = "<group>"; };
 		1AC6FAE5180E9839004C840B /* cocos2d_libs.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = cocos2d_libs.xcodeproj; path = ../cocos2d/build/cocos2d_libs.xcodeproj; sourceTree = "<group>"; };
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1D6058910D05DD3D006BFB54 /* Pointcast-Mobile-App-mobile.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Pointcast-Mobile-App-mobile.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -489,6 +492,8 @@
 		156BB8681E48A43000EDBBAF /* modal */ = {
 			isa = PBXGroup;
 			children = (
+				15FEBEF51EBB78460056D5ED /* Dialog.cpp */,
+				15FEBEF61EBB78460056D5ED /* Dialog.hpp */,
 				156BB8691E48A43000EDBBAF /* base */,
 				156BB86C1E48A43000EDBBAF /* Indicator.cpp */,
 				156BB86D1E48A43000EDBBAF /* Indicator.hpp */,
@@ -927,6 +932,7 @@
 				156BB8771E48A43000EDBBAF /* CCCoreLocation.cpp in Sources */,
 				156BB8831E48A43000EDBBAF /* SortPickerVidewController.m in Sources */,
 				156BB88D1E48A43000EDBBAF /* Sort.cpp in Sources */,
+				15FEBEF71EBB78460056D5ED /* Dialog.cpp in Sources */,
 				156BB87A1E48A43000EDBBAF /* Util.cpp in Sources */,
 				156BB8841E48A43000EDBBAF /* Main.cpp in Sources */,
 				156BB87B1E48A43000EDBBAF /* AbstructScene.cpp in Sources */,

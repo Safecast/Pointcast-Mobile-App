@@ -10,6 +10,7 @@
 #include "lib/Util.hpp"
 #include "lib/native/GoogleMapsManager.h"
 #import <Foundation/Foundation.h>
+#include "lib/network/DataStoreSingleton.hpp"
 
 USING_NS_CC;
 
@@ -20,7 +21,11 @@ namespace native {
 void GoogleMapsManager::attach(void) {
   CCLOG("GoogleMapsManager::start");
   AppController *app = [AppController getInstance];
-  [app attachMap];
+  lib::network::DataStoreSingleton *p_datastore_singleton =
+              lib::network::DataStoreSingleton::getInstance();
+  const float lat = p_datastore_singleton->getLocation().latitude;
+  const float lon = p_datastore_singleton->getLocation().longitude;
+  [app attachMap:lat longitude:lon];
 }
 
 void GoogleMapsManager::detach(void) {

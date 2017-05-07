@@ -56,7 +56,7 @@
                 <OutlineColor A="255" R="255" G="0" B="0" />
                 <ShadowColor A="255" R="110" G="110" B="110" />
               </AbstractNodeData>
-              <AbstractNodeData Name="chartScrollView" ActionTag="-604063375" Tag="71" IconVisible="False" TopMargin="236.0000" BottomMargin="200.0000" TouchEnable="True" ClipAble="True" BackColorAlpha="102" ComboBoxIndex="1" ColorAngle="90.0000" ScrollDirectionType="Vertical_Horizontal" ctype="ScrollViewObjectData">
+              <AbstractNodeData Name="chartScrollView" ActionTag="-604063375" Tag="71" IconVisible="False" TopMargin="236.0000" BottomMargin="200.0000" TouchEnable="True" ClipAble="True" BackColorAlpha="102" ComboBoxIndex="1" ColorAngle="90.0000" Scale9Width="1" Scale9Height="1" ScrollDirectionType="Vertical_Horizontal" ctype="ScrollViewObjectData">
                 <Size X="640.0000" Y="700.0000" />
                 <AnchorPoint />
                 <Position Y="200.0000" />
@@ -85,7 +85,7 @@
                 <OutlineColor A="255" R="255" G="0" B="0" />
                 <ShadowColor A="255" R="110" G="110" B="110" />
               </AbstractNodeData>
-              <AbstractNodeData Name="NextButton" ActionTag="-591020989" Tag="75" IconVisible="False" LeftMargin="420.0000" RightMargin="20.0000" TopMargin="946.0000" BottomMargin="130.0000" TouchEnable="True" FontSize="14" Scale9Enable="True" LeftEage="15" RightEage="15" TopEage="11" BottomEage="11" Scale9OriginX="15" Scale9OriginY="11" Scale9Width="170" Scale9Height="38" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="ButtonObjectData">
+              <AbstractNodeData Name="NextButton" ActionTag="-591020989" Tag="75" IconVisible="False" LeftMargin="420.0000" RightMargin="20.0000" TopMargin="946.0000" BottomMargin="130.0000" TouchEnable="True" FontSize="14" Scale9Enable="True" LeftEage="15" RightEage="15" TopEage="11" BottomEage="11" Scale9OriginX="15" Scale9OriginY="11" Scale9Width="170" Scale9Height="38" DisplayState="False" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="ButtonObjectData">
                 <Size X="200.0000" Y="60.0000" />
                 <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
                 <Position X="520.0000" Y="160.0000" />

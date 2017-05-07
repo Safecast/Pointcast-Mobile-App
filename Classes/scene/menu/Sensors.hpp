@@ -12,6 +12,7 @@
 #include <stdio.h>
 
 #include "cocos2d.h"
+#include "network/HttpClient.h"
 
 #include "scene/base/AbstructScene.hpp"
 
@@ -59,7 +60,14 @@ public:
 
   virtual bool init();
 
+  void updateSensorData(void);
+  
+  void onCallbackUpdateSensorData(cocos2d::network::HttpClient *sender,
+                                  cocos2d::network::HttpResponse *response);
+  
   void refresh(void);
+  
+  void refreshNoUpdate(void);
 
   void showSensorListOneOfEach(void);
 
@@ -114,6 +122,10 @@ private:
   std::deque<int> m_sensor_main_ids;
 
   void updateSortType(void);
+  
+  void retryRequest(void);
+  
+  void retryCancel(void);
 };
 }
 }
