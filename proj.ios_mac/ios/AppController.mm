@@ -237,10 +237,10 @@ static AppController *_instance;
     return map_rect;
 }
 
-- (void)attachMap {
+- (void)attachMap:(double)latitude longitude:(double)longitude {
     // cocos2d::Director::getInstance()->pause();
     GMSCameraPosition *camera =
-    [GMSCameraPosition cameraWithLatitude:35.39 longitude:140.0 zoom:8];
+    [GMSCameraPosition cameraWithLatitude:latitude longitude:longitude zoom:8];
     
     CGRect map_rect = [self getMapSize];
     self->mapview = [GMSMapView
@@ -248,6 +248,7 @@ static AppController *_instance;
                                              map_rect.size.width, map_rect.size.height)
                      camera:camera];
     self->mapview.myLocationEnabled = YES;
+    self->mapview.delegate = self;
     
     [self.viewController.view addSubview:self->mapview];
     [self.viewController.view bringSubviewToFront:self->mapview];
@@ -287,6 +288,11 @@ static AppController *_instance;
     marker.icon = [GMSMarker markerImageWithColor:color];
     marker.zIndex = zorder;
     marker.map = self->mapview;
+}
+
+-(void) mapView:(GMSMapView *)mapView didTapInfoWindowOfMarker:(GMSMarker*)marker {
+  // @todo: transition to analytics.
+  NSLog(@"didTapInfoWindowOfMarker");
 }
 
 + (void)closeIme {

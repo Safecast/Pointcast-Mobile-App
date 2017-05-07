@@ -55,6 +55,14 @@ bool Main::init() {
         this->touchAbout();
       });
 
+  Director::getInstance()->getEventDispatcher()->addCustomEventListener(
+      "touch_map", [=](cocos2d::EventCustom *event) {
+        CCLOG("イベント受け取ったよ > %s", event->getEventName().c_str());
+        //auto visible = (cocos2d::Value *)event->getUserData();
+        //this->setLowerMenuVisible(visible->asBool());
+        this->touchMap();
+      });
+
   // Corelocation から現在位置を取得しておく
   CCCoreLocation *p_core_location = new CCCoreLocation();
   p_core_location->requestLocation();
