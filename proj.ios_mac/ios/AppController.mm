@@ -237,10 +237,10 @@ static AppController *_instance;
     return map_rect;
 }
 
-- (void)attachMap {
+- (void)attachMap:(double)latitude longitude:(double)longitude {
     // cocos2d::Director::getInstance()->pause();
     GMSCameraPosition *camera =
-    [GMSCameraPosition cameraWithLatitude:35.39 longitude:140.0 zoom:8];
+    [GMSCameraPosition cameraWithLatitude:latitude longitude:longitude zoom:8];
     
     CGRect map_rect = [self getMapSize];
     self->mapview = [GMSMapView

@@ -37,7 +37,7 @@
 }
 
 + (AppController *)getInstance;
-- (void)attachMap;
+- (void)attachMap:(double)latitude longitude:(double)longitude;
 - (void)detachMap;
 - (void)attachMarker:(NSString *)info_title
         info_snippet:(NSString *)info_snippet

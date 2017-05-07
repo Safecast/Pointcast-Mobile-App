@@ -53,6 +53,16 @@
                 <OutlineColor A="255" R="255" G="0" B="0" />
                 <ShadowColor A="255" R="110" G="110" B="110" />
               </AbstractNodeData>
+              <AbstractNodeData Name="imgGoogleMapIcon" ActionTag="-1877767318" Tag="38" IconVisible="False" LeftMargin="545.0000" RightMargin="25.0000" TopMargin="105.0000" BottomMargin="25.0000" TouchEnable="True" LeftEage="23" RightEage="23" TopEage="23" BottomEage="23" Scale9OriginX="23" Scale9OriginY="23" Scale9Width="24" Scale9Height="24" ctype="ImageViewObjectData">
+                <Size X="70.0000" Y="70.0000" />
+                <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
+                <Position X="580.0000" Y="60.0000" />
+                <Scale ScaleX="1.0000" ScaleY="1.0000" />
+                <CColor A="255" R="255" G="255" B="255" />
+                <PrePosition X="0.9063" Y="0.3000" />
+                <PreSize X="0.1094" Y="0.3500" />
+                <FileData Type="Normal" Path="gmap_icon.png" Plist="" />
+              </AbstractNodeData>
             </Children>
             <AnchorPoint />
             <Position />

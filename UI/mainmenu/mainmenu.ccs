@@ -18,6 +18,7 @@
         <Image Name="footer_sensors2@x2.png" />
         <Image Name="footer_sensors2@x3.png" />
         <Image Name="frame.png" />
+        <Image Name="gmap_icon.png" />
         <Image Name="header_bg.png" />
         <Image Name="HelloWorld.png" />
         <Project Name="layerAnalytics.csd" Type="Layer" />
