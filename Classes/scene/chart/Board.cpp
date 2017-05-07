@@ -11,7 +11,6 @@
 #include "lib/external/RoundedBoxSprite.h"
 #include "scene/layout/helper/Chart.hpp"
 
-
 namespace scene {
 
 namespace chart {
@@ -39,33 +38,37 @@ void Board::onEnter() {
 
   this->drawFrame();
 
-    if (!this->_config.is_empty) {
-        this->drawLabel();
-        
-        this->drawPoint();
-        
-        this->drawWeather();
-    }
+  if (!this->_config.is_empty) {
+    this->drawLabel();
+
+    this->drawPoint();
+
+    this->drawWeather();
+  }
 }
 
 void Board::drawBackGround() {
   static Point points[] = {
-      Point(this->_config.chart_offset.x, this->_config.chart_offset.y), Point(this->_config.board_size.width - this->_config.chart_offset.x, this->_config.chart_offset.y),
+      Point(this->_config.chart_offset.x, this->_config.chart_offset.y),
+      Point(this->_config.board_size.width - this->_config.chart_offset.x,
+            this->_config.chart_offset.y),
       Point(this->_config.board_size.width - this->_config.chart_offset.x,
             this->_config.board_size.height + this->_config.chart_offset.y),
-      Point(this->_config.chart_offset.x, this->_config.board_size.height + this->_config.chart_offset.y),
+      Point(this->_config.chart_offset.x,
+            this->_config.board_size.height + this->_config.chart_offset.y),
 
   };
-    
-    
-  Color4F fill_color = Color4F((225.0f/255.0f), (225.0f/255.0f), (255.0f/255.0f), 1.0f);
-  Color4F border_color = Color4F(0.0f, (178.0f/255.0f), (255.0f/255.0f), 1.0f);
-    
-  this->drawPolygon(points,         // 頂点の座標のデータ
-                    4,              // 角数
-                    fill_color, // 図形の色
-                    0.0f,              // 枠線の太さ
-                    border_color  // 枠線の色
+
+  Color4F fill_color =
+      Color4F((225.0f / 255.0f), (225.0f / 255.0f), (255.0f / 255.0f), 1.0f);
+  Color4F border_color =
+      Color4F(0.0f, (178.0f / 255.0f), (255.0f / 255.0f), 1.0f);
+
+  this->drawPolygon(points,      // 頂点の座標のデータ
+                    4,           // 角数
+                    fill_color,  // 図形の色
+                    0.0f,        // 枠線の太さ
+                    border_color // 枠線の色
                     );
 }
 
@@ -74,17 +77,18 @@ void Board::drawFrame() {
   // line of vertical(縦線)
   time_t interval = this->_config.end_point - this->_config.start_point;
   for (int i = 0; i <= this->_config.vertical_line; i++) {
-      
+
     time_t point_time = (int)(interval / this->_config.vertical_line * i) +
-                            this->_config.start_point;
-  
+                        this->_config.start_point;
+
     double x = this->getX(point_time);
-    float line_weight = (i==0 || i == this->_config.vertical_line) ? 1.5f : 0.5f;
+    float line_weight =
+        (i == 0 || i == this->_config.vertical_line) ? 1.5f : 0.5f;
     this->drawSegment(Point(x, this->_config.chart_offset.y), // start
                       Point(x, this->_config.chart_offset.y +
                                    this->getChartSize().height), // end
-                      line_weight,                                          // bold
-                      Color4F::GRAY                                  // color
+                      line_weight,                               // bold
+                      Color4F::GRAY                              // color
                       );
   }
 
@@ -93,60 +97,55 @@ void Board::drawFrame() {
     float bold;
     float offset_diff;
     Color4F color;
-      
-    this->getVerticalLineConfig(bold,offset_diff,color,i,this->_config.horizontal_line);
-    
+
+    this->getVerticalLineConfig(bold, offset_diff, color, i,
+                                this->_config.horizontal_line);
+
     double split_value = (double)(this->_config.vertical_top_value /
                                   this->_config.horizontal_line * i);
 
     double y = this->getY(split_value);
-    
-      Point start_point = Point(this->_config.chart_offset.x - offset_diff, y);
-      Point end_point = Point(this->_config.board_size.width,
-                              y);
-      
-      
-        this->drawSegment(Point(this->_config.chart_offset.x, y), // start
-                          Point(this->_config.board_size.width - this->_config.chart_offset.x,
-                                y),     // end
-                          bold,         // bold
-                          color // color
-                          );
-   
+
+    Point start_point = Point(this->_config.chart_offset.x - offset_diff, y);
+    Point end_point = Point(this->_config.board_size.width, y);
+
+    this->drawSegment(
+        Point(this->_config.chart_offset.x, y), // start
+        Point(this->_config.board_size.width - this->_config.chart_offset.x,
+              y), // end
+        bold,     // bold
+        color     // color
+        );
   }
 }
-    
-void Board::getVerticalLineConfig(float &bold, float &offset_diff,  cocos2d::Color4F &color, int i, int length)
-{
-    if (i == 0 || i == length)
-    {
-        bold = 1.5f;
-        offset_diff = 20.0f;
-        color = Color4F(128, 128, 128, 100);
-    } else if(i == 2) {
-        bold = 0.5f;
-        offset_diff = 0.0f;
-        color = Color4F(128, 128, 128, 100);
-    } else {
-        bold = 0.5f;
-        offset_diff = 0.0f;
-        color = Color4F(64, 64, 64, 100);
-    }
 
+void Board::getVerticalLineConfig(float &bold, float &offset_diff,
+                                  cocos2d::Color4F &color, int i, int length) {
+  if (i == 0 || i == length) {
+    bold = 1.5f;
+    offset_diff = 20.0f;
+    color = Color4F(128, 128, 128, 100);
+  } else if (i == 2) {
+    bold = 0.5f;
+    offset_diff = 0.0f;
+    color = Color4F(128, 128, 128, 100);
+  } else {
+    bold = 0.5f;
+    offset_diff = 0.0f;
+    color = Color4F(64, 64, 64, 100);
+  }
 }
 
 void Board::drawLabel() {
-    
+
   // 時刻(横軸)
-  time_t interval =
-      this->_config.end_point - this->_config.start_point;
+  time_t interval = this->_config.end_point - this->_config.start_point;
   for (int i = 0; i <= this->_config.vertical_line; i++) {
     if (i % 2 == 1) {
       continue;
     }
-    time_t point_time =
-        (int)(interval / this->_config.vertical_line * i) +
-        this->_config.start_point;
+    time_t point_time = (int)(interval / this->_config.vertical_line * i) +
+                        this->_config.start_point;
     double x = this->getX(point_time);
     double y = this->_config.chart_offset.y;
     const char *format = "%H";
@@ -186,15 +185,14 @@ void Board::drawLabel() {
     {
       auto rounded_usv = RoundedBoxSprite::create();
       auto rounded_usv_size = Size(80, 30);
-      rounded_usv->setParam(rounded_usv_size, Color3B(205,205,205), 10, 10,
-                                   value_string, Color3B::WHITE, 24);
+      rounded_usv->setParam(rounded_usv_size, Color3B(205, 205, 205), 10, 10,
+                            value_string, Color3B::WHITE, 24);
       rounded_usv->setPosition(x - 30, y);
       rounded_usv->setContentSize(rounded_usv_size);
       rounded_usv->setAnchorPoint(Vec2(0.0f, 0.0f));
       this->addChild(rounded_usv);
     }
-    
-    
+
     last_x = x;
     last_y = y;
   }
@@ -202,19 +200,39 @@ void Board::drawLabel() {
   // unit
   auto p_text_unit = Label::createWithSystemFont("μSv/h", "System", 24);
   p_text_unit->setAnchorPoint(Point(1.0f, 0.5f));
-  p_text_unit->setPosition(Point(last_x, last_y + 30));
+  p_text_unit->setPosition(Point(last_x, last_y + 40));
   p_text_unit->setColor(unit_color);
   this->addChild(p_text_unit);
-    
+
   // date
+  float start_date_x = 340;
+  float h = this->_config.board_size.height + this->_config.chart_offset.y + 55;
+  auto p_text_date_title = Label::createWithSystemFont("Date:", "System", 30);
+  p_text_date_title->setAnchorPoint(Point(0.0f, 0.0f));
+  p_text_date_title->setPosition(
+      Point(start_date_x, h));
+  p_text_date_title->setColor(Color3B::BLUE);
+  this->addChild(p_text_date_title);
+
   const char *format = "%b %dth, %Y";
-  std::string date_string = lib::Util::getDatetimeString(this->_config.start_point, format);
+  std::string date_string =
+      lib::Util::getDatetimeString(this->_config.start_point, format);
   auto p_text_date = Label::createWithSystemFont(date_string, "System", 30);
   p_text_date->setAnchorPoint(Point(0.0f, 0.0f));
-  p_text_date->setPosition(Point(10, this->_config.board_size.height + this->_config.chart_offset.y + 60));
+  int title_diff = p_text_date_title->getContentSize().width +
+                   p_text_date_title->getPositionX() + 10;
+  p_text_date->setPosition(Point(title_diff, h));
   p_text_date->setColor(unit_color);
   this->addChild(p_text_date);
-    
+
+  // under line
+  h -= 5;
+  this->drawSegment(
+      Point(start_date_x, h), // start
+      Point(title_diff + p_text_date->getContentSize().width, h), // end
+      1.0f,          // bold
+      Color4F::GRAY  // color
+      );
 }
 
 void Board::drawPoint() {
@@ -253,8 +271,7 @@ void Board::drawWeather() {
   static std::string before_icon = "";
 
   for (int i = 0; i < this->_config.v_weather_items.size(); i++) {
-    lib::object::WeatherItem weather_item =
-        this->_config.v_weather_items.at(i);
+    lib::object::WeatherItem weather_item = this->_config.v_weather_items.at(i);
 
     if (this->_config.start_point > weather_item.timestamp ||
         this->_config.end_point < weather_item.timestamp) {
@@ -267,8 +284,8 @@ void Board::drawWeather() {
     }
 
     double x = this->getX(weather_item.timestamp);
-    double y = this->_config.board_size.height +
-               this->_config.chart_offset.y + 20.0f;
+    double y =
+        this->_config.board_size.height + this->_config.chart_offset.y + 20.0f;
 
     std::string icon = "res/icon/weather/" + weather_item.icon + ".png";
     auto p_weather = Sprite::create(icon);
@@ -296,21 +313,22 @@ double Board::getX(time_t horizontal_value) {
 }
 
 double Board::getY(double vertical_value) {
-  double y = (((double)vertical_value /
-               (double)this->_config.vertical_top_value) *
-              this->_config.board_size.height) +
-             this->_config.chart_offset.y;
+  double y =
+      (((double)vertical_value / (double)this->_config.vertical_top_value) *
+       this->_config.board_size.height) +
+      this->_config.chart_offset.y;
 
   return y;
 }
-    
+
 Size Board::getChartSize() {
-    
-    Size size;
-    size.width = this->_config.board_size.width - (this->_config.chart_offset.x * 2);
-    size.height = this->_config.board_size.height;
-    
-    return size;
+
+  Size size;
+  size.width =
+      this->_config.board_size.width - (this->_config.chart_offset.x * 2);
+  size.height = this->_config.board_size.height;
+
+  return size;
 }
     
     

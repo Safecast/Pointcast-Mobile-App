@@ -46,8 +46,8 @@ cocos2d::ui::Widget *Chart::prepareHeader(scene::menu::Analytics* p_scene_analyt
     << location_item.tube_name << "/" << location_item.conversion_rate << ")";
     auto p_text_senser_id =
     p_background->getChildByName<ui::Text *>("txtSenserId");
-    p_text_senser_id->setContentSize(Size(400, 150));
-    p_text_senser_id->setPositionX(220);
+    // p_text_senser_id->setContentSize(Size(400, 150));
+    // p_text_senser_id->setPositionX(220);
     assert(p_text_senser_id);
     
     p_text_senser_id->setString(ss.str());
