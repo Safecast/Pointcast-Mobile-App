@@ -21,7 +21,7 @@
 #include "scene/layout/helper/Contents.hpp"
 #include "scene/modal/Search.hpp"
 #include "scene/modal/Sort.hpp"
-
+#include "scene/modal/Dialog.hpp"
 #include "network/HttpClient.h"
 
 #include "scene/Main.hpp"
@@ -39,16 +39,17 @@ bool Sensors::init() {
   if (!Node::init()) {
     return false;
   }
-    
-    
-    auto listener = EventListenerTouchAllAtOnce::create();
-    listener->setEnabled(true);
-    listener->onTouchesBegan = CC_CALLBACK_2(Sensors::onTouchesBegan, this);
-    listener->onTouchesMoved = CC_CALLBACK_2(Sensors::onTouchesMoved, this);
-    listener->onTouchesCancelled = CC_CALLBACK_2(Sensors::onTouchesCancelled, this);
-    listener->onTouchesEnded = CC_CALLBACK_2(Sensors::onTouchesEnded, this);
-    
-    this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this);
+
+  auto listener = EventListenerTouchAllAtOnce::create();
+  listener->setEnabled(true);
+  listener->onTouchesBegan = CC_CALLBACK_2(Sensors::onTouchesBegan, this);
+  listener->onTouchesMoved = CC_CALLBACK_2(Sensors::onTouchesMoved, this);
+  listener->onTouchesCancelled =
+      CC_CALLBACK_2(Sensors::onTouchesCancelled, this);
+  listener->onTouchesEnded = CC_CALLBACK_2(Sensors::onTouchesEnded, this);
+
+  this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener,
+                                                                     this);
 
   // set task id
   this->task_id = Task_Id_World;
@@ -87,7 +88,7 @@ bool Sensors::init() {
           auto widget = listView->getItem(selectedIndex);
           auto location_item =
               p_datastore_singleton->getLocationItem(widget->getTag());
-            
+
           /*
           if (location_item.sensor_status != 1) {
             // if status inactive
@@ -102,7 +103,7 @@ bool Sensors::init() {
           // Click Se
           CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic(
               "res/sound/se/click.mp3");
-            
+
           this->showAnalyticsDialog(widget->getTag());
         } else {
           CCLOG("touch list event type %d", eventType);
@@ -149,6 +150,17 @@ bool Sensors::init() {
         }
       });
 
+  // sort
+  auto button_about = p_panel->getChildByName<ui::ImageView *>("imgAbout");
+  button_about->addTouchEventListener(
+      [this](Ref *sender, ui::Widget::TouchEventType type) {
+        if (type == ui::Widget::TouchEventType::ENDED) {
+          cocos2d::EventCustom customEvent("touch_about");
+          cocos2d::Director::getInstance()->getEventDispatcher()->dispatchEvent(
+              &customEvent);
+        }
+      });
+
   // panel world
   auto panel_world = p_panel->getChildByName<ui::Button *>("panelWorld");
   panel_world->addTouchEventListener(
@@ -182,47 +194,48 @@ bool Sensors::init() {
 
   // register notification
   Director::getInstance()->getEventDispatcher()->addCustomEventListener(
-      "select_sort_type", [=](cocos2d::EventCustom *event) {
+      "select_sort_type", [&](cocos2d::EventCustom *event) {
         CCLOG("イベント受け取ったよ > %s", event->getEventName().c_str());
         auto sort_id = (cocos2d::Value *)event->getUserData();
         this->setSortId(sort_id->asInt());
-        this->refresh();
+        this->refreshNoUpdate();
 
       });
 
-    // register notification
+  // register notification
   Director::getInstance()->getEventDispatcher()->addCustomEventListener(
-      "search_sensor", [=](cocos2d::EventCustom *event) {
+      "search_sensor", [&](cocos2d::EventCustom *event) {
         CCLOG("イベント受け取ったよ > %s", event->getEventName().c_str());
         auto key_word = (cocos2d::Value *)event->getUserData();
         this->setKeyWord(key_word->asString());
-        this->refresh();
+        this->refreshNoUpdate();
       });
 
-      // this->nextScene(Task_Id_World);
+  // this->nextScene(Task_Id_World);
 
-      return true;
+  return true;
 }
 
 void Sensors::touchBack() {
   // click se
-  CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("res/sound/se/click.mp3");
-    
+  CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic(
+      "res/sound/se/click.mp3");
+
   auto p_parent_scene = static_cast<scene::Main *>(this->getParent());
   p_parent_scene->touchSensorsBack();
 }
 
 void Sensors::touchSearch(Ref *sender) {
   CCLOG("Sensors::touchSearch");
-    
-    // click se
-    CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("res/sound/se/click.mp3");
 
-    this->detachTouchParticle();
+  // click se
+  CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic(
+      "res/sound/se/click.mp3");
 
-    lib::native::Util::showSearchWordInputText();
-    return;
-    
+  this->detachTouchParticle();
+
+  lib::native::Util::showSearchWordInputText();
+  return;
 
   // this->attachBlueEffect(20.0f, 20.0f, 3);
   // MessageBox("sorry. comming soom.", "search");
@@ -230,7 +243,7 @@ void Sensors::touchSearch(Ref *sender) {
   auto p_modal_search = scene::modal::Search::create();
 
   this->detachTouchParticle();
-    
+
   CallFunc *callback = CallFunc::create(
       p_modal_search, SEL_CallFunc(&scene::modal::Search::detachSlideIn));
 
@@ -251,40 +264,42 @@ void Sensors::touchSort(Ref *sender) {
 
   lib::native::Util::showSortPicker();
   return;
-  
-    /*
-  // click se
-  CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("res/sound/se/click.mp3");
-    
-  
-  this->detachTouchParticle();
-  // MessageBox("sorry. comming soom.", "sort");
 
-  auto p_modal_sort = scene::modal::Sort::create();
+  /*
+// click se
+CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("res/sound/se/click.mp3");
 
-  CallFunc *callback = CallFunc::create(
-      p_modal_sort, SEL_CallFunc(&scene::modal::Sort::detachSlideIn));
 
-  scene::layout::helper::Contents::SlideIn(
-      p_modal_sort, 0.2f, scene::layout::helper::Contents::Forward_To_Right_e,
-      callback, true);
+this->detachTouchParticle();
+// MessageBox("sorry. comming soom.", "sort");
 
-  this->getParent()->addChild(p_modal_sort, Zorders_Modal_Dialog);
-     */
+auto p_modal_sort = scene::modal::Sort::create();
+
+CallFunc *callback = CallFunc::create(
+    p_modal_sort, SEL_CallFunc(&scene::modal::Sort::detachSlideIn));
+
+scene::layout::helper::Contents::SlideIn(
+    p_modal_sort, 0.2f, scene::layout::helper::Contents::Forward_To_Right_e,
+    callback, true);
+
+this->getParent()->addChild(p_modal_sort, Zorders_Modal_Dialog);
+   */
 }
 
 void Sensors::touchPanelFavorite() {
-    // click se
-    CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("res/sound/se/click.mp3");
-    
-    this->nextScene(Task_Id_Favorite);
+  // click se
+  CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic(
+      "res/sound/se/click.mp3");
+
+  this->nextScene(Task_Id_Favorite);
 }
 
 void Sensors::touchPanelWorld() {
-    // click se
-    CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic("res/sound/se/click.mp3");
-    
-    this->nextScene(Task_Id_World);
+  // click se
+  CocosDenshion::SimpleAudioEngine::getInstance()->playBackgroundMusic(
+      "res/sound/se/click.mp3");
+
+  this->nextScene(Task_Id_World);
 }
 
 void Sensors::removeAnimationDone(Node *sender, ssize_t index) {}
@@ -362,13 +377,13 @@ void Sensors::setMesurementData(cocos2d::Node *panel,
                                          location_item.conversion_rate);
   double peak_value = static_cast<double>(location_item.yesterday_peak_value /
                                           location_item.conversion_rate);
-    
-  int alarm_value =static_cast<int>(location_item.alarm_value);
+
+  int alarm_value = static_cast<int>(location_item.alarm_value);
 
   // @note round method
   avg_value = lib::Util::round(avg_value, 3);
   peak_value = lib::Util::round(peak_value, 3);
-  
+
   ss4 << avg_value << " μSv/hour";
   ss5 << peak_value << " μSv/hour";
   ss7 << alarm_value << " cpm";
@@ -379,15 +394,14 @@ void Sensors::setMesurementData(cocos2d::Node *panel,
   auto p_text_avg_value =
       p_panel_record->getChildByName<ui::Text *>("txtYesterdayAverage");
   p_text_avg_value->setString(ss4.str());
-  
+
   auto p_text_peak_value =
       p_panel_record->getChildByName<ui::Text *>("txtYesterdayPeak");
   p_text_peak_value->setString(ss5.str());
-  
+
   auto p_text_alarm_value =
       p_panel_record->getChildByName<ui::Text *>("txtSensorAlarm");
   p_text_alarm_value->setString(ss7.str());
-    
 
   // favorite
   auto p_button_favorite =
@@ -410,8 +424,7 @@ void Sensors::setMesurementData(cocos2d::Node *panel,
 }
 
 void Sensors::showAnalyticsDialog(int m_sensor_main_id) {
-  auto p_modal_mesurements_analytics =
-      scene::menu::Analytics::create();
+  auto p_modal_mesurements_analytics = scene::menu::Analytics::create();
   p_modal_mesurements_analytics->setTag(Tag_Id_Mesurements_Analytics);
   p_modal_mesurements_analytics->prepare(m_sensor_main_id);
 
@@ -424,13 +437,12 @@ void Sensors::showAnalyticsDialog(int m_sensor_main_id) {
   //        this, 0.4f, scene::layout::helper::Contents::Forward_To_Left_e,
   //        false);
 
-  this->addChild(p_modal_mesurements_analytics , 2);
+  this->addChild(p_modal_mesurements_analytics, 2);
 }
 
 void Sensors::closeAnalyticsDialog() {
-  auto p_modal_mesurements_analytics =
-      static_cast<scene::menu::Analytics *>(
-          this->getChildByTag(Tag_Id_Mesurements_Analytics));
+  auto p_modal_mesurements_analytics = static_cast<scene::menu::Analytics *>(
+      this->getChildByTag(Tag_Id_Mesurements_Analytics));
 
   // Slide Out Animation
   scene::layout::helper::Contents::SlideOut(
@@ -451,28 +463,70 @@ void Sensors::closeAnalyticsDialog() {
   this->setMesurementData(p_record, location_item);
 }
 
-void Sensors::refresh(void) {
-
+void Sensors::updateSensorData() {
   scene::Main *p_scene_main = static_cast<scene::Main *>(this->getParent());
   p_scene_main->attachWaitAnimation();
-
+  
+  // Http Request For Home Data
+  lib::network::DataStoreSingleton *p_data_store_singleton =
+                  lib::network::DataStoreSingleton::getInstance();
+  
+  // http request pointcast/home.json
+  p_data_store_singleton->setResponseCallback(
+    this,
+    (cocos2d::network::SEL_HttpResponse)(&Sensors::onCallbackUpdateSensorData));
+  p_data_store_singleton->requestPointcastHome();
+  
+  CCLOG("Sensors::updateSensorData");
+}
+  
+void Sensors::onCallbackUpdateSensorData(cocos2d::network::HttpClient *sender,
+                                cocos2d::network::HttpResponse *response) {
+  
+  if (response->getResponseCode() == 200) {
+    this->refreshNoUpdate();
+  } else {
+    // wait animation消す
+    scene::Main *p_scene_main = static_cast<scene::Main *>(this->getParent());
+    p_scene_main->detachWaitAnimation();
+    // リトライのダイアログ出す
+    cocos2d::CallFunc *p_yes_callfunc =
+    cocos2d::CallFunc::create(this, callfunc_selector(Main::retryRequest));
+    p_yes_callfunc->retain();
+    cocos2d::CallFunc *p_no_callfunc =
+    cocos2d::CallFunc::create(this, callfunc_selector(Main::retryCancel));
+    p_no_callfunc->retain();
+    
+    auto p_dialog = scene::modal::Dialog::create(
+      "Connection failure...", "Cannot connect to server.\nDo you want to "
+      "retry?\n(If you select 「Cancel」 then Exit "
+      "App.)",
+      "Retry", p_yes_callfunc);
+    p_dialog->setNoCondition("Cancel", p_no_callfunc);
+    p_dialog->show();
+    this->addChild(p_dialog);
+  }
+}
+  
+  
+void Sensors::refreshNoUpdate(void) {
   auto p_panel =
-      this->_p_contents->getChildByName<ui::Layout *>("panelBackground");
-
+  this->_p_contents->getChildByName<ui::Layout *>("panelBackground");
+  
   // last updated at
   auto label_last_updated_at =
-      p_panel->getChildByName<ui::Text *>("txtLastUpdatedAt");
+  p_panel->getChildByName<ui::Text *>("txtLastUpdatedAt");
   label_last_updated_at->setString(
-      lib::network::DataStoreSingleton::getInstance()
-          ->getLastUpdatedAtToFormatString());
-
+                                   lib::network::DataStoreSingleton::getInstance()
+                                   ->getLastUpdatedAtToFormatString());
+  
   auto p_tab_world = p_panel->getChildByName<LayerGradient *>("panelWorld");
   auto p_tab_favorite =
-      p_panel->getChildByName<LayerGradient *>("panelFavorite");
-
+  p_panel->getChildByName<LayerGradient *>("panelFavorite");
+  
   const Color3B enbale_color = Color3B(30, 144, 255);
   const Color3B disable_color = Color3B(191, 191, 191);
-
+  
   if (this->task_id == Task_Id_World) {
     p_tab_world->setStartColor(enbale_color);
     p_tab_favorite->setStartColor(disable_color);
@@ -480,15 +534,22 @@ void Sensors::refresh(void) {
     p_tab_world->setStartColor(disable_color);
     p_tab_favorite->setStartColor(enbale_color);
   }
-
+  
   // clear list
   // ひょっとすると消さないで現在の値を更新する必要があるかも
   auto p_list_view = p_panel->getChildByName<ui::ListView *>("listSensors");
   p_list_view->removeAllChildren();
-
+  
   this->showSensorListOneOfEach();
-
+  
   this->updateSortType();
+
+}
+  
+void Sensors::refresh(void) {
+  // http -> request sensor data
+  this->updateSensorData();
+  
 }
 
 void Sensors::nextScene(Task_Id task_id) {
@@ -618,7 +679,17 @@ void Sensors::updateSortType(void) {
 
   p_text_sort_type->setString(label_name);
 }
-    
+  
+void Sensors::retryRequest() {
+  // リトライする
+  this->refresh();
+}
+
+void Sensors::retryCancel() {
+  Director::getInstance()->end();
+  // @todo objective-c lifecycle
+  exit(1);
+}
   
 }
 }

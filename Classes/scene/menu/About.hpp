@@ -16,20 +16,44 @@
 namespace scene {
 namespace menu {
 class About : public cocos2d::Node {
-    // member
-   public:
-   private:
-    Node* _p_contents;
+  // member
+public:
+private:
+  // LinkUrlとの紐付けのためのENUM。
+  // 101始まりの連番で、最後に必ずLink_Id_End_eを設置すること
+  // buttonName->linkUrlで連動している
+  enum Tag_Link_Id_e {
+    Link_Id_WhatIsSafeCast_e = 101,
+    
+    Link_Id_AboutPointcast_e,
+    
+    Link_Id_ReadOurBlog_e,
+    
+    Link_Id_AccessTheMap_e,
+    
+    Link_Id_Faq_e,
+    
+    Link_Id_End_e,
+  };
+  
+  
+  Node *_p_contents;
 
-    // function
-   public:
-    virtual bool init();
+  // function
+public:
+  virtual bool init();
 
-    void touchBack();
+  void touchBack();
 
-    CREATE_FUNC(About);
+  void refresh();
+  
+  void touchUrlLink(Tag_Link_Id_e tag_id);
+  
+  std::string getLinkUrl(Tag_Link_Id_e tag_id);
 
-   private:
+  CREATE_FUNC(About);
+
+private:
 };
 }
 }

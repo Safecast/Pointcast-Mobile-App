@@ -27,7 +27,7 @@
 
 @class RootViewController;
 
-@interface AppController : NSObject <UIApplicationDelegate, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate> {
+@interface AppController : NSObject <UIApplicationDelegate, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate, GMSMapViewDelegate> {
     UIWindow *window;
     GMSMapView *mapview;
     UIPickerView* sortTypePickerView;
@@ -37,7 +37,7 @@
 }
 
 + (AppController *)getInstance;
-- (void)attachMap;
+- (void)attachMap:(double)latitude longitude:(double)longitude;
 - (void)detachMap;
 - (void)attachMarker:(NSString *)info_title
         info_snippet:(NSString *)info_snippet
@@ -52,6 +52,7 @@
 
 @property(nonatomic, readonly) RootViewController *viewController;
 @property (nonatomic, strong) NSArray *sortItems;
+@property (nonatomic, strong) GMSMarker* selectedMarker;
 
 @end
 

@@ -3,8 +3,14 @@
   <SolutionFolder>
     <Group ctype="ResourceGroup">
       <RootFolder Name=".">
+        <Image Name="abount_icon.png" />
+        <Image Name="aboutTopPicture.jpg" />
+        <Image Name="board.png" />
+        <Image Name="buttonBackground_skyblue.png" />
         <Project Name="chartTest.csd" Type="Layer" />
         <Image Name="circle_blue.png" />
+        <Image Name="dialog_base.png" />
+        <Project Name="dialogBase.csd" Type="Layer" />
         <Image Name="footer_map1@x2.png" />
         <Image Name="footer_map2@x2.png" />
         <Image Name="footer_sensors1@x2.png" />
@@ -12,17 +18,23 @@
         <Image Name="footer_sensors2@x2.png" />
         <Image Name="footer_sensors2@x3.png" />
         <Image Name="frame.png" />
+        <Image Name="gmap_icon.png" />
+        <Image Name="header_bg.png" />
         <Image Name="HelloWorld.png" />
         <Project Name="layerAnalytics.csd" Type="Layer" />
         <Project Name="layerChart.csd" Type="Layer" />
         <Project Name="layerChartHeader.csd" Type="Layer" />
         <Project Name="layerFooter.csd" Type="Layer" />
+        <Image Name="lineButtonBackgroundNormal.png" />
+        <Image Name="lineButtonBackgroundSelect.png" />
+        <Image Name="mapicon.png" />
         <Project Name="MenuAbout.csd" Type="Scene" />
         <Project Name="MenuAnalytics_landscape.csd" Type="Scene" />
         <Project Name="MenuAnalytics_portlate.csd" Type="Scene" />
         <Project Name="MenuMain.csd" Type="Scene" />
         <Project Name="MenuMap.csd" Type="Scene" />
         <Project Name="MenuSensorList.csd" Type="Scene" />
+        <Project Name="MenuSensorList.old.csd" Type="Scene" />
         <Image Name="More.png" />
         <Image Name="More@2x.png" />
         <Image Name="NextDisableButton.png" />

@@ -33,6 +33,8 @@ public:
     Tag_Id_Sensor_Record,
 
     Tag_Id_Map,
+    
+    Tag_Id_About,
 
     // Animation
     Tag_Id_Wait_Animation_e = 9001,
@@ -65,7 +67,7 @@ public:
   virtual void attachWaitAnimation(void);
 
   virtual void detachWaitAnimation(void);
-
+    
   virtual void attachTouchParticle(cocos2d::Point p);
 
   virtual void detachTouchParticle(void);
