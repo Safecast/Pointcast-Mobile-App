@@ -27,7 +27,7 @@
 
 @class RootViewController;
 
-@interface AppController : NSObject <UIApplicationDelegate, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate> {
+@interface AppController : NSObject <UIApplicationDelegate, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate, GMSMapViewDelegate> {
     UIWindow *window;
     GMSMapView *mapview;
     UIPickerView* sortTypePickerView;
@@ -52,6 +52,7 @@
 
 @property(nonatomic, readonly) RootViewController *viewController;
 @property (nonatomic, strong) NSArray *sortItems;
+@property (nonatomic, strong) GMSMarker* selectedMarker;
 
 @end
 
