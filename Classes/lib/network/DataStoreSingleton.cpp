@@ -32,7 +32,7 @@ const std::string DataStoreSingleton::end_point =
 const std::string DataStoreSingleton::CACHE_DIR = "cahce";
 
 DataStoreSingleton::DataStoreSingleton():_p_store_callback(nullptr) {
-  // safecast office
+  // default -> safecast office
   this->_loc.latitude = 35.656064f;
   this->_loc.longitude = 139.695505f;
 }

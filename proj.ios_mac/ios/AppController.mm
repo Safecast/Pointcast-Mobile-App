@@ -291,6 +291,7 @@ static AppController *_instance;
 }
 
 -(void) mapView:(GMSMapView *)mapView didTapInfoWindowOfMarker:(GMSMarker*)marker {
+  // @todo: transition to analytics.
   NSLog(@"didTapInfoWindowOfMarker");
 }
 
