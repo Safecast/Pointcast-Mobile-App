@@ -192,25 +192,6 @@ bool Sensors::init() {
   // initialize sort type
   this->updateSortType();
 
-  // register notification
-  Director::getInstance()->getEventDispatcher()->addCustomEventListener(
-      "select_sort_type", [&](cocos2d::EventCustom *event) {
-        CCLOG("イベント受け取ったよ > %s", event->getEventName().c_str());
-        auto sort_id = (cocos2d::Value *)event->getUserData();
-        this->setSortId(sort_id->asInt());
-        this->refreshNoUpdate();
-
-      });
-
-  // register notification
-  Director::getInstance()->getEventDispatcher()->addCustomEventListener(
-      "search_sensor", [&](cocos2d::EventCustom *event) {
-        CCLOG("イベント受け取ったよ > %s", event->getEventName().c_str());
-        auto key_word = (cocos2d::Value *)event->getUserData();
-        this->setKeyWord(key_word->asString());
-        this->refreshNoUpdate();
-      });
-
   // this->nextScene(Task_Id_World);
 
   return true;
@@ -466,23 +447,24 @@ void Sensors::closeAnalyticsDialog() {
 void Sensors::updateSensorData() {
   scene::Main *p_scene_main = static_cast<scene::Main *>(this->getParent());
   p_scene_main->attachWaitAnimation();
-  
+
   // Http Request For Home Data
   lib::network::DataStoreSingleton *p_data_store_singleton =
-                  lib::network::DataStoreSingleton::getInstance();
-  
+      lib::network::DataStoreSingleton::getInstance();
+
   // http request pointcast/home.json
   p_data_store_singleton->setResponseCallback(
-    this,
-    (cocos2d::network::SEL_HttpResponse)(&Sensors::onCallbackUpdateSensorData));
+      this, (cocos2d::network::SEL_HttpResponse)(
+                &Sensors::onCallbackUpdateSensorData));
   p_data_store_singleton->requestPointcastHome();
-  
+
   CCLOG("Sensors::updateSensorData");
 }
-  
-void Sensors::onCallbackUpdateSensorData(cocos2d::network::HttpClient *sender,
-                                cocos2d::network::HttpResponse *response) {
-  
+
+void Sensors::onCallbackUpdateSensorData(
+    cocos2d::network::HttpClient *sender,
+    cocos2d::network::HttpResponse *response) {
+
   if (response->getResponseCode() == 200) {
     this->refreshNoUpdate();
   } else {
@@ -491,42 +473,42 @@ void Sensors::onCallbackUpdateSensorData(cocos2d::network::HttpClient *sender,
     p_scene_main->detachWaitAnimation();
     // リトライのダイアログ出す
     cocos2d::CallFunc *p_yes_callfunc =
-    cocos2d::CallFunc::create(this, callfunc_selector(Main::retryRequest));
+        cocos2d::CallFunc::create(this, callfunc_selector(Main::retryRequest));
     p_yes_callfunc->retain();
     cocos2d::CallFunc *p_no_callfunc =
-    cocos2d::CallFunc::create(this, callfunc_selector(Main::retryCancel));
+        cocos2d::CallFunc::create(this, callfunc_selector(Main::retryCancel));
     p_no_callfunc->retain();
-    
+
     auto p_dialog = scene::modal::Dialog::create(
-      "Connection failure...", "Cannot connect to server.\nDo you want to "
-      "retry?\n(If you select 「Cancel」 then Exit "
-      "App.)",
-      "Retry", p_yes_callfunc);
+        "Connection failure...", "Cannot connect to server.\nDo you want to "
+                                 "retry?\n(If you select 「Cancel」 then Exit "
+                                 "App.)",
+        "Retry", p_yes_callfunc);
     p_dialog->setNoCondition("Cancel", p_no_callfunc);
     p_dialog->show();
     this->addChild(p_dialog);
   }
 }
-  
-  
+
 void Sensors::refreshNoUpdate(void) {
+
   auto p_panel =
-  this->_p_contents->getChildByName<ui::Layout *>("panelBackground");
-  
+      this->_p_contents->getChildByName<ui::Layout *>("panelBackground");
+
   // last updated at
   auto label_last_updated_at =
-  p_panel->getChildByName<ui::Text *>("txtLastUpdatedAt");
+      p_panel->getChildByName<ui::Text *>("txtLastUpdatedAt");
   label_last_updated_at->setString(
-                                   lib::network::DataStoreSingleton::getInstance()
-                                   ->getLastUpdatedAtToFormatString());
-  
+      lib::network::DataStoreSingleton::getInstance()
+          ->getLastUpdatedAtToFormatString());
+
   auto p_tab_world = p_panel->getChildByName<LayerGradient *>("panelWorld");
   auto p_tab_favorite =
-  p_panel->getChildByName<LayerGradient *>("panelFavorite");
-  
+      p_panel->getChildByName<LayerGradient *>("panelFavorite");
+
   const Color3B enbale_color = Color3B(30, 144, 255);
   const Color3B disable_color = Color3B(191, 191, 191);
-  
+
   if (this->task_id == Task_Id_World) {
     p_tab_world->setStartColor(enbale_color);
     p_tab_favorite->setStartColor(disable_color);
@@ -534,22 +516,20 @@ void Sensors::refreshNoUpdate(void) {
     p_tab_world->setStartColor(disable_color);
     p_tab_favorite->setStartColor(enbale_color);
   }
-  
+
   // clear list
   // ひょっとすると消さないで現在の値を更新する必要があるかも
   auto p_list_view = p_panel->getChildByName<ui::ListView *>("listSensors");
   p_list_view->removeAllChildren();
-  
-  this->showSensorListOneOfEach();
-  
-  this->updateSortType();
 
+  this->showSensorListOneOfEach();
+
+  this->updateSortType();
 }
-  
+
 void Sensors::refresh(void) {
   // http -> request sensor data
   this->updateSensorData();
-  
 }
 
 void Sensors::nextScene(Task_Id task_id) {
@@ -679,7 +659,7 @@ void Sensors::updateSortType(void) {
 
   p_text_sort_type->setString(label_name);
 }
-  
+
 void Sensors::retryRequest() {
   // リトライする
   this->refresh();
@@ -690,6 +670,41 @@ void Sensors::retryCancel() {
   // @todo objective-c lifecycle
   exit(1);
 }
+
+void Sensors::onEnter(void) {
+  // super class onEnter
+  scene::base::AbstructScene::onEnter();
+
+  // register notification
+  Director::getInstance()->getEventDispatcher()->addCustomEventListener(
+      "select_sort_type", [&](cocos2d::EventCustom *event) {
+        CCLOG("イベント受け取ったよ > %s", event->getEventName().c_str());
+        auto sort_id = (cocos2d::Value *)event->getUserData();
+        this->setSortId(sort_id->asInt());
+        this->refreshNoUpdate();
+      });
+
+  // register notification
+  Director::getInstance()->getEventDispatcher()->addCustomEventListener(
+      "search_sensor", [this](cocos2d::EventCustom *event) {
+        CCLOG("イベント受け取ったよ > %s", event->getEventName().c_str());
+        auto key_word = (cocos2d::Value *)event->getUserData();
+        this->setKeyWord(key_word->asString());
+        this->refreshNoUpdate();
+      });
+}
+
+void Sensors::onExit(void) {
+  // super class onExit
+  scene::base::AbstructScene::onExit();
+
+  Director::getInstance()->getEventDispatcher()->removeCustomEventListeners(
+      "select_sort_type");
+  Director::getInstance()->getEventDispatcher()->removeCustomEventListeners("search_sensor");
+  
+  
+}
+
   
 }
 }
