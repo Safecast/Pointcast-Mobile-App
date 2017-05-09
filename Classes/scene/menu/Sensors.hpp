@@ -102,6 +102,10 @@ public:
   void showAnalyticsDialog(int m_sensor_main_id);
 
   void closeAnalyticsDialog();
+  
+  void onEnter(void);
+  
+  void onExit(void);
 
 private:
   Task_Id task_id;
