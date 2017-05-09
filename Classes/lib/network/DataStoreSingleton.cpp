@@ -125,7 +125,14 @@ std::string DataStoreSingleton::getResponseData(E_Http_Request_Id http_request_i
 std::string DataStoreSingleton::getResponseAnalyticsData(int m_sensor_main_id, time_t start_time, time_t end_time) {
     
   std::string cache_key = DataStoreSingleton::getAnalyticsCacheKey(m_sensor_main_id, start_time, end_time);
-    
+  
+  // 本日分のデータはキャッシュから取らない
+  time_t now = time(NULL);
+  if (start_time < now && now < end_time)
+  {
+    return "";
+  }
+  
   // cahceからの取得を試みる
   if (!this->hasAnalyticsData(cache_key))
   {
@@ -238,16 +245,17 @@ void DataStoreSingleton::callbackHttpPointcastAnalytics(
   
   if (response->getResponseCode() == 200) {
     std::string string_response_data =
-    lib::Util::createResponseBodyStringFromResponse(response);
+      lib::Util::createResponseBodyStringFromResponse(response);
     
-    // store data to memory
-    std::string cache_key = response->getHttpRequest()->getTag();
-    this->_p_m_http_analytics_response_data[cache_key] =
-    string_response_data;
+      // store data to memory
+      std::string cache_key = response->getHttpRequest()->getTag();
+      this->_p_m_http_analytics_response_data[cache_key] =
+      string_response_data;
+      
+      // store data to file
+      std::string cache_file_path = this->getAnalyticsCacheFilePath(cache_key);
+      cocos2d::FileUtils::getInstance()->writeStringToFile(string_response_data, cache_key);
     
-    // store data to file
-    std::string cache_file_path = this->getAnalyticsCacheFilePath(cache_key);
-    cocos2d::FileUtils::getInstance()->writeStringToFile(string_response_data, cache_key);
   }
 
   this->_p_store_callback->execute();
