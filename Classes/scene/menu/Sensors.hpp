@@ -53,7 +53,7 @@ public:
     // near point
     Sort_Id_Near_Point,
     // active / inactive
-    Sort_Id_Active_Inactive,
+    // Sort_Id_Active_Inactive,
     // eof
     Sort_Id_EOF,
   };

@@ -283,10 +283,12 @@ std::vector<std::pair<int, int>> Util::GetSortedLocationIndex(
       key_value = std::make_pair(static_cast<int>(distance * 1000), item.first);
       break;
     }
+    /*
     case scene::menu::Sensors::Sort_Id_Active_Inactive: {
       key_value = std::make_pair(item.second.sensor_status, item.first);
       break;
     }
+    */
 
     default: {
       key_value = std::make_pair(item.second.sensor1_device_id, item.first);
