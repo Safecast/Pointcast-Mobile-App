@@ -7,6 +7,7 @@
 //
 #include "DataStoreSingleton.hpp"
 #include <time.h>
+#include <vector>
 
 #include "lib/Util.hpp"
 
@@ -31,7 +32,7 @@ const std::string DataStoreSingleton::end_point =
 
 const std::string DataStoreSingleton::CACHE_DIR = "cahce";
 
-DataStoreSingleton::DataStoreSingleton():_p_store_callback(nullptr) {
+DataStoreSingleton::DataStoreSingleton() : _p_store_callback(nullptr) {
   // default -> safecast office
   this->_loc.latitude = 35.656064f;
   this->_loc.longitude = 139.695505f;
@@ -102,14 +103,14 @@ void DataStoreSingleton::callbackHttpPointcastHome(
   if (response->getResponseCode() == 200) {
     // last updated at
     time(&this->last_updated_at);
-    
+
     std::string string_response_data =
-    lib::Util::createResponseBodyStringFromResponse(response);
+        lib::Util::createResponseBodyStringFromResponse(response);
 
     // store data
     this->_p_m_http_response_data[Request_Pointcast_Home_e] =
-    string_response_data;
-    
+        string_response_data;
+
     this->storeSensorListData(string_response_data);
   }
 
@@ -118,36 +119,35 @@ void DataStoreSingleton::callbackHttpPointcastHome(
   }
 }
 
-std::string DataStoreSingleton::getResponseData(E_Http_Request_Id http_request_id) {
+std::string
+DataStoreSingleton::getResponseData(E_Http_Request_Id http_request_id) {
   return this->_p_m_http_response_data[http_request_id];
 }
 
-std::string DataStoreSingleton::getResponseAnalyticsData(int m_sensor_main_id, time_t start_time, time_t end_time) {
-    
-  std::string cache_key = DataStoreSingleton::getAnalyticsCacheKey(m_sensor_main_id, start_time, end_time);
-  
-  // 本日分のデータはキャッシュから取らない
-  time_t now = time(NULL);
-  if (start_time < now && now < end_time)
-  {
-    return "";
-  }
-  
+std::string DataStoreSingleton::getResponseAnalyticsData(int m_sensor_main_id,
+                                                         time_t start_time,
+                                                         time_t end_time) {
+
+  std::string cache_key = DataStoreSingleton::getAnalyticsCacheKey(
+      m_sensor_main_id, start_time, end_time);
+
   // cahceからの取得を試みる
-  if (!this->hasAnalyticsData(cache_key))
-  {
-      return "";
+  if (!this->hasAnalyticsData(cache_key)) {
+    return "";
   }
 
   return this->_p_m_http_analytics_response_data[cache_key];
 }
 
-void DataStoreSingleton::requestPointcastAnalytics(int m_sensor_main_id, time_t start_time, time_t end_time) {
+void DataStoreSingleton::requestPointcastAnalytics(int m_sensor_main_id,
+                                                   time_t start_time,
+                                                   time_t end_time) {
   cocos2d::network::HttpRequest *request = new cocos2d::network::HttpRequest();
 
-  std::string cache_key = this->getAnalyticsCacheKey(m_sensor_main_id, start_time, end_time);
+  std::string cache_key =
+      this->getAnalyticsCacheKey(m_sensor_main_id, start_time, end_time);
   request->setTag(cache_key);
-    
+
   this->_request_m_sensor_main_id = m_sensor_main_id;
 
   std::stringstream ss;
@@ -164,66 +164,67 @@ void DataStoreSingleton::requestPointcastAnalytics(int m_sensor_main_id, time_t 
   std::stringstream end_buf;
   end_buf << end_time;
 
-  std::string postDataString = "start_time=" + start_buf.str() + "&end_time=" + end_buf.str();
-    
+  std::string postDataString =
+      "start_time=" + start_buf.str() + "&end_time=" + end_buf.str();
+
   // write the post data
-  request->setRequestData(postDataString.c_str(), strlen(postDataString.c_str()));
+  request->setRequestData(postDataString.c_str(),
+                          strlen(postDataString.c_str()));
 
   cocos2d::network::HttpClient::getInstance()->send(request);
   request->release();
 }
 
-void DataStoreSingleton::storeAnalyticsData(int m_sensor_main_id, time_t start_time,
-                                        time_t end_time, bool force_store, cocos2d::CallFunc* callback)
-{
-    
-    this->_p_store_callback = callback;
-    
-    // get cache key
-    std::string cache_key = this->getAnalyticsCacheKey(m_sensor_main_id, start_time, end_time);
-    
-    // check cached data
-    if (!force_store)
-    {
-        if (this->hasAnalyticsData(cache_key))
-        {
-            this->_p_store_callback->execute();
-        }
-    }
-    
-    // http request
-    this->requestPointcastAnalytics(m_sensor_main_id, start_time, end_time);
-}
-    
-std::string DataStoreSingleton::getAnalyticsCacheFilePath(std::string cache_key)
-{
-    std::string cache_file_path = cocos2d::FileUtils::getInstance()->getWritablePath();
-    cache_file_path = cache_file_path + DataStoreSingleton::CACHE_DIR + "/" + cache_key + ".dat";
-    return cache_file_path;
-}
-    
-bool DataStoreSingleton::hasAnalyticsData(std::string cache_key)
-{
-    // check memory cache
-    std::map<std::string, std::string>::iterator it;
-    it = this->_p_m_http_analytics_response_data.find(cache_key);
-    if (it != this->_p_m_http_analytics_response_data.end())
-    {
-        return true;
-    }
-    
-    // check file cache
-    std::string cache_file_path = this->getAnalyticsCacheFilePath(cache_key);
-    if (cocos2d::FileUtils::getInstance()->isFileExist(cache_file_path))
-    {
-        // get saved data
-        std::string saved_data = cocos2d::FileUtils::getInstance()->getStringFromFile(cache_file_path);
-        this->_p_m_http_analytics_response_data[cache_key] = saved_data;
-        return true;
-    }
-    
-    return false;
+void DataStoreSingleton::storeAnalyticsData(int m_sensor_main_id,
+                                            time_t start_time, time_t end_time,
+                                            bool force_store,
+                                            cocos2d::CallFunc *callback) {
 
+  this->_p_store_callback = callback;
+
+  // get cache key
+  std::string cache_key =
+      this->getAnalyticsCacheKey(m_sensor_main_id, start_time, end_time);
+
+  // check cached data
+  if (!force_store) {
+    if (this->hasAnalyticsData(cache_key)) {
+      this->_p_store_callback->execute();
+    }
+  }
+
+  // http request
+  this->requestPointcastAnalytics(m_sensor_main_id, start_time, end_time);
+}
+
+std::string
+DataStoreSingleton::getAnalyticsCacheFilePath(std::string cache_key) {
+  std::string cache_file_path =
+      cocos2d::FileUtils::getInstance()->getWritablePath();
+  cache_file_path = cache_file_path + DataStoreSingleton::CACHE_DIR + "/" +
+                    cache_key + ".dat";
+  return cache_file_path;
+}
+
+bool DataStoreSingleton::hasAnalyticsData(std::string cache_key) {
+  // check memory cache
+  std::map<std::string, std::string>::iterator it;
+  it = this->_p_m_http_analytics_response_data.find(cache_key);
+  if (it != this->_p_m_http_analytics_response_data.end()) {
+    return true;
+  }
+
+  // check file cache
+  std::string cache_file_path = this->getAnalyticsCacheFilePath(cache_key);
+  if (cocos2d::FileUtils::getInstance()->isFileExist(cache_file_path)) {
+    // get saved data
+    std::string saved_data =
+        cocos2d::FileUtils::getInstance()->getStringFromFile(cache_file_path);
+    this->_p_m_http_analytics_response_data[cache_key] = saved_data;
+    return true;
+  }
+
+  return false;
 }
 
 void DataStoreSingleton::callbackHttpPointcastAnalytics(
@@ -232,7 +233,7 @@ void DataStoreSingleton::callbackHttpPointcastAnalytics(
   CCLOG("callbackHttpPointcastAnalytics");
 
   std::vector<char> *buffer = response->getResponseData();
-    
+
   const char *data = reinterpret_cast<char *>(&(buffer->front()));
 
   CCLOG("callbackHttpPointcastAnalytics %ld %s", response->getResponseCode(),
@@ -242,28 +243,40 @@ void DataStoreSingleton::callbackHttpPointcastAnalytics(
   // assert(response);
   CCLOG("response code %ld", response->getResponseCode());
   // assert(response->getResponseCode() == 200);
-  
+
   if (response->getResponseCode() == 200) {
     std::string string_response_data =
-      lib::Util::createResponseBodyStringFromResponse(response);
-    
-      // store data to memory
-      std::string cache_key = response->getHttpRequest()->getTag();
-      this->_p_m_http_analytics_response_data[cache_key] =
-      string_response_data;
-      
-      // store data to file
+        lib::Util::createResponseBodyStringFromResponse(response);
+
+    std::string cache_key = response->getHttpRequest()->getTag();
+
+    // キャッシュキーをパースして、リクエストパラメータを判定している
+    std::vector<std::string> cache_keyword_vector =
+        lib::Util::explode("_", cache_key);
+    time_t start_time =
+        static_cast<time_t>(std::stoi(cache_keyword_vector.at(1)));
+    time_t end_time =
+        static_cast<time_t>(std::stoi(cache_keyword_vector.at(2)));
+    time_t now = time(NULL);
+    // 今日のデータならファイルキャッシュしない
+    bool save_file = (start_time < now && now < end_time) ? false : true;
+
+    // store data to memory
+    this->_p_m_http_analytics_response_data[cache_key] = string_response_data;
+
+    // store data to file
+    if (save_file) {
       std::string cache_file_path = this->getAnalyticsCacheFilePath(cache_key);
-      cocos2d::FileUtils::getInstance()->writeStringToFile(string_response_data, cache_key);
-    
+      cocos2d::FileUtils::getInstance()->writeStringToFile(string_response_data,
+                                                           cache_key);
+    }
   }
 
   this->_p_store_callback->execute();
-  
+
   if (this->_p_callbackObject && this->_p_callbackFunction) {
     (this->_p_callbackObject->*this->_p_callbackFunction)(sender, response);
   }
-  
 }
 
 void DataStoreSingleton::storeSensorListData(std::string response) {
@@ -324,7 +337,7 @@ void DataStoreSingleton::storeSensorListData(std::string response) {
         if (record.HasMember("dre2cpm")) {
           location_item.dre2cpm = record["dre2cpm"].GetDouble();
         }
-          
+
         if (record.HasMember("alarm")) {
           location_item.alarm_value = record["alarm"].GetDouble();
         }
@@ -401,13 +414,15 @@ void DataStoreSingleton::setLocation(float latitude, float longtitude) {
 DataStoreSingleton::location DataStoreSingleton::getLocation(void) {
   return this->_loc;
 }
-    
-std::string DataStoreSingleton::getAnalyticsCacheKey(int m_sensor_main_id, time_t start_time, time_t end_time) {
-    
-    std::stringstream ss;
-    ss << m_sensor_main_id << "_" << start_time << "_" << end_time;
-    
-    return ss.str();
+
+std::string DataStoreSingleton::getAnalyticsCacheKey(int m_sensor_main_id,
+                                                     time_t start_time,
+                                                     time_t end_time) {
+
+  std::stringstream ss;
+  ss << m_sensor_main_id << "_" << start_time << "_" << end_time;
+
+  return ss.str();
 }
     
 }

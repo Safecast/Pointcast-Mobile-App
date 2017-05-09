@@ -59,6 +59,7 @@ public:
   static double getLocationDistance(float from_latitude, float from_longtitude,
                                     float to_latitude, float to_longtitude);
   
+  static std::vector<std::string> explode(std::string del, std::string str) ;
 private:
 };
 }
