@@ -39,15 +39,17 @@ bool About::init() {
       });
 
   // Url Link
-  auto link_scroll_view = this->_p_contents->getChildByName<ui::ScrollView *>("linkScrollView");
+  auto link_scroll_view = panelpanel->getChildByName<ui::ScrollView *>("linkScrollView");
   for(int i = Link_Id_WhatIsSafeCast_e; i < Link_Id_End_e; i++) {
     std::stringstream button_name;
     button_name << "buttonUrlLink" << i;
     log("Url Link buttton name %s", button_name.str().c_str());
     link_scroll_view->getContentSize();
     link_scroll_view->cocos2d::Node::getChildByTag<ui::Button*>(1);
-    auto buttonUrlLink = link_scroll_view->getChildByName<ui::Button *>(button_name.str())
-    assert(buttonUrlLink != nullptr);
+    auto buttonUrlLink = link_scroll_view->cocos2d::Node::getChildByName<ui::Button *>(button_name.str());
+    this->_p_contents->getChildByName<ui::ScrollView *>("linkScrollView");
+    
+    // assert(buttonUrlLink != nullptr);
     buttonUrlLink->addTouchEventListener(
      [this](Ref *sender, ui::Widget::TouchEventType type) {
        auto object = static_cast<cocos2d::ui::Button*>(sender);
