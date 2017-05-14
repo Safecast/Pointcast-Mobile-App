@@ -290,6 +290,7 @@ void Main::nextScene(E_Scene_Id next_scene_id) {
   auto p_current_contents = this->getChildByTag(this->_current_contents_tag_id);
   if (p_current_contents != NULL) {
     p_current_contents->removeFromParent();
+    p_current_contents = nullptr;
   }
 
   switch (next_scene_id) {

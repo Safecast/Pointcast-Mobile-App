@@ -138,10 +138,12 @@ std::string Sort::getLableName(int sort_id) {
     return "Location Distance";
     break;
   }
+  /*
   case scene::menu::Sensors::Sort_Id_Active_Inactive: {
     return "Sensor Status";
     break;
   }
+  */
 
   default:
     break;
