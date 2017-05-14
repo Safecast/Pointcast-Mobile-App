@@ -26,14 +26,21 @@ bool AppDelegate::applicationDidFinishLaunching() {
 
   Size display_size = scene::layout::helper::Display::GetDrawingArea();
 
+  float game_screen_height = 1136.0f;
+  float game_screen_width = 640.0f;
+  
   if (!glview) {
     glview = GLViewImpl::createWithRect(
-        "pointcast", Rect(0, 0, display_size.width, display_size.height));
+        "pointcast", Rect(0, 0, game_screen_width, game_screen_height));
     director->setOpenGLView(glview);
   }
   // @todo optimize device size
   director->getOpenGLView()->setDesignResolutionSize(
-      display_size.width, display_size.height, ResolutionPolicy::SHOW_ALL);
+      game_screen_width, game_screen_height, ResolutionPolicy::EXACT_FIT);
+  
+  // scall to fit
+  // float fit_scale = display_size.width / 640.0f;
+  // director->setContentScaleFactor(fit_scale);
 
 #if defined(ENABLE_DEBUG_MODE)
   // turn on display FPS
