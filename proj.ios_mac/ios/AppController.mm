@@ -351,7 +351,7 @@ fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
                         @"Radiation Value",
                         @"Device ID",
                         @"Location Distance",
-                        @"Sensor Status",
+                       //  @"Sensor Status",
                         nil];
 }
 
