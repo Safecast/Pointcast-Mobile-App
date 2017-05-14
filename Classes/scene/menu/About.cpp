@@ -39,7 +39,7 @@ bool About::init() {
       });
 
   // Url Link
-  auto link_scroll_view = panelpanel->getChildByName<ui::ScrollView *>("linkScrollView");
+  auto link_scroll_view = panel->getChildByName<ui::ScrollView *>("linkScrollView");
   for(int i = Link_Id_WhatIsSafeCast_e; i < Link_Id_End_e; i++) {
     std::stringstream button_name;
     button_name << "buttonUrlLink" << i;
