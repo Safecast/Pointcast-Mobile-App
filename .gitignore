@@ -18,6 +18,7 @@ proj.ios_mac/*.xcworkspace
 proj.ios_mac/xcuserdata
 profile
 proj.ios_mac/*.moved-aside
+cocos2d/build/build/cocos2d_libs.build/Debug/
 bin/
 
 #CocoaPod
