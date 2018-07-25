@@ -14,8 +14,8 @@
 
 #include "cocos2d.h"
 
-#include "lib/object/ChartItem.hpp"
 #include "lib/object/WeatherItem.hpp"
+#include "lib/object/ChartItem.hpp"
 
 namespace scene {
 
