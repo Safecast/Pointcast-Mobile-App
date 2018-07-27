@@ -68,6 +68,13 @@
 		15A7B02F210B67F300A4BA61 /* CoreLocation.mm in Sources */ = {isa = PBXBuildFile; fileRef = 15A7B02A210B67F300A4BA61 /* CoreLocation.mm */; };
 		15A7B030210B67F300A4BA61 /* GoogleMapsManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 15A7B02C210B67F300A4BA61 /* GoogleMapsManager.mm */; };
 		15A7B031210B67F300A4BA61 /* Util.mm in Sources */ = {isa = PBXBuildFile; fileRef = 15A7B02D210B67F300A4BA61 /* Util.mm */; };
+		15A7B033210B6BAA00A4BA61 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15A7B032210B6BA900A4BA61 /* SystemConfiguration.framework */; };
+		15A7B035210B6BB500A4BA61 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15A7B034210B6BB500A4BA61 /* StoreKit.framework */; };
+		15A7B037210B6BBF00A4BA61 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15A7B036210B6BBF00A4BA61 /* MediaPlayer.framework */; };
+		15A7B039210B6BC700A4BA61 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15A7B038210B6BC700A4BA61 /* CoreLocation.framework */; };
+		15A7B03B210B6BCE00A4BA61 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15A7B03A210B6BCE00A4BA61 /* AdSupport.framework */; };
+		15A7B045210B708400A4BA61 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15A7B044210B708400A4BA61 /* AVFoundation.framework */; };
+		15A7B047210B709700A4BA61 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15A7B046210B709700A4BA61 /* CoreData.framework */; };
 		1A88B2641FC3D9C9005C14AE /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1A88B2631FC3D9C9005C14AE /* Images.xcassets */; };
 		1AC6FB21180E996B004C840B /* libcocos2d Mac.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AC6FAF9180E9839004C840B /* libcocos2d Mac.a */; };
 		1AC6FB30180E99EB004C840B /* libcocos2d iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AC6FB07180E9839004C840B /* libcocos2d iOS.a */; };
@@ -227,6 +234,13 @@
 		15A7B02C210B67F300A4BA61 /* GoogleMapsManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = GoogleMapsManager.mm; sourceTree = "<group>"; };
 		15A7B02D210B67F300A4BA61 /* Util.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Util.mm; sourceTree = "<group>"; };
 		15A7B02E210B67F300A4BA61 /* CoreLocation_interface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreLocation_interface.h; sourceTree = "<group>"; };
+		15A7B032210B6BA900A4BA61 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS11.4.sdk/System/Library/Frameworks/SystemConfiguration.framework; sourceTree = DEVELOPER_DIR; };
+		15A7B034210B6BB500A4BA61 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS11.4.sdk/System/Library/Frameworks/StoreKit.framework; sourceTree = DEVELOPER_DIR; };
+		15A7B036210B6BBF00A4BA61 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS11.4.sdk/System/Library/Frameworks/MediaPlayer.framework; sourceTree = DEVELOPER_DIR; };
+		15A7B038210B6BC700A4BA61 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS11.4.sdk/System/Library/Frameworks/CoreLocation.framework; sourceTree = DEVELOPER_DIR; };
+		15A7B03A210B6BCE00A4BA61 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS11.4.sdk/System/Library/Frameworks/AdSupport.framework; sourceTree = DEVELOPER_DIR; };
+		15A7B044210B708400A4BA61 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS11.4.sdk/System/Library/Frameworks/AVFoundation.framework; sourceTree = DEVELOPER_DIR; };
+		15A7B046210B709700A4BA61 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS11.4.sdk/System/Library/Frameworks/CoreData.framework; sourceTree = DEVELOPER_DIR; };
 		1A88B2631FC3D9C9005C14AE /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		1AC6FAE5180E9839004C840B /* cocos2d_libs.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = cocos2d_libs.xcodeproj; path = ../cocos2d/build/cocos2d_libs.xcodeproj; sourceTree = "<group>"; };
 		1ACB3243164770DE00914215 /* libcurl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcurl.a; path = ../../cocos2dx/platform/third_party/ios/libraries/libcurl.a; sourceTree = "<group>"; };
@@ -285,6 +299,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				15A7B039210B6BC700A4BA61 /* CoreLocation.framework in Frameworks */,
+				15A7B047210B709700A4BA61 /* CoreData.framework in Frameworks */,
+				15A7B045210B708400A4BA61 /* AVFoundation.framework in Frameworks */,
+				15A7B03B210B6BCE00A4BA61 /* AdSupport.framework in Frameworks */,
+				15A7B037210B6BBF00A4BA61 /* MediaPlayer.framework in Frameworks */,
+				15A7B035210B6BB500A4BA61 /* StoreKit.framework in Frameworks */,
+				15A7B033210B6BAA00A4BA61 /* SystemConfiguration.framework in Frameworks */,
 				294D0D641D0D56D500F7F5D4 /* CoreText.framework in Frameworks */,
 				ED545A7C1B68A1F400C3958E /* libiconv.dylib in Frameworks */,
 				52B47A471A53D09C004E4C60 /* Security.framework in Frameworks */,
@@ -562,7 +583,7 @@
 			path = ios;
 			sourceTree = "<group>";
 		};
-		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
+		29B97314FDCFA39411CA2CEA = {
 			isa = PBXGroup;
 			children = (
 				15A7B028210B67F300A4BA61 /* lib */,
@@ -581,6 +602,13 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				15A7B046210B709700A4BA61 /* CoreData.framework */,
+				15A7B044210B708400A4BA61 /* AVFoundation.framework */,
+				15A7B03A210B6BCE00A4BA61 /* AdSupport.framework */,
+				15A7B038210B6BC700A4BA61 /* CoreLocation.framework */,
+				15A7B036210B6BBF00A4BA61 /* MediaPlayer.framework */,
+				15A7B034210B6BB500A4BA61 /* StoreKit.framework */,
+				15A7B032210B6BA900A4BA61 /* SystemConfiguration.framework */,
 				294D0D631D0D56D500F7F5D4 /* CoreText.framework */,
 				ED545A7D1B68A1FA00C3958E /* libiconv.dylib */,
 				ED545A7B1B68A1F400C3958E /* libiconv.dylib */,
@@ -730,7 +758,7 @@
 				French,
 				German,
 			);
-			mainGroup = 29B97314FDCFA39411CA2CEA /* CustomTemplate */;
+			mainGroup = 29B97314FDCFA39411CA2CEA;
 			productRefGroup = 19C28FACFE9D520D11CA2CBB /* Products */;
 			projectDirPath = "";
 			projectReferences = (
@@ -829,10 +857,12 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Pointcast-Mobile-App-mobile/Pods-Pointcast-Mobile-App-mobile-resources.sh",
 				"${PODS_ROOT}/GoogleMaps/Maps/Frameworks/GoogleMaps.framework/Resources/GoogleMaps.bundle",
+				"${PODS_ROOT}/GooglePlaces/Frameworks/GooglePlaces.framework/Resources/GooglePlaces.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleMaps.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GooglePlaces.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -970,6 +1000,10 @@
 				COMPRESS_PNG_FILES = NO;
 				DEVELOPMENT_TEAM = 7S5AAN8833;
 				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Pods/GoogleMaps/Maps/Frameworks",
+				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -1008,6 +1042,10 @@
 				COMPRESS_PNG_FILES = NO;
 				DEVELOPMENT_TEAM = 7S5AAN8833;
 				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Pods/GoogleMaps/Maps/Frameworks",
+				);
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = ios/Prefix.pch;

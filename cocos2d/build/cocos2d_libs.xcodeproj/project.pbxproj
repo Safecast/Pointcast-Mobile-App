@@ -11,6 +11,13 @@
 		0C261F291BE7528900707478 /* Light3DReader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C261F261BE7528900707478 /* Light3DReader.cpp */; };
 		0C261F2A1BE7528900707478 /* Light3DReader.h in Headers */ = {isa = PBXBuildFile; fileRef = 0C261F271BE7528900707478 /* Light3DReader.h */; };
 		0C261F2B1BE7528900707478 /* Light3DReader.h in Headers */ = {isa = PBXBuildFile; fileRef = 0C261F271BE7528900707478 /* Light3DReader.h */; };
+		15A7B049210B70B700A4BA61 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15A7B048210B70B700A4BA61 /* CoreText.framework */; };
+		15A7B04B210B70BE00A4BA61 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15A7B04A210B70BE00A4BA61 /* GLKit.framework */; };
+		15A7B04D210B70C500A4BA61 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15A7B04C210B70C400A4BA61 /* ImageIO.framework */; };
+		15A7B04F210B70D200A4BA61 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 15A7B04E210B70D100A4BA61 /* libc++.tbd */; };
+		15A7B051210B70D800A4BA61 /* libicucore.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 15A7B050210B70D800A4BA61 /* libicucore.tbd */; };
+		15A7B053210B70DF00A4BA61 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 15A7B052210B70DF00A4BA61 /* libz.tbd */; };
+		15A7B055210B70F900A4BA61 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15A7B054210B70F900A4BA61 /* SystemConfiguration.framework */; };
 		15AE180819AAD2F700C27E9E /* CCAABB.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 15AE17E419AAD2F700C27E9E /* CCAABB.cpp */; };
 		15AE180919AAD2F700C27E9E /* CCAABB.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 15AE17E419AAD2F700C27E9E /* CCAABB.cpp */; };
 		15AE180A19AAD2F700C27E9E /* CCAABB.h in Headers */ = {isa = PBXBuildFile; fileRef = 15AE17E519AAD2F700C27E9E /* CCAABB.h */; };
@@ -4485,6 +4492,13 @@
 		0C261F271BE7528900707478 /* Light3DReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Light3DReader.h; sourceTree = "<group>"; };
 		1551A33F158F2AB200E66CFE /* libcocos2d Mac.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libcocos2d Mac.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1551A342158F2AB200E66CFE /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		15A7B048210B70B700A4BA61 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
+		15A7B04A210B70BE00A4BA61 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
+		15A7B04C210B70C400A4BA61 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
+		15A7B04E210B70D100A4BA61 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
+		15A7B050210B70D800A4BA61 /* libicucore.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libicucore.tbd; path = usr/lib/libicucore.tbd; sourceTree = SDKROOT; };
+		15A7B052210B70DF00A4BA61 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		15A7B054210B70F900A4BA61 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		15AE17E419AAD2F700C27E9E /* CCAABB.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCAABB.cpp; sourceTree = "<group>"; };
 		15AE17E519AAD2F700C27E9E /* CCAABB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCAABB.h; sourceTree = "<group>"; };
 		15AE17E619AAD2F700C27E9E /* CCAnimate3D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCAnimate3D.cpp; sourceTree = "<group>"; };
@@ -6082,6 +6096,15 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				15A7B055210B70F900A4BA61 /* SystemConfiguration.framework in Frameworks */,
+				B21770471977ED34009EE11B /* QuartzCore.framework in Frameworks */,
+				B21770401977ECE6009EE11B /* OpenGL.framework in Frameworks */,
+				15A7B053210B70DF00A4BA61 /* libz.tbd in Frameworks */,
+				15A7B051210B70D800A4BA61 /* libicucore.tbd in Frameworks */,
+				15A7B04F210B70D200A4BA61 /* libc++.tbd in Frameworks */,
+				15A7B04D210B70C500A4BA61 /* ImageIO.framework in Frameworks */,
+				15A7B04B210B70BE00A4BA61 /* GLKit.framework in Frameworks */,
+				15A7B049210B70B700A4BA61 /* CoreText.framework in Frameworks */,
 				46BDE4A81FA32D3400104C05 /* libbox2d.a in Frameworks */,
 				46270FA41E1CC6A200AAA098 /* libcrypto.a in Frameworks */,
 				468A197D1EF3BA6500ECA675 /* libMiniCL.a in Frameworks */,
@@ -6089,10 +6112,8 @@
 				29031E0719BFE8D400EFA1DF /* libchipmunk.a in Frameworks */,
 				468A197C1EF3BA6500ECA675 /* libLinearMath.a in Frameworks */,
 				15AE1C1A19AAE3C800C27E9E /* libwebsockets.a in Frameworks */,
-				B21770471977ED34009EE11B /* QuartzCore.framework in Frameworks */,
 				B21770451977ED14009EE11B /* Cocoa.framework in Frameworks */,
 				B21770421977ECF8009EE11B /* ApplicationServices.framework in Frameworks */,
-				B21770401977ECE6009EE11B /* OpenGL.framework in Frameworks */,
 				B217703C1977ECB4009EE11B /* IOKit.framework in Frameworks */,
 				1A570347180BD0850088DEC7 /* libglfw3.a in Frameworks */,
 				1A570361180BD1080088DEC7 /* libpng.a in Frameworks */,
@@ -6225,6 +6246,13 @@
 		1551A341158F2AB200E66CFE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				15A7B054210B70F900A4BA61 /* SystemConfiguration.framework */,
+				15A7B052210B70DF00A4BA61 /* libz.tbd */,
+				15A7B050210B70D800A4BA61 /* libicucore.tbd */,
+				15A7B04E210B70D100A4BA61 /* libc++.tbd */,
+				15A7B04C210B70C400A4BA61 /* ImageIO.framework */,
+				15A7B04A210B70BE00A4BA61 /* GLKit.framework */,
+				15A7B048210B70B700A4BA61 /* CoreText.framework */,
 				46BDE4A91FA3316A00104C05 /* libbox2d.a */,
 				46BDE4A71FA32D3400104C05 /* libbox2d.a */,
 				466F05201EF7659300B80080 /* libBulletCollision.a */,
