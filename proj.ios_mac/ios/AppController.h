@@ -1,7 +1,6 @@
 /****************************************************************************
  Copyright (c) 2010-2013 cocos2d-x.org
  Copyright (c) 2013-2016 Chukong Technologies Inc.
- Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
  
  http://www.cocos2d-x.org
  
@@ -23,16 +22,37 @@
  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  THE SOFTWARE.
  ****************************************************************************/
-
 #import <UIKit/UIKit.h>
+#import <GoogleMaps/GoogleMaps.h>
 
 @class RootViewController;
 
-@interface AppController : NSObject <UIApplicationDelegate> {
-
+@interface AppController : NSObject <UIApplicationDelegate, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate, GMSMapViewDelegate> {
+    UIWindow *window;
+    GMSMapView *mapview;
+    UIPickerView* sortTypePickerView;
+    UIToolbar* sortTypeSelectBar;
+    UIToolbar* searchTextInputBar;
+    UITextField *searchTextField;
 }
 
-@property(nonatomic, readonly) RootViewController* viewController;
++ (AppController *)getInstance;
+- (void)attachMap:(double)latitude longitude:(double)longitude;
+- (void)detachMap;
+- (void)attachMarker:(NSString *)info_title
+        info_snippet:(NSString *)info_snippet
+            latitude:(double)latitude
+           longitude:(double)longitude
+               color:(UIColor *)color
+              zorder:(int)zorder;
++ (void)closeIme;
+- (void)setRotateEnable:(BOOL)flag;
+- (void)showSortPicker;
+- (void)showSearchWordInputText;
+
+@property(nonatomic, readonly) RootViewController *viewController;
+@property (nonatomic, strong) NSArray *sortItems;
+@property (nonatomic, strong) GMSMarker* selectedMarker;
 
 @end
 
